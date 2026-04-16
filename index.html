@@ -5,105 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>셀미닉 대시보드</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  background: linear-gradient(135deg, #0b0e17 0%, #131829 100%);
-  color: #e6edf3; padding: 16px; min-height: 100vh;
+  font-family: 'JetBrains Mono', 'Apple SD Gothic Neo', 'Malgun Gothic', monospace;
+  background: #0c1018; color: #b0bec5; padding: 20px; min-height: 100vh;
 }
-.container { max-width: 800px; margin: 0 auto; }
-h1 { text-align: center; font-size: 24px; font-weight: 900; margin-bottom: 4px; }
-.subtitle { text-align: center; color: #6e7681; font-size: 13px; margin-bottom: 20px; }
+.container { max-width: 820px; margin: 0 auto; }
+h1 { text-align: center; font-size: 20px; font-weight: 800; margin-bottom: 4px;
+  color: #e0e0e0; letter-spacing: 2px; text-transform: uppercase;
+}
+.subtitle { text-align: center; color: #546e7a; font-size: 12px; margin-bottom: 24px; letter-spacing: 1px; }
 
-.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
 .sum-box {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px; padding: 14px 8px; text-align: center;
+  background: #111820; border: 1px solid #1e2a35;
+  border-radius: 8px; padding: 18px 10px; text-align: center;
+  position: relative; overflow: hidden;
 }
-.sum-val { font-size: 20px; font-weight: 900; }
-.sum-lbl { font-size: 11px; color: #6e7681; margin-top: 4px; }
-.green { color: #56d364; } .red { color: #ff7b72; }
-.yellow { color: #e3b341; } .blue { color: #79c0ff; } .white { color: #f0f6fc; }
+.sum-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: linear-gradient(90deg, transparent, #00bcd4, transparent);
+}
+.sum-val { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+.sum-lbl { font-size: 10px; color: #546e7a; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+.green { color: #00e676; } .red { color: #ff5252; }
+.yellow { color: #ffd740; } .blue { color: #00e5ff; } .white { color: #eceff1; }
 
-/* 탭 네비게이션 */
+/* 탭 */
 .tabs {
   display: flex; gap: 0; margin-bottom: 0;
-  background: rgba(255,255,255,0.03);
-  border-radius: 14px 14px 0 0;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-bottom: none;
+  background: #111820; border-radius: 6px 6px 0 0;
+  border: 1px solid #1e2a35; border-bottom: none;
 }
 .tab {
-  flex: 1; padding: 14px 8px; text-align: center;
-  font-size: 14px; font-weight: 700; cursor: pointer;
-  color: #6e7681; transition: all 0.2s;
-  border-right: 1px solid rgba(255,255,255,0.06);
-  user-select: none;
+  flex: 1; padding: 12px 8px; text-align: center;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  color: #546e7a; transition: all 0.2s; letter-spacing: 1px;
+  border-right: 1px solid #1e2a35; user-select: none;
 }
 .tab:last-child { border-right: none; }
-.tab:hover { color: #e6edf3; background: rgba(255,255,255,0.03); }
+.tab:hover { color: #b0bec5; background: rgba(0,229,255,0.03); }
 .tab.active {
-  color: #f0f6fc; background: rgba(255,255,255,0.06);
-  border-bottom: 2px solid #79c0ff;
+  color: #00e5ff; background: rgba(0,229,255,0.06);
+  border-bottom: 2px solid #00e5ff;
+  text-shadow: 0 0 8px rgba(0,229,255,0.3);
 }
 .tab-count {
-  display: inline-block; font-size: 11px; font-weight: 900;
-  background: rgba(255,255,255,0.08); border-radius: 8px;
-  padding: 1px 6px; margin-left: 4px; vertical-align: middle;
+  display: inline-block; font-size: 10px; font-weight: 800;
+  background: rgba(0,229,255,0.1); color: #00e5ff; border-radius: 4px;
+  padding: 1px 5px; margin-left: 4px; vertical-align: middle;
 }
 
 .tab-content {
   display: none;
-  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 0 0 16px 16px; padding: 20px;
+  background: #111820; border: 1px solid #1e2a35;
+  border-radius: 0 0 8px 8px; padding: 20px;
   margin-bottom: 20px;
 }
 .tab-content.active { display: block; }
 
 .section-title {
-  font-size: 16px; font-weight: 800; margin-bottom: 14px;
-  padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px; font-weight: 700; margin-bottom: 16px; color: #00e5ff;
+  padding-bottom: 10px; border-bottom: 1px solid #1e2a35;
+  letter-spacing: 1px; text-transform: uppercase;
 }
 
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
 thead th {
-  color: #6e7681; font-size: 11px; font-weight: 700; padding: 8px 6px;
-  text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08);
-  position: sticky; top: 0; background: rgba(19,24,41,0.95);
+  color: #546e7a; font-size: 10px; font-weight: 700; padding: 10px 6px;
+  text-align: center; border-bottom: 1px solid #1e2a35;
+  position: sticky; top: 0; background: #111820;
+  letter-spacing: 0.5px; text-transform: uppercase;
 }
 thead th:first-child { text-align: left; }
-tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); }
-.left { text-align: left !important; font-weight: 600; }
+tbody tr { border-bottom: 1px solid #151d27; }
+tbody tr:hover { background: rgba(0,229,255,0.03); }
+tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
+.left { text-align: left !important; font-weight: 600; color: #cfd8dc; }
 
 .badge {
-  display: inline-block; padding: 3px 10px; border-radius: 12px;
-  font-size: 11px; font-weight: 700;
+  display: inline-block; padding: 3px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
 }
-.order-qty { font-size: 15px; font-weight: 900; color: #79c0ff; }
+.order-qty { font-size: 15px; font-weight: 800; color: #00e5ff; }
 
 .gauge { margin-bottom: 20px; }
 .gauge-bar {
-  width: 100%; height: 10px; background: rgba(255,255,255,0.06);
-  border-radius: 5px; overflow: hidden;
+  width: 100%; height: 8px; background: #1e2a35;
+  border-radius: 4px; overflow: hidden;
 }
 .gauge-fill {
-  height: 100%; background: linear-gradient(90deg, #1f6feb, #79c0ff);
-  border-radius: 5px;
+  height: 100%; background: linear-gradient(90deg, #006064, #00e5ff);
+  border-radius: 4px; box-shadow: 0 0 8px rgba(0,229,255,0.3);
 }
 .gauge-labels {
-  display: flex; justify-content: space-between; font-size: 11px;
-  color: #6e7681; margin-top: 4px;
+  display: flex; justify-content: space-between; font-size: 10px;
+  color: #546e7a; margin-top: 4px;
 }
 
 @media (max-width: 600px) {
-  body { padding: 10px; }
+  body { padding: 12px; }
   .summary { gap: 6px; }
-  .sum-val { font-size: 17px; }
-  .sum-box { padding: 10px 4px; }
+  .sum-val { font-size: 18px; }
+  .sum-box { padding: 14px 6px; }
   table { font-size: 11px; }
   .order-qty { font-size: 13px; }
-  .tab { font-size: 13px; padding: 12px 4px; }
+  .tab { font-size: 11px; padding: 10px 4px; }
 }
 </style>
 </head>
