@@ -150,6 +150,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
   <div class="tab active" onclick="switchTab('margin')">💰마진<span class="tab-count">71</span></div>
   <div class="tab" onclick="switchTab('inventory')">📊재고<span class="tab-count">40</span></div>
   <div class="tab" onclick="switchTab('order')">📋발주<span class="tab-count">22</span></div>
+  <div class="tab" onclick="switchTab('wechat')">📦위챗오더</div>
 </div>
 
 <!-- 마진 탭 -->
@@ -1253,6 +1254,12 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
   셀미닉 자동화 시스템 | 2026-04-15 생성
 </div>
 
+<!-- 위챗주문서 탭 -->
+<div id="tab-wechat" class="tab-content">
+  <div class="section-title">📦공장 발주서</div>
+  <iframe src="order_topper.html" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;"></iframe>
+</div>
+
 </div>
 
 <script>
@@ -1261,7 +1268,7 @@ function switchTab(name) {
   document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   const tabs = document.querySelectorAll('.tab');
-  const map = {'margin': 0, 'inventory': 1, 'order': 2};
+  const map = {'margin': 0, 'inventory': 1, 'order': 2, 'wechat': 3};
   tabs[map[name]].classList.add('active');
 }
 </script>
