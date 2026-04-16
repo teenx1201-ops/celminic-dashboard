@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>셀미닉 대시보드</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  background: linear-gradient(135deg, #0b0e17 0%, #131829 100%);
+  color: #e6edf3; padding: 16px; min-height: 100vh;
+}
+.container { max-width: 800px; margin: 0 auto; }
+h1 { text-align: center; font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+.subtitle { text-align: center; color: #6e7681; font-size: 13px; margin-bottom: 20px; }
+
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.sum-box {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px; padding: 16px; text-align: center;
+}
+.sum-val { font-size: 22px; font-weight: 900; }
+.sum-lbl { font-size: 11px; color: #6e7681; margin-top: 4px; }
+.green { color: #56d364; } .red { color: #ff7b72; }
+.yellow { color: #e3b341; } .blue { color: #79c0ff; } .white { color: #f0f6fc; }
+
+.section {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px; padding: 20px; margin-bottom: 20px;
+}
+.section-title {
+  font-size: 16px; font-weight: 800; margin-bottom: 14px;
+  padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  color: #6e7681; font-size: 11px; font-weight: 700; padding: 8px 6px;
+  text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+thead th:first-child { text-align: left; }
+tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.left { text-align: left !important; font-weight: 600; }
+
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700;
+}
+.order-qty { font-size: 15px; font-weight: 900; color: #79c0ff; }
+
+.gauge { margin-top: 10px; }
+.gauge-bar {
+  width: 100%; height: 10px; background: rgba(255,255,255,0.06);
+  border-radius: 5px; overflow: hidden;
+}
+.gauge-fill {
+  height: 100%; background: linear-gradient(90deg, #1f6feb, #79c0ff);
+  border-radius: 5px;
+}
+.gauge-labels {
+  display: flex; justify-content: space-between; font-size: 11px;
+  color: #6e7681; margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  body { padding: 10px; }
+  .summary { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .sum-val { font-size: 18px; }
+  table { font-size: 11px; }
+  .order-qty { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>📌 셀미닉 대시보드</h1>
+<div class="subtitle">2026-04-15 기준</div>
+
+<!-- 요약 카드 -->
+<div class="summary">
+  <div class="sum-box"><div class="sum-val green">20.1%</div><div class="sum-lbl">평균 마진</div></div>
+  <div class="sum-box"><div class="sum-val blue">3,749,920</div><div class="sum-lbl">매출</div></div>
+  <div class="sum-box"><div class="sum-val red">-1,611,101</div><div class="sum-lbl">순이익</div></div>
+  <div class="sum-box"><div class="sum-val green">16</div><div class="sum-lbl">🟢 여유</div></div>
+  <div class="sum-box"><div class="sum-val yellow">0</div><div class="sum-lbl">🟡 주의</div></div>
+  <div class="sum-box"><div class="sum-val red">24</div><div class="sum-lbl">🔴 부족</div></div>
+  <div class="sum-box"><div class="sum-val white">22개</div><div class="sum-lbl">발주 품목</div></div>
+  <div class="sum-box"><div class="sum-val blue">54.36</div><div class="sum-lbl">CBM</div></div>
+</div>
+
+<!-- CBM 게이지 -->
+<div class="gauge">
+  <div class="gauge-bar"><div class="gauge-fill" style="width:91%;"></div></div>
+  <div class="gauge-labels"><span>54.36 CBM</span><span>풀컨 60 CBM</span></div>
+</div>
+
+<!-- 마진 섹션 -->
+<div class="section" style="margin-top:20px;">
+  <div class="section-title">💰 마진 분석 (광고비 2,564,799원 포함)</div>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead><tr><th>상품</th><th>실판매가</th><th>판매</th><th>매출</th><th>마진율</th><th>순이익</th><th>광고비</th></tr></thead>
+    <tbody><tr>
+          <td class="left">스모키차콜 퀸 이불+패드+베개커버 세트</td>
+          <td>47,900</td>
+          <td>5</td>
+          <td>239,500</td>
+          <td style="color:#56d364;font-weight:700;">30.0%</td>
+          <td style="color:#56d364;font-weight:700;">68,271</td>
+          <td>3,581</td>
+        </tr><tr>
+          <td class="left">2개 90개입</td>
+          <td>7,017</td>
+          <td>46</td>
+          <td>322,800</td>
+          <td style="color:#e3b341;font-weight:700;">18.9%</td>
+          <td style="color:#56d364;font-weight:700;">61,025</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">스모키차콜 킹 이불+패드+베개커버 세트</td>
+          <td>57,900</td>
+          <td>4</td>
+          <td>231,600</td>
+          <td style="color:#56d364;font-weight:700;">36.0%</td>
+          <td style="color:#56d364;font-weight:700;">60,104</td>
+          <td>23,261</td>
+        </tr><tr>
+          <td class="left">모카브라운 킹 이불+패드+베개커버 세트</td>
+          <td>57,900</td>
+          <td>5</td>
+          <td>289,500</td>
+          <td style="color:#56d364;font-weight:700;">36.0%</td>
+          <td style="color:#56d364;font-weight:700;">54,511</td>
+          <td>49,696</td>
+        </tr><tr>
+          <td class="left">3개 90개입</td>
+          <td>9,900</td>
+          <td>25</td>
+          <td>247,500</td>
+          <td style="color:#e3b341;font-weight:700;">17.6%</td>
+          <td style="color:#56d364;font-weight:700;">43,559</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">1개 90개입</td>
+          <td>4,800</td>
+          <td>20</td>
+          <td>96,000</td>
+          <td style="color:#56d364;font-weight:700;">30.5%</td>
+          <td style="color:#56d364;font-weight:700;">29,276</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">화이트앤블랙 Q(150x200cm)</td>
+          <td>38,900</td>
+          <td>3</td>
+          <td>116,700</td>
+          <td style="color:#56d364;font-weight:700;">33.1%</td>
+          <td style="color:#56d364;font-weight:700;">26,370</td>
+          <td>12,272</td>
+        </tr><tr>
+          <td class="left">밀크베이지 퀸 이불+패드+베개커버 세트</td>
+          <td>47,900</td>
+          <td>2</td>
+          <td>95,800</td>
+          <td style="color:#56d364;font-weight:700;">30.0%</td>
+          <td style="color:#56d364;font-weight:700;">26,021</td>
+          <td>2,720</td>
+        </tr><tr>
+          <td class="left">모카브라운 슈퍼싱글 이불+패드+베개커버 세트</td>
+          <td>37,900</td>
+          <td>6</td>
+          <td>227,400</td>
+          <td style="color:#56d364;font-weight:700;">25.8%</td>
+          <td style="color:#56d364;font-weight:700;">19,856</td>
+          <td>38,761</td>
+        </tr><tr>
+          <td class="left">모카브라운 퀸 이불+패드+베개커버 세트</td>
+          <td>47,900</td>
+          <td>2</td>
+          <td>95,800</td>
+          <td style="color:#56d364;font-weight:700;">30.0%</td>
+          <td style="color:#56d364;font-weight:700;">18,756</td>
+          <td>9,985</td>
+        </tr><tr>
+          <td class="left">화이트앤블랙 K(180 x 200 cm)</td>
+          <td>41,900</td>
+          <td>1</td>
+          <td>41,900</td>
+          <td style="color:#56d364;font-weight:700;">33.9%</td>
+          <td style="color:#56d364;font-weight:700;">14,184</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">그레이 140 x 230 cm</td>
+          <td>32,400</td>
+          <td>2</td>
+          <td>64,800</td>
+          <td style="color:#56d364;font-weight:700;">31.3%</td>
+          <td style="color:#56d364;font-weight:700;">13,343</td>
+          <td>6,919</td>
+        </tr><tr>
+          <td class="left">크림화이트 210 x 235cm [상]</td>
+          <td>33,530</td>
+          <td>2</td>
+          <td>67,060</td>
+          <td style="color:#e3b341;font-weight:700;">15.6%</td>
+          <td style="color:#56d364;font-weight:700;">10,472</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">크림화이트 퀸 이불+패드+베개커버 세트</td>
+          <td>47,900</td>
+          <td>1</td>
+          <td>47,900</td>
+          <td style="color:#56d364;font-weight:700;">30.0%</td>
+          <td style="color:#56d364;font-weight:700;">7,945</td>
+          <td>6,425</td>
+        </tr><tr>
+          <td class="left">크림화이트 퀸 이불+패드+베개커버 세트 [상]</td>
+          <td>39,280</td>
+          <td>1</td>
+          <td>39,280</td>
+          <td style="color:#e3b341;font-weight:700;">17.4%</td>
+          <td style="color:#56d364;font-weight:700;">6,840</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">밀크베이지 210 x 235cm [상]</td>
+          <td>33,530</td>
+          <td>1</td>
+          <td>33,530</td>
+          <td style="color:#e3b341;font-weight:700;">15.6%</td>
+          <td style="color:#56d364;font-weight:700;">5,236</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">20L 코타화이트 [미개봉]</td>
+          <td>50,450</td>
+          <td>1</td>
+          <td>50,450</td>
+          <td style="color:#ff7b72;font-weight:700;">9.2%</td>
+          <td style="color:#56d364;font-weight:700;">4,625</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">스모키차콜 슈퍼싱글 이불+패드+베개커버 세트</td>
+          <td>37,900</td>
+          <td>1</td>
+          <td>37,900</td>
+          <td style="color:#56d364;font-weight:700;">25.8%</td>
+          <td style="color:#56d364;font-weight:700;">4,300</td>
+          <td>5,470</td>
+        </tr><tr>
+          <td class="left">매트 화이트 18L [최상]</td>
+          <td>15,390</td>
+          <td>2</td>
+          <td>30,780</td>
+          <td style="color:#ff7b72;font-weight:700;">8.0%</td>
+          <td style="color:#56d364;font-weight:700;">2,462</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">20L 코타화이트 [최상]</td>
+          <td>46,660</td>
+          <td>1</td>
+          <td>46,660</td>
+          <td style="color:#ff7b72;font-weight:700;">3.4%</td>
+          <td style="color:#56d364;font-weight:700;">1,589</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">매트 화이트 18L [상]</td>
+          <td>14,500</td>
+          <td>1</td>
+          <td>14,500</td>
+          <td style="color:#ff7b72;font-weight:700;">3.6%</td>
+          <td style="color:#56d364;font-weight:700;">518</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">크림화이트 슈퍼싱글 이불+패드+베개커버 세트</td>
+          <td>37,900</td>
+          <td>1</td>
+          <td>37,900</td>
+          <td style="color:#56d364;font-weight:700;">25.8%</td>
+          <td style="color:#56d364;font-weight:700;">74</td>
+          <td>9,696</td>
+        </tr><tr>
+          <td class="left">밀크베이지 킹 이불+패드+베개커버 세트</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-2,726</td>
+          <td>2,726</td>
+        </tr><tr>
+          <td class="left">크림화이트 킹 이불+패드+베개커버 세트</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-4,094</td>
+          <td>4,094</td>
+        </tr><tr>
+          <td class="left">차콜 K(180 x 200 cm)</td>
+          <td>41,900</td>
+          <td>1</td>
+          <td>41,900</td>
+          <td style="color:#56d364;font-weight:700;">33.9%</td>
+          <td style="color:#ff7b72;font-weight:700;">-4,307</td>
+          <td>18,491</td>
+        </tr><tr>
+          <td class="left">크림화이트 140 x 230 cm [최상]</td>
+          <td>27,860</td>
+          <td>-1</td>
+          <td>-27,860</td>
+          <td style="color:#56d364;font-weight:700;">23.8%</td>
+          <td style="color:#ff7b72;font-weight:700;">-6,619</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">밀크베이지 140 x 230 cm [미개봉]</td>
+          <td>30,130</td>
+          <td>-1</td>
+          <td>-30,130</td>
+          <td style="color:#56d364;font-weight:700;">26.6%</td>
+          <td style="color:#ff7b72;font-weight:700;">-8,012</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">크림화이트 140 x 230 cm</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-9,385</td>
+          <td>9,385</td>
+        </tr><tr>
+          <td class="left">아이보리 Q(150 x 200 cm)</td>
+          <td>38,900</td>
+          <td>3</td>
+          <td>116,700</td>
+          <td style="color:#56d364;font-weight:700;">33.1%</td>
+          <td style="color:#ff7b72;font-weight:700;">-12,702</td>
+          <td>51,344</td>
+        </tr><tr>
+          <td class="left">그레이 SS(120 x 200 cm)</td>
+          <td>28,900</td>
+          <td>1</td>
+          <td>28,900</td>
+          <td style="color:#56d364;font-weight:700;">21.2%</td>
+          <td style="color:#ff7b72;font-weight:700;">-15,504</td>
+          <td>21,624</td>
+        </tr><tr>
+          <td class="left">크림화이트 130 x 170 cm</td>
+          <td>28,400</td>
+          <td>2</td>
+          <td>56,800</td>
+          <td style="color:#56d364;font-weight:700;">30.2%</td>
+          <td style="color:#ff7b72;font-weight:700;">-15,901</td>
+          <td>33,054</td>
+        </tr><tr>
+          <td class="left">그레이 210 x 235cm</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-19,956</td>
+          <td>19,956</td>
+        </tr><tr>
+          <td class="left">밀크베이지 140 x 230 cm</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-25,395</td>
+          <td>25,395</td>
+        </tr><tr>
+          <td class="left">화이트앤블랙 SS(120x200cm)</td>
+          <td>28,900</td>
+          <td>1</td>
+          <td>28,900</td>
+          <td style="color:#56d364;font-weight:700;">20.7%</td>
+          <td style="color:#ff7b72;font-weight:700;">-30,716</td>
+          <td>36,686</td>
+        </tr><tr>
+          <td class="left">밀크베이지 슈퍼싱글 이불+패드+베개커버 세트</td>
+          <td>37,900</td>
+          <td>3</td>
+          <td>113,700</td>
+          <td style="color:#56d364;font-weight:700;">25.8%</td>
+          <td style="color:#ff7b72;font-weight:700;">-43,880</td>
+          <td>73,189</td>
+        </tr><tr>
+          <td class="left">베이지 K(180 x 200 cm)</td>
+          <td>41,900</td>
+          <td>1</td>
+          <td>41,900</td>
+          <td style="color:#56d364;font-weight:700;">33.9%</td>
+          <td style="color:#ff7b72;font-weight:700;">-45,341</td>
+          <td>59,525</td>
+        </tr><tr>
+          <td class="left">차콜 SS(120 x 200 cm)</td>
+          <td>28,900</td>
+          <td>2</td>
+          <td>57,800</td>
+          <td style="color:#56d364;font-weight:700;">20.7%</td>
+          <td style="color:#ff7b72;font-weight:700;">-53,329</td>
+          <td>65,268</td>
+        </tr><tr>
+          <td class="left">아이보리 K(180 x 200 cm)</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-75,313</td>
+          <td>75,313</td>
+        </tr><tr>
+          <td class="left">차콜 Q(150 x 200 cm)</td>
+          <td>38,900</td>
+          <td>3</td>
+          <td>116,700</td>
+          <td style="color:#56d364;font-weight:700;">33.1%</td>
+          <td style="color:#ff7b72;font-weight:700;">-86,335</td>
+          <td>124,977</td>
+        </tr><tr>
+          <td class="left">그레이 Q(150 x 200 cm)</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-120,007</td>
+          <td>120,007</td>
+        </tr><tr>
+          <td class="left">밀크베이지 210 x 235cm</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">-135,695</td>
+          <td>135,695</td>
+        </tr><tr>
+          <td class="left">매트 화이트 18L</td>
+          <td>17,900</td>
+          <td>12</td>
+          <td>214,800</td>
+          <td style="color:#e3b341;font-weight:700;">18.1%</td>
+          <td style="color:#ff7b72;font-weight:700;">-141,325</td>
+          <td>180,227</td>
+        </tr><tr>
+          <td class="left">베이지 Q(150x200cm)</td>
+          <td>38,900</td>
+          <td>3</td>
+          <td>116,700</td>
+          <td style="color:#56d364;font-weight:700;">33.1%</td>
+          <td style="color:#ff7b72;font-weight:700;">-160,694</td>
+          <td>199,336</td>
+        </tr><tr>
+          <td class="left">베이지 SS(120x200cm)</td>
+          <td>28,900</td>
+          <td>3</td>
+          <td>86,700</td>
+          <td style="color:#56d364;font-weight:700;">20.7%</td>
+          <td style="color:#ff7b72;font-weight:700;">-215,193</td>
+          <td>233,102</td>
+        </tr><tr>
+          <td class="left">크림화이트 210 x 235cm</td>
+          <td>41,400</td>
+          <td>-2</td>
+          <td>-82,800</td>
+          <td style="color:#56d364;font-weight:700;">27.4%</td>
+          <td style="color:#ff7b72;font-weight:700;">-258,915</td>
+          <td>236,234</td>
+        </tr><tr>
+          <td class="left">코타화이트 20L</td>
+          <td>54,250</td>
+          <td>3</td>
+          <td>162,750</td>
+          <td style="color:#e3b341;font-weight:700;">14.5%</td>
+          <td style="color:#ff7b72;font-weight:700;">-282,614</td>
+          <td>306,147</td>
+        </tr><tr>
+          <td class="left">아이보리 SS(120 x 200 cm)</td>
+          <td>28,900</td>
+          <td>8</td>
+          <td>231,200</td>
+          <td style="color:#56d364;font-weight:700;">20.7%</td>
+          <td style="color:#ff7b72;font-weight:700;">-316,480</td>
+          <td>364,238</td>
+        </tr></tbody>
+  </table>
+  </div>
+</div>
+
+<!-- 재고 섹션 -->
+<div class="section">
+  <div class="section-title">📊 재고 현황</div>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead><tr><th>상품</th><th>재고</th><th>30일판매</th><th>주간평균</th><th>50일필요</th><th>품절까지</th><th>상태</th></tr></thead>
+    <tbody><tr>
+          <td class="left">암막커튼 크림화이트 130X170CM</td>
+          <td>15</td>
+          <td>20</td>
+          <td>5</td>
+          <td>34</td>
+          <td style="color:#ff7b72;font-weight:700;">22일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 밀크베이지 130X170CM</td>
+          <td>1</td>
+          <td>3</td>
+          <td>1</td>
+          <td>5</td>
+          <td style="color:#ff7b72;font-weight:700;">10일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 그레이 130X170CM</td>
+          <td>3</td>
+          <td>2</td>
+          <td>0</td>
+          <td>4</td>
+          <td style="color:#ff7b72;font-weight:700;">45일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 크림화이트 140X230CM</td>
+          <td>0</td>
+          <td>17</td>
+          <td>4</td>
+          <td>29</td>
+          <td style="color:#ff7b72;font-weight:700;">0일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 밀크베이지 140X230CM</td>
+          <td>0</td>
+          <td>19</td>
+          <td>4</td>
+          <td>32</td>
+          <td style="color:#ff7b72;font-weight:700;">0일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 그레이 140X230CM</td>
+          <td>2</td>
+          <td>10</td>
+          <td>2</td>
+          <td>17</td>
+          <td style="color:#ff7b72;font-weight:700;">6일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 크림화이트 210X235CM</td>
+          <td>128</td>
+          <td>99</td>
+          <td>23</td>
+          <td>165</td>
+          <td style="color:#ff7b72;font-weight:700;">38일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 밀크베이지 210X235CM</td>
+          <td>38</td>
+          <td>25</td>
+          <td>6</td>
+          <td>42</td>
+          <td style="color:#ff7b72;font-weight:700;">45일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">암막커튼 그레이 210X235CM</td>
+          <td>36</td>
+          <td>12</td>
+          <td>3</td>
+          <td>20</td>
+          <td style="color:#56d364;font-weight:700;">90일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">18L휴지통 None 기본</td>
+          <td>334</td>
+          <td>289</td>
+          <td>67</td>
+          <td>482</td>
+          <td style="color:#ff7b72;font-weight:700;">34일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 차콜 SS</td>
+          <td>223</td>
+          <td>142</td>
+          <td>33</td>
+          <td>237</td>
+          <td style="color:#ff7b72;font-weight:700;">47일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 아이보리 SS</td>
+          <td>261</td>
+          <td>236</td>
+          <td>55</td>
+          <td>394</td>
+          <td style="color:#ff7b72;font-weight:700;">33일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 화이트앤블랙 SS</td>
+          <td>0</td>
+          <td>38</td>
+          <td>9</td>
+          <td>64</td>
+          <td style="color:#ff7b72;font-weight:700;">0일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 베이지 SS</td>
+          <td>186</td>
+          <td>137</td>
+          <td>32</td>
+          <td>229</td>
+          <td style="color:#ff7b72;font-weight:700;">40일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 그레이 SS</td>
+          <td>16</td>
+          <td>13</td>
+          <td>3</td>
+          <td>22</td>
+          <td style="color:#ff7b72;font-weight:700;">36일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 차콜 Q</td>
+          <td>70</td>
+          <td>61</td>
+          <td>14</td>
+          <td>102</td>
+          <td style="color:#ff7b72;font-weight:700;">34일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 아이보리 Q</td>
+          <td>83</td>
+          <td>65</td>
+          <td>15</td>
+          <td>109</td>
+          <td style="color:#ff7b72;font-weight:700;">38일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 화이트앤블랙 Q</td>
+          <td>22</td>
+          <td>5</td>
+          <td>1</td>
+          <td>9</td>
+          <td style="color:#56d364;font-weight:700;">132일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">토퍼 베이지 Q</td>
+          <td>45</td>
+          <td>64</td>
+          <td>15</td>
+          <td>107</td>
+          <td style="color:#ff7b72;font-weight:700;">21일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 그레이 Q</td>
+          <td>33</td>
+          <td>8</td>
+          <td>2</td>
+          <td>14</td>
+          <td style="color:#56d364;font-weight:700;">123일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">토퍼 차콜 K</td>
+          <td>27</td>
+          <td>17</td>
+          <td>4</td>
+          <td>29</td>
+          <td style="color:#ff7b72;font-weight:700;">47일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 아이보리 K</td>
+          <td>22</td>
+          <td>22</td>
+          <td>5</td>
+          <td>37</td>
+          <td style="color:#ff7b72;font-weight:700;">30일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 화이트앤블랙 K</td>
+          <td>3</td>
+          <td>6</td>
+          <td>1</td>
+          <td>10</td>
+          <td style="color:#ff7b72;font-weight:700;">15일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">토퍼 베이지 K</td>
+          <td>11</td>
+          <td>17</td>
+          <td>4</td>
+          <td>29</td>
+          <td style="color:#ff7b72;font-weight:700;">19일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">20L휴지통 None 기본</td>
+          <td>126</td>
+          <td>149</td>
+          <td>35</td>
+          <td>249</td>
+          <td style="color:#ff7b72;font-weight:700;">25일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">이불세트 크림화이트 SS</td>
+          <td>52</td>
+          <td>11</td>
+          <td>3</td>
+          <td>19</td>
+          <td style="color:#56d364;font-weight:700;">141일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 밀크베이지 SS</td>
+          <td>137</td>
+          <td>25</td>
+          <td>6</td>
+          <td>42</td>
+          <td style="color:#56d364;font-weight:700;">164일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 모카브라운 SS</td>
+          <td>212</td>
+          <td>19</td>
+          <td>4</td>
+          <td>32</td>
+          <td style="color:#56d364;font-weight:700;">334일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 스모키차콜 SS</td>
+          <td>210</td>
+          <td>17</td>
+          <td>4</td>
+          <td>29</td>
+          <td style="color:#56d364;font-weight:700;">370일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 크림화이트 Q</td>
+          <td>58</td>
+          <td>7</td>
+          <td>2</td>
+          <td>12</td>
+          <td style="color:#56d364;font-weight:700;">248일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 밀크베이지 Q</td>
+          <td>102</td>
+          <td>19</td>
+          <td>4</td>
+          <td>32</td>
+          <td style="color:#56d364;font-weight:700;">161일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 모카브라운 Q</td>
+          <td>131</td>
+          <td>24</td>
+          <td>6</td>
+          <td>40</td>
+          <td style="color:#56d364;font-weight:700;">163일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 스모키차콜 Q</td>
+          <td>127</td>
+          <td>29</td>
+          <td>7</td>
+          <td>49</td>
+          <td style="color:#56d364;font-weight:700;">131일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 크림화이트 K</td>
+          <td>70</td>
+          <td>2</td>
+          <td>0</td>
+          <td>4</td>
+          <td style="color:#56d364;font-weight:700;">1050일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 밀크베이지 K</td>
+          <td>65</td>
+          <td>23</td>
+          <td>5</td>
+          <td>39</td>
+          <td style="color:#56d364;font-weight:700;">84일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">이불세트 모카브라운 K</td>
+          <td>54</td>
+          <td>41</td>
+          <td>10</td>
+          <td>69</td>
+          <td style="color:#ff7b72;font-weight:700;">39일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">이불세트 스모키차콜 K</td>
+          <td>84</td>
+          <td>27</td>
+          <td>6</td>
+          <td>45</td>
+          <td style="color:#56d364;font-weight:700;">93일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">페이스타올 None 1개입</td>
+          <td>652</td>
+          <td>185</td>
+          <td>43</td>
+          <td>309</td>
+          <td style="color:#56d364;font-weight:700;">105일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr><tr>
+          <td class="left">페이스타올 None 2개입</td>
+          <td>9</td>
+          <td>285</td>
+          <td>66</td>
+          <td>475</td>
+          <td style="color:#ff7b72;font-weight:700;">0일</td>
+          <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
+        </tr><tr>
+          <td class="left">페이스타올 None 3개입</td>
+          <td>377</td>
+          <td>141</td>
+          <td>33</td>
+          <td>235</td>
+          <td style="color:#56d364;font-weight:700;">80일</td>
+          <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
+        </tr></tbody>
+  </table>
+  </div>
+</div>
+
+<!-- 발주 섹션 -->
+<div class="section">
+  <div class="section-title">📋 발주 계획 (22개 품목 / 54.36 CBM)</div>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead><tr><th>상품</th><th>재고</th><th>품절까지</th><th>주문량</th><th>단위</th><th>충전</th><th>입고</th></tr></thead>
+    <tbody><tr>
+          <td class="left">커튼 크림화이트 130X170CM</td>
+          <td>15</td>
+          <td style="color:#d29922;font-weight:700;">22일</td>
+          <td class="order-qty">40</td>
+          <td>혼합 2박스 공유</td>
+          <td style="color:#d29922;">83%</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·1</span></td>
+        </tr><tr>
+          <td class="left">커튼 밀크베이지 130X170CM</td>
+          <td>1</td>
+          <td style="color:#f85149;font-weight:700;">10일</td>
+          <td class="order-qty">6</td>
+          <td>혼합 2박스 공유</td>
+          <td style="color:#d29922;">83%</td>
+          <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·1</span></td>
+        </tr><tr>
+          <td class="left">커튼 그레이 130X170CM</td>
+          <td>3</td>
+          <td style="color:#79c0ff;font-weight:700;">45일</td>
+          <td class="order-qty">4</td>
+          <td>혼합 2박스 공유</td>
+          <td style="color:#d29922;">83%</td>
+          <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·1</span></td>
+        </tr><tr>
+          <td class="left">커튼 크림화이트 140X230CM</td>
+          <td>0</td>
+          <td style="color:#f85149;font-weight:700;">0일</td>
+          <td class="order-qty">34</td>
+          <td>혼합 4박스 공유</td>
+          <td style="color:#d29922;">92%</td>
+          <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·3</span></td>
+        </tr><tr>
+          <td class="left">커튼 밀크베이지 140X230CM</td>
+          <td>0</td>
+          <td style="color:#f85149;font-weight:700;">0일</td>
+          <td class="order-qty">38</td>
+          <td>혼합 4박스 공유</td>
+          <td style="color:#d29922;">92%</td>
+          <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·3</span></td>
+        </tr><tr>
+          <td class="left">커튼 그레이 140X230CM</td>
+          <td>2</td>
+          <td style="color:#f85149;font-weight:700;">6일</td>
+          <td class="order-qty">20</td>
+          <td>혼합 4박스 공유</td>
+          <td style="color:#d29922;">92%</td>
+          <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·1</span></td>
+        </tr><tr>
+          <td class="left">커튼 크림화이트 210X235CM</td>
+          <td>128</td>
+          <td style="color:#79c0ff;font-weight:700;">38일</td>
+          <td class="order-qty">169</td>
+          <td>혼합 10박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·3</span></td>
+        </tr><tr>
+          <td class="left">커튼 밀크베이지 210X235CM</td>
+          <td>38</td>
+          <td style="color:#8b949e;font-weight:700;">45일</td>
+          <td class="order-qty">1</td>
+          <td>혼합 10박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#8b949e20;color:#8b949e;">여유·3</span></td>
+        </tr><tr>
+          <td class="left">18L휴지통</td>
+          <td>334</td>
+          <td style="color:#d29922;font-weight:700;">34일</td>
+          <td class="order-qty">492</td>
+          <td>5팔레트 + 1box</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+        </tr><tr>
+          <td class="left">토퍼 아이보리 SS</td>
+          <td>261</td>
+          <td style="color:#d29922;font-weight:700;">33일</td>
+          <td class="order-qty">395</td>
+          <td>혼합 142박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+        </tr><tr>
+          <td class="left">토퍼 화이트앤블랙 SS</td>
+          <td>0</td>
+          <td style="color:#f85149;font-weight:700;">0일</td>
+          <td class="order-qty">64</td>
+          <td>혼합 142박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·3</span></td>
+        </tr><tr>
+          <td class="left">토퍼 베이지 SS</td>
+          <td>186</td>
+          <td style="color:#79c0ff;font-weight:700;">40일</td>
+          <td class="order-qty">229</td>
+          <td>혼합 142박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·2</span></td>
+        </tr><tr>
+          <td class="left">토퍼 그레이 SS</td>
+          <td>16</td>
+          <td style="color:#79c0ff;font-weight:700;">36일</td>
+          <td class="order-qty">22</td>
+          <td>혼합 142박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·2</span></td>
+        </tr><tr>
+          <td class="left">토퍼 차콜 Q</td>
+          <td>70</td>
+          <td style="color:#d29922;font-weight:700;">34일</td>
+          <td class="order-qty">102</td>
+          <td>혼합 64박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·2</span></td>
+        </tr><tr>
+          <td class="left">토퍼 아이보리 Q</td>
+          <td>83</td>
+          <td style="color:#79c0ff;font-weight:700;">38일</td>
+          <td class="order-qty">110</td>
+          <td>혼합 64박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·3</span></td>
+        </tr><tr>
+          <td class="left">토퍼 베이지 Q</td>
+          <td>45</td>
+          <td style="color:#d29922;font-weight:700;">21일</td>
+          <td class="order-qty">108</td>
+          <td>혼합 64박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·2</span></td>
+        </tr><tr>
+          <td class="left">토퍼 아이보리 K</td>
+          <td>22</td>
+          <td style="color:#d29922;font-weight:700;">30일</td>
+          <td class="order-qty">37</td>
+          <td>혼합 19박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·2</span></td>
+        </tr><tr>
+          <td class="left">토퍼 화이트앤블랙 K</td>
+          <td>3</td>
+          <td style="color:#f85149;font-weight:700;">15일</td>
+          <td class="order-qty">10</td>
+          <td>혼합 19박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·2</span></td>
+        </tr><tr>
+          <td class="left">토퍼 베이지 K</td>
+          <td>11</td>
+          <td style="color:#d29922;font-weight:700;">19일</td>
+          <td class="order-qty">29</td>
+          <td>혼합 19박스 공유</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+        </tr><tr>
+          <td class="left">20L휴지통</td>
+          <td>126</td>
+          <td style="color:#d29922;font-weight:700;">25일</td>
+          <td class="order-qty">252</td>
+          <td>7팔레트 + 7box</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+        </tr><tr>
+          <td class="left">이불세트 모카브라운 K</td>
+          <td>54</td>
+          <td style="color:#79c0ff;font-weight:700;">39일</td>
+          <td class="order-qty">70</td>
+          <td>1팔레트 + 2box</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·2</span></td>
+        </tr><tr>
+          <td class="left">페이스타올 2개입</td>
+          <td>9</td>
+          <td style="color:#f85149;font-weight:700;">0일</td>
+          <td class="order-qty">480</td>
+          <td>1팔레트 + 5box</td>
+          <td style="color:#56d364;">꽉참</td>
+          <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·1</span></td>
+        </tr></tbody>
+  </table>
+  </div>
+</div>
+
+<div style="text-align:center;color:#484f58;font-size:11px;margin-top:20px;padding-bottom:20px;">
+  셀미닉 자동화 시스템 | 2026-04-15 생성
+</div>
+
+</div>
+</body>
+</html>
