@@ -139,10 +139,9 @@ tbody td { padding: 5px 4px; text-align: center; color: #90a4ae; overflow: hidde
   .summary { gap: 6px; }
   .sum-val { font-size: 20px; }
   .sum-box { padding: 14px 6px; }
-  table { font-size: 11px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  thead, tbody, tr, th, td { white-space: nowrap; }
-  .left { white-space: normal; min-width: 100px; }
-  tbody td { padding: 9px 5px; }
+  table { font-size: 11px; width: 100%; min-width: 100%; -webkit-overflow-scrolling: touch; }
+  .left { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 80px; }
+  tbody td { padding: 5px 4px; }
   thead th { padding: 8px 5px; font-size: 9px; }
   .order-qty { font-size: 14px; }
   .tab { font-size: 12px; padding: 10px 4px; }
