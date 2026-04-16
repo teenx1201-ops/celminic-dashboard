@@ -1264,19 +1264,23 @@ function switchTab(name) {
 
 /* ── 발주완료 시스템 (맥미니 HTTP API 직통) ── */
 const _API_TOKEN = 'MTY62OiLv40WkCHcDpqj9JBTn6lnQ0zi3YcTAl_2Qlg';
+const _API_URL_HARD = 'https://messaging-gif-accepting-proposals.trycloudflare.com';
 const _TODAY = '2026-04-15';
 let _API_URL = null;
 
 async function getApiUrl() {
   if (_API_URL) return _API_URL;
+  // 1순위: tunnel.txt (맥이 최신 URL 자동 업데이트)
   try {
     const r = await fetch('tunnel.txt?t=' + Date.now());
-    if (!r.ok) return null;
-    _API_URL = (await r.text()).trim();
-    return _API_URL;
-  } catch(e) {
-    return null;
-  }
+    if (r.ok) {
+      const url = (await r.text()).trim();
+      if (url && url.startsWith('https://')) { _API_URL = url; return _API_URL; }
+    }
+  } catch(e) {}
+  // 2순위: config 하드코딩 URL
+  if (_API_URL_HARD) { _API_URL = _API_URL_HARD; return _API_URL; }
+  return null;
 }
 
 async function saveOrders(orders) {
