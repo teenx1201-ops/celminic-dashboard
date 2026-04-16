@@ -71,18 +71,18 @@ h1 { text-align: center; font-size: 20px; font-weight: 800; margin-bottom: 4px;
   letter-spacing: 1px; text-transform: uppercase;
 }
 
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
 thead th {
   color: #546e7a; font-size: 10px; font-weight: 700; padding: 10px 6px;
   text-align: center; border-bottom: 1px solid #1e2a35;
   position: sticky; top: 0; background: #111820;
   letter-spacing: 0.5px; text-transform: uppercase;
 }
-thead th:first-child { text-align: left; }
+thead th:first-child { text-align: left; width: 38%; }
 tbody tr { border-bottom: 1px solid #151d27; }
 tbody tr:hover { background: rgba(0,229,255,0.03); }
-tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
-.left { text-align: left !important; font-weight: 600; color: #cfd8dc; }
+tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidden; text-overflow: ellipsis; }
+.left { text-align: left !important; font-weight: 600; color: #cfd8dc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .badge {
   display: inline-block; padding: 3px 8px; border-radius: 4px;
@@ -159,267 +159,311 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
   <div class="section-title">💰마진 분석</div>
   <div style="overflow-x:auto;">
   <table>
-    <thead><tr><th>상품</th><th>판매</th><th>마진율</th><th>순이익</th><th>광고비</th></tr></thead>
+    <thead><tr><th>상품</th><th>실판매가</th><th>판매량</th><th>마진율</th><th>순이익</th><th>광고비</th></tr></thead>
     <tbody id="margin-body"><tr>
           <td class="left">이불세트 모카브라운 K</td>
+          <td>57,900</td>
           <td>5</td>
           <td style="color:#56d364;font-weight:700;">34.9%</td>
           <td style="color:#56d364;font-weight:700;">87,324</td>
           <td>13,758</td>
         </tr><tr>
           <td class="left">이불세트 스모키차콜 K</td>
+          <td>57,900</td>
           <td>4</td>
           <td style="color:#56d364;font-weight:700;">34.9%</td>
           <td style="color:#56d364;font-weight:700;">74,736</td>
           <td>6,129</td>
         </tr><tr>
           <td class="left">이불세트 스모키차콜 Q</td>
+          <td>47,900</td>
           <td>5</td>
           <td style="color:#56d364;font-weight:700;">28.7%</td>
           <td style="color:#56d364;font-weight:700;">65,487</td>
           <td>3,240</td>
         </tr><tr>
           <td class="left">페이스타올 2개입</td>
+          <td>7,017</td>
           <td>46</td>
           <td style="color:#e3b341;font-weight:700;">18.9%</td>
           <td style="color:#56d364;font-weight:700;">59,128</td>
           <td>1,897</td>
         </tr><tr>
           <td class="left">페이스타올 3개입</td>
+          <td>9,900</td>
           <td>25</td>
           <td style="color:#e3b341;font-weight:700;">17.6%</td>
           <td style="color:#56d364;font-weight:700;">42,692</td>
           <td>867</td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 SS</td>
+          <td>37,900</td>
           <td>6</td>
           <td style="color:#56d364;font-weight:700;">24.1%</td>
           <td style="color:#56d364;font-weight:700;">38,095</td>
           <td>16,772</td>
         </tr><tr>
           <td class="left">토퍼 차콜 Q</td>
+          <td>38,900</td>
           <td>3</td>
           <td style="color:#56d364;font-weight:700;">32.3%</td>
           <td style="color:#56d364;font-weight:700;">32,857</td>
           <td>4,885</td>
         </tr><tr>
           <td class="left">페이스타올 1개입</td>
+          <td>4,800</td>
           <td>20</td>
           <td style="color:#56d364;font-weight:700;">30.5%</td>
           <td style="color:#56d364;font-weight:700;">29,276</td>
           <td>0</td>
         </tr><tr>
           <td class="left">이불세트 밀크베이지 Q</td>
+          <td>47,900</td>
           <td>2</td>
           <td style="color:#56d364;font-weight:700;">28.7%</td>
           <td style="color:#56d364;font-weight:700;">27,461</td>
           <td>30</td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 Q</td>
+          <td>47,900</td>
           <td>2</td>
           <td style="color:#56d364;font-weight:700;">28.7%</td>
           <td style="color:#56d364;font-weight:700;">24,671</td>
           <td>2,820</td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 Q</td>
+          <td>38,900</td>
           <td>2</td>
           <td style="color:#56d364;font-weight:700;">32.3%</td>
           <td style="color:#56d364;font-weight:700;">21,398</td>
           <td>3,763</td>
         </tr><tr>
           <td class="left">토퍼 아이보리 Q</td>
+          <td>38,900</td>
           <td>3</td>
           <td style="color:#56d364;font-weight:700;">32.3%</td>
           <td style="color:#56d364;font-weight:700;">19,169</td>
           <td>18,573</td>
         </tr><tr>
           <td class="left">18L휴지통</td>
+          <td>17,900</td>
           <td>12</td>
           <td style="color:#e3b341;font-weight:700;">18.1%</td>
           <td style="color:#56d364;font-weight:700;">18,480</td>
           <td>20,422</td>
         </tr><tr>
           <td class="left">이불세트 밀크베이지 SS</td>
+          <td>37,900</td>
           <td>3</td>
           <td style="color:#56d364;font-weight:700;">24.1%</td>
           <td style="color:#56d364;font-weight:700;">15,309</td>
           <td>12,125</td>
         </tr><tr>
           <td class="left">커튼 크림화이트 130X170CM</td>
+          <td>28,400</td>
           <td>2</td>
           <td style="color:#56d364;font-weight:700;">30.5%</td>
           <td style="color:#56d364;font-weight:700;">15,108</td>
           <td>2,243</td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 Q</td>
+          <td>47,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">28.7%</td>
           <td style="color:#56d364;font-weight:700;">13,313</td>
           <td>432</td>
         </tr><tr>
           <td class="left">토퍼 베이지 K</td>
+          <td>41,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">34.0%</td>
           <td style="color:#56d364;font-weight:700;">13,242</td>
           <td>992</td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 Q</td>
+          <td>38,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">33.1%</td>
           <td style="color:#56d364;font-weight:700;">12,592</td>
           <td>289</td>
         </tr><tr>
           <td class="left">토퍼 차콜 K</td>
+          <td>41,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">32.4%</td>
           <td style="color:#56d364;font-weight:700;">11,497</td>
           <td>2,062</td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 K</td>
+          <td>41,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">32.4%</td>
           <td style="color:#56d364;font-weight:700;">11,421</td>
           <td>2,138</td>
         </tr><tr>
           <td class="left">커튼 크림화이트 210X235CM</td>
+          <td>33,530</td>
           <td>2</td>
           <td style="color:#e3b341;font-weight:700;">16.1%</td>
           <td style="color:#56d364;font-weight:700;">10,802</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 베이지 Q</td>
+          <td>38,900</td>
           <td>3</td>
           <td style="color:#56d364;font-weight:700;">30.3%</td>
           <td style="color:#56d364;font-weight:700;">9,606</td>
           <td>25,736</td>
         </tr><tr>
           <td class="left">커튼 그레이 140X230CM</td>
+          <td>32,400</td>
           <td>2</td>
           <td style="color:#56d364;font-weight:700;">31.3%</td>
           <td style="color:#56d364;font-weight:700;">9,202</td>
           <td>11,082</td>
         </tr><tr>
           <td class="left">토퍼 차콜 SS</td>
+          <td>28,900</td>
           <td>2</td>
           <td style="color:#56d364;font-weight:700;">21.2%</td>
           <td style="color:#56d364;font-weight:700;">9,035</td>
           <td>3,204</td>
         </tr><tr>
           <td class="left">이불세트 스모키차콜 SS</td>
+          <td>37,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">24.1%</td>
           <td style="color:#56d364;font-weight:700;">8,270</td>
           <td>875</td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 Q</td>
+          <td>39,280</td>
           <td>1</td>
           <td style="color:#e3b341;font-weight:700;">17.4%</td>
           <td style="color:#56d364;font-weight:700;">6,840</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 아이보리 SS</td>
+          <td>28,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">20.7%</td>
           <td style="color:#56d364;font-weight:700;">5,970</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 210X235CM</td>
+          <td>33,530</td>
           <td>1</td>
           <td style="color:#e3b341;font-weight:700;">16.1%</td>
           <td style="color:#56d364;font-weight:700;">5,401</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 SS</td>
+          <td>28,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">20.7%</td>
           <td style="color:#56d364;font-weight:700;">5,354</td>
           <td>616</td>
         </tr><tr>
           <td class="left">20L휴지통</td>
+          <td>50,450</td>
           <td>1</td>
           <td style="color:#ff7b72;font-weight:700;">9.2%</td>
           <td style="color:#56d364;font-weight:700;">4,625</td>
           <td>0</td>
         </tr><tr>
           <td class="left">18L휴지통</td>
+          <td>15,390</td>
           <td>2</td>
           <td style="color:#ff7b72;font-weight:700;">8.0%</td>
           <td style="color:#56d364;font-weight:700;">2,462</td>
           <td>0</td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 SS</td>
+          <td>37,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">25.0%</td>
           <td style="color:#56d364;font-weight:700;">2,338</td>
           <td>7,132</td>
         </tr><tr>
           <td class="left">20L휴지통</td>
+          <td>46,660</td>
           <td>1</td>
           <td style="color:#ff7b72;font-weight:700;">3.4%</td>
           <td style="color:#56d364;font-weight:700;">1,589</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 그레이 SS</td>
+          <td>28,900</td>
           <td>1</td>
           <td style="color:#56d364;font-weight:700;">21.2%</td>
           <td style="color:#56d364;font-weight:700;">1,531</td>
           <td>4,589</td>
         </tr><tr>
           <td class="left">토퍼 아이보리 SS</td>
+          <td>28,900</td>
           <td>7</td>
           <td style="color:#56d364;font-weight:700;">21.2%</td>
           <td style="color:#56d364;font-weight:700;">963</td>
           <td>41,875</td>
         </tr><tr>
           <td class="left">18L휴지통</td>
+          <td>14,500</td>
           <td>1</td>
           <td style="color:#ff7b72;font-weight:700;">3.6%</td>
           <td style="color:#56d364;font-weight:700;">518</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 화이트 SS</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 130X170CM</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 그레이 130X170CM</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">18L휴지통</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 화이트 Q</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 크림화이트 210X235CM</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 140X230CM</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">18L휴지통</td>
+          <td>0</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
@@ -427,23 +471,27 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
         </tr><tr>
           <td class="left">커튼 크림화이트 140X230CM</td>
           <td>0</td>
+          <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 그레이 140X230CM</td>
           <td>0</td>
-          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
-          <td style="color:#ff7b72;font-weight:700;">0</td>
-          <td>0</td>
-        </tr><tr>
-          <td class="left">커튼 그레이 130X170CM</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 그레이 130X170CM</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#ff7b72;font-weight:700;">0.0%</td>
+          <td style="color:#ff7b72;font-weight:700;">0</td>
+          <td>0</td>
+        </tr><tr>
+          <td class="left">커튼 그레이 130X170CM</td>
+          <td>0</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
@@ -451,11 +499,13 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
         </tr><tr>
           <td class="left">토퍼 아이보리 SS</td>
           <td>0</td>
+          <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 차콜 Q</td>
+          <td>0</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
@@ -463,11 +513,13 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
         </tr><tr>
           <td class="left">커튼 밀크베이지 210X235CM</td>
           <td>0</td>
+          <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 SS</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
@@ -475,23 +527,27 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
         </tr><tr>
           <td class="left">토퍼 차콜 Q</td>
           <td>0</td>
+          <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 Q</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 SS</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">이불세트 밀크베이지 Q</td>
+          <td>0</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
@@ -499,89 +555,104 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
         </tr><tr>
           <td class="left">이불세트 스모키차콜 Q</td>
           <td>0</td>
+          <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">페이스타올 3개입</td>
+          <td>-47,100</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">페이스타올 1개입</td>
+          <td>-23,600</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 크림화이트 140X230CM</td>
+          <td>0</td>
           <td>-1</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 140X230CM</td>
+          <td>0</td>
           <td>-1</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">0</td>
           <td>0</td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 K</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-1,028</td>
           <td>1,028</td>
         </tr><tr>
           <td class="left">커튼 크림화이트 140X230CM</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-1,101</td>
           <td>1,101</td>
         </tr><tr>
           <td class="left">이불세트 밀크베이지 K</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-1,757</td>
           <td>1,757</td>
         </tr><tr>
           <td class="left">커튼 그레이 210X235CM</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-4,054</td>
           <td>4,054</td>
         </tr><tr>
           <td class="left">토퍼 아이보리 K</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-4,879</td>
           <td>4,879</td>
         </tr><tr>
           <td class="left">토퍼 그레이 Q</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-7,473</td>
           <td>7,473</td>
         </tr><tr>
           <td class="left">토퍼 베이지 SS</td>
+          <td>28,900</td>
           <td>3</td>
           <td style="color:#e3b341;font-weight:700;">19.3%</td>
           <td style="color:#ff7b72;font-weight:700;">-15,161</td>
           <td>31,870</td>
         </tr><tr>
           <td class="left">20L휴지통</td>
+          <td>54,250</td>
           <td>3</td>
           <td style="color:#e3b341;font-weight:700;">14.1%</td>
           <td style="color:#ff7b72;font-weight:700;">-16,714</td>
           <td>39,722</td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 210X235CM</td>
+          <td>-1,000</td>
           <td>0</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-20,083</td>
           <td>20,083</td>
         </tr><tr>
           <td class="left">커튼 크림화이트 210X235CM</td>
+          <td>-1,000</td>
           <td>-2</td>
           <td style="color:#ff7b72;font-weight:700;">0.0%</td>
           <td style="color:#ff7b72;font-weight:700;">-29,749</td>
@@ -1167,7 +1238,7 @@ function renderDate(idx) {
   data.margin.forEach(r => {
     const mc = r.m > 0 ? '#00e676' : '#ff5252';
     const rc = r.r >= 20 ? '#00e676' : (r.r >= 10 ? '#ffd740' : '#ff5252');
-    mh += '<tr><td class="left">' + r.n + '</td><td>' + r.s +
+    mh += '<tr><td class="left">' + r.n + '</td><td>' + fmt(r.p) + '</td><td>' + r.s +
       '</td><td style="color:' + rc + ';font-weight:700;">' + r.r.toFixed(1) +
       '%</td><td style="color:' + mc + ';font-weight:700;">' + fmt(r.m) + '</td><td>' + fmt(r.a) + '</td></tr>';
   });
