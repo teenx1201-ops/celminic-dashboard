@@ -15,14 +15,6 @@ body {
 h1 { text-align: center; font-size: 24px; font-weight: 900; margin-bottom: 4px; }
 .subtitle { text-align: center; color: #6e7681; font-size: 13px; margin-bottom: 20px; }
 
-/* 3D 아이콘 */
-.icon3d {
-  display: inline-block; font-size: 18px;
-  filter: drop-shadow(1px 2px 1px rgba(0,0,0,0.5));
-  transform: perspective(100px) rotateY(-5deg);
-  margin-right: 4px;
-}
-
 .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
 .sum-box {
   background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
@@ -81,9 +73,8 @@ thead th {
   position: sticky; top: 0; background: rgba(19,24,41,0.95);
 }
 thead th:first-child { text-align: left; }
-tbody tr { background: rgba(255,255,255,0.025); }
-tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); color: #c9d1d9; }
-.left { text-align: left !important; font-weight: 600; color: #e6edf3; }
+tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.left { text-align: left !important; font-weight: 600; }
 
 .badge {
   display: inline-block; padding: 3px 10px; border-radius: 12px;
@@ -119,19 +110,19 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
 <body>
 <div class="container">
 
-<h1><span class="icon3d">📊</span> 셀미닉 대시보드</h1>
+<h1>📌 셀미닉 대시보드</h1>
 <div class="subtitle">2026-04-15 기준</div>
 
 <!-- 요약 카드 -->
 <div class="summary">
-  <div class="sum-box"><div class="sum-val green">20.5%</div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">📈</span> 평균 마진</div></div>
-  <div class="sum-box"><div class="sum-val blue">3,749,920</div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">💵</span> 매출</div></div>
-  <div class="sum-box"><div class="sum-val green">603,436</div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">💰</span> 순이익</div></div>
-  <div class="sum-box"><div class="sum-val red">350,262</div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">📢</span> 광고비</div></div>
-  <div class="sum-box"><div class="sum-val green">16</div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">✅</span> 여유</div></div>
-  <div class="sum-box"><div class="sum-val yellow">0<span style="color:#ff453a;margin-left:2px;">24</span></div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">⚠️</span> 주의/부족</div></div>
-  <div class="sum-box"><div class="sum-val white">22개</div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">📦</span> 발주 품목</div></div>
-  <div class="sum-box"><div class="sum-val blue">54.36</div><div class="sum-lbl"><span class="icon3d" style="font-size:13px;">🚛</span> CBM</div></div>
+  <div class="sum-box"><div class="sum-val green">20.5%</div><div class="sum-lbl">평균 마진</div></div>
+  <div class="sum-box"><div class="sum-val blue">3,749,920</div><div class="sum-lbl">매출</div></div>
+  <div class="sum-box"><div class="sum-val green">603,436</div><div class="sum-lbl">순이익</div></div>
+  <div class="sum-box"><div class="sum-val red">350,262</div><div class="sum-lbl">광고비</div></div>
+  <div class="sum-box"><div class="sum-val green">16</div><div class="sum-lbl">🟢 여유</div></div>
+  <div class="sum-box"><div class="sum-val yellow">0<span style="color:#ff7b72;margin-left:2px;">24</span></div><div class="sum-lbl">🟡 주의 / 🔴 부족</div></div>
+  <div class="sum-box"><div class="sum-val white">22개</div><div class="sum-lbl">발주 품목</div></div>
+  <div class="sum-box"><div class="sum-val blue">54.36</div><div class="sum-lbl">CBM</div></div>
   <div class="sum-box">
     <div class="gauge" style="margin:0;">
       <div class="gauge-bar"><div class="gauge-fill" style="width:91%;"></div></div>
@@ -143,14 +134,14 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
 
 <!-- 탭 네비게이션 -->
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('margin')"><span class="icon3d">💰</span> 마진<span class="tab-count">46</span></div>
-  <div class="tab" onclick="switchTab('inventory')"><span class="icon3d">📊</span> 재고<span class="tab-count">40</span></div>
-  <div class="tab" onclick="switchTab('order')"><span class="icon3d">📋</span> 발주<span class="tab-count">22</span></div>
+  <div class="tab active" onclick="switchTab('margin')">💰마진<span class="tab-count">46</span></div>
+  <div class="tab" onclick="switchTab('inventory')">📊재고<span class="tab-count">40</span></div>
+  <div class="tab" onclick="switchTab('order')">📋발주<span class="tab-count">22</span></div>
 </div>
 
 <!-- 마진 탭 -->
 <div id="tab-margin" class="tab-content active">
-  <div class="section-title"><span class="icon3d">💰</span> 마진 분석 (광고비 350,262원 포함)</div>
+  <div class="section-title">💰마진 분석 (광고비 350,262원 포함)</div>
   <div style="overflow-x:auto;">
   <table>
     <thead><tr><th>상품</th><th>실판매가</th><th>판매</th><th>매출</th><th>마진율</th><th>순이익</th><th>광고비</th></tr></thead>
@@ -529,7 +520,7 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
 
 <!-- 재고 탭 -->
 <div id="tab-inventory" class="tab-content">
-  <div class="section-title"><span class="icon3d">📊</span> 재고 현황</div>
+  <div class="section-title">📊재고 현황</div>
   <div style="overflow-x:auto;">
   <table>
     <thead><tr><th>상품</th><th>재고</th><th>30일판매</th><th>주간평균</th><th>50일필요</th><th>품절까지</th><th>상태</th></tr></thead>
@@ -860,7 +851,7 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
 
 <!-- 발주 탭 -->
 <div id="tab-order" class="tab-content">
-  <div class="section-title"><span class="icon3d">📋</span> 발주 계획 (22개 품목 / 54.36 CBM)</div>
+  <div class="section-title">📋발주 계획 (22개 품목 / 54.36 CBM)</div>
   <div style="overflow-x:auto;">
   <table>
     <thead><tr><th>상품</th><th>재고</th><th>품절까지</th><th>주문량</th><th>단위</th><th>충전</th><th>입고</th></tr></thead>
