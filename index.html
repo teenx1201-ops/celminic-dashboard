@@ -1262,23 +1262,39 @@ function switchTab(name) {
   tabs[map[name]].classList.add('active');
 }
 
-/* ── 발주완료 시스템 ── */
-const _TG_TOKEN = '8463379621:AAF95xZhQ2teMOxN_Tdz8z3N2z6oHSd5bPk';
-const _TG_CHAT = '-4905675032';
+/* ── 발주완료 시스템 (맥미니 HTTP API 직통) ── */
+const _API_TOKEN = 'MTY62OiLv40WkCHcDpqj9JBTn6lnQ0zi3YcTAl_2Qlg';
 const _TODAY = '2026-04-15';
+let _API_URL = null;
 
-async function sendTG(text) {
-  const url = `https://api.telegram.org/bot${_TG_TOKEN}/sendMessage`;
+async function getApiUrl() {
+  if (_API_URL) return _API_URL;
   try {
-    const r = await fetch(url, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({chat_id: _TG_CHAT, text: text})
-    });
-    return r.ok;
+    const r = await fetch('tunnel.txt?t=' + Date.now());
+    if (!r.ok) return null;
+    _API_URL = (await r.text()).trim();
+    return _API_URL;
   } catch(e) {
-    console.error('TG 전송 실패:', e);
-    return false;
+    return null;
+  }
+}
+
+async function saveOrders(orders) {
+  const url = await getApiUrl();
+  if (!url) return { ok: false, error: 'tunnel URL 못 찾음' };
+  try {
+    const r = await fetch(url + '/order_complete', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + _API_TOKEN,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ orders: orders })
+    });
+    const data = await r.json();
+    return { ok: r.ok && data.ok, data: data };
+  } catch(e) {
+    return { ok: false, error: e.message };
   }
 }
 
@@ -1295,13 +1311,12 @@ async function markDone(label, qty) {
     return;
   }
 
-  const msg = `[발주완료] ${_TODAY}` + String.fromCharCode(10) + `${label}|${realQty}`;
   const btn = event.target;
   btn.disabled = true;
   btn.textContent = '...';
 
-  const ok = await sendTG(msg);
-  if (ok) {
+  const result = await saveOrders([{ label: label, qty: realQty }]);
+  if (result.ok) {
     const diff = realQty - qty;
     const tag = diff > 0 ? ` (+${diff})` : (diff < 0 ? ` (${diff})` : '');
     btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${realQty.toLocaleString()}${tag}</span>`;
@@ -1309,7 +1324,7 @@ async function markDone(label, qty) {
   } else {
     btn.disabled = false;
     btn.textContent = '완료';
-    showStatus('❌ 전송 실패 — 다시 시도해주세요');
+    showStatus('❌ 저장 실패: ' + (result.error || '서버 오류'));
   }
 }
 
@@ -1321,29 +1336,24 @@ async function markAllDone() {
   }
   if (!confirm(`${btns.length}개 품목 추천 수량대로 전체 발주완료 처리할까요?`)) return;
 
-  // 한 메시지로 모아서 전송
-  let lines = [];
   const btnList = Array.from(btns);
-  for (const btn of btnList) {
-    const label = btn.dataset.label || '';
-    const qty = parseInt(btn.dataset.qty || '0');
-    lines.push(`${label}|${qty}`);
-    btn.disabled = true;
-    btn.textContent = '...';
-  }
+  const orders = btnList.map(btn => ({
+    label: btn.dataset.label || '',
+    qty: parseInt(btn.dataset.qty || '0')
+  }));
 
-  const msg = `[발주완료] ${_TODAY}` + String.fromCharCode(10) + lines.join(String.fromCharCode(10));
-  const ok = await sendTG(msg);
+  btnList.forEach(btn => { btn.disabled = true; btn.textContent = '...'; });
 
-  if (ok) {
+  const result = await saveOrders(orders);
+  if (result.ok) {
     btnList.forEach(btn => {
-      const qty = parseInt(btn.dataset.qty || '0');
-      btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${qty.toLocaleString()}</span>`;
+      const q = parseInt(btn.dataset.qty || '0');
+      btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${q.toLocaleString()}</span>`;
     });
-    showStatus(`✅ ${lines.length}개 품목 전체 발주완료`);
+    showStatus(`✅ ${orders.length}개 품목 전체 발주완료`);
   } else {
     btnList.forEach(btn => { btn.disabled = false; btn.textContent = '완료'; });
-    showStatus('❌ 전송 실패 — 다시 시도해주세요');
+    showStatus('❌ 저장 실패: ' + (result.error || '서버 오류'));
   }
 }
 
