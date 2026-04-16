@@ -514,20 +514,32 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 .pdf-section-label { font-size:14px; font-weight:800; margin:20px 0 8px; padding-bottom:6px; border-bottom:2px solid #ddd; }
 </style>
 
-<div class="pdf-info">각 스티커 1000×1000px · 공장별 PDF → ZIP 다운로드</div>
+<div class="pdf-info">각 스티커 1000×1000px · PDF 다운로드</div>
 <div class="pdf-btns">
-  <button class="pdf-btn" style="background:#333;" onclick="downloadZIP()">📦 전체 ZIP 다운로드 (공장①+②)</button>
+  <button class="pdf-btn" style="background:#333;" onclick="downloadZIP()">📦 전체 ZIP 다운로드</button>
 </div>
-<div class="pdf-btns" style="margin-top:-8px;">
-  <button class="pdf-btn f1" onclick="generatePDF('factory1')">공장① 토퍼+이불 (15종)</button>
-  <button class="pdf-btn f2" onclick="generatePDF('factory2')">공장② 커튼 (8종)</button>
+<div class="pdf-btns" style="margin-top:-8px;flex-wrap:wrap;">
+  <button class="pdf-btn" style="background:#e65100;" onclick="generatePDF('topper')">토퍼</button>
+  <button class="pdf-btn" style="background:#6a1b9a;" onclick="generatePDF('bedding')">이불세트</button>
+  <button class="pdf-btn" style="background:#1565c0;" onclick="generatePDF('curtain')">커튼</button>
+  <button class="pdf-btn" style="background:#2e7d32;" onclick="generatePDF('facetowel')">페이스타올</button>
+  <button class="pdf-btn" style="background:#424242;" onclick="generatePDF('trash18')">휴지통 18L</button>
+  <button class="pdf-btn" style="background:#37474f;" onclick="generatePDF('trash20')">휴지통 20L</button>
 </div>
 <div id="pdf-status" style="text-align:center;color:#888;font-size:12px;margin-bottom:16px;"></div>
 
-<div class="pdf-section-label" style="color:#ff4444;">공장① 토퍼 + 이불세트 — 15종</div>
-<div class="pdf-preview" id="preview-f1"></div>
-<div class="pdf-section-label" style="color:#2196f3;margin-top:28px;">공장② 커튼 — 8종</div>
-<div class="pdf-preview" id="preview-f2"></div>
+<div class="pdf-section-label" style="color:#e65100;">토퍼</div>
+<div class="pdf-preview" id="preview-topper"></div>
+<div class="pdf-section-label" style="color:#6a1b9a;margin-top:24px;">이불세트</div>
+<div class="pdf-preview" id="preview-bedding"></div>
+<div class="pdf-section-label" style="color:#1565c0;margin-top:24px;">커튼</div>
+<div class="pdf-preview" id="preview-curtain"></div>
+<div class="pdf-section-label" style="color:#2e7d32;margin-top:24px;">페이스타올</div>
+<div class="pdf-preview" id="preview-facetowel"></div>
+<div class="pdf-section-label" style="color:#424242;margin-top:24px;">휴지통 18L</div>
+<div class="pdf-preview" id="preview-trash18"></div>
+<div class="pdf-section-label" style="color:#37474f;margin-top:24px;">휴지통 20L</div>
+<div class="pdf-preview" id="preview-trash20"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -542,7 +554,7 @@ function switchSub(name) {
   tabs[map[name]].classList.add('active');
 }
 
-const factory1Data = [
+const topperData = [
   {size:'1.2', colors:['IVORY 5ea'], qty:79},
   {size:'1.2', colors:['BEIGE 5ea'], qty:45},
   {size:'1.2', colors:['WHITE&BLACK 5ea'], qty:6},
@@ -557,10 +569,11 @@ const factory1Data = [
   {size:'1.8', colors:['BEIGE 4ea'], qty:7},
   {size:'1.8', colors:['WHITE&BLACK 4ea'], qty:2},
   {size:'1.8', colors:['IVORY 1ea','WHITE&BLACK 2ea','BEIGE 1ea'], qty:1, mix:true},
+];
+const beddingData = [
   {size:'K (BEDDING)', colors:['MOCHA BROWN 5ea'], qty:14},
 ];
-
-const factory2Data = [
+const curtainData = [
   {size:'130 X 170 cm', colors:['cream 30ea'], qty:1},
   {size:'140 X 230 cm', colors:['cream 25ea'], qty:1},
   {size:'140 X 230 cm', colors:['milkbeige 25ea'], qty:1},
@@ -570,6 +583,26 @@ const factory2Data = [
   {size:'140 X 230 cm', colors:['cream 9ea','grey 8ea'], qty:1, mix:true},
   {size:'210 X 235 cm', colors:['cream 16ea','milkbeige 1ea'], qty:1, mix:true},
 ];
+const facetowelData = [
+  {size:'1개입', colors:['60ea/box'], qty:1},
+  {size:'2개입', colors:['30ea/box'], qty:1},
+  {size:'3개입', colors:['20ea/box'], qty:1},
+];
+const trash18Data = [
+  {size:'18L', colors:['매트 화이트 12ea'], qty:1},
+];
+const trash20Data = [
+  {size:'20L', colors:['코타화이트 4ea'], qty:1},
+];
+
+const allCategories = {
+  topper: {data: topperData, label:'토퍼', fname:'CNIC_topper'},
+  bedding: {data: beddingData, label:'이불세트', fname:'CNIC_bedding'},
+  curtain: {data: curtainData, label:'커튼', fname:'CNIC_curtain'},
+  facetowel: {data: facetowelData, label:'페이스타올', fname:'CNIC_facetowel'},
+  trash18: {data: trash18Data, label:'휴지통18L', fname:'CNIC_trashcan_18L'},
+  trash20: {data: trash20Data, label:'휴지통20L', fname:'CNIC_trashcan_20L'},
+};
 
 // 미리보기 렌더
 function renderCards(data, containerId) {
@@ -586,8 +619,12 @@ function renderCards(data, containerId) {
     wrap.appendChild(d);
   });
 }
-renderCards(factory1Data, 'preview-f1');
-renderCards(factory2Data, 'preview-f2');
+renderCards(topperData, 'preview-topper');
+renderCards(beddingData, 'preview-bedding');
+renderCards(curtainData, 'preview-curtain');
+renderCards(facetowelData, 'preview-facetowel');
+renderCards(trash18Data, 'preview-trash18');
+renderCards(trash20Data, 'preview-trash20');
 
 // 스티커 한 장 그리기
 function drawSticker(ctx, s, px) {
@@ -664,29 +701,28 @@ function makePDFBlob(data, statusCb) {
 }
 
 // 개별 PDF 다운로드
-async function generatePDF(factory) {
-  const data = factory === 'factory1' ? factory1Data : factory2Data;
-  const label = factory === 'factory1' ? '공장① 토퍼+이불' : '공장② 커튼';
-  const fname = factory === 'factory1' ? 'CNIC_factory1_topper_bedding' : 'CNIC_factory2_curtain';
+async function generatePDF(catKey) {
+  const cat = allCategories[catKey];
+  if (!cat) return;
   const status = document.getElementById('pdf-status');
   const btns = document.querySelectorAll('.pdf-btn');
   btns.forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
   status.textContent = '';
   await new Promise(r => setTimeout(r, 50));
 
-  const blob = makePDFBlob(data, (i,t) => { status.textContent = label + ' 생성 중... (' + i + '/' + t + ')'; });
+  const blob = makePDFBlob(cat.data, (i,t) => { status.textContent = cat.label + ' 생성 중... (' + i + '/' + t + ')'; });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = fname + '_' + new Date().toISOString().slice(0,10) + '.pdf';
+  a.download = cat.fname + '_' + new Date().toISOString().slice(0,10) + '.pdf';
   a.click();
   URL.revokeObjectURL(url);
 
   btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
-  status.textContent = '✅ ' + label + ' ' + data.length + '장 PDF 다운로드 완료!';
+  status.textContent = '✅ ' + cat.label + ' ' + cat.data.length + '장 PDF 다운로드 완료!';
 }
 
-// ZIP 다운로드 (공장①+② PDF 묶음)
+// ZIP 다운로드 (전체 카테고리)
 async function downloadZIP() {
   const status = document.getElementById('pdf-status');
   const btns = document.querySelectorAll('.pdf-btn');
@@ -695,18 +731,19 @@ async function downloadZIP() {
   await new Promise(r => setTimeout(r, 50));
 
   const dt = new Date().toISOString().slice(0,10);
+  const zip = new JSZip();
+  let totalPages = 0;
+  const keys = Object.keys(allCategories);
 
-  status.textContent = '공장① PDF 생성 중...';
-  const blob1 = makePDFBlob(factory1Data, (i,t) => { status.textContent = '공장① 생성 중... (' + i + '/' + t + ')'; });
-
-  status.textContent = '공장② PDF 생성 중...';
-  const blob2 = makePDFBlob(factory2Data, (i,t) => { status.textContent = '공장② 생성 중... (' + i + '/' + t + ')'; });
+  for (let k = 0; k < keys.length; k++) {
+    const cat = allCategories[keys[k]];
+    status.textContent = cat.label + ' PDF 생성 중...';
+    const blob = makePDFBlob(cat.data, (i,t) => { status.textContent = cat.label + ' 생성 중... (' + i + '/' + t + ')'; });
+    zip.file(cat.fname + '_' + dt + '.pdf', blob);
+    totalPages += cat.data.length;
+  }
 
   status.textContent = 'ZIP 압축 중...';
-  const zip = new JSZip();
-  zip.file('CNIC_factory1_topper_bedding_' + dt + '.pdf', blob1);
-  zip.file('CNIC_factory2_curtain_' + dt + '.pdf', blob2);
-
   const zipBlob = await zip.generateAsync({type:'blob'});
   const url = URL.createObjectURL(zipBlob);
   const a = document.createElement('a');
@@ -716,7 +753,7 @@ async function downloadZIP() {
   URL.revokeObjectURL(url);
 
   btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
-  status.textContent = '✅ ZIP 다운로드 완료! (공장① 15장 + 공장② 8장 = 23장)';
+  status.textContent = '✅ ZIP 다운로드 완료! (총 ' + totalPages + '장)';
 }
 </script>
 
