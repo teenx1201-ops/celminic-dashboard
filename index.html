@@ -15,20 +15,52 @@ body {
 h1 { text-align: center; font-size: 24px; font-weight: 900; margin-bottom: 4px; }
 .subtitle { text-align: center; color: #6e7681; font-size: 13px; margin-bottom: 20px; }
 
-.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
 .sum-box {
   background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px; padding: 16px; text-align: center;
+  border-radius: 14px; padding: 14px 8px; text-align: center;
 }
-.sum-val { font-size: 22px; font-weight: 900; }
+.sum-val { font-size: 20px; font-weight: 900; }
 .sum-lbl { font-size: 11px; color: #6e7681; margin-top: 4px; }
 .green { color: #56d364; } .red { color: #ff7b72; }
 .yellow { color: #e3b341; } .blue { color: #79c0ff; } .white { color: #f0f6fc; }
 
-.section {
-  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px; padding: 20px; margin-bottom: 20px;
+/* 탭 네비게이션 */
+.tabs {
+  display: flex; gap: 0; margin-bottom: 0;
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-bottom: none;
 }
+.tab {
+  flex: 1; padding: 14px 8px; text-align: center;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  color: #6e7681; transition: all 0.2s;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  user-select: none;
+}
+.tab:last-child { border-right: none; }
+.tab:hover { color: #e6edf3; background: rgba(255,255,255,0.03); }
+.tab.active {
+  color: #f0f6fc; background: rgba(255,255,255,0.06);
+  border-bottom: 2px solid #79c0ff;
+}
+.tab-count {
+  display: inline-block; font-size: 11px; font-weight: 900;
+  background: rgba(255,255,255,0.08); border-radius: 8px;
+  padding: 1px 6px; margin-left: 4px; vertical-align: middle;
+}
+
+.tab-content {
+  display: none;
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0 0 16px 16px; padding: 20px;
+  margin-bottom: 20px;
+}
+.tab-content.active { display: block; }
+
 .section-title {
   font-size: 16px; font-weight: 800; margin-bottom: 14px;
   padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -38,6 +70,7 @@ table { width: 100%; border-collapse: collapse; font-size: 13px; }
 thead th {
   color: #6e7681; font-size: 11px; font-weight: 700; padding: 8px 6px;
   text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: sticky; top: 0; background: rgba(19,24,41,0.95);
 }
 thead th:first-child { text-align: left; }
 tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); }
@@ -49,7 +82,7 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
 }
 .order-qty { font-size: 15px; font-weight: 900; color: #79c0ff; }
 
-.gauge { margin-top: 10px; }
+.gauge { margin-bottom: 20px; }
 .gauge-bar {
   width: 100%; height: 10px; background: rgba(255,255,255,0.06);
   border-radius: 5px; overflow: hidden;
@@ -65,17 +98,19 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
 
 @media (max-width: 600px) {
   body { padding: 10px; }
-  .summary { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-  .sum-val { font-size: 18px; }
+  .summary { gap: 6px; }
+  .sum-val { font-size: 17px; }
+  .sum-box { padding: 10px 4px; }
   table { font-size: 11px; }
   .order-qty { font-size: 13px; }
+  .tab { font-size: 13px; padding: 12px 4px; }
 }
 </style>
 </head>
 <body>
 <div class="container">
 
-<h1>📌 셀미닉 대시보드</h1>
+<h1>셀미닉 대시보드</h1>
 <div class="subtitle">2026-04-15 기준</div>
 
 <!-- 요약 카드 -->
@@ -83,21 +118,29 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
   <div class="sum-box"><div class="sum-val green">20.5%</div><div class="sum-lbl">평균 마진</div></div>
   <div class="sum-box"><div class="sum-val blue">3,749,920</div><div class="sum-lbl">매출</div></div>
   <div class="sum-box"><div class="sum-val green">603,436</div><div class="sum-lbl">순이익</div></div>
-  <div class="sum-box"><div class="sum-val green">16</div><div class="sum-lbl">🟢 여유</div></div>
-  <div class="sum-box"><div class="sum-val yellow">0</div><div class="sum-lbl">🟡 주의</div></div>
-  <div class="sum-box"><div class="sum-val red">24</div><div class="sum-lbl">🔴 부족</div></div>
+  <div class="sum-box"><div class="sum-val red">350,262</div><div class="sum-lbl">광고비</div></div>
+  <div class="sum-box"><div class="sum-val green">16</div><div class="sum-lbl">여유</div></div>
+  <div class="sum-box"><div class="sum-val yellow">0<span style="color:#ff7b72;margin-left:2px;">24</span></div><div class="sum-lbl">주의 / 부족</div></div>
   <div class="sum-box"><div class="sum-val white">22개</div><div class="sum-lbl">발주 품목</div></div>
   <div class="sum-box"><div class="sum-val blue">54.36</div><div class="sum-lbl">CBM</div></div>
+  <div class="sum-box">
+    <div class="gauge" style="margin:0;">
+      <div class="gauge-bar"><div class="gauge-fill" style="width:91%;"></div></div>
+      <div class="gauge-labels"><span>91%</span><span>60CBM</span></div>
+    </div>
+    <div class="sum-lbl">컨테이너</div>
+  </div>
 </div>
 
-<!-- CBM 게이지 -->
-<div class="gauge">
-  <div class="gauge-bar"><div class="gauge-fill" style="width:91%;"></div></div>
-  <div class="gauge-labels"><span>54.36 CBM</span><span>풀컨 60 CBM</span></div>
+<!-- 탭 네비게이션 -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('margin')">💰 마진<span class="tab-count">46</span></div>
+  <div class="tab" onclick="switchTab('inventory')">📊 재고<span class="tab-count">40</span></div>
+  <div class="tab" onclick="switchTab('order')">📋 발주<span class="tab-count">22</span></div>
 </div>
 
-<!-- 마진 섹션 -->
-<div class="section" style="margin-top:20px;">
+<!-- 마진 탭 -->
+<div id="tab-margin" class="tab-content active">
   <div class="section-title">💰 마진 분석 (광고비 350,262원 포함)</div>
   <div style="overflow-x:auto;">
   <table>
@@ -475,8 +518,8 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
   </div>
 </div>
 
-<!-- 재고 섹션 -->
-<div class="section">
+<!-- 재고 탭 -->
+<div id="tab-inventory" class="tab-content">
   <div class="section-title">📊 재고 현황</div>
   <div style="overflow-x:auto;">
   <table>
@@ -806,8 +849,8 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
   </div>
 </div>
 
-<!-- 발주 섹션 -->
-<div class="section">
+<!-- 발주 탭 -->
+<div id="tab-order" class="tab-content">
   <div class="section-title">📋 발주 계획 (22개 품목 / 54.36 CBM)</div>
   <div style="overflow-x:auto;">
   <table>
@@ -998,5 +1041,16 @@ tbody td { padding: 10px 6px; text-align: center; border-bottom: 1px solid rgba(
 </div>
 
 </div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.tab');
+  const map = {'margin': 0, 'inventory': 1, 'order': 2};
+  tabs[map[name]].classList.add('active');
+}
+</script>
 </body>
 </html>
