@@ -89,6 +89,20 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
   font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
 }
 .order-qty { font-size: 15px; font-weight: 800; color: #00e5ff; }
+.btn-done {
+  background: rgba(0,229,255,0.1); color: #00e5ff; border: 1px solid #00e5ff;
+  border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px;
+}
+.btn-done:hover { background: rgba(0,229,255,0.25); }
+.btn-done:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-all-done {
+  display: block; margin: 16px auto 0; padding: 10px 24px;
+  background: linear-gradient(135deg, #00e5ff, #00b8d4); color: #0c1018;
+  border: none; border-radius: 6px; font-size: 13px; font-weight: 800;
+  cursor: pointer; letter-spacing: 1px; transition: all 0.2s;
+}
+.btn-all-done:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,229,255,0.3); }
 
 .gauge { margin-bottom: 20px; }
 .gauge-bar {
@@ -677,324 +691,324 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
   <div class="section-title">📊재고 현황</div>
   <div style="overflow-x:auto;">
   <table>
-    <thead><tr><th>상품</th><th>재고</th><th>30일판매</th><th>주간평균</th><th>50일필요</th><th>품절까지</th><th>상태</th></tr></thead>
+    <thead><tr><th>상품</th><th>재고</th><th>7일판매</th><th>30일판매</th><th>50일필요</th><th>품절까지</th><th>상태</th></tr></thead>
     <tbody id="inv-body"><tr>
           <td class="left">암막커튼 크림화이트 130X170CM</td>
           <td>15</td>
-          <td>20</td>
           <td>5</td>
+          <td>20</td>
           <td>34</td>
           <td style="color:#ff7b72;font-weight:700;">22일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 밀크베이지 130X170CM</td>
           <td>1</td>
-          <td>3</td>
           <td>1</td>
+          <td>3</td>
           <td>5</td>
           <td style="color:#ff7b72;font-weight:700;">10일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 그레이 130X170CM</td>
           <td>3</td>
-          <td>2</td>
           <td>0</td>
+          <td>2</td>
           <td>4</td>
           <td style="color:#ff7b72;font-weight:700;">45일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 크림화이트 140X230CM</td>
           <td>0</td>
-          <td>17</td>
           <td>4</td>
+          <td>17</td>
           <td>29</td>
           <td style="color:#ff7b72;font-weight:700;">0일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 밀크베이지 140X230CM</td>
           <td>0</td>
-          <td>19</td>
           <td>4</td>
+          <td>19</td>
           <td>32</td>
           <td style="color:#ff7b72;font-weight:700;">0일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 그레이 140X230CM</td>
           <td>2</td>
-          <td>10</td>
           <td>2</td>
+          <td>10</td>
           <td>17</td>
           <td style="color:#ff7b72;font-weight:700;">6일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 크림화이트 210X235CM</td>
           <td>128</td>
-          <td>99</td>
           <td>23</td>
+          <td>99</td>
           <td>165</td>
           <td style="color:#ff7b72;font-weight:700;">38일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 밀크베이지 210X235CM</td>
           <td>38</td>
-          <td>25</td>
           <td>6</td>
+          <td>25</td>
           <td>42</td>
           <td style="color:#ff7b72;font-weight:700;">45일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">암막커튼 그레이 210X235CM</td>
           <td>36</td>
-          <td>12</td>
           <td>3</td>
+          <td>12</td>
           <td>20</td>
           <td style="color:#56d364;font-weight:700;">90일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">18L휴지통 None 기본</td>
           <td>334</td>
-          <td>289</td>
           <td>67</td>
+          <td>289</td>
           <td>482</td>
           <td style="color:#ff7b72;font-weight:700;">34일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 차콜 SS</td>
           <td>223</td>
-          <td>142</td>
           <td>33</td>
+          <td>142</td>
           <td>237</td>
           <td style="color:#ff7b72;font-weight:700;">47일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 아이보리 SS</td>
           <td>261</td>
-          <td>236</td>
           <td>55</td>
+          <td>236</td>
           <td>394</td>
           <td style="color:#ff7b72;font-weight:700;">33일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 SS</td>
           <td>0</td>
-          <td>38</td>
           <td>9</td>
+          <td>38</td>
           <td>64</td>
           <td style="color:#ff7b72;font-weight:700;">0일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 베이지 SS</td>
           <td>186</td>
-          <td>137</td>
           <td>32</td>
+          <td>137</td>
           <td>229</td>
           <td style="color:#ff7b72;font-weight:700;">40일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 그레이 SS</td>
           <td>16</td>
-          <td>13</td>
           <td>3</td>
+          <td>13</td>
           <td>22</td>
           <td style="color:#ff7b72;font-weight:700;">36일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 차콜 Q</td>
           <td>70</td>
-          <td>61</td>
           <td>14</td>
+          <td>61</td>
           <td>102</td>
           <td style="color:#ff7b72;font-weight:700;">34일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 아이보리 Q</td>
           <td>83</td>
-          <td>65</td>
           <td>15</td>
+          <td>65</td>
           <td>109</td>
           <td style="color:#ff7b72;font-weight:700;">38일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 Q</td>
           <td>22</td>
-          <td>5</td>
           <td>1</td>
+          <td>5</td>
           <td>9</td>
           <td style="color:#56d364;font-weight:700;">132일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">토퍼 베이지 Q</td>
           <td>45</td>
-          <td>64</td>
           <td>15</td>
+          <td>64</td>
           <td>107</td>
           <td style="color:#ff7b72;font-weight:700;">21일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 그레이 Q</td>
           <td>33</td>
-          <td>8</td>
           <td>2</td>
+          <td>8</td>
           <td>14</td>
           <td style="color:#56d364;font-weight:700;">123일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">토퍼 차콜 K</td>
           <td>27</td>
-          <td>17</td>
           <td>4</td>
+          <td>17</td>
           <td>29</td>
           <td style="color:#ff7b72;font-weight:700;">47일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 아이보리 K</td>
           <td>22</td>
-          <td>22</td>
           <td>5</td>
+          <td>22</td>
           <td>37</td>
           <td style="color:#ff7b72;font-weight:700;">30일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 K</td>
           <td>3</td>
-          <td>6</td>
           <td>1</td>
+          <td>6</td>
           <td>10</td>
           <td style="color:#ff7b72;font-weight:700;">15일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">토퍼 베이지 K</td>
           <td>11</td>
-          <td>17</td>
           <td>4</td>
+          <td>17</td>
           <td>29</td>
           <td style="color:#ff7b72;font-weight:700;">19일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">20L휴지통 None 기본</td>
           <td>126</td>
-          <td>149</td>
           <td>35</td>
+          <td>149</td>
           <td>249</td>
           <td style="color:#ff7b72;font-weight:700;">25일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 SS</td>
           <td>52</td>
-          <td>11</td>
           <td>3</td>
+          <td>11</td>
           <td>19</td>
           <td style="color:#56d364;font-weight:700;">141일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 밀크베이지 SS</td>
           <td>137</td>
-          <td>25</td>
           <td>6</td>
+          <td>25</td>
           <td>42</td>
           <td style="color:#56d364;font-weight:700;">164일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 SS</td>
           <td>212</td>
-          <td>19</td>
           <td>4</td>
+          <td>19</td>
           <td>32</td>
           <td style="color:#56d364;font-weight:700;">334일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 스모키차콜 SS</td>
           <td>210</td>
-          <td>17</td>
           <td>4</td>
+          <td>17</td>
           <td>29</td>
           <td style="color:#56d364;font-weight:700;">370일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 Q</td>
           <td>58</td>
-          <td>7</td>
           <td>2</td>
+          <td>7</td>
           <td>12</td>
           <td style="color:#56d364;font-weight:700;">248일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 밀크베이지 Q</td>
           <td>102</td>
-          <td>19</td>
           <td>4</td>
+          <td>19</td>
           <td>32</td>
           <td style="color:#56d364;font-weight:700;">161일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 Q</td>
           <td>131</td>
-          <td>24</td>
           <td>6</td>
+          <td>24</td>
           <td>40</td>
           <td style="color:#56d364;font-weight:700;">163일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 스모키차콜 Q</td>
           <td>127</td>
-          <td>29</td>
           <td>7</td>
+          <td>29</td>
           <td>49</td>
           <td style="color:#56d364;font-weight:700;">131일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 크림화이트 K</td>
           <td>70</td>
-          <td>2</td>
           <td>0</td>
+          <td>2</td>
           <td>4</td>
           <td style="color:#56d364;font-weight:700;">1050일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 밀크베이지 K</td>
           <td>65</td>
-          <td>23</td>
           <td>5</td>
+          <td>23</td>
           <td>39</td>
           <td style="color:#56d364;font-weight:700;">84일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 K</td>
           <td>54</td>
-          <td>41</td>
           <td>10</td>
+          <td>41</td>
           <td>69</td>
           <td style="color:#ff7b72;font-weight:700;">39일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">이불세트 스모키차콜 K</td>
           <td>84</td>
-          <td>27</td>
           <td>6</td>
+          <td>27</td>
           <td>45</td>
           <td style="color:#56d364;font-weight:700;">93일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">페이스타올 None 1개입</td>
           <td>652</td>
-          <td>185</td>
           <td>43</td>
+          <td>185</td>
           <td>309</td>
           <td style="color:#56d364;font-weight:700;">105일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
         </tr><tr>
           <td class="left">페이스타올 None 2개입</td>
           <td>9</td>
-          <td>285</td>
           <td>66</td>
+          <td>285</td>
           <td>475</td>
           <td style="color:#ff7b72;font-weight:700;">0일</td>
           <td><span class="badge" style="background:#ff7b7220;color:#ff7b72;">부족</span></td>
         </tr><tr>
           <td class="left">페이스타올 None 3개입</td>
           <td>377</td>
-          <td>141</td>
           <td>33</td>
+          <td>141</td>
           <td>235</td>
           <td style="color:#56d364;font-weight:700;">80일</td>
           <td><span class="badge" style="background:#56d36420;color:#56d364;">여유</span></td>
@@ -1008,7 +1022,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
   <div class="section-title" id="order-title">📋발주 계획 (22개 품목 / 54.36 CBM)</div>
   <div style="overflow-x:auto;">
   <table>
-    <thead><tr><th>상품</th><th>재고</th><th>품절까지</th><th>주문량</th><th>단위</th><th>충전</th><th>입고</th></tr></thead>
+    <thead><tr><th>상품</th><th>재고</th><th>품절까지</th><th>주문량</th><th>단위</th><th>충전</th><th>입고</th><th style="width:50px;">완료</th></tr></thead>
     <tbody id="order-body"><tr>
           <td class="left">커튼 크림화이트 130X170CM</td>
           <td>15</td>
@@ -1017,6 +1031,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 2박스 공유</td>
           <td style="color:#d29922;">83%</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·1</span></td>
+          <td><button class="btn-done" data-label="커튼 크림화이트 130X170CM" data-qty="40" onclick="markDone('커튼 크림화이트 130X170CM',40)">완료</button></td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 130X170CM</td>
           <td>1</td>
@@ -1025,6 +1040,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 2박스 공유</td>
           <td style="color:#d29922;">83%</td>
           <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·1</span></td>
+          <td><button class="btn-done" data-label="커튼 밀크베이지 130X170CM" data-qty="6" onclick="markDone('커튼 밀크베이지 130X170CM',6)">완료</button></td>
         </tr><tr>
           <td class="left">커튼 그레이 130X170CM</td>
           <td>3</td>
@@ -1033,6 +1049,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 2박스 공유</td>
           <td style="color:#d29922;">83%</td>
           <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·1</span></td>
+          <td><button class="btn-done" data-label="커튼 그레이 130X170CM" data-qty="4" onclick="markDone('커튼 그레이 130X170CM',4)">완료</button></td>
         </tr><tr>
           <td class="left">커튼 크림화이트 140X230CM</td>
           <td>0</td>
@@ -1041,6 +1058,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 4박스 공유</td>
           <td style="color:#d29922;">92%</td>
           <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·3</span></td>
+          <td><button class="btn-done" data-label="커튼 크림화이트 140X230CM" data-qty="34" onclick="markDone('커튼 크림화이트 140X230CM',34)">완료</button></td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 140X230CM</td>
           <td>0</td>
@@ -1049,6 +1067,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 4박스 공유</td>
           <td style="color:#d29922;">92%</td>
           <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·3</span></td>
+          <td><button class="btn-done" data-label="커튼 밀크베이지 140X230CM" data-qty="38" onclick="markDone('커튼 밀크베이지 140X230CM',38)">완료</button></td>
         </tr><tr>
           <td class="left">커튼 그레이 140X230CM</td>
           <td>2</td>
@@ -1057,6 +1076,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 4박스 공유</td>
           <td style="color:#d29922;">92%</td>
           <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·1</span></td>
+          <td><button class="btn-done" data-label="커튼 그레이 140X230CM" data-qty="20" onclick="markDone('커튼 그레이 140X230CM',20)">완료</button></td>
         </tr><tr>
           <td class="left">커튼 크림화이트 210X235CM</td>
           <td>128</td>
@@ -1065,6 +1085,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 10박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·3</span></td>
+          <td><button class="btn-done" data-label="커튼 크림화이트 210X235CM" data-qty="169" onclick="markDone('커튼 크림화이트 210X235CM',169)">완료</button></td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 210X235CM</td>
           <td>38</td>
@@ -1073,6 +1094,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 10박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#8b949e20;color:#8b949e;">여유·3</span></td>
+          <td><button class="btn-done" data-label="커튼 밀크베이지 210X235CM" data-qty="1" onclick="markDone('커튼 밀크베이지 210X235CM',1)">완료</button></td>
         </tr><tr>
           <td class="left">18L휴지통</td>
           <td>334</td>
@@ -1081,6 +1103,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>5팔레트 + 1box</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+          <td><button class="btn-done" data-label="18L휴지통" data-qty="492" onclick="markDone('18L휴지통',492)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 아이보리 SS</td>
           <td>261</td>
@@ -1089,6 +1112,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 142박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+          <td><button class="btn-done" data-label="토퍼 아이보리 SS" data-qty="395" onclick="markDone('토퍼 아이보리 SS',395)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 SS</td>
           <td>0</td>
@@ -1097,6 +1121,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 142박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·3</span></td>
+          <td><button class="btn-done" data-label="토퍼 화이트앤블랙 SS" data-qty="64" onclick="markDone('토퍼 화이트앤블랙 SS',64)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 베이지 SS</td>
           <td>186</td>
@@ -1105,6 +1130,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 142박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·2</span></td>
+          <td><button class="btn-done" data-label="토퍼 베이지 SS" data-qty="229" onclick="markDone('토퍼 베이지 SS',229)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 그레이 SS</td>
           <td>16</td>
@@ -1113,6 +1139,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 142박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·2</span></td>
+          <td><button class="btn-done" data-label="토퍼 그레이 SS" data-qty="22" onclick="markDone('토퍼 그레이 SS',22)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 차콜 Q</td>
           <td>70</td>
@@ -1121,6 +1148,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 64박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·2</span></td>
+          <td><button class="btn-done" data-label="토퍼 차콜 Q" data-qty="102" onclick="markDone('토퍼 차콜 Q',102)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 아이보리 Q</td>
           <td>83</td>
@@ -1129,6 +1157,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 64박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·3</span></td>
+          <td><button class="btn-done" data-label="토퍼 아이보리 Q" data-qty="110" onclick="markDone('토퍼 아이보리 Q',110)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 베이지 Q</td>
           <td>45</td>
@@ -1137,6 +1166,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 64박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·2</span></td>
+          <td><button class="btn-done" data-label="토퍼 베이지 Q" data-qty="108" onclick="markDone('토퍼 베이지 Q',108)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 아이보리 K</td>
           <td>22</td>
@@ -1145,6 +1175,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 19박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·2</span></td>
+          <td><button class="btn-done" data-label="토퍼 아이보리 K" data-qty="37" onclick="markDone('토퍼 아이보리 K',37)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 화이트앤블랙 K</td>
           <td>3</td>
@@ -1153,6 +1184,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 19박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·2</span></td>
+          <td><button class="btn-done" data-label="토퍼 화이트앤블랙 K" data-qty="10" onclick="markDone('토퍼 화이트앤블랙 K',10)">완료</button></td>
         </tr><tr>
           <td class="left">토퍼 베이지 K</td>
           <td>11</td>
@@ -1161,6 +1193,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>혼합 19박스 공유</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+          <td><button class="btn-done" data-label="토퍼 베이지 K" data-qty="29" onclick="markDone('토퍼 베이지 K',29)">완료</button></td>
         </tr><tr>
           <td class="left">20L휴지통</td>
           <td>126</td>
@@ -1169,6 +1202,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>7팔레트 + 7box</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#d2992220;color:#d29922;">발주·3</span></td>
+          <td><button class="btn-done" data-label="20L휴지통" data-qty="252" onclick="markDone('20L휴지통',252)">완료</button></td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 K</td>
           <td>54</td>
@@ -1177,6 +1211,7 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>1팔레트 + 2box</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#79c0ff20;color:#79c0ff;">미리·2</span></td>
+          <td><button class="btn-done" data-label="이불세트 모카브라운 K" data-qty="70" onclick="markDone('이불세트 모카브라운 K',70)">완료</button></td>
         </tr><tr>
           <td class="left">페이스타올 2개입</td>
           <td>9</td>
@@ -1185,9 +1220,12 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; overflow: hidd
           <td>1팔레트 + 5box</td>
           <td style="color:#56d364;">꽉참</td>
           <td><span class="badge" style="background:#f8514920;color:#f85149;">긴급·1</span></td>
+          <td><button class="btn-done" data-label="페이스타올 2개입" data-qty="480" onclick="markDone('페이스타올 2개입',480)">완료</button></td>
         </tr></tbody>
   </table>
   </div>
+  <button class="btn-all-done" onclick="markAllDone()">📦 전체 발주완료</button>
+  <div id="order-status" style="text-align:center;color:#546e7a;font-size:11px;margin-top:8px;"></div>
 </div>
 
 <div style="text-align:center;color:#484f58;font-size:11px;margin-top:20px;padding-bottom:20px;">
@@ -1210,6 +1248,96 @@ function switchTab(name) {
   const tabs = document.querySelectorAll('.tab');
   const map = {'margin': 0, 'inventory': 1, 'order': 2, 'wechat': 3};
   tabs[map[name]].classList.add('active');
+}
+
+/* ── 발주완료 시스템 ── */
+const _TG_TOKEN = '8463379621:AAF95xZhQ2teMOxN_Tdz8z3N2z6oHSd5bPk';
+const _TG_CHAT = '-4905675032';
+const _TODAY = '2026-04-15';
+
+async function sendTG(text) {
+  const url = `https://api.telegram.org/bot${_TG_TOKEN}/sendMessage`;
+  try {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: _TG_CHAT, text: text})
+    });
+    return r.ok;
+  } catch(e) {
+    console.error('TG 전송 실패:', e);
+    return false;
+  }
+}
+
+async function markDone(label, qty) {
+  const input = prompt(`📦 ${label}
+
+추천 수량: ${qty.toLocaleString()}개
+
+실제 주문한 수량을 입력하세요:`, qty);
+  if (input === null) return;
+  const realQty = parseInt(input.replace(/,/g, ''));
+  if (isNaN(realQty) || realQty <= 0) {
+    showStatus('❌ 올바른 수량을 입력해주세요');
+    return;
+  }
+
+  const msg = `[발주완료] ${_TODAY}` + String.fromCharCode(10) + `${label}|${realQty}`;
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  const ok = await sendTG(msg);
+  if (ok) {
+    const diff = realQty - qty;
+    const tag = diff > 0 ? ` (+${diff})` : (diff < 0 ? ` (${diff})` : '');
+    btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${realQty.toLocaleString()}${tag}</span>`;
+    showStatus(`✅ ${label} → ${realQty.toLocaleString()}개 기록됨`);
+  } else {
+    btn.disabled = false;
+    btn.textContent = '완료';
+    showStatus('❌ 전송 실패 — 다시 시도해주세요');
+  }
+}
+
+async function markAllDone() {
+  const btns = document.querySelectorAll('.btn-done');
+  if (btns.length === 0) {
+    showStatus('✅ 이미 모두 완료됨');
+    return;
+  }
+  if (!confirm(`${btns.length}개 품목 추천 수량대로 전체 발주완료 처리할까요?`)) return;
+
+  // 한 메시지로 모아서 전송
+  let lines = [];
+  const btnList = Array.from(btns);
+  for (const btn of btnList) {
+    const label = btn.dataset.label || '';
+    const qty = parseInt(btn.dataset.qty || '0');
+    lines.push(`${label}|${qty}`);
+    btn.disabled = true;
+    btn.textContent = '...';
+  }
+
+  const msg = `[발주완료] ${_TODAY}` + String.fromCharCode(10) + lines.join(String.fromCharCode(10));
+  const ok = await sendTG(msg);
+
+  if (ok) {
+    btnList.forEach(btn => {
+      const qty = parseInt(btn.dataset.qty || '0');
+      btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${qty.toLocaleString()}</span>`;
+    });
+    showStatus(`✅ ${lines.length}개 품목 전체 발주완료`);
+  } else {
+    btnList.forEach(btn => { btn.disabled = false; btn.textContent = '완료'; });
+    showStatus('❌ 전송 실패 — 다시 시도해주세요');
+  }
+}
+
+function showStatus(msg) {
+  const el = document.getElementById('order-status');
+  if (el) { el.textContent = msg; setTimeout(() => el.textContent = '', 5000); }
 }
 </script>
 
@@ -1258,25 +1386,30 @@ function renderDate(idx) {
   let ih = '';
   data.inventory.forEach(r => {
     const sc = r.st === '여유' ? '#00e676' : (r.st === '주의' ? '#ffd740' : '#ff5252');
-    ih += '<tr><td class="left">' + r.n + '</td><td>' + fmt(r.sk) + '</td><td>' + r.s30 +
-      '</td><td>' + r.wa + '</td><td>' + fmt(r.nt) + '</td><td style="color:' + sc +
+    ih += '<tr><td class="left">' + r.n + '</td><td>' + fmt(r.sk) + '</td><td>' + r.wa +
+      '</td><td>' + r.s30 + '</td><td>' + fmt(r.nt) + '</td><td style="color:' + sc +
       ';font-weight:700;">' + r.sd + '일</td><td><span class="badge" style="background:' + sc +
       '20;color:' + sc + ';">' + r.st + '</span></td></tr>';
   });
   document.getElementById('inv-body').innerHTML = ih;
 
   // 발주 테이블
+  const isLatest = (idx === dateKeys.length - 1);
   let oh = '';
   data.order.forEach(r => {
     const uc = {긴급:'#ff5252',발주:'#ffd740',미리:'#00e5ff',여유:'#546e7a'}[r.urg] || '#546e7a';
     const ft = r.fr && r.fr < 100 ? r.fr + '%' : (r.fr ? '꽉참' : '-');
     const fc = r.fr && r.fr >= 100 ? '#00e676' : '#ffd740';
+    const doneCol = isLatest ? '<td><button class="btn-done" data-label="' + r.n.replace(/"/g,'&amp;quot;') + '" data-qty="' + r.oq + '">완료</button></td>' : '<td></td>';
     oh += '<tr><td class="left">' + r.n + '</td><td>' + fmt(r.sk) + '</td><td style="color:' + uc +
       ';font-weight:700;">' + r.sd + '일</td><td class="order-qty">' + fmt(r.oq) + '</td><td>' + r.pm +
       '</td><td style="color:' + fc + ';">' + ft + '</td><td><span class="badge" style="background:' +
-      uc + '20;color:' + uc + ';">' + r.urg + '·' + r.g + '</span></td></tr>';
+      uc + '20;color:' + uc + ';">' + r.urg + '·' + r.g + '</span></td>' + doneCol + '</tr>';
   });
   document.getElementById('order-body').innerHTML = oh;
+  document.querySelectorAll('#order-body .btn-done').forEach(function(btn) {
+    btn.onclick = function() { markDone(this.dataset.label, parseInt(this.dataset.qty)); };
+  });
 
   // 탭 카운트
   document.querySelectorAll('.tab-count')[0].textContent = data.margin.length;
