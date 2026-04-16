@@ -136,9 +136,6 @@ tbody td { padding: 11px 6px; text-align: center; color: #90a4ae; }
   <div class="sum-box"><div class="sum-val blue">3,892,710</div><div class="sum-lbl">매출</div></div>
   <div class="sum-box"><div class="sum-val green">615,763</div><div class="sum-lbl">순이익</div></div>
   <div class="sum-box"><div class="sum-val red">350,262</div><div class="sum-lbl">광고비</div></div>
-  <div class="sum-box"><div class="sum-val green">16</div><div class="sum-lbl">🟢 여유</div></div>
-  <div class="sum-box"><div class="sum-val yellow">0<span style="color:#ff7b72;margin-left:2px;">24</span></div><div class="sum-lbl">🟡 주의 / 🔴 부족</div></div>
-  <div class="sum-box"><div class="sum-val white">22개</div><div class="sum-lbl">발주 품목</div></div>
   <div class="sum-box"><div class="sum-val blue">54.36</div><div class="sum-lbl">CBM</div></div>
   <div class="sum-box">
     <div class="gauge" style="margin:0;">
@@ -1158,10 +1155,7 @@ function renderDate(idx) {
   vals[2].textContent = fmt(s.profit);
   vals[2].className = 'sum-val ' + (s.profit > 0 ? 'green' : 'red');
   vals[3].textContent = fmt(s.ad);
-  vals[4].textContent = s.ok;
-  vals[5].innerHTML = s.warn + '<span style="color:#ff5252;margin-left:2px;">' + s.urgent + '</span>';
-  vals[6].textContent = s.skus + '개';
-  vals[7].textContent = s.cbm;
+  vals[4].textContent = s.cbm;
 
   // 게이지
   const pct = Math.min(100, Math.round(s.cbm / 60 * 100));
