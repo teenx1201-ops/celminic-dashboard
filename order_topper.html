@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CELMINIC ORDER</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background: #fff; padding: 20px;
+}
+h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2px; }
+h2 { font-size: 16px; color: #333; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #333; letter-spacing: 1px; }
+.date { text-align: center; color: #888; font-size: 13px; margin-bottom: 8px; }
+.box-info { text-align: center; color: #666; font-size: 12px; margin-bottom: 20px; }
+.grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; max-width: 740px; margin: 0 auto;
+}
+.item {
+  display: flex; gap: 10px; align-items: flex-start;
+  border: 1px solid #eee; border-radius: 6px; padding: 10px;
+  background: #fafafa;
+}
+.photo {
+  width: 150px; height: 130px; border-radius: 4px;
+  flex-shrink: 0; position: relative; overflow: hidden;
+  background-size: cover; background-position: center;
+}
+.color-name {
+  position: absolute; top: 0; left: 0; right: 0;
+  font-size: 12px; font-weight: 800; color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  letter-spacing: 1px; padding: 6px 8px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+}
+.info { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; flex: 1; }
+.size-row { display: flex; align-items: baseline; gap: 6px; }
+.size-label { font-size: 14px; font-weight: 700; color: #555; width: 26px; }
+.qty { font-size: 18px; font-weight: 800; }
+.qty.zero { color: #ff4444; }
+.qty.has { color: #0066ff; }
+.box-count { font-size: 11px; font-weight: 700; color: #888; margin-left: 2px; }
+.sub-label { font-size: 10px; color: #999; margin-top: 4px; border-top: 1px solid #eee; padding-top: 4px; }
+.section-total {
+  grid-column: 1 / -1; text-align: right;
+  font-size: 13px; font-weight: 700; color: #555;
+  padding: 4px 12px;
+}
+.grand-total {
+  grid-column: 1 / -1; text-align: center;
+  font-size: 20px; font-weight: 800; color: #333;
+  border-top: 3px solid #333; padding-top: 16px; margin-top: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="grid">
+
+<div style="grid-column:1/-1;">
+  <h1>CELMINIC ORDER</h1>
+  <div class="date">2026-04-16</div>
+</div>
+
+<!-- ═══ TOPPER ═══ -->
+<div style="grid-column:1/-1;">
+  <h2>TOPPER</h2>
+  <div class="box-info">per box — 1.2: 5pcs / 1.5: 5pcs / 1.8: 4pcs</div>
+</div>
+
+<!-- CHARCOAL -->
+<div class="item">
+  <div class="photo" style="background-image:url('charcoal.jpg');"><span class="color-name">CHARCOAL</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">1.2</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">1.5</span><span class="qty has">102</span><span class="box-count">(21box)</span></div>
+    <div class="size-row"><span class="size-label">1.8</span><span class="qty zero">0</span></div>
+    <div class="sub-label">sub: 102 pcs / 21 boxes</div>
+  </div>
+</div>
+
+<!-- IVORY -->
+<div class="item">
+  <div class="photo" style="background-image:url('ivory.jpg');"><span class="color-name">IVORY</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">395</span><span class="box-count">(79box)</span></div>
+    <div class="size-row"><span class="size-label">1.5</span><span class="qty has">110</span><span class="box-count">(22box)</span></div>
+    <div class="size-row"><span class="size-label">1.8</span><span class="qty has">37</span><span class="box-count">(10box)</span></div>
+    <div class="sub-label">sub: 542 pcs / 111 boxes</div>
+  </div>
+</div>
+
+<!-- WHITE & BLACK -->
+<div class="item">
+  <div class="photo" style="background-image:url('whiteblack.jpg');"><span class="color-name">WHITE & BLACK</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">34</span><span class="box-count">(7box)</span> <span style="font-size:10px;color:#999;">← 64-30 창고재고</span></div>
+    <div class="size-row"><span class="size-label">1.5</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">1.8</span><span class="qty has">10</span><span class="box-count">(3box)</span></div>
+    <div class="sub-label">sub: 44 pcs / 10 boxes</div>
+  </div>
+</div>
+
+<!-- BEIGE -->
+<div class="item">
+  <div class="photo" style="background-image:url('beige.jpg');"><span class="color-name">BEIGE</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">229</span><span class="box-count">(46box)</span></div>
+    <div class="size-row"><span class="size-label">1.5</span><span class="qty has">108</span><span class="box-count">(22box)</span></div>
+    <div class="size-row"><span class="size-label">1.8</span><span class="qty has">29</span><span class="box-count">(8box)</span></div>
+    <div class="sub-label">sub: 366 pcs / 76 boxes</div>
+  </div>
+</div>
+
+<!-- GREY -->
+<div class="item">
+  <div class="photo" style="background-image:url('grey.jpg');"><span class="color-name">GREY</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">22</span><span class="box-count">(5box)</span></div>
+    <div class="size-row"><span class="size-label">1.5</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">1.8</span><span class="qty zero">0</span></div>
+    <div class="sub-label">sub: 22 pcs / 5 boxes</div>
+  </div>
+</div>
+
+<div class="section-total">TOPPER TOTAL: 1,076 PCS / 223 BOXES</div>
+
+<!-- ═══ BEDDING SET ═══ -->
+<div style="grid-column:1/-1;">
+  <h2>BEDDING SET</h2>
+  <div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+</div>
+
+<!-- 크림화이트 -->
+<div class="item">
+  <div class="photo" style="background-image:url('creamwhite.jpg');"><span class="color-name">CREAM WHITE</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">K</span><span class="qty zero">0</span></div>
+    <div class="sub-label">sub: 0 pcs / 0 boxes</div>
+  </div>
+</div>
+
+<!-- 밀크베이지 -->
+<div class="item">
+  <div class="photo" style="background-image:url('milkbeige.jpg');"><span class="color-name">MILK BEIGE</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">K</span><span class="qty zero">0</span></div>
+    <div class="sub-label">sub: 0 pcs / 0 boxes</div>
+  </div>
+</div>
+
+<!-- 모카브라운 -->
+<div class="item">
+  <div class="photo" style="background-image:url('mocha.jpg');"><span class="color-name">MOCHA BROWN</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">K</span><span class="qty has">70</span><span class="box-count">(14box)</span></div>
+    <div class="sub-label">sub: 70 pcs / 14 boxes</div>
+  </div>
+</div>
+
+<!-- 스모키차콜 -->
+<div class="item">
+  <div class="photo" style="background-image:url('charcoal_bed.jpg');"><span class="color-name">SMOKY CHARCOAL</span></div>
+  <div class="info">
+    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
+    <div class="size-row"><span class="size-label">K</span><span class="qty zero">0</span></div>
+    <div class="sub-label">sub: 0 pcs / 0 boxes</div>
+  </div>
+</div>
+
+<div class="section-total">BEDDING SET TOTAL: 70 PCS / 14 BOXES</div>
+
+<!-- GRAND TOTAL -->
+<div class="grand-total">
+  GRAND TOTAL: 1,146 PCS / 237 BOXES
+</div>
+
+</div>
+
+</body>
+</html>
