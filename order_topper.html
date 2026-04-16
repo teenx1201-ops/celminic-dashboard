@@ -12,180 +12,477 @@ body {
   background: #fff; padding: 20px;
 }
 h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2px; }
-h2 { font-size: 16px; color: #333; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #333; letter-spacing: 1px; }
-.date { text-align: center; color: #888; font-size: 13px; margin-bottom: 8px; }
-.box-info { text-align: center; color: #666; font-size: 12px; margin-bottom: 20px; }
-.grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 12px; max-width: 740px; margin: 0 auto;
+.date { text-align: center; color: #888; font-size: 13px; margin-bottom: 16px; }
+
+/* 서브탭 */
+.sub-tabs {
+  display: flex; gap: 0; max-width: 740px; margin: 0 auto;
+  border-bottom: 2px solid #333;
 }
-.item {
-  display: flex; gap: 10px; align-items: flex-start;
-  border: 1px solid #eee; border-radius: 6px; padding: 10px;
-  background: #fafafa;
+.sub-tab {
+  flex: 1; padding: 12px 8px; text-align: center;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  color: #999; letter-spacing: 1px;
+  border: 1px solid #ddd; border-bottom: none;
+  border-radius: 6px 6px 0 0; margin-right: -1px;
+  background: #f5f5f5; transition: all 0.2s;
+  user-select: none;
 }
-.photo {
-  width: 150px; height: 130px; border-radius: 4px;
+.sub-tab:hover { background: #eee; color: #555; }
+.sub-tab.active {
+  background: #fff; color: #333;
+  border-color: #333; border-bottom: 2px solid #fff;
+  margin-bottom: -2px; position: relative;
+}
+.sub-tab .count {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  background: #0066ff20; color: #0066ff; border-radius: 4px;
+  padding: 1px 6px; margin-left: 4px;
+}
+.sub-content { display: none; max-width: 740px; margin: 0 auto; }
+.sub-content.active { display: block; }
+
+.box-info { text-align: center; color: #666; font-size: 11px; margin: 14px 0; }
+
+/* 카드 */
+.card {
+  display: flex; gap: 14px; align-items: stretch;
+  border: 1px solid #e0e0e0; border-radius: 8px;
+  padding: 12px; margin-bottom: 12px; background: #fafafa;
+}
+.card-photo {
+  width: 140px; min-height: 120px; border-radius: 6px;
   flex-shrink: 0; position: relative; overflow: hidden;
   background-size: cover; background-position: center;
 }
-.color-name {
-  position: absolute; top: 0; left: 0; right: 0;
-  font-size: 12px; font-weight: 800; color: #fff;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+.card-photo .label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  font-size: 11px; font-weight: 800; color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
   letter-spacing: 1px; padding: 6px 8px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+  background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+  text-align: center;
 }
-.info { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; flex: 1; }
-.size-row { display: flex; align-items: baseline; gap: 6px; }
-.size-label { font-size: 14px; font-weight: 700; color: #555; width: 26px; }
-.qty { font-size: 18px; font-weight: 800; }
-.qty.zero { color: #ff4444; }
-.qty.has { color: #0066ff; }
-.box-count { font-size: 11px; font-weight: 700; color: #888; margin-left: 2px; }
-.sub-label { font-size: 10px; color: #999; margin-top: 4px; border-top: 1px solid #eee; padding-top: 4px; }
+.card-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+/* 테이블 */
+.size-table { width: 100%; border-collapse: collapse; }
+.size-table th {
+  font-size: 10px; color: #999; font-weight: 700;
+  padding: 4px 8px; text-align: center; border-bottom: 1px solid #e0e0e0;
+  letter-spacing: 1px;
+}
+.size-table th:first-child { text-align: left; }
+.size-table td {
+  font-size: 14px; font-weight: 800; padding: 6px 8px;
+  text-align: center; border-bottom: 1px solid #f0f0f0;
+}
+.size-table td:first-child {
+  text-align: left; font-size: 13px; font-weight: 700; color: #555;
+}
+.size-table td.qty-val { color: #0066ff; }
+.size-table td.qty-zero { color: #ff4444; }
+.size-table td.box-val { color: #333; }
+
+.card-total {
+  font-size: 11px; font-weight: 700; color: #666;
+  text-align: right; margin-top: 6px; padding-top: 4px;
+  border-top: 1px solid #e0e0e0;
+}
+
 .section-total {
-  grid-column: 1 / -1; text-align: right;
-  font-size: 13px; font-weight: 700; color: #555;
-  padding: 4px 12px;
+  text-align: right; font-size: 15px; font-weight: 800;
+  color: #333; padding: 12px 0; margin-top: 4px;
+  border-top: 2px solid #333;
 }
-.grand-total {
-  grid-column: 1 / -1; text-align: center;
-  font-size: 20px; font-weight: 800; color: #333;
-  border-top: 3px solid #333; padding-top: 16px; margin-top: 12px;
+.note { font-size: 10px; color: #999; font-weight: 400; }
+
+/* 커튼 텍스트 카드 (사진 없을 때) */
+.card-text {
+  width: 140px; min-height: 120px; border-radius: 6px;
+  flex-shrink: 0; display: flex; align-items: center;
+  justify-content: center; flex-direction: column;
+  background: #f0f0f0; gap: 4px;
 }
+.card-text .cn { font-size: 20px; font-weight: 800; color: #333; }
+.card-text .en { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 1px; }
 </style>
 </head>
 <body>
 
-<div class="grid">
+<h1>CELMINIC ORDER</h1>
+<div class="date">2026-04-16</div>
 
-<div style="grid-column:1/-1;">
-  <h1>CELMINIC ORDER</h1>
-  <div class="date">2026-04-16</div>
+<div class="sub-tabs">
+  <div class="sub-tab active" onclick="switchSub('topper')">TOPPER<span class="count">1,076</span></div>
+  <div class="sub-tab" onclick="switchSub('bedding')">BEDDING<span class="count">70</span></div>
+  <div class="sub-tab" onclick="switchSub('curtain')">CURTAIN<span class="count">312</span></div>
+  <div class="sub-tab" onclick="switchSub('sticker')">BOX STICKER<span class="count">249</span></div>
 </div>
 
-<!-- ═══ TOPPER ═══ -->
-<div style="grid-column:1/-1;">
-  <h2>TOPPER</h2>
-  <div class="box-info">per box — 1.2: 5pcs / 1.5: 5pcs / 1.8: 4pcs</div>
-</div>
+<!-- ═══════════ TOPPER ═══════════ -->
+<div id="sub-topper" class="sub-content active">
+<div class="box-info">per box — 1.2: 5pcs / 1.5: 5pcs / 1.8: 4pcs</div>
 
-<!-- CHARCOAL -->
-<div class="item">
-  <div class="photo" style="background-image:url('charcoal.jpg');"><span class="color-name">CHARCOAL</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">1.2</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">1.5</span><span class="qty has">102</span><span class="box-count">(21box)</span></div>
-    <div class="size-row"><span class="size-label">1.8</span><span class="qty zero">0</span></div>
-    <div class="sub-label">sub: 102 pcs / 21 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('charcoal.jpg');"><div class="label">CHARCOAL</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.5</td><td class="qty-val">102</td><td class="box-val">21</td></tr>
+        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">102 pcs / 21 boxes</div>
   </div>
 </div>
 
-<!-- IVORY -->
-<div class="item">
-  <div class="photo" style="background-image:url('ivory.jpg');"><span class="color-name">IVORY</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">395</span><span class="box-count">(79box)</span></div>
-    <div class="size-row"><span class="size-label">1.5</span><span class="qty has">110</span><span class="box-count">(22box)</span></div>
-    <div class="size-row"><span class="size-label">1.8</span><span class="qty has">37</span><span class="box-count">(10box)</span></div>
-    <div class="sub-label">sub: 542 pcs / 111 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('ivory.jpg');"><div class="label">IVORY</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-val">395</td><td class="box-val">79</td></tr>
+        <tr><td>1.5</td><td class="qty-val">110</td><td class="box-val">22</td></tr>
+        <tr><td>1.8</td><td class="qty-val">37</td><td class="box-val">10</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">542 pcs / 111 boxes</div>
   </div>
 </div>
 
-<!-- WHITE & BLACK -->
-<div class="item">
-  <div class="photo" style="background-image:url('whiteblack.jpg');"><span class="color-name">WHITE & BLACK</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">34</span><span class="box-count">(7box)</span> <span style="font-size:10px;color:#999;">← 64-30 창고재고</span></div>
-    <div class="size-row"><span class="size-label">1.5</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">1.8</span><span class="qty has">10</span><span class="box-count">(3box)</span></div>
-    <div class="sub-label">sub: 44 pcs / 10 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('whiteblack.jpg');"><div class="label">WHITE & BLACK</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-val">34 <span class="note">← -30</span></td><td class="box-val">7</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-val">10</td><td class="box-val">3</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">44 pcs / 10 boxes</div>
   </div>
 </div>
 
-<!-- BEIGE -->
-<div class="item">
-  <div class="photo" style="background-image:url('beige.jpg');"><span class="color-name">BEIGE</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">229</span><span class="box-count">(46box)</span></div>
-    <div class="size-row"><span class="size-label">1.5</span><span class="qty has">108</span><span class="box-count">(22box)</span></div>
-    <div class="size-row"><span class="size-label">1.8</span><span class="qty has">29</span><span class="box-count">(8box)</span></div>
-    <div class="sub-label">sub: 366 pcs / 76 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('beige.jpg');"><div class="label">BEIGE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-val">229</td><td class="box-val">46</td></tr>
+        <tr><td>1.5</td><td class="qty-val">108</td><td class="box-val">22</td></tr>
+        <tr><td>1.8</td><td class="qty-val">29</td><td class="box-val">8</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">366 pcs / 76 boxes</div>
   </div>
 </div>
 
-<!-- GREY -->
-<div class="item">
-  <div class="photo" style="background-image:url('grey.jpg');"><span class="color-name">GREY</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">1.2</span><span class="qty has">22</span><span class="box-count">(5box)</span></div>
-    <div class="size-row"><span class="size-label">1.5</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">1.8</span><span class="qty zero">0</span></div>
-    <div class="sub-label">sub: 22 pcs / 5 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('grey.jpg');"><div class="label">GREY</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-val">22</td><td class="box-val">5</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">22 pcs / 5 boxes</div>
   </div>
 </div>
 
 <div class="section-total">TOPPER TOTAL: 1,076 PCS / 223 BOXES</div>
-
-<!-- ═══ BEDDING SET ═══ -->
-<div style="grid-column:1/-1;">
-  <h2>BEDDING SET</h2>
-  <div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
 </div>
 
-<!-- 크림화이트 -->
-<div class="item">
-  <div class="photo" style="background-image:url('creamwhite.jpg');"><span class="color-name">CREAM WHITE</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">K</span><span class="qty zero">0</span></div>
-    <div class="sub-label">sub: 0 pcs / 0 boxes</div>
+<!-- ═══════════ BEDDING SET ═══════════ -->
+<div id="sub-bedding" class="sub-content">
+<div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+
+<div class="card">
+  <div class="card-photo" style="background-image:url('creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
 
-<!-- 밀크베이지 -->
-<div class="item">
-  <div class="photo" style="background-image:url('milkbeige.jpg');"><span class="color-name">MILK BEIGE</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">K</span><span class="qty zero">0</span></div>
-    <div class="sub-label">sub: 0 pcs / 0 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
 
-<!-- 모카브라운 -->
-<div class="item">
-  <div class="photo" style="background-image:url('mocha.jpg');"><span class="color-name">MOCHA BROWN</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">K</span><span class="qty has">70</span><span class="box-count">(14box)</span></div>
-    <div class="sub-label">sub: 70 pcs / 14 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-val">70</td><td class="box-val">14</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">70 pcs / 14 boxes</div>
   </div>
 </div>
 
-<!-- 스모키차콜 -->
-<div class="item">
-  <div class="photo" style="background-image:url('charcoal_bed.jpg');"><span class="color-name">SMOKY CHARCOAL</span></div>
-  <div class="info">
-    <div class="size-row"><span class="size-label">SS</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">Q</span><span class="qty zero">0</span></div>
-    <div class="size-row"><span class="size-label">K</span><span class="qty zero">0</span></div>
-    <div class="sub-label">sub: 0 pcs / 0 boxes</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
 
-<div class="section-total">BEDDING SET TOTAL: 70 PCS / 14 BOXES</div>
+<div class="section-total">BEDDING TOTAL: 70 PCS / 14 BOXES</div>
+</div>
 
-<!-- GRAND TOTAL -->
-<div class="grand-total">
-  GRAND TOTAL: 1,146 PCS / 237 BOXES
+<!-- ═══════════ CURTAIN ═══════════ -->
+<div id="sub-curtain" class="sub-content">
+<div class="box-info">per box — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
+
+<div class="card">
+  <div class="card-photo" style="background-image:url('curtain_grey.jpg');"><div class="label">薄暮灰 GREY</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th></tr></thead>
+      <tbody>
+        <tr><td>130</td><td class="qty-val">4</td></tr>
+        <tr><td>140</td><td class="qty-val">20</td></tr>
+        <tr><td>210</td><td class="qty-zero">0</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">24 pcs</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-photo" style="background-image:url('curtain_milkbeige.jpg');"><div class="label">奶茶色 MILK BEIGE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th></tr></thead>
+      <tbody>
+        <tr><td>130</td><td class="qty-val">6</td></tr>
+        <tr><td>140</td><td class="qty-val">38</td></tr>
+        <tr><td>210</td><td class="qty-val">1</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">45 pcs</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-photo" style="background-image:url('curtain_cream.jpg');"><div class="label">奶油白 CREAM WHITE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th></tr></thead>
+      <tbody>
+        <tr><td>130</td><td class="qty-val">40</td></tr>
+        <tr><td>140</td><td class="qty-val">34</td></tr>
+        <tr><td>210</td><td class="qty-val">169</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">243 pcs</div>
+  </div>
+</div>
+
+<div style="margin-top:16px; padding:12px; border:1px solid #e0e0e0; border-radius:8px; background:#f8f8f8;">
+  <table class="size-table">
+    <thead><tr><th>SIZE</th><th>TOTAL QTY</th><th>MIXED BOX</th></tr></thead>
+    <tbody>
+      <tr><td>130cm</td><td class="qty-val">50</td><td class="box-val">2</td></tr>
+      <tr><td>140cm</td><td class="qty-val">92</td><td class="box-val">4</td></tr>
+      <tr><td>210cm</td><td class="qty-val">170</td><td class="box-val">10</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-total">CURTAIN TOTAL: 312 PCS / 16 BOXES (mixed)</div>
+</div>
+
+<!-- ═══════════ BOX STICKER ═══════════ -->
+<div id="sub-sticker" class="sub-content">
+<style>
+.sticker-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.sticker {
+  border: 2px solid #333; border-radius: 8px; padding: 16px 12px;
+  text-align: center; position: relative; min-height: 130px;
+  display: flex; flex-direction: column; justify-content: center; gap: 4px;
+}
+.sticker.mixed { border-color: #0066ff; background: #f8fbff; }
+.sticker .brand { font-size: 18px; font-weight: 800; letter-spacing: 3px; }
+.sticker .size { font-size: 16px; font-weight: 700; }
+.sticker .sline { border-top: 1px solid #ccc; margin: 3px 16px; }
+.sticker .cline { font-size: 14px; font-weight: 800; }
+.sticker .qbadge {
+  position: absolute; top: -10px; right: -6px;
+  background: #ff4444; color: #fff; font-size: 11px; font-weight: 800;
+  padding: 3px 8px; border-radius: 12px;
+}
+.sticker.mixed .qbadge { background: #0066ff; }
+.sz-label { font-size: 12px; color: #666; margin: 12px 0 6px; }
+.stk-section { font-size: 14px; font-weight: 800; color: #333; margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 2px solid #333; }
+.stk-summary { margin-top: 16px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 12px; }
+.stk-row { display: flex; justify-content: space-between; padding: 3px 0; }
+.stk-row.total { font-weight: 800; border-top: 2px solid #333; margin-top: 6px; padding-top: 8px; font-size: 14px; }
+</style>
+
+<!-- TOPPER -->
+<div class="stk-section">TOPPER (219 boxes)</div>
+
+<div class="sz-label">SS (1.2) — 5ea/box — 136 boxes</div>
+<div class="sticker-grid">
+  <div class="sticker"><div class="qbadge">×79</div><div class="brand">CNIC</div><div class="size">1.2</div><div class="sline"></div><div class="cline">IVORY 5ea</div></div>
+  <div class="sticker"><div class="qbadge">×45</div><div class="brand">CNIC</div><div class="size">1.2</div><div class="sline"></div><div class="cline">BEIGE 5ea</div></div>
+  <div class="sticker"><div class="qbadge">×6</div><div class="brand">CNIC</div><div class="size">1.2</div><div class="sline"></div><div class="cline">WHITE&BLACK 5ea</div></div>
+  <div class="sticker"><div class="qbadge">×4</div><div class="brand">CNIC</div><div class="size">1.2</div><div class="sline"></div><div class="cline">GREY 5ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">1.2</div><div class="sline"></div><div class="cline">BEIGE 4ea</div><div class="cline">WHITE&BLACK 1ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">1.2</div><div class="sline"></div><div class="cline">WHITE&BLACK 3ea</div><div class="cline">GREY 2ea</div></div>
+</div>
+
+<div class="sz-label">Q (1.5) — 5ea/box — 64 boxes</div>
+<div class="sticker-grid">
+  <div class="sticker"><div class="qbadge">×22</div><div class="brand">CNIC</div><div class="size">1.5</div><div class="sline"></div><div class="cline">IVORY 5ea</div></div>
+  <div class="sticker"><div class="qbadge">×21</div><div class="brand">CNIC</div><div class="size">1.5</div><div class="sline"></div><div class="cline">BEIGE 5ea</div></div>
+  <div class="sticker"><div class="qbadge">×20</div><div class="brand">CNIC</div><div class="size">1.5</div><div class="sline"></div><div class="cline">CHARCOAL 5ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">1.5</div><div class="sline"></div><div class="cline">CHARCOAL 2ea</div><div class="cline">BEIGE 3ea</div></div>
+</div>
+
+<div class="sz-label">K (1.8) — 4ea/box — 19 boxes</div>
+<div class="sticker-grid">
+  <div class="sticker"><div class="qbadge">×9</div><div class="brand">CNIC</div><div class="size">1.8</div><div class="sline"></div><div class="cline">IVORY 4ea</div></div>
+  <div class="sticker"><div class="qbadge">×7</div><div class="brand">CNIC</div><div class="size">1.8</div><div class="sline"></div><div class="cline">BEIGE 4ea</div></div>
+  <div class="sticker"><div class="qbadge">×2</div><div class="brand">CNIC</div><div class="size">1.8</div><div class="sline"></div><div class="cline">WHITE&BLACK 4ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">1.8</div><div class="sline"></div><div class="cline">IVORY 1ea</div><div class="cline">WHITE&BLACK 2ea</div><div class="cline">BEIGE 1ea</div></div>
+</div>
+
+<!-- BEDDING -->
+<div class="stk-section">BEDDING SET (14 boxes)</div>
+<div class="sz-label">K — 5ea/box — 14 boxes</div>
+<div class="sticker-grid">
+  <div class="sticker"><div class="qbadge">×14</div><div class="brand">CNIC</div><div class="size">K</div><div class="sline"></div><div class="cline">MOCHA BROWN 5ea</div></div>
+</div>
+
+<!-- CURTAIN -->
+<div class="stk-section">CURTAIN (16 boxes)</div>
+
+<div class="sz-label">130 X 170 cm — 30ea/box — 2 boxes</div>
+<div class="sticker-grid">
+  <div class="sticker"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">130 X 170 cm</div><div class="sline"></div><div class="cline">cream 30ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">130 X 170 cm</div><div class="sline"></div><div class="cline">cream 10ea</div><div class="cline">milkbeige 6ea</div><div class="cline">grey 4ea</div></div>
+</div>
+
+<div class="sz-label">140 X 230 cm — 25ea/box — 4 boxes</div>
+<div class="sticker-grid">
+  <div class="sticker"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">140 X 230 cm</div><div class="sline"></div><div class="cline">cream 25ea</div></div>
+  <div class="sticker"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">140 X 230 cm</div><div class="sline"></div><div class="cline">milkbeige 25ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">140 X 230 cm</div><div class="sline"></div><div class="cline">milkbeige 13ea</div><div class="cline">grey 12ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">140 X 230 cm</div><div class="sline"></div><div class="cline">cream 9ea</div><div class="cline">grey 8ea</div></div>
+</div>
+
+<div class="sz-label">210 X 235 cm — 17ea/box — 10 boxes</div>
+<div class="sticker-grid">
+  <div class="sticker"><div class="qbadge">×9</div><div class="brand">CNIC</div><div class="size">210 X 235 cm</div><div class="sline"></div><div class="cline">cream 17ea</div></div>
+  <div class="sticker mixed"><div class="qbadge">×1</div><div class="brand">CNIC</div><div class="size">210 X 235 cm</div><div class="sline"></div><div class="cline">cream 16ea</div><div class="cline">milkbeige 1ea</div></div>
+</div>
+
+<!-- 요약 -->
+<div class="stk-summary">
+  <div style="font-weight:800;margin-bottom:6px;">STICKER SUMMARY</div>
+  <div class="stk-row"><span>TOPPER SS(1.2)</span><span>136 boxes (full 134 + mixed 2)</span></div>
+  <div class="stk-row"><span>TOPPER Q(1.5)</span><span>64 boxes (full 63 + mixed 1)</span></div>
+  <div class="stk-row"><span>TOPPER K(1.8)</span><span>19 boxes (full 18 + mixed 1)</span></div>
+  <div class="stk-row"><span>BEDDING K</span><span>14 boxes (full 14)</span></div>
+  <div class="stk-row"><span>CURTAIN 130cm</span><span>2 boxes (full 1 + mixed 1)</span></div>
+  <div class="stk-row"><span>CURTAIN 140cm</span><span>4 boxes (full 2 + mixed 2)</span></div>
+  <div class="stk-row"><span>CURTAIN 210cm</span><span>10 boxes (full 9 + mixed 1)</span></div>
+  <div class="stk-row total"><span>TOTAL</span><span>249 boxes</span></div>
 </div>
 
 </div>
+
+<!-- 원가 요약 (비공개) -->
+<!-- 공장1: 토퍼+이불 -->
+<div style="max-width:740px;margin:24px auto 0;padding:16px;border:2px solid #ff4444;border-radius:8px;background:#fff5f5;">
+  <div style="font-size:12px;font-weight:800;color:#ff4444;margin-bottom:10px;">🔒 공장① 토퍼 + 이불세트</div>
+  <table class="size-table">
+    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
+    <tbody>
+      <tr><td>토퍼 SS(1.2)</td><td class="box-val">680</td><td class="box-val">40.00</td><td class="box-val">27,200</td></tr>
+      <tr><td>토퍼 Q(1.5)</td><td class="box-val">320</td><td class="box-val">45.00</td><td class="box-val">14,400</td></tr>
+      <tr><td>토퍼 K(1.8)</td><td class="box-val">76</td><td class="box-val">50.00</td><td class="box-val">3,800</td></tr>
+      <tr><td>이불 K</td><td class="box-val">70</td><td class="box-val">78.00</td><td class="box-val">5,460</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #ff4444;text-align:center;">
+    <div style="font-size:16px;font-weight:800;color:#333;">공장① TOTAL: 1,146 PCS / 50,860.00 CNY</div>
+  </div>
+</div>
+
+<!-- 공장2: 커튼 -->
+<div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #2196f3;border-radius:8px;background:#f5f9ff;">
+  <div style="font-size:12px;font-weight:800;color:#2196f3;margin-bottom:10px;">🔒 공장② 커튼</div>
+  <table class="size-table">
+    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
+    <tbody>
+      <tr><td>커튼 130cm</td><td class="box-val">50</td><td class="box-val">35.55</td><td class="box-val">1,777.50</td></tr>
+      <tr><td>커튼 140cm</td><td class="box-val">92</td><td class="box-val">40.95</td><td class="box-val">3,767.40</td></tr>
+      <tr><td>커튼 210cm</td><td class="box-val">170</td><td class="box-val">65.25</td><td class="box-val">11,092.50</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #2196f3;text-align:center;">
+    <div style="font-size:16px;font-weight:800;color:#333;">공장② TOTAL: 312 PCS / 16,637.40 CNY</div>
+  </div>
+</div>
+
+<!-- 최종 합계 -->
+<div style="max-width:740px;margin:16px auto 0;padding:14px;border:2px solid #333;border-radius:8px;background:#f8f8f8;text-align:center;">
+  <div style="font-size:11px;color:#888;margin-bottom:6px;">GRAND TOTAL</div>
+  <div style="font-size:20px;font-weight:800;color:#333;">1,458 PCS / 67,497.40 CNY</div>
+</div>
+
+<script>
+function switchSub(name) {
+  document.querySelectorAll('.sub-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('sub-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.sub-tab');
+  const map = {'topper': 0, 'bedding': 1, 'curtain': 2, 'sticker': 3};
+  tabs[map[name]].classList.add('active');
+}
+</script>
 
 </body>
 </html>
