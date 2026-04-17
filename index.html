@@ -140,13 +140,28 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   .summary { gap: 6px; }
   .sum-val { font-size: 20px; }
   .sum-box { padding: 14px 6px; }
-  table { font-size: 11px; min-width: 560px; }
-  [style*="overflow-x:auto"] { -webkit-overflow-scrolling: touch; }
-  .left { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 80px; }
-  tbody td { padding: 5px 4px; }
-  thead th { padding: 8px 5px; font-size: 9px; }
-  .order-qty { font-size: 14px; }
+  table { font-size: 10px; width: 100%; }
+  .left { white-space: normal; word-break: keep-all; min-width: 60px; max-width: 100px; }
+  tbody td { padding: 5px 2px; }
+  thead th { padding: 6px 2px; font-size: 9px; }
+  .order-qty { font-size: 13px; }
   .tab { font-size: 12px; padding: 10px 4px; }
+  .btn-done { padding: 3px 4px; font-size: 9px; }
+  .badge { padding: 2px 4px; font-size: 8px; }
+
+  /* 발주 탭 — 모바일에서 덜 중요 컬럼 숨김 (단위/충전/입고) */
+  #tab-order table th:nth-child(5),
+  #tab-order table td:nth-child(5),
+  #tab-order table th:nth-child(6),
+  #tab-order table td:nth-child(6),
+  #tab-order table th:nth-child(7),
+  #tab-order table td:nth-child(7) { display: none; }
+
+  /* 재고 탭 — 30일판매/50일필요 숨김 */
+  #tab-inventory table th:nth-child(4),
+  #tab-inventory table td:nth-child(4),
+  #tab-inventory table th:nth-child(5),
+  #tab-inventory table td:nth-child(5) { display: none; }
 }
 </style>
 </head>
