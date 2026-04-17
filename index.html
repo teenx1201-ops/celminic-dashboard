@@ -103,6 +103,13 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 }
 .btn-done:hover { background: rgba(0,229,255,0.25); }
 .btn-done:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-edit {
+  background: rgba(255, 193, 7, 0.1); color: #ffc107; border: 1px solid #ffc107;
+  border-radius: 4px; padding: 3px 8px; font-size: 10px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-edit:hover { background: rgba(255, 193, 7, 0.25); }
+.btn-edit:disabled { opacity: 0.3; cursor: not-allowed; }
 .btn-all-done {
   display: block; margin: 16px auto 0; padding: 10px 24px;
   background: linear-gradient(135deg, #00e5ff, #00b8d4); color: #0c1018;
@@ -643,7 +650,7 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   <div class="section-title">📊재고 현황</div>
   <div style="overflow-x:auto;">
   <table>
-    <thead><tr><th>상품</th><th>재고</th><th>7일판매</th><th>30일판매</th><th>50일필요</th><th>품절까지</th><th>상태</th></tr></thead>
+    <thead><tr><th>상품</th><th>현재고</th><th>7일판매</th><th>30일판매</th><th>50일필요</th><th>품절까지</th><th>상태</th></tr></thead>
     <tbody id="inv-body"><tr>
           <td class="left">암막커튼 크림화이트 130X170CM</td>
           <td>15</td>
@@ -1022,70 +1029,105 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 <!-- 밀크런오더 탭 -->
 <div id="tab-milkrun" class="tab-content">
   <div class="section-title">🚚밀크런오더 (입고그룹별)</div>
-  <div style="font-size:12px;color:#8b949e;margin-bottom:16px;">총 2,988개 입고 예정</div>
+  <div style="font-size:12px;color:#8b949e;margin-bottom:16px;">총 4,178개 입고 예정</div>
 <div style="margin-bottom:24px;">
   <div style="font-size:13px;font-weight:700;color:#00e5ff;margin-bottom:10px;">
-    📦 입고그룹 1 (1개 SKU / 480개)
+    📦 입고그룹 1 (2개 SKU / 1,320개)
   </div>
   <div style="overflow-x:auto;">
   <table>
-    <thead><tr><th>상품</th><th>입고수량</th></tr></thead>
+    <thead><tr><th>상품</th><th>입고수량</th><th>단위</th><th style="width:50px;">수정</th></tr></thead>
     <tbody><tr>
               <td class="left">페이스타올 2개입</td>
-              <td class="order-qty">480개</td>
+              <td class="order-qty">670개</td>
+              <td style="color:#8b949e;font-size:10px;">2pt + 1box</td>
+              <td><button class="btn-edit" data-label="페이스타올 2개입" data-qty="670" data-prodkey="페이스타올" data-variant="2개입" data-color="">수정</button></td>
+            </tr><tr>
+              <td class="left">페이스타올 3개입</td>
+              <td class="order-qty">650개</td>
+              <td style="color:#8b949e;font-size:10px;">2pt + 11box</td>
+              <td><button class="btn-edit" data-label="페이스타올 3개입" data-qty="650" data-prodkey="페이스타올" data-variant="3개입" data-color="">수정</button></td>
             </tr></tbody>
   </table>
   </div>
 </div>
 <div style="margin-bottom:24px;">
   <div style="font-size:13px;font-weight:700;color:#00e5ff;margin-bottom:10px;">
-    📦 입고그룹 2 (14개 SKU / 1,930개)
+    📦 입고그룹 2 (14개 SKU / 2,280개)
   </div>
   <div style="overflow-x:auto;">
   <table>
-    <thead><tr><th>상품</th><th>입고수량</th></tr></thead>
+    <thead><tr><th>상품</th><th>입고수량</th><th>단위</th><th style="width:50px;">수정</th></tr></thead>
     <tbody><tr>
               <td class="left">18L휴지통</td>
               <td class="order-qty">700개</td>
+              <td style="color:#8b949e;font-size:10px;">7pt + 3box</td>
+              <td><button class="btn-edit" data-label="18L휴지통" data-qty="700" data-prodkey="18L휴지통" data-variant="기본" data-color="">수정</button></td>
+            </tr><tr>
+              <td class="left">20L휴지통</td>
+              <td class="order-qty">670개</td>
+              <td style="color:#8b949e;font-size:10px;">20pt + 8box</td>
+              <td><button class="btn-edit" data-label="20L휴지통" data-qty="670" data-prodkey="20L휴지통" data-variant="기본" data-color="">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 아이보리 SS</td>
               <td class="order-qty">395개</td>
-            </tr><tr>
-              <td class="left">20L휴지통</td>
-              <td class="order-qty">320개</td>
+              <td style="color:#8b949e;font-size:10px;">6pt + 7box</td>
+              <td><button class="btn-edit" data-label="토퍼 아이보리 SS" data-qty="395" data-prodkey="토퍼" data-variant="SS" data-color="아이보리">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 크림화이트 210X235CM</td>
               <td class="order-qty">169개</td>
+              <td style="color:#8b949e;font-size:10px;">1pt + 2box</td>
+              <td><button class="btn-edit" data-label="암막커튼 크림화이트 210X235CM" data-qty="169" data-prodkey="암막커튼" data-variant="210X235CM" data-color="크림화이트">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 아이보리 Q</td>
               <td class="order-qty">110개</td>
+              <td style="color:#8b949e;font-size:10px;">1pt + 10box</td>
+              <td><button class="btn-edit" data-label="토퍼 아이보리 Q" data-qty="110" data-prodkey="토퍼" data-variant="Q" data-color="아이보리">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 화이트앤블랙 SS</td>
               <td class="order-qty">64개</td>
+              <td style="color:#8b949e;font-size:10px;">1pt + 1box</td>
+              <td><button class="btn-edit" data-label="토퍼 화이트앤블랙 SS" data-qty="64" data-prodkey="토퍼" data-variant="SS" data-color="화이트앤블랙">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 크림화이트 130X170CM</td>
               <td class="order-qty">40개</td>
+              <td style="color:#8b949e;font-size:10px;">2box</td>
+              <td><button class="btn-edit" data-label="암막커튼 크림화이트 130X170CM" data-qty="40" data-prodkey="암막커튼" data-variant="130X170CM" data-color="크림화이트">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 밀크베이지 140X230CM</td>
               <td class="order-qty">38개</td>
+              <td style="color:#8b949e;font-size:10px;">2box</td>
+              <td><button class="btn-edit" data-label="암막커튼 밀크베이지 140X230CM" data-qty="38" data-prodkey="암막커튼" data-variant="140X230CM" data-color="밀크베이지">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 크림화이트 140X230CM</td>
               <td class="order-qty">34개</td>
+              <td style="color:#8b949e;font-size:10px;">2box</td>
+              <td><button class="btn-edit" data-label="암막커튼 크림화이트 140X230CM" data-qty="34" data-prodkey="암막커튼" data-variant="140X230CM" data-color="크림화이트">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 베이지 K</td>
               <td class="order-qty">29개</td>
+              <td style="color:#8b949e;font-size:10px;">8box</td>
+              <td><button class="btn-edit" data-label="토퍼 베이지 K" data-qty="29" data-prodkey="토퍼" data-variant="K" data-color="베이지">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 그레이 140X230CM</td>
               <td class="order-qty">20개</td>
+              <td style="color:#8b949e;font-size:10px;">1box</td>
+              <td><button class="btn-edit" data-label="암막커튼 그레이 140X230CM" data-qty="20" data-prodkey="암막커튼" data-variant="140X230CM" data-color="그레이">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 밀크베이지 130X170CM</td>
               <td class="order-qty">6개</td>
+              <td style="color:#8b949e;font-size:10px;">1box</td>
+              <td><button class="btn-edit" data-label="암막커튼 밀크베이지 130X170CM" data-qty="6" data-prodkey="암막커튼" data-variant="130X170CM" data-color="밀크베이지">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 그레이 130X170CM</td>
               <td class="order-qty">4개</td>
+              <td style="color:#8b949e;font-size:10px;">1box</td>
+              <td><button class="btn-edit" data-label="암막커튼 그레이 130X170CM" data-qty="4" data-prodkey="암막커튼" data-variant="130X170CM" data-color="그레이">수정</button></td>
             </tr><tr>
               <td class="left">암막커튼 밀크베이지 210X235CM</td>
               <td class="order-qty">1개</td>
+              <td style="color:#8b949e;font-size:10px;">1box</td>
+              <td><button class="btn-edit" data-label="암막커튼 밀크베이지 210X235CM" data-qty="1" data-prodkey="암막커튼" data-variant="210X235CM" data-color="밀크베이지">수정</button></td>
             </tr></tbody>
   </table>
   </div>
@@ -1096,32 +1138,47 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   </div>
   <div style="overflow-x:auto;">
   <table>
-    <thead><tr><th>상품</th><th>입고수량</th></tr></thead>
+    <thead><tr><th>상품</th><th>입고수량</th><th>단위</th><th style="width:50px;">수정</th></tr></thead>
     <tbody><tr>
               <td class="left">토퍼 베이지 SS</td>
               <td class="order-qty">229개</td>
+              <td style="color:#8b949e;font-size:10px;">3pt + 10box</td>
+              <td><button class="btn-edit" data-label="토퍼 베이지 SS" data-qty="229" data-prodkey="토퍼" data-variant="SS" data-color="베이지">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 베이지 Q</td>
               <td class="order-qty">108개</td>
+              <td style="color:#8b949e;font-size:10px;">1pt + 10box</td>
+              <td><button class="btn-edit" data-label="토퍼 베이지 Q" data-qty="108" data-prodkey="토퍼" data-variant="Q" data-color="베이지">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 차콜 Q</td>
               <td class="order-qty">102개</td>
+              <td style="color:#8b949e;font-size:10px;">1pt + 9box</td>
+              <td><button class="btn-edit" data-label="토퍼 차콜 Q" data-qty="102" data-prodkey="토퍼" data-variant="Q" data-color="차콜">수정</button></td>
             </tr><tr>
               <td class="left">이불세트 모카브라운 K</td>
               <td class="order-qty">70개</td>
+              <td style="color:#8b949e;font-size:10px;">1pt + 2box</td>
+              <td><button class="btn-edit" data-label="이불세트 모카브라운 K" data-qty="70" data-prodkey="이불세트" data-variant="K" data-color="모카브라운">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 아이보리 K</td>
               <td class="order-qty">37개</td>
+              <td style="color:#8b949e;font-size:10px;">10box</td>
+              <td><button class="btn-edit" data-label="토퍼 아이보리 K" data-qty="37" data-prodkey="토퍼" data-variant="K" data-color="아이보리">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 그레이 SS</td>
               <td class="order-qty">22개</td>
+              <td style="color:#8b949e;font-size:10px;">5box</td>
+              <td><button class="btn-edit" data-label="토퍼 그레이 SS" data-qty="22" data-prodkey="토퍼" data-variant="SS" data-color="그레이">수정</button></td>
             </tr><tr>
               <td class="left">토퍼 화이트앤블랙 K</td>
               <td class="order-qty">10개</td>
+              <td style="color:#8b949e;font-size:10px;">3box</td>
+              <td><button class="btn-edit" data-label="토퍼 화이트앤블랙 K" data-qty="10" data-prodkey="토퍼" data-variant="K" data-color="화이트앤블랙">수정</button></td>
             </tr></tbody>
   </table>
   </div>
 </div>
+  <div id="milkrun-status" style="text-align:center;color:#546e7a;font-size:11px;margin-top:12px;"></div>
 </div>
 
 </div>
@@ -1258,7 +1315,61 @@ async function markAllDone() {
 function showStatus(msg) {
   const el = document.getElementById('order-status');
   if (el) { el.textContent = msg; setTimeout(() => el.textContent = '', 5000); }
+  // 밀크런 탭에도 표시
+  const el2 = document.getElementById('milkrun-status');
+  if (el2) { el2.textContent = msg; setTimeout(() => el2.textContent = '', 5000); }
 }
+
+/* ── 밀크런 탭 수정 버튼 — 실수 대비 최종 수량 교정 ── */
+async function markEdit(evt) {
+  const btn = evt.target;
+  const label = btn.dataset.label || '';
+  const curQty = parseInt(btn.dataset.qty || '0');
+  const input = prompt(
+    `📦 ${label}
+
+현재 DB 수량: ${curQty.toLocaleString()}개
+
+수정할 실제 수량을 입력하세요:`,
+    curQty
+  );
+  if (input === null) return;
+  const newQty = parseInt(input.replace(/,/g, ''));
+  if (isNaN(newQty) || newQty < 0) {
+    showStatus('❌ 올바른 수량을 입력해주세요');
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = '...';
+  const order = {
+    label: label,
+    qty: newQty,
+    prod_key: btn.dataset.prodkey || '',
+    variant: btn.dataset.variant || '',
+    color: btn.dataset.color || ''
+  };
+  const result = await saveOrders([order]);
+  if (result.ok) {
+    // 즉시 UI 반영: 수량 셀 업데이트 + 데이터 속성 갱신
+    const tr = btn.closest('tr');
+    const qtyTd = tr.querySelector('.order-qty');
+    if (qtyTd) qtyTd.textContent = newQty.toLocaleString() + '개';
+    btn.dataset.qty = newQty;
+    btn.disabled = false;
+    btn.textContent = '수정';
+    showStatus(`✅ ${label} → ${newQty.toLocaleString()}개 수정됨`);
+  } else {
+    btn.disabled = false;
+    btn.textContent = '수정';
+    showStatus('❌ 저장 실패: ' + (result.error || '서버 오류'));
+  }
+}
+// 이벤트 위임 (페이지 로드 후)
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.classList.contains('btn-edit')) {
+    markEdit(e);
+  }
+});
 
 /* ── 페이지 로드 시 DB에서 pending 가져와 버튼 상태 표시 ── */
 async function syncCompletedOrders() {
