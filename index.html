@@ -1233,6 +1233,42 @@ function showStatus(msg) {
   const el = document.getElementById('order-status');
   if (el) { el.textContent = msg; setTimeout(() => el.textContent = '', 5000); }
 }
+
+/* ── 페이지 로드 시 DB에서 pending 가져와 버튼 자동 ✅ 처리 ── */
+async function syncCompletedOrders() {
+  const url = await getApiUrl();
+  if (!url) return;
+  try {
+    const r = await fetch(url + '/pending?t=' + Date.now());
+    if (!r.ok) return;
+    const data = await r.json();
+    if (!data.ok || !data.pending) return;
+    // key = "prod_key|variant|color" → qty 맵
+    const map = {};
+    data.pending.forEach(p => {
+      const key = p.prod_key + '|' + p.variant + '|' + (p.color || '');
+      map[key] = p.qty;
+    });
+    // 버튼 순회
+    document.querySelectorAll('.btn-done').forEach(btn => {
+      const key = (btn.dataset.prodkey || '') + '|' + (btn.dataset.variant || '') + '|' + (btn.dataset.color || '');
+      const doneQty = map[key] || 0;
+      const needQty = parseInt(btn.dataset.qty || '0');
+      // 이미 필요한 양만큼 발주됐으면 버튼을 ✅로 교체
+      if (doneQty >= needQty && needQty > 0) {
+        btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${doneQty.toLocaleString()}</span>`;
+      }
+    });
+  } catch(e) {
+    console.error('pending sync 실패:', e);
+  }
+}
+// 페이지 로드 후 실행
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', syncCompletedOrders);
+} else {
+  syncCompletedOrders();
+}
 </script>
 
 <script>
