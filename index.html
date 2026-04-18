@@ -1399,54 +1399,87 @@ function showStatus(msg) {
   if (el2) { el2.textContent = msg; setTimeout(() => el2.textContent = '', 5000); }
 }
 
-/* ── 밀크런 [창고수정] 버튼 — 창고 출고량만 수정 (공장은 발주탭 전담) ── */
+/* ── 밀크런 [창고수정] 버튼 — 인라인 input (부호 지원: +N 추가 / -N 차감) ── */
 async function markEdit(evt) {
   const btn = evt.target;
+  if (btn.dataset.editing === '1') return;
   const label = btn.dataset.label || '';
-  const factoryQty = parseInt(btn.dataset.factory || '0');  // 읽기 전용 (발주탭 관할)
+  const factoryQty = parseInt(btn.dataset.factory || '0');
   const curWh = parseInt(btn.dataset.warehouse || '0');
 
-  const w = prompt(
-    `📦 ${label}
+  showStatus(`✏️ ${label} 창고수량 입력 중 (양수=추가, -100=차감)`);
+  btn.dataset.editing = '1';
 
-공장 발주 ${factoryQty.toLocaleString()}개 (발주탭에서 관리, 여기선 수정 안 됨)
+  const td = btn.parentElement;
+  const origHTML = td.innerHTML;
+  td.innerHTML =
+    `<input type="text" inputmode="numeric" value="${curWh}" `
+    + `placeholder="+추가/-차감" `
+    + `style="width:60px;padding:2px 4px;background:#1a1f2e;color:#00e5ff;`
+    + `border:1px solid #00e5ff;border-radius:3px;font-size:11px;text-align:right;">`
+    + `<button class="btn-edit-save" style="margin-left:3px;padding:2px 5px;`
+    + `background:rgba(0,230,118,0.15);color:#00e676;border:1px solid #00e676;`
+    + `border-radius:3px;font-size:10px;cursor:pointer;">✓</button>`
+    + `<button class="btn-edit-cancel" style="margin-left:2px;padding:2px 5px;`
+    + `background:rgba(244,67,54,0.15);color:#f44336;border:1px solid #f44336;`
+    + `border-radius:3px;font-size:10px;cursor:pointer;">✕</button>`;
 
-창고에서 뺄 수량 (쿠팡으로 보낼 기존 재고):
-현재: ${curWh.toLocaleString()}개`,
-    curWh
-  );
-  if (w === null) return;
-  const warehouseQty = parseInt(String(w).replace(/,/g, ''));
-  if (isNaN(warehouseQty) || warehouseQty < 0) {
-    showStatus('❌ 창고 수량 오류');
-    return;
-  }
+  const input = td.querySelector('input');
+  const saveBtn = td.querySelector('.btn-edit-save');
+  const cancelBtn = td.querySelector('.btn-edit-cancel');
+  input.focus();
+  input.select();
 
-  btn.disabled = true;
-  btn.textContent = '...';
-  // warehouse_qty만 전송 — qty 필드는 보내지 않음 (서버가 기존 order_qty 보존)
-  const order = {
-    label: label,
-    warehouse_qty: warehouseQty,
-    prod_key: btn.dataset.prodkey || '',
-    variant: btn.dataset.variant || '',
-    color: btn.dataset.color || ''
+  // ★ 중요: restore 시 editing 플래그 반드시 해제 (버튼은 새로 render 되지만 안전장치)
+  const restore = () => {
+    td.innerHTML = origHTML;
+    const nb = td.querySelector('.btn-edit');
+    if (nb) nb.dataset.editing = '';  // 재클릭 가능
   };
-  const result = await saveOrders([order]);
-  if (result.ok) {
+
+  cancelBtn.onclick = () => { restore(); showStatus('취소됨'); };
+  input.onkeydown = (ev) => {
+    if (ev.key === 'Escape') { restore(); showStatus('취소됨'); }
+    if (ev.key === 'Enter') { saveBtn.click(); }
+  };
+
+  saveBtn.onclick = async () => {
+    // 부호 허용 (-100 / +50 / 그냥 150 모두 OK)
+    const raw = String(input.value || '').replace(/,/g, '').trim();
+    const warehouseQty = parseInt(raw, 10);
+    if (isNaN(warehouseQty)) {
+      showStatus('❌ 숫자 입력 필요 (-100 같은 음수도 OK)'); return;
+    }
     const newTotal = factoryQty + warehouseQty;
-    const tr = btn.closest('tr');
-    const qtyTd = tr.querySelector('.order-qty');
-    if (qtyTd) qtyTd.textContent = newTotal.toLocaleString() + '개';
-    btn.dataset.warehouse = warehouseQty;
-    btn.disabled = false;
-    btn.textContent = '창고수정';
-    showStatus(`✅ ${label} → 공장 ${factoryQty} + 창고 ${warehouseQty} = ${newTotal}개`);
-  } else {
-    btn.disabled = false;
-    btn.textContent = '창고수정';
-    showStatus('❌ 저장 실패: ' + (result.error || '서버 오류'));
-  }
+    if (newTotal < 0) {
+      showStatus(`❌ 최종 수량 음수 불가 (공장 ${factoryQty} + 창고 ${warehouseQty} = ${newTotal})`);
+      return;
+    }
+    saveBtn.disabled = true; cancelBtn.disabled = true; input.disabled = true;
+    saveBtn.textContent = '...';
+    const order = {
+      label: label,
+      warehouse_qty: warehouseQty,
+      prod_key: btn.dataset.prodkey || '',
+      variant: btn.dataset.variant || '',
+      color: btn.dataset.color || ''
+    };
+    const result = await saveOrders([order]);
+    if (result.ok) {
+      const tr = td.closest('tr');
+      const qtyTd = tr.querySelector('.order-qty');
+      if (qtyTd) qtyTd.textContent = newTotal.toLocaleString() + '개';
+      restore();
+      const newBtn = td.querySelector('.btn-edit');
+      if (newBtn) newBtn.dataset.warehouse = warehouseQty;
+      const sign = warehouseQty >= 0 ? '+' : '';
+      showStatus(`✅ ${label} → 공장 ${factoryQty} ${sign}${warehouseQty} = ${newTotal}개`);
+    } else {
+      saveBtn.disabled = false; cancelBtn.disabled = false; input.disabled = false;
+      saveBtn.textContent = '✓';
+      showStatus('❌ 저장 실패: ' + (result.error || '서버 오류'));
+    }
+  };
 }
 
 /* ── 밀크런 [그룹 드롭다운] — 쿠팡 확정 입고그룹 수동 지정 ── */
