@@ -1627,23 +1627,23 @@ function renderDate(idx) {
   document.getElementById('order-title').textContent = '📋발주 계획 (' + s.skus + '개 품목 / ' + s.cbm + ' CBM)';
 
   // 위챗오더 (공장 발주서) — 날짜별 파일 로딩, 없으면 플레이스홀더
+  // 핵심: 날짜 이동할 때마다 iframe을 먼저 about:blank로 리셋해야
+  //       404 파일로 넘어갈 때 이전 날짜 콘텐츠가 남지 않음.
   const wechatFrame = document.getElementById('wechat-frame');
   const wechatEmpty = document.getElementById('wechat-empty');
   if (wechatFrame && wechatEmpty) {
+    // 먼저 싹 비우고 빈 플레이스홀더 표시
+    wechatFrame.src = 'about:blank';
+    wechatFrame.style.display = 'none';
+    wechatEmpty.style.display = 'block';
     const orderUrl = 'orders/order_' + d + '.html';
     fetch(orderUrl, { method: 'HEAD' }).then(function(r) {
       if (r.ok) {
         wechatFrame.src = orderUrl;
         wechatFrame.style.display = '';
         wechatEmpty.style.display = 'none';
-      } else {
-        wechatFrame.style.display = 'none';
-        wechatEmpty.style.display = 'block';
       }
-    }).catch(function() {
-      wechatFrame.style.display = 'none';
-      wechatEmpty.style.display = 'block';
-    });
+    }).catch(function() { /* 실패 시 이미 플레이스홀더 상태 유지 */ });
   }
 }
 
