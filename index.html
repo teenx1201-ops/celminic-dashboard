@@ -1023,10 +1023,15 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   셀미닉 자동화 시스템 | 2026-04-16 생성
 </div>
 
-<!-- 위챗주문서 탭 -->
+<!-- 위챗주문서 탭 (날짜별 `orders/order_YYYY-MM-DD.html`, 없으면 플레이스홀더) -->
 <div id="tab-wechat" class="tab-content">
   <div class="section-title">📦공장 발주서</div>
-  <iframe src="order_topper.html" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;"></iframe>
+  <div id="wechat-empty" style="display:none;padding:60px 20px;text-align:center;color:#546e7a;background:#0f1720;border-radius:8px;border:1px dashed #1e2a35;">
+    <div style="font-size:36px;margin-bottom:12px;">📭</div>
+    <div style="font-size:14px;font-weight:700;color:#b0bec5;">이 날짜에 공장 발주 없음</div>
+    <div style="font-size:11px;margin-top:6px;">발주한 날짜를 선택하면 해당 공장 발주서가 표시됩니다.</div>
+  </div>
+  <iframe id="wechat-frame" src="orders/order_2026-04-16.html" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
 </div>
 
 <!-- 밀크런오더 탭 -->
@@ -1583,6 +1588,26 @@ function renderDate(idx) {
 
   // 섹션 타이틀
   document.getElementById('order-title').textContent = '📋발주 계획 (' + s.skus + '개 품목 / ' + s.cbm + ' CBM)';
+
+  // 위챗오더 (공장 발주서) — 날짜별 파일 로딩, 없으면 플레이스홀더
+  const wechatFrame = document.getElementById('wechat-frame');
+  const wechatEmpty = document.getElementById('wechat-empty');
+  if (wechatFrame && wechatEmpty) {
+    const orderUrl = 'orders/order_' + d + '.html';
+    fetch(orderUrl, { method: 'HEAD' }).then(function(r) {
+      if (r.ok) {
+        wechatFrame.src = orderUrl;
+        wechatFrame.style.display = '';
+        wechatEmpty.style.display = 'none';
+      } else {
+        wechatFrame.style.display = 'none';
+        wechatEmpty.style.display = 'block';
+      }
+    }).catch(function() {
+      wechatFrame.style.display = 'none';
+      wechatEmpty.style.display = 'block';
+    });
+  }
 }
 
 function prevDate() { if (currentIdx > 0) { currentIdx--; renderDate(currentIdx); } }
