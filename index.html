@@ -103,6 +103,13 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 }
 .btn-done:hover { background: rgba(0,229,255,0.25); }
 .btn-done:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-box {
+  background: rgba(34, 211, 238, 0.1); color: #22d3ee; border: 1px solid #0891b2;
+  border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-box:hover { background: rgba(34, 211, 238, 0.25); }
+.btn-box:disabled { opacity: 0.3; cursor: not-allowed; }
 .btn-edit {
   background: rgba(255, 193, 7, 0.1); color: #ffc107; border: 1px solid #ffc107;
   border-radius: 4px; padding: 3px 8px; font-size: 10px; font-weight: 700;
@@ -154,6 +161,7 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   .order-qty { font-size: 13px; }
   .tab { font-size: 12px; padding: 10px 4px; }
   .btn-done { padding: 3px 4px; font-size: 9px; }
+  .btn-box { padding: 3px 4px; font-size: 11px; }
   .badge { padding: 2px 4px; font-size: 8px; }
 
   /* 발주 탭 — 모바일에서 덜 중요 컬럼 숨김 (단위/충전) */
@@ -189,11 +197,11 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   <div class="sum-box"><div class="sum-val blue">2,847,240</div><div class="sum-lbl">매출</div></div>
   <div class="sum-box"><div class="sum-val green">369,645</div><div class="sum-lbl">순이익</div></div>
   <div class="sum-box"><div class="sum-val red">353,202</div><div class="sum-lbl">광고비</div></div>
-  <div class="sum-box"><div class="sum-val blue">0.75</div><div class="sum-lbl">CBM</div></div>
+  <div class="sum-box"><div class="sum-val blue">0.28</div><div class="sum-lbl">CBM</div></div>
   <div class="sum-box">
     <div class="gauge" style="margin:0;">
-      <div class="gauge-bar"><div class="gauge-fill" style="width:1%;"></div></div>
-      <div class="gauge-labels"><span>1%</span><span>60CBM</span></div>
+      <div class="gauge-bar"><div class="gauge-fill" style="width:0%;"></div></div>
+      <div class="gauge-labels"><span>0%</span><span>60CBM</span></div>
     </div>
     <div class="sum-lbl">컨테이너</div>
   </div>
@@ -203,7 +211,7 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 <div class="tabs">
   <div class="tab active" onclick="switchTab('margin')">💰마진<span class="tab-count">64</span></div>
   <div class="tab" onclick="switchTab('inventory')">📊재고<span class="tab-count">40</span></div>
-  <div class="tab" onclick="switchTab('order')">📋발주<span class="tab-count">10</span></div>
+  <div class="tab" onclick="switchTab('order')">📋발주<span class="tab-count">4</span></div>
   <div class="tab" onclick="switchTab('wechat')">📦위챗오더</div>
   <div class="tab" onclick="switchTab('milkrun')">🚚밀크런오더</div>
 </div>
@@ -936,88 +944,40 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 
 <!-- 발주 탭 -->
 <div id="tab-order" class="tab-content">
-  <div class="section-title" id="order-title">📋발주 계획 (10개 품목 / 0.75 CBM)</div>
+  <div class="section-title" id="order-title">📋발주 계획 (4개 품목 / 0.28 CBM)</div>
   <div style="overflow-x:auto;">
   <table>
     <thead><tr><th>상품</th><th>재고</th><th>품절까지</th><th>주문량</th><th>단위</th><th>충전</th><th style="width:50px;">완료</th></tr></thead>
     <tbody id="order-body"><tr>
-          <td class="left">커튼 크림화이트 130X170CM</td>
-          <td>13</td>
-          <td style="color:#d29922;font-weight:700;">21일</td>
-          <td class="order-qty">18</td>
-          <td>혼합 1박스 공유</td>
-          <td style="color:#56d364;">꽉참</td>
-          <td><span style="color:#56d364;font-weight:700;font-size:14px;">✅</span></td>
-        </tr><tr>
-          <td class="left">커튼 밀크베이지 130X170CM</td>
-          <td>0</td>
-          <td style="color:#f85149;font-weight:700;">0일</td>
-          <td class="order-qty">4</td>
-          <td>혼합 1박스 공유</td>
-          <td style="color:#56d364;">꽉참</td>
-          <td><span style="color:#56d364;font-weight:700;font-size:14px;">✅</span></td>
-        </tr><tr>
           <td class="left">커튼 그레이 130X170CM</td>
           <td>0</td>
           <td style="color:#f85149;font-weight:700;">0일</td>
           <td class="order-qty">8</td>
-          <td>혼합 1박스 공유</td>
+          <td><span style="color:#8b949e;font-size:10px;">단독 1박스</span></td>
           <td style="color:#56d364;">꽉참</td>
           <td><button class="btn-done" data-label="커튼 그레이 130X170CM" data-qty="8" data-prodkey="암막커튼" data-variant="130X170CM" data-color="그레이" data-warehouse="0">완료</button></td>
         </tr><tr>
-          <td class="left">커튼 크림화이트 210X235CM</td>
-          <td>108</td>
-          <td style="color:#d29922;font-weight:700;">29일</td>
-          <td class="order-qty">11</td>
-          <td>혼합 3박스 공유</td>
-          <td style="color:#56d364;">꽉참</td>
-          <td><span style="color:#56d364;font-weight:700;font-size:14px;">✅</span></td>
-        </tr><tr>
-          <td class="left">커튼 밀크베이지 210X235CM</td>
+          <td class="left"><span style="display:inline-block;border-left:3px solid #60a5fa;padding-left:6px;color:#60a5fa;font-weight:700;">커튼 밀크베이지 210X235CM</span></td>
           <td>35</td>
           <td style="color:#79c0ff;font-weight:700;">42일</td>
           <td class="order-qty">38</td>
-          <td>혼합 3박스 공유</td>
+          <td><span style="color:#546e7a;font-size:10px;">박스 공유</span></td>
           <td style="color:#56d364;">꽉참</td>
           <td><button class="btn-done" data-label="커튼 밀크베이지 210X235CM" data-qty="38" data-prodkey="암막커튼" data-variant="210X235CM" data-color="밀크베이지" data-warehouse="0">완료</button></td>
         </tr><tr>
-          <td class="left">커튼 그레이 210X235CM</td>
+          <td class="left"><span style="display:inline-block;border-left:3px solid #60a5fa;padding-left:6px;color:#60a5fa;font-weight:700;">커튼 그레이 210X235CM</span></td>
           <td>32</td>
           <td style="color:#8b949e;font-weight:700;">68일</td>
           <td class="order-qty">2</td>
-          <td>혼합 3박스 공유</td>
+          <td><span style="color:#546e7a;font-size:10px;">박스 공유</span></td>
           <td style="color:#56d364;">꽉참</td>
           <td><button class="btn-done" data-label="커튼 그레이 210X235CM" data-qty="2" data-prodkey="암막커튼" data-variant="210X235CM" data-color="그레이" data-warehouse="0">완료</button></td>
-        </tr><tr>
-          <td class="left">토퍼 아이보리 SS</td>
-          <td>233</td>
-          <td style="color:#d29922;font-weight:700;">32일</td>
-          <td class="order-qty">1</td>
-          <td>혼합 1박스 공유</td>
-          <td style="color:#56d364;">꽉참</td>
-          <td><span style="color:#56d364;font-weight:700;font-size:14px;">✅</span></td>
-        </tr><tr>
-          <td class="left">토퍼 그레이 SS</td>
-          <td>13</td>
-          <td style="color:#d29922;font-weight:700;">22일</td>
-          <td class="order-qty">4</td>
-          <td>혼합 1박스 공유</td>
-          <td style="color:#56d364;">꽉참</td>
-          <td><span style="color:#56d364;font-weight:700;font-size:14px;">✅</span></td>
-        </tr><tr>
-          <td class="left">이불세트 모카브라운 K</td>
-          <td>44</td>
-          <td style="color:#d29922;font-weight:700;">25일</td>
-          <td class="order-qty">9</td>
-          <td>혼합 2박스 공유</td>
-          <td style="color:#56d364;">꽉참</td>
-          <td><span style="color:#56d364;font-weight:700;font-size:14px;">✅</span></td>
         </tr><tr>
           <td class="left">이불세트 스모키차콜 K</td>
           <td>78</td>
           <td style="color:#8b949e;font-weight:700;">73일</td>
           <td class="order-qty">1</td>
-          <td>혼합 2박스 공유</td>
+          <td><span style="color:#8b949e;font-size:10px;">단독 1박스</span></td>
           <td style="color:#56d364;">꽉참</td>
           <td><button class="btn-done" data-label="이불세트 스모키차콜 K" data-qty="1" data-prodkey="이불세트" data-variant="K" data-color="스모키차콜" data-warehouse="0">완료</button></td>
         </tr></tbody>
@@ -1350,12 +1310,17 @@ async function markDone(label, qty) {
 }
 
 async function markAllDone() {
-  const btns = document.querySelectorAll('.btn-done');
+  // [완료] + 📦 버튼 둘 다 일괄 처리 (2026-04-20)
+  const btns = document.querySelectorAll('.btn-done, .btn-box');
   if (btns.length === 0) {
     showStatus('✅ 이미 모두 완료됨');
     return;
   }
-  if (!confirm(`${btns.length}개 품목 추천 수량대로 전체 발주완료 처리할까요?`)) return;
+  const doneCnt = document.querySelectorAll('.btn-done').length;
+  const boxCnt = document.querySelectorAll('.btn-box').length;
+  const totalQty = Array.from(btns).reduce((s, b) => s + parseInt(b.dataset.qty || '0'), 0);
+  const summary = `필수 ${doneCnt}건 + 박스채우기 ${boxCnt}건 = ${btns.length}개 품목 (총 ${totalQty.toLocaleString()}개)`;
+  if (!confirm(`${summary}\n전체 발주완료 처리할까요?`)) return;
 
   // 전체 일괄 발주의 "공장 주문 날짜" — 기본 오늘, 과거 소급 가능
   const _today = (typeof dateKeys !== 'undefined' && dateKeys.length > 0)
@@ -1551,7 +1516,7 @@ async function syncCompletedOrders() {
       const key = p.prod_key + '|' + p.variant + '|' + (p.color || '');
       map[key] = p.qty;
     });
-    document.querySelectorAll('.btn-done').forEach(btn => {
+    document.querySelectorAll('.btn-done, .btn-box').forEach(btn => {
       const key = (btn.dataset.prodkey || '') + '|' + (btn.dataset.variant || '') + '|' + (btn.dataset.color || '');
       const doneQty = map[key] || 0;
       if (doneQty > 0) {
@@ -1664,6 +1629,10 @@ function renderDate(idx) {
       '</td></tr>';
   }
   document.querySelectorAll('#order-body .btn-done').forEach(function(btn) {
+    btn.onclick = function() { markDone(this.dataset.label, parseInt(this.dataset.qty)); };
+  });
+  // 📦 박스채우기 버튼도 완료 버튼과 동일 동작 (2026-04-20)
+  document.querySelectorAll('#order-body .btn-box').forEach(function(btn) {
     btn.onclick = function() { markDone(this.dataset.label, parseInt(this.dataset.qty)); };
   });
 
