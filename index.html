@@ -103,13 +103,6 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 }
 .btn-done:hover { background: rgba(0,229,255,0.25); }
 .btn-done:disabled { opacity: 0.3; cursor: not-allowed; }
-.btn-box {
-  background: rgba(34, 211, 238, 0.1); color: #22d3ee; border: 1px solid #0891b2;
-  border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: 700;
-  cursor: pointer; transition: all 0.2s;
-}
-.btn-box:hover { background: rgba(34, 211, 238, 0.25); }
-.btn-box:disabled { opacity: 0.3; cursor: not-allowed; }
 .btn-edit {
   background: rgba(255, 193, 7, 0.1); color: #ffc107; border: 1px solid #ffc107;
   border-radius: 4px; padding: 3px 8px; font-size: 10px; font-weight: 700;
@@ -169,7 +162,6 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   .order-qty { font-size: 13px; }
   .tab { font-size: 12px; padding: 10px 4px; }
   .btn-done { padding: 3px 4px; font-size: 9px; }
-  .btn-box { padding: 3px 4px; font-size: 11px; }
   .badge { padding: 2px 4px; font-size: 8px; }
 
   /* 발주 탭 — 모바일에서도 충전 칼럼 보이게 (2026-04-21 대표님 요청:
@@ -946,7 +938,7 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
           <td style="color:#f85149;font-weight:700;">0일</td>
           <td class="order-qty">4</td>
           <td style="color:#56d364;">13% 단독</td>
-          <td><button class="btn-box" data-label="커튼 그레이 130X170CM" data-qty="4" data-prodkey="암막커튼" data-variant="130X170CM" data-color="그레이" data-warehouse="0" title="이미 4개 샀음. 추가 4개 주문 시 60일 여유 +12일" style="background:rgba(0,229,255,0.15);border:1px solid #0891b2;color:#22d3ee;">📦</button></td>
+          <td><button class="btn-done" data-label="커튼 그레이 130X170CM" data-qty="4" data-prodkey="암막커튼" data-variant="130X170CM" data-color="그레이" data-warehouse="0">완료</button></td>
         </tr><tr>
           <td class="left">커튼 밀크베이지 210X235CM</td>
           <td>35</td>
@@ -960,14 +952,14 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
           <td style="color:#d29922;font-weight:700;">24일</td>
           <td class="order-qty">2</td>
           <td style="color:#56d364;">40% 단독</td>
-          <td><button class="btn-box" data-label="토퍼 그레이 SS" data-qty="2" data-prodkey="토퍼" data-variant="SS" data-color="그레이" data-warehouse="0" title="이미 22개 샀음. 추가 2개 주문 시 60일 여유 +-9일" style="background:rgba(0,229,255,0.15);border:1px solid #0891b2;color:#22d3ee;">📦</button></td>
+          <td><button class="btn-done" data-label="토퍼 그레이 SS" data-qty="2" data-prodkey="토퍼" data-variant="SS" data-color="그레이" data-warehouse="0">완료</button></td>
         </tr><tr>
           <td class="left">이불세트 모카브라운 K</td>
           <td>42</td>
           <td style="color:#d29922;font-weight:700;">24일</td>
           <td class="order-qty">8</td>
           <td style="color:#56d364;">1박스<br>60% 단독</td>
-          <td><button class="btn-box" data-label="이불세트 모카브라운 K" data-qty="8" data-prodkey="이불세트" data-variant="K" data-color="모카브라운" data-warehouse="0" title="이미 70개 샀음. 추가 8개 주문 시 60일 여유 +-9일" style="background:rgba(0,229,255,0.15);border:1px solid #0891b2;color:#22d3ee;">📦</button></td>
+          <td><button class="btn-done" data-label="이불세트 모카브라운 K" data-qty="8" data-prodkey="이불세트" data-variant="K" data-color="모카브라운" data-warehouse="0">완료</button></td>
         </tr></tbody>
   </table>
   </div>
@@ -1126,16 +1118,14 @@ async function markDone(label, qty) {
 }
 
 async function markAllDone() {
-  // [완료] + 📦 버튼 둘 다 일괄 처리 (2026-04-20)
-  const btns = document.querySelectorAll('.btn-done, .btn-box');
+  // 완료버튼 통합 (2026-04-21) — 하나의 [완료] 버튼으로 일괄 처리
+  const btns = document.querySelectorAll('.btn-done');
   if (btns.length === 0) {
     showStatus('✅ 이미 모두 완료됨');
     return;
   }
-  const doneCnt = document.querySelectorAll('.btn-done').length;
-  const boxCnt = document.querySelectorAll('.btn-box').length;
   const totalQty = Array.from(btns).reduce((s, b) => s + parseInt(b.dataset.qty || '0'), 0);
-  const summary = `필수 ${doneCnt}건 + 박스채우기 ${boxCnt}건 = ${btns.length}개 품목 (총 ${totalQty.toLocaleString()}개)`;
+  const summary = `${btns.length}개 품목 (총 ${totalQty.toLocaleString()}개)`;
   if (!confirm(`${summary}\n전체 발주완료 처리할까요?`)) return;
 
   // 전체 일괄 발주의 "공장 주문 날짜" — 기본 오늘, 과거 소급 가능
@@ -1345,7 +1335,7 @@ document.addEventListener('change', (e) => {
 
 /* 2026-04-21: '✅ N (수정)' 초록 오버레이 제거.
    주문량 칸 자체가 이미 already_ordered 를 차감한 값이라 중복 표시였음.
-   원래 파란 [완료] / 시안 [📦] 버튼 그대로 노출. */
+   같은 날 오후 추가: 📦 박스 버튼도 제거, 파란 [완료] 하나로 통일. */
 </script>
 
 <script>
@@ -1558,10 +1548,6 @@ function renderDate(idx) {
       '</td></tr>';
   }
   document.querySelectorAll('#order-body .btn-done').forEach(function(btn) {
-    btn.onclick = function() { markDone(this.dataset.label, parseInt(this.dataset.qty)); };
-  });
-  // 📦 박스채우기 버튼도 완료 버튼과 동일 동작 (2026-04-20)
-  document.querySelectorAll('#order-body .btn-box').forEach(function(btn) {
     btn.onclick = function() { markDone(this.dataset.label, parseInt(this.dataset.qty)); };
   });
 
