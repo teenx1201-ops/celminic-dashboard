@@ -1343,43 +1343,9 @@ document.addEventListener('change', (e) => {
   }
 });
 
-/* ── 페이지 로드 시 DB에서 pending 가져와 버튼 상태 표시 ── */
-async function syncCompletedOrders() {
-  const url = await getApiUrl();
-  if (!url) return;
-  try {
-    const r = await fetch(url + '/pending?t=' + Date.now());
-    if (!r.ok) return;
-    const data = await r.json();
-    if (!data.ok || !data.pending) return;
-    const map = {};
-    data.pending.forEach(p => {
-      const key = p.prod_key + '|' + p.variant + '|' + (p.color || '');
-      map[key] = p.qty;
-    });
-    document.querySelectorAll('.btn-done, .btn-box').forEach(btn => {
-      const key = (btn.dataset.prodkey || '') + '|' + (btn.dataset.variant || '') + '|' + (btn.dataset.color || '');
-      const doneQty = map[key] || 0;
-      if (doneQty > 0) {
-        // 이미 발주된 게 있으면 버튼에 표시 (수정 가능 상태 유지)
-        btn.innerHTML = `✅ ${doneQty.toLocaleString()} (수정)`;
-        btn.style.background = 'rgba(86, 211, 100, 0.1)';
-        btn.style.borderColor = '#56d364';
-        btn.style.color = '#56d364';
-        // 수정용으로 기본값을 기존 값으로 설정
-        btn.dataset.prevqty = doneQty;
-      }
-    });
-  } catch(e) {
-    console.error('pending sync 실패:', e);
-  }
-}
-// 페이지 로드 후 실행
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', syncCompletedOrders);
-} else {
-  syncCompletedOrders();
-}
+/* 2026-04-21: '✅ N (수정)' 초록 오버레이 제거.
+   주문량 칸 자체가 이미 already_ordered 를 차감한 값이라 중복 표시였음.
+   원래 파란 [완료] / 시안 [📦] 버튼 그대로 노출. */
 </script>
 
 <script>
