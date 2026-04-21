@@ -175,13 +175,11 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   /* 발주 탭 — 모바일에서도 충전 칼럼 보이게 (2026-04-21 대표님 요청:
      행별 박스 채움% 표시하므로 모바일에서도 필요) */
 
-  /* 재고 탭 — 모바일: 7일판매/30일판매/45일필요 숨김 (임박재고는 필수로 보여줌) */
+  /* 재고 탭 — 모바일: 30일판매/45일필요 숨김 (임박재고/품절까지는 필수) */
   #tab-inventory table th:nth-child(3),
   #tab-inventory table td:nth-child(3),
   #tab-inventory table th:nth-child(4),
-  #tab-inventory table td:nth-child(4),
-  #tab-inventory table th:nth-child(5),
-  #tab-inventory table td:nth-child(5) { display: none; }
+  #tab-inventory table td:nth-child(4) { display: none; }
 }
 </style>
 </head>
