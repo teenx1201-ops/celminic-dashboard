@@ -173,9 +173,54 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   #tab-inventory table th:nth-child(4),
   #tab-inventory table td:nth-child(4) { display: none; }
 }
+
+/* 커스텀 모달 (2026-04-21) — Claude 미리보기/텔레그램 웹뷰가 prompt()/confirm() 막아서 HTML 로 대체 */
+#ui-modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+  z-index: 9999; align-items: center; justify-content: center; padding: 16px;
+}
+#ui-modal-overlay.show { display: flex; }
+.ui-modal-box {
+  background: #151e2a; border: 1px solid #1e2a35; border-radius: 10px;
+  padding: 20px; max-width: 100%; width: 380px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+#ui-modal-msg {
+  color: #eceff1; white-space: pre-wrap; margin-bottom: 14px;
+  font-size: 13px; line-height: 1.5; word-break: keep-all;
+}
+#ui-modal-input {
+  width: 100%; padding: 10px; background: #0c1018; color: #eceff1;
+  border: 1px solid #1e2a35; border-radius: 4px; margin-bottom: 14px;
+  font-size: 14px; box-sizing: border-box; font-family: inherit;
+}
+#ui-modal-input:focus { outline: none; border-color: #00e5ff; }
+.ui-modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+.ui-modal-btns button {
+  padding: 8px 16px; border-radius: 4px; cursor: pointer;
+  font-size: 12px; font-weight: 700; font-family: inherit;
+}
+#ui-modal-cancel { background: transparent; color: #8b949e; border: 1px solid #1e2a35; }
+#ui-modal-cancel:hover { background: rgba(139,148,158,0.1); }
+#ui-modal-ok {
+  background: linear-gradient(135deg, #00e5ff, #00b8d4); color: #0c1018; border: none;
+}
+#ui-modal-ok:hover { transform: translateY(-1px); }
 </style>
 </head>
 <body>
+<!-- 커스텀 모달 (prompt/confirm/alert 대체) -->
+<div id="ui-modal-overlay">
+  <div class="ui-modal-box">
+    <div id="ui-modal-msg"></div>
+    <input id="ui-modal-input" type="text" />
+    <div class="ui-modal-btns">
+      <button id="ui-modal-cancel">취소</button>
+      <button id="ui-modal-ok">확인</button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
 
 <h1>CELMINIC</h1>
@@ -1015,6 +1060,53 @@ const _API_URL_HARD = 'https://moisture-releases-destinations-guild.trycloudflar
 const _TODAY = '2026-04-20';
 let _API_URL = null;
 
+/* === 커스텀 모달 (2026-04-21) ================================================
+   Claude 미리보기/텔레그램 웹뷰는 네이티브 prompt()/confirm()/alert() 이 막혀서
+   Promise 기반 HTML 모달로 대체. 기존 호출부 → `await uiPrompt(...)` 로 교체.
+*/
+function _uiModal(opts) {
+  return new Promise(function(resolve) {
+    const overlay = document.getElementById('ui-modal-overlay');
+    const msgEl = document.getElementById('ui-modal-msg');
+    const inputEl = document.getElementById('ui-modal-input');
+    const btnOk = document.getElementById('ui-modal-ok');
+    const btnCancel = document.getElementById('ui-modal-cancel');
+    msgEl.textContent = opts.msg || '';
+    if (opts.hasInput) {
+      inputEl.style.display = 'block';
+      inputEl.value = opts.defaultVal != null ? String(opts.defaultVal) : '';
+    } else {
+      inputEl.style.display = 'none';
+    }
+    btnCancel.style.display = opts.okOnly ? 'none' : 'inline-block';
+    overlay.classList.add('show');
+    if (opts.hasInput) {
+      setTimeout(function() { inputEl.focus(); inputEl.select(); }, 50);
+    } else {
+      setTimeout(function() { btnOk.focus(); }, 50);
+    }
+    function cleanup(result) {
+      overlay.classList.remove('show');
+      btnOk.onclick = null;
+      btnCancel.onclick = null;
+      inputEl.onkeydown = null;
+      document.onkeydown = null;
+      resolve(result);
+    }
+    btnOk.onclick = function() { cleanup(opts.hasInput ? inputEl.value : true); };
+    btnCancel.onclick = function() { cleanup(opts.hasInput ? null : false); };
+    const keyHandler = function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); btnOk.click(); }
+      else if (e.key === 'Escape') { e.preventDefault(); (opts.okOnly ? btnOk : btnCancel).click(); }
+    };
+    inputEl.onkeydown = keyHandler;
+    document.onkeydown = keyHandler;
+  });
+}
+function uiAlert(msg) { return _uiModal({ msg: msg, hasInput: false, okOnly: true }); }
+function uiConfirm(msg) { return _uiModal({ msg: msg, hasInput: false, okOnly: false }); }
+function uiPrompt(msg, defaultVal) { return _uiModal({ msg: msg, hasInput: true, defaultVal: defaultVal, okOnly: false }); }
+
 async function getApiUrl() {
   if (_API_URL) return _API_URL;
   // 1순위: tunnel.txt (맥이 최신 URL 자동 업데이트)
@@ -1065,7 +1157,7 @@ async function markDone(label, qty) {
 추천 수량: ${qty.toLocaleString()}개
 
 실제 주문한 수량을 입력하세요:`;
-  const input = prompt(msg, defaultQty);
+  const input = await uiPrompt(msg, defaultQty);
   if (input === null) return;
   const realQty = parseInt(input.replace(/,/g, ''));
   if (isNaN(realQty) || realQty <= 0) {
@@ -1077,7 +1169,7 @@ async function markDone(label, qty) {
   // 과거 일자로 소급 입력하고 싶을 때만 고침.
   const _today = (typeof dateKeys !== 'undefined' && dateKeys.length > 0)
     ? dateKeys[currentIdx] : _TODAY;
-  const dateInput = prompt(
+  const dateInput = await uiPrompt(
     `📅 공장에 실제로 주문한 날짜 (YYYY-MM-DD)
 
 기본값: ${_today} (오늘)
@@ -1126,12 +1218,12 @@ async function markAllDone() {
   }
   const totalQty = Array.from(btns).reduce((s, b) => s + parseInt(b.dataset.qty || '0'), 0);
   const summary = `${btns.length}개 품목 (총 ${totalQty.toLocaleString()}개)`;
-  if (!confirm(`${summary}\n전체 발주완료 처리할까요?`)) return;
+  if (!(await uiConfirm(`${summary}\n전체 발주완료 처리할까요?`))) return;
 
   // 전체 일괄 발주의 "공장 주문 날짜" — 기본 오늘, 과거 소급 가능
   const _today = (typeof dateKeys !== 'undefined' && dateKeys.length > 0)
     ? dateKeys[currentIdx] : _TODAY;
-  const dateInput = prompt(
+  const dateInput = await uiPrompt(
     `📅 공장에 실제로 주문한 날짜 (YYYY-MM-DD)
 
 기본값: ${_today} (오늘)
@@ -1363,13 +1455,13 @@ function _diffOrders(pure, filled) {
   return changes;
 }
 
-function toggleFillEmpty() {
+async function toggleFillEmpty() {
   const data = DATES[dateKeys[currentIdx]];
   if (!data) return;
   const btn = document.getElementById('btn-fill-empty');
   if (_fillMode) {
     // ON → OFF (원복)
-    if (!confirm('박스 빈공간 채우기를 해제하고 순수 45일치로 되돌립니다. 계속할까요?')) return;
+    if (!(await uiConfirm('박스 빈공간 채우기를 해제하고 순수 45일치로 되돌립니다. 계속할까요?'))) return;
     _fillMode = false;
     btn.textContent = '📐 빈공간 채우기';
     btn.classList.remove('on');
@@ -1381,7 +1473,7 @@ function toggleFillEmpty() {
   const filled = data.order_filled || [];
   const changes = _diffOrders(pure, filled);
   if (changes.length === 0) {
-    alert('박스 빈공간을 추가 채울 수 있는 SKU가 없습니다.');
+    await uiAlert('박스 빈공간을 추가 채울 수 있는 SKU가 없습니다.');
     return;
   }
   let msg = '📐 박스 빈공간 채우기 제안\n\n';
@@ -1389,7 +1481,7 @@ function toggleFillEmpty() {
     msg += `· ${c.n}: ${c.from} → ${c.to} (+${c.diff})\n`;
   });
   msg += '\n적용할까요?';
-  if (!confirm(msg)) return;
+  if (!(await uiConfirm(msg))) return;
   _fillMode = true;
   btn.textContent = '✅ 빈공간 채움 ON';
   btn.classList.add('on');
