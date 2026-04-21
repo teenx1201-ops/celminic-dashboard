@@ -1737,6 +1737,13 @@ function renderDate(idx) {
 
 function prevDate() { if (currentIdx > 0) { currentIdx--; renderDate(currentIdx); } }
 function nextDate() { if (currentIdx < dateKeys.length - 1) { currentIdx++; renderDate(currentIdx); } }
+
+// 2026-04-21: 페이지 로드 시 최신 날짜로 초기 렌더 (위챗오더 탭 placed_qty 체크 포함)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() { renderDate(currentIdx); });
+} else {
+  renderDate(currentIdx);
+}
 </script>
 </body>
 </html>
