@@ -1487,43 +1487,66 @@ function renderDate(idx) {
     if (r.im) return 'C|' + (r.pk||'') + '|' + (r.va||'');
     return null;
   }
-  const _grpCount = {};
-  orderRows.forEach(r => {
+  // 그룹 통계 (rowspan + 합산 박스%/박스수)
+  const _grpStats = {};  // key → { firstIdx, count, fullSum, frSum }
+  orderRows.forEach((r, idx) => {
     const k = _boxGroupKey(r);
-    if (k) _grpCount[k] = (_grpCount[k]||0) + 1;
+    if (!k) return;
+    if (!_grpStats[k]) _grpStats[k] = { firstIdx: idx, count: 0, fullSum: 0, frSum: 0 };
+    _grpStats[k].count++;
+    _grpStats[k].fullSum += (r.bn || 0);
+    _grpStats[k].frSum += (typeof r.fr === 'number' ? r.fr : 0);
   });
   const _grpColor = {};
   let _ci = 0;
-  Object.keys(_grpCount).forEach(k => {
-    if (_grpCount[k] >= 2) { _grpColor[k] = _BOX_COLORS[_ci % _BOX_COLORS.length]; _ci++; }
+  Object.keys(_grpStats).forEach(k => {
+    if (_grpStats[k].count >= 2) { _grpColor[k] = _BOX_COLORS[_ci % _BOX_COLORS.length]; _ci++; }
   });
-  let oh = '';
-  orderRows.forEach(r => {
-    const uc = {긴급:'#ff5252',발주:'#ffd740',미리:'#00e5ff',여유:'#546e7a'}[r.urg] || '#546e7a';
-    // 혼합박스 소속 여부 — 보이는 그룹 2줄 이상이면 '혼합', 아니면 '단독'
-    const _gk = _boxGroupKey(r);
-    const _mixColor = _gk ? _grpColor[_gk] : null;
-    const _isMixed = !!_mixColor;
-    const mixLabel = _isMixed ? '혼합' : '단독';
-    let ft, fc;
-    if (r.fr === undefined || r.fr === null || r.fr === '') { ft = '-'; fc = '#546e7a'; }
-    else {
-      // 2026-04-21: 2줄 포맷 (N박스 / M% 단독|혼합)
-      const bn = r.bn || 0;
-      const pct = r.fr;
-      if (bn > 0 && pct > 0 && pct < 100) { ft = bn + '박스<br>' + pct + '% ' + mixLabel; }
-      else if (bn > 0) { ft = bn + '박스<br>100% ' + mixLabel; }
-      else { ft = pct + '% ' + mixLabel; }
-      fc = '#56d364';
+  // _box_text 재현 (Python 와 동일)
+  function _boxText(fullN, partialPct, sfx) {
+    const s = sfx ? ' ' + sfx : '';
+    if (fullN === 0) {
+      return partialPct > 0 ? (partialPct + '%' + s) : '-';
     }
-    // 혼합박스면 상품명에 색 테두리 배지
+    if (partialPct >= 100 || partialPct === 0) return fullN + '박스<br>100%' + s;
+    return fullN + '박스<br>' + partialPct + '%' + s;
+  }
+  let oh = '';
+  orderRows.forEach((r, idx) => {
+    const uc = {긴급:'#ff5252',발주:'#ffd740',미리:'#00e5ff',여유:'#546e7a'}[r.urg] || '#546e7a';
+    const _gk = _boxGroupKey(r);
+    const _grp = _gk ? _grpStats[_gk] : null;
+    const _mixColor = _gk ? _grpColor[_gk] : null;  // count>=2 여야 색 있음
+    const _isMixed = !!_mixColor;
+    // 박스% 셀 모드: span (첫 행 rowspan) / skip (이어진 행) / normal
+    let fillTdHtml = '';
+    if (_isMixed) {
+      if (_grp.firstIdx === idx) {
+        // 그룹 첫 행: rowspan 으로 합산 표시
+        let combined = _grp.frSum;
+        if (combined > 100) combined = combined % 100;
+        if (combined === 0 && _grp.frSum > 0) combined = 100;
+        const text = _boxText(_grp.fullSum, combined, '혼합');
+        fillTdHtml = '<td rowspan="' + _grp.count + '" style="color:#56d364;vertical-align:middle;text-align:center;">' + text + '</td>';
+      }
+      // 이어진 행은 td 출력 안 함 (rowspan 이 커버)
+    } else {
+      // 단독
+      if (r.fr === undefined || r.fr === null || r.fr === '') {
+        fillTdHtml = '<td style="color:#546e7a;">-</td>';
+      } else {
+        const text = _boxText(r.bn || 0, r.fr, '단독');
+        fillTdHtml = '<td style="color:#56d364;">' + text + '</td>';
+      }
+    }
+    // 상품명 색 배지 (혼합박스 그룹)
     const nameHtml = _isMixed
       ? '<span style="display:inline-block;border-left:3px solid '+_mixColor+';padding-left:6px;color:'+_mixColor+';font-weight:700;">'+r.n+'</span>'
       : r.n;
     const doneCol = isLatest ? '<td><button class="btn-done" data-label="' + r.n.replace(/"/g,'&amp;quot;') + '" data-qty="' + r.oq + '">완료</button></td>' : '<td></td>';
     oh += '<tr><td class="left">' + nameHtml + '</td><td>' + fmt(r.sk) + '</td><td style="color:' + uc +
       ';font-weight:700;">' + r.sd + '일</td><td class="order-qty">' + fmt(r.oq) +
-      '</td><td style="color:' + fc + ';">' + ft + '</td>' + doneCol + '</tr>';
+      '</td>' + fillTdHtml + doneCol + '</tr>';
   });
   document.getElementById('order-body').innerHTML = oh;
   // 발주할 품목이 없을 때 안내 문구 (모든 SKU 재고 여유)
