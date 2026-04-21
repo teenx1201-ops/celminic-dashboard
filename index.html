@@ -124,6 +124,14 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   cursor: pointer; letter-spacing: 1px; transition: all 0.2s;
 }
 .btn-all-done:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,229,255,0.3); }
+.btn-fill-empty {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #1e3a5f, #2a4d7a); color: #56d364;
+  border: none; border-radius: 6px; font-size: 13px; font-weight: 800;
+  cursor: pointer; letter-spacing: 1px; transition: all 0.2s;
+}
+.btn-fill-empty:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(86,211,100,0.3); }
+.btn-fill-empty.on { background: linear-gradient(135deg, #2ea043, #238636); color: #ffffff; }
 
 .gauge { margin-bottom: 20px; }
 .gauge-bar {
@@ -965,9 +973,9 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
         </tr></tbody>
   </table>
   </div>
-  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;">
-    <button class="btn-fill-empty" id="btn-fill-empty" onclick="toggleFillEmpty()" style="background:#1e3a5f;color:#56d364;border:1px solid #2ea043;padding:10px 16px;border-radius:6px;font-weight:700;cursor:pointer;">📐 빈공간 채우기</button>
-    <button class="btn-all-done" onclick="markAllDone()">📦 전체 발주완료</button>
+  <div style="display:flex;gap:10px;justify-content:center;align-items:stretch;flex-wrap:wrap;margin-top:16px;">
+    <button class="btn-fill-empty" id="btn-fill-empty" onclick="toggleFillEmpty()">📐 빈공간 채우기</button>
+    <button class="btn-all-done" style="margin:0;" onclick="markAllDone()">📦 전체 발주완료</button>
   </div>
   <div id="order-status" style="text-align:center;color:#546e7a;font-size:11px;margin-top:8px;"></div>
 </div>
@@ -1560,7 +1568,7 @@ function toggleFillEmpty() {
     if (!confirm('박스 빈공간 채우기를 해제하고 순수 45일치로 되돌립니다. 계속할까요?')) return;
     _fillMode = false;
     btn.textContent = '📐 빈공간 채우기';
-    btn.style.background = '#1e3a5f';
+    btn.classList.remove('on');
     renderDate(currentIdx);
     return;
   }
@@ -1579,8 +1587,8 @@ function toggleFillEmpty() {
   msg += '\n적용할까요?';
   if (!confirm(msg)) return;
   _fillMode = true;
-  btn.textContent = '✅ 빈공간 채움 (해제하려면 다시 클릭)';
-  btn.style.background = '#2ea043';
+  btn.textContent = '✅ 빈공간 채움 ON';
+  btn.classList.add('on');
   renderDate(currentIdx);
 }
 
