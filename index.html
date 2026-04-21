@@ -1116,6 +1116,8 @@ async function markDone(label, qty) {
     const tag = diff > 0 ? ` (+${diff})` : (diff < 0 ? ` (${diff})` : '');
     btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${realQty.toLocaleString()}${tag}</span>`;
     showStatus(`✅ ${label} → ${realQty.toLocaleString()}개 기록됨`);
+    // 2026-04-21: 맥미니가 백그라운드에서 rebuild 완료하면 새 milkrun 파일 반영
+    scheduleMilkrunRefresh();
   } else {
     btn.disabled = false;
     btn.textContent = '완료';
@@ -1172,10 +1174,35 @@ async function markAllDone() {
       btn.outerHTML = `<span style="color:#56d364;font-weight:700;font-size:12px;">✅ ${q.toLocaleString()}</span>`;
     });
     showStatus(`✅ ${orders.length}개 품목 전체 발주완료`);
+    scheduleMilkrunRefresh();
   } else {
     btnList.forEach(btn => { btn.disabled = false; btn.textContent = '완료'; });
     showStatus('❌ 저장 실패: ' + (result.error || '서버 오류'));
   }
+}
+
+// 2026-04-21: 완료버튼 후 맥미니 백그라운드 rebuild + GitHub push 를 기다렸다가
+// 최신 날짜 iframe 만 캐시무시 리로드. 대시보드 전체 재빌드는 ~3-5초 소요.
+function scheduleMilkrunRefresh() {
+  // 여러 번 완료 버튼 연속 누를 수 있으니 마지막 호출로 디바운스
+  if (window._milkrunTimer) clearTimeout(window._milkrunTimer);
+  window._milkrunTimer = setTimeout(function() {
+    const frame = document.getElementById('milkrun-frame');
+    const empty = document.getElementById('milkrun-empty');
+    if (!frame || !empty) return;
+    const isLatest = (currentIdx === dateKeys.length - 1);
+    if (!isLatest) return;  // 과거 날짜는 고정 스냅샷
+    const d = dateKeys[currentIdx];
+    const url = 'milkrun/milkrun_' + d + '.html?t=' + Date.now();
+    fetch(url, { method: 'HEAD' }).then(function(r) {
+      if (r.ok) {
+        frame.src = url;
+        frame.style.display = '';
+        empty.style.display = 'none';
+        showStatus('🔄 밀크런 최신 반영');
+      }
+    }).catch(function() {});
+  }, 6000);  // 맥 rebuild + push 대기 (~3-5초 여유)
 }
 
 function showStatus(msg) {
