@@ -125,10 +125,10 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 }
 .btn-all-done:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,229,255,0.3); }
 .btn-fill-empty {
-  padding: 10px 24px;
+  padding: 10px 12px;
   background: linear-gradient(135deg, #1e3a5f, #2a4d7a); color: #56d364;
   border: none; border-radius: 6px; font-size: 13px; font-weight: 800;
-  cursor: pointer; letter-spacing: 1px; transition: all 0.2s;
+  cursor: pointer; letter-spacing: 0.5px; transition: all 0.2s;
 }
 .btn-fill-empty:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(86,211,100,0.3); }
 .btn-fill-empty.on { background: linear-gradient(135deg, #2ea043, #238636); color: #ffffff; }
@@ -973,9 +973,9 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
         </tr></tbody>
   </table>
   </div>
-  <div style="display:flex;gap:10px;justify-content:center;align-items:stretch;flex-wrap:wrap;margin-top:16px;">
-    <button class="btn-fill-empty" id="btn-fill-empty" onclick="toggleFillEmpty()">📐 빈공간 채우기</button>
-    <button class="btn-all-done" style="margin:0;" onclick="markAllDone()">📦 전체 발주완료</button>
+  <div style="display:flex;gap:8px;align-items:stretch;margin-top:16px;">
+    <button class="btn-fill-empty" id="btn-fill-empty" onclick="toggleFillEmpty()" style="flex:1;white-space:nowrap;">📐 빈공간 채우기</button>
+    <button class="btn-all-done" style="margin:0;flex:1;white-space:nowrap;" onclick="markAllDone()">📦 전체 발주완료</button>
   </div>
   <div id="order-status" style="text-align:center;color:#546e7a;font-size:11px;margin-top:8px;"></div>
 </div>
