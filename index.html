@@ -206,6 +206,31 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   background: linear-gradient(135deg, #00e5ff, #00b8d4); color: #0c1018; border: none;
 }
 #ui-modal-ok:hover { transform: translateY(-1px); }
+
+/* 봇 Health 카드 */
+.health-card {
+  position: fixed; top: 10px; right: 12px; z-index: 9000;
+  background: #111820; border: 1px solid #1e2a35; border-radius: 6px;
+  padding: 6px 10px; font-size: 11px; color: #90a4ae;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  letter-spacing: 0.3px;
+}
+.health-card .dot {
+  font-size: 14px; line-height: 1;
+  color: #546e7a;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.health-card .dot.ok    { color: #00e676; text-shadow: 0 0 6px rgba(0,230,118,0.6); }
+.health-card .dot.warn  { color: #ffd740; text-shadow: 0 0 6px rgba(255,215,64,0.6); }
+.health-card .dot.fail  { color: #ff5252; text-shadow: 0 0 6px rgba(255,82,82,0.6); }
+.health-card .health-label { color: #cfd8dc; font-weight: 700; }
+.health-card .health-sep   { color: #37474f; }
+#bot-uptime { color: #b0bec5; }
+#bot-mode   { color: #78909c; font-size: 10px; text-transform: uppercase; }
+@media (max-width: 640px) {
+  .health-card { top: 6px; right: 6px; padding: 4px 8px; font-size: 10px; }
+}
 </style>
 </head>
 <body>
@@ -222,6 +247,15 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 </div>
 
 <div class="container">
+
+<!-- 봇 Health 카드 (우측 상단 고정) -->
+<div class="health-card" id="bot-health-card" title="봇 상태">
+  <span class="dot" id="bot-dot">●</span>
+  <span class="health-label">봇</span>
+  <span id="bot-uptime">-</span>
+  <span class="health-sep">·</span>
+  <span id="bot-mode">-</span>
+</div>
 
 <h1>CELMINIC</h1>
 <div class="subtitle">2026-04-21 기준</div>
@@ -1765,6 +1799,74 @@ if (document.readyState === 'loading') {
 } else {
   renderDate(currentIdx);
 }
+
+// ── 봇 Health 폴러 (10초마다 .bot_health.json fetch) ──
+(function() {
+  function pickUrls() {
+    return fetch('tunnel.txt?t=' + Date.now())
+      .then(function(r) { return r.ok ? r.text() : ''; })
+      .catch(function() { return ''; })
+      .then(function(txt) {
+        var t = (txt || '').trim();
+        var urls = [];
+        if (t && t.indexOf('https://') === 0) urls.push(t.replace(/\/$/, '') + '/bot_health');
+        urls.push('.bot_health.json?t=' + Date.now());
+        return urls;
+      });
+  }
+  function fetchFirst(urls, i) {
+    i = i || 0;
+    if (i >= urls.length) return Promise.resolve(null);
+    return fetch(urls[i], { cache: 'no-store' })
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(j) { return (j && j.health && typeof j.health === 'object') ? j.health : j; })
+      .catch(function() { return fetchFirst(urls, i + 1); });
+  }
+  function fmtUptime(sec) {
+    sec = Math.max(0, Math.floor(sec || 0));
+    var d = Math.floor(sec / 86400);
+    var h = Math.floor((sec % 86400) / 3600);
+    var m = Math.floor((sec % 3600) / 60);
+    if (d > 0) return d + 'd ' + h + 'h';
+    if (h > 0) return h + 'h ' + m + 'm';
+    return m + 'm';
+  }
+  function paint(h) {
+    var dot = document.getElementById('bot-dot');
+    var up  = document.getElementById('bot-uptime');
+    var md  = document.getElementById('bot-mode');
+    var card = document.getElementById('bot-health-card');
+    if (!dot || !up || !md || !card) return;
+    if (!h || typeof h !== 'object') {
+      dot.className = 'dot fail';
+      up.textContent = '응답없음';
+      md.textContent = '?';
+      card.title = '봇 health 파일을 읽을 수 없음';
+      return;
+    }
+    var nowSec = Math.floor(Date.now() / 1000);
+    var lastSeen = Number(h.last_poll_ts || h.last_restart || 0);
+    var age = nowSec - lastSeen;
+    var klass = 'ok';
+    if (age > 30 * 60)      klass = 'fail';
+    else if (age > 5 * 60)  klass = 'warn';
+    dot.className = 'dot ' + klass;
+    up.textContent = fmtUptime(h.uptime_sec);
+    md.textContent = h.mode || '-';
+    var ageTxt = age < 60 ? (age + '초 전') : (Math.floor(age / 60) + '분 전');
+    var tip = '봇 상태: ' + klass.toUpperCase()
+      + '\n최근 활동: ' + ageTxt
+      + '\nupdate_id: ' + (h.last_update_id || 0)
+      + '\nqueue: '  + (h.queue_depth || 0)
+      + '\npid: '    + (h.pid || '?')
+      + '\nhost: '   + (h.host || '?');
+    if (h.last_error) tip += '\n⚠️ ' + h.last_error;
+    card.title = tip;
+  }
+  function tick() { pickUrls().then(function(urls) { return fetchFirst(urls); }).then(paint); }
+  tick();
+  setInterval(tick, 10000);
+})();
 </script>
 </body>
 </html>
