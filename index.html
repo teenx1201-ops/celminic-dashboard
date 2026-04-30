@@ -269,10 +269,19 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 
 <h1>CELMINIC</h1>
 <div class="subtitle">2026-04-29 기준</div>
-<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;">
+<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px;flex-wrap:wrap;">
   <button onclick="prevDate()" style="background:none;border:1px solid #1e2a35;color:#00e5ff;font-size:18px;cursor:pointer;padding:4px 12px;border-radius:4px;">◀</button>
   <span id="date-display" style="font-size:15px;font-weight:700;color:#eceff1;letter-spacing:1px;">2026-04-29</span>
   <button onclick="nextDate()" style="background:none;border:1px solid #1e2a35;color:#00e5ff;font-size:18px;cursor:pointer;padding:4px 12px;border-radius:4px;">▶</button>
+  <button id="margin-period-btn" onclick="toggleMarginPeriod()" style="background:none;border:1px solid #2d4a6e;color:#58a6ff;font-size:12px;cursor:pointer;padding:5px 12px;border-radius:4px;font-weight:600;">📅 기간</button>
+</div>
+<div id="margin-period-ctrl" style="display:none;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;background:#0d1117;border:1px solid #2d4a6e;border-radius:8px;padding:12px;">
+  <input type="date" id="mp-start" style="background:#161b22;border:1px solid #30363d;color:#e6edf3;padding:6px 10px;border-radius:4px;font-size:13px;">
+  <span style="color:#8b949e;">~</span>
+  <input type="date" id="mp-end" style="background:#161b22;border:1px solid #30363d;color:#e6edf3;padding:6px 10px;border-radius:4px;font-size:13px;">
+  <button onclick="applyMarginPeriod()" style="background:#58a6ff;color:#0d1117;border:none;padding:7px 16px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;">적용</button>
+  <button onclick="closeMarginPeriod()" style="background:none;border:1px solid #30363d;color:#8b949e;padding:7px 12px;border-radius:4px;font-size:13px;cursor:pointer;">✕ 단일로</button>
+  <span id="mp-status" style="font-size:12px;color:#8b949e;"></span>
 </div>
 
 <!-- 요약 카드 -->
@@ -2502,8 +2511,63 @@ function renderDate(idx) {
   }
 }
 
-function prevDate() { if (currentIdx > 0) { currentIdx--; renderDate(currentIdx); } }
-function nextDate() { if (currentIdx < dateKeys.length - 1) { currentIdx++; renderDate(currentIdx); } }
+let _marginPeriodMode = false;
+
+function toggleMarginPeriod() {
+  const ctrl = document.getElementById('margin-period-ctrl');
+  const show = ctrl.style.display === 'none' || ctrl.style.display === '';
+  ctrl.style.display = show ? 'flex' : 'none';
+}
+
+async function applyMarginPeriod() {
+  const start = document.getElementById('mp-start').value;
+  const end = document.getElementById('mp-end').value;
+  const status = document.getElementById('mp-status');
+  if (!start || !end || start > end) {
+    status.textContent = '❌ 날짜를 올바르게 입력하세요';
+    return;
+  }
+  status.textContent = '계산 중...';
+  const url = await getApiUrl();
+  if (!url) { status.textContent = '❌ 서버 연결 실패'; return; }
+  try {
+    const r = await fetch(url + '/margin_period?start=' + start + '&end=' + end);
+    const d = await r.json();
+    if (!d.ok) { status.textContent = '❌ 서버 오류'; return; }
+    _marginPeriodMode = true;
+    const vals = document.querySelectorAll('.sum-val');
+    vals[0].textContent = d.avg_margin.toFixed(1) + '%';
+    vals[0].className = 'sum-val ' + (d.avg_margin >= 20 ? 'green' : d.avg_margin >= 10 ? 'yellow' : 'red');
+    vals[1].textContent = fmt(d.revenue);
+    vals[2].textContent = fmt(d.profit);
+    vals[2].className = 'sum-val ' + (d.profit > 0 ? 'green' : 'red');
+    vals[3].textContent = fmt(d.ad);
+    document.getElementById('date-display').textContent = start + ' ~ ' + end + ' (' + d.days + '일)';
+    document.getElementById('margin-period-btn').style.cssText += ';background:#58a6ff;color:#0d1117;border-color:#58a6ff;';
+    status.textContent = '✅ ' + d.days + '일 합산';
+    const mb = document.getElementById('margin-body');
+    if (mb) mb.innerHTML = '<tr><td colspan="6" style="color:#8b949e;padding:20px;text-align:center;">📅 기간 합산 모드 — 상세 내역은 단일 날짜에서 확인</td></tr>';
+  } catch(e) {
+    status.textContent = '❌ ' + e.message;
+  }
+}
+
+function closeMarginPeriod() {
+  _marginPeriodMode = false;
+  document.getElementById('margin-period-ctrl').style.display = 'none';
+  const btn = document.getElementById('margin-period-btn');
+  btn.style.cssText = 'background:none;border:1px solid #2d4a6e;color:#58a6ff;font-size:12px;cursor:pointer;padding:5px 12px;border-radius:4px;font-weight:600;';
+  renderDate(currentIdx);
+}
+
+function prevDate() {
+  if (_marginPeriodMode) closeMarginPeriod();
+  if (currentIdx > 0) { currentIdx--; renderDate(currentIdx); }
+}
+function nextDate() {
+  if (_marginPeriodMode) closeMarginPeriod();
+  if (currentIdx < dateKeys.length - 1) { currentIdx++; renderDate(currentIdx); }
+}
 
 // 2026-04-21: 페이지 로드 시 최신 날짜로 초기 렌더 (위챗오더 탭 placed_qty 체크 포함)
 if (document.readyState === 'loading') {
