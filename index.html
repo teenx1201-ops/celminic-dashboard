@@ -293,13 +293,13 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 
 <!-- 탭 네비게이션 -->
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('margin')">💰마진<span class="tab-count">58</span></div>
-  <div class="tab" onclick="switchTab('inventory')">📊재고<span class="tab-count">40</span></div>
-  <div class="tab" onclick="switchTab('order')">📋발주<span class="tab-count">34</span></div>
-  <div class="tab" onclick="switchTab('wechat')">📦위챗오더</div>
-  <div class="tab" onclick="switchTab('milkrun')">🚚밀크런오더</div>
-  <div class="tab" onclick="switchTab('order_extra')">➕발주+</div>
-  <div class="tab" onclick="switchTab('warehouse')">🏭창고재고</div>
+  <div class="tab active" data-tab="margin" onclick="switchTab('margin')">💰마진<span class="tab-count">58</span></div>
+  <div class="tab" data-tab="inventory" onclick="switchTab('inventory')">📊재고<span class="tab-count">40</span></div>
+  <div class="tab" data-tab="order" onclick="switchTab('order')">📋발주<span class="tab-count">34</span></div>
+  <div class="tab" data-tab="order_extra" onclick="switchTab('order_extra')">➕추가발주</div>
+  <div class="tab" data-tab="wechat" onclick="switchTab('wechat')">📦위챗오더</div>
+  <div class="tab" data-tab="milkrun" onclick="switchTab('milkrun')">🚚밀크런오더</div>
+  <div class="tab" data-tab="warehouse" onclick="switchTab('warehouse')">🏭창고재고</div>
 </div>
 
 <!-- 마진 탭 -->
