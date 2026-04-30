@@ -2634,7 +2634,17 @@ async function applyMarginPeriod() {
     vals[2].className = 'sum-val ' + (d.profit > 0 ? 'green' : 'red');
     vals[3].textContent = fmt(d.ad);
     const calDays = _calEndDay - _calStartDay + 1;
-    document.getElementById('date-display').textContent = start + ' ~ ' + end + ' (' + calDays + '일)';
+    const dateLabel = start === end ? start + ' (1일)' : start + ' ~ ' + end + ' (' + calDays + '일)';
+    document.getElementById('date-display').textContent = dateLabel;
+    // 위챗오더 iframe을 기간 시작일 기준으로 갱신
+    const wf = document.getElementById('wechat-frame');
+    const we = document.getElementById('wechat-empty');
+    if (wf && we) {
+      wf.src = 'about:blank'; wf.style.display = 'none'; we.style.display = 'block';
+      fetch('orders/order_' + start + '.html', {method:'HEAD'}).then(function(res){
+        if (res.ok) { wf.src = 'orders/order_' + start + '.html'; wf.style.display = ''; we.style.display = 'none'; }
+      }).catch(function(){});
+    }
     const pbtn = document.getElementById('margin-period-btn');
     pbtn.textContent = '📅 기간 ▼';
     pbtn.style.cssText = 'background:#1f6feb;color:#fff;border:1px solid #1f6feb;font-size:12px;cursor:pointer;padding:5px 12px;border-radius:4px;font-weight:600;';
