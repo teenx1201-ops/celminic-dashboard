@@ -1843,7 +1843,7 @@ function scheduleMilkrunRefresh() {
     const frame = document.getElementById('milkrun-frame');
     const empty = document.getElementById('milkrun-empty');
     if (!frame || !empty) return;
-    const isLatest = (currentIdx === dateKeys.length - 1);
+    const isLatest = (dateKeys[currentIdx] === LATEST_DATE);
     if (!isLatest) return;  // 과거 날짜는 고정 스냅샷
     const d = dateKeys[currentIdx];
     const url = 'milkrun/milkrun_' + d + '.html?t=' + Date.now();
@@ -2381,7 +2381,7 @@ function renderDate(idx) {
   document.getElementById('inv-body').innerHTML = ih;
 
   // 발주 테이블 (2026-04-21: _fillMode 따라 pure/filled 스위치)
-  const isLatest = (idx === dateKeys.length - 1);
+  const isLatest = (dateKeys[idx] === LATEST_DATE);
   const orderRows = _fillMode && data.order_filled ? data.order_filled : (data.order || []);
 
   // 2026-04-21 혼합박스 그룹 계산 (Python _row_box_key + _box_color_map 재현)
