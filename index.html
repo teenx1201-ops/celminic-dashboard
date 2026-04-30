@@ -2547,7 +2547,7 @@ function _calRender() {
       else if (day === _calEndDay)   { bg = '#56d364'; color = '#0d1117'; fw = '700'; radius = '0 4px 4px 0'; }
       else if (day > _calStartDay && day < _calEndDay) { bg = '#132340'; color = '#79c0ff'; radius = '0'; }
     } else if (_calStartDay && day === _calStartDay) { bg = '#1f6feb'; color = '#fff'; fw = '700'; }
-    html += '<div onclick="_calPickDay(' + day + ')" style="padding:8px 0;font-size:13px;border-radius:' + radius + ';cursor:pointer;background:' + bg + ';color:' + color + ';font-weight:' + fw + ';" onmouseover="if(this.style.background==='transparent')this.style.background='#21262d'" onmouseout="if(this.style.background==='#21262d')this.style.background='transparent'">' + day + '</div>';
+    html += '<div onclick="_calPickDay(' + day + ')" style="padding:8px 0;font-size:13px;border-radius:' + radius + ';cursor:pointer;background:' + bg + ';color:' + color + ';font-weight:' + fw + ';">' + day + '</div>';
   }
   grid.innerHTML = html;
 }
