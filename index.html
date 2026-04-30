@@ -1287,6 +1287,19 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
     <div style="font-size:14px;font-weight:700;color:#b0bec5;">이 날짜에 밀크런 없음</div>
     <div style="font-size:11px;margin-top:6px;">이동 중인 발주가 있는 날짜를 선택하세요.</div>
   </div>
+  <!-- 사진 붙여넣기 → Vision API 입고분류 -->
+  <div id="vision-zone" style="border:1px dashed #1e2a35;border-radius:8px;padding:14px 16px;margin-bottom:12px;background:#0f1720;">
+    <div style="font-size:11px;color:#546e7a;margin-bottom:8px;">
+      📷 <b style="color:#b0bec5;">Ctrl+V</b> 로 사진 붙여넣기 → 입고 SKU 자동 인식
+    </div>
+    <div id="vision-preview" style="display:none;margin-bottom:8px;">
+      <img id="vision-img" style="max-height:120px;max-width:200px;border-radius:4px;vertical-align:middle;">
+      <button onclick="visionAnalyze()" style="margin-left:10px;padding:5px 12px;background:rgba(0,229,255,0.12);color:#00e5ff;border:1px solid #00e5ff;border-radius:4px;cursor:pointer;font-size:11px;">🔍 분석</button>
+      <button onclick="visionReset()" style="margin-left:4px;padding:5px 8px;background:transparent;color:#546e7a;border:1px solid #1e2a35;border-radius:4px;cursor:pointer;font-size:11px;">✕</button>
+    </div>
+    <div id="vision-results" style="display:none;margin-top:8px;"></div>
+    <div id="vision-status" style="font-size:11px;color:#546e7a;min-height:14px;"></div>
+  </div>
   <iframe id="milkrun-frame" src="milkrun/milkrun_2026-04-29.html" style="width:100%;height:1600px;border:none;border-radius:8px;background:#0a1015;"></iframe>
   <div id="milkrun-status" style="text-align:center;color:#546e7a;font-size:11px;margin-top:12px;"></div>
 </div>
