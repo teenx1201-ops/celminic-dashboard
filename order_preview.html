@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>발주탭 미리보기</title>
+<style>
+body{background:#0a1015;color:#c9d1d9;font-family:-apple-system,sans-serif;font-size:12px;padding:16px;margin:0;}
+table{width:100%;border-collapse:collapse;background:#0f1720;border-radius:8px;overflow:hidden;border:1px solid #1e2a35;margin-bottom:20px;}
+th{background:#1a2535;color:#8b949e;font-size:11px;padding:8px 10px;text-align:left;border-bottom:1px solid #1e2a35;}
+td{padding:7px 10px;border-bottom:1px solid #1a2535;vertical-align:middle;}
+.oq{color:#00e5ff;font-weight:700;}
+button{background:transparent;border:1px solid #1e2a35;color:#8b949e;border-radius:4px;padding:3px 8px;font-size:10px;}
+.note{background:#1a2535;border:1px dashed #ffd700;border-radius:6px;padding:10px 14px;margin-bottom:18px;color:#ffd700;font-size:11px;}
+.new{display:inline-block;background:#ffd70022;color:#ffd700;border-radius:3px;padding:1px 4px;font-size:9px;margin-left:3px;}
+h3{color:#8b949e;font-size:11px;margin:0 0 6px;}
+</style>
+</head>
+<body>
+<div class="note">미리보기 전용 — 실제 대시보드와 무관. 확인 후 반영.</div>
+
+<h3>현재</h3>
+<table>
+<thead><tr><th>상품</th><th>재고</th><th>품절까지</th><th>주문량</th><th>박스수량</th><th>완료</th></tr></thead>
+<tbody>
+<tr><td>암막커튼 그레이 130X170CM</td><td>0</td><td style="color:#f85149;font-weight:700">0일</td><td class="oq">4</td><td style="color:#8b949e;font-size:10px">1box</td><td><button>완료</button></td></tr>
+<tr><td>토퍼 차콜 SS</td><td>161</td><td style="color:#d29922;font-weight:700">40일</td><td class="oq">177</td><td style="color:#8b949e;font-size:10px">3pt+3box</td><td><button>완료</button></td></tr>
+<tr><td>토퍼 화이트앤블랙 SS</td><td>12</td><td style="color:#f85149;font-weight:700">8일</td><td class="oq">1</td><td style="color:#8b949e;font-size:10px">1box</td><td><button>완료</button></td></tr>
+<tr><td>이불세트 크림화이트 SS</td><td>27</td><td style="color:#d29922;font-weight:700">25일</td><td class="oq">48</td><td style="color:#8b949e;font-size:10px">1pt+2box</td><td><button>완료</button></td></tr>
+<tr><td>이불세트 크림화이트 K</td><td>0</td><td style="color:#f85149;font-weight:700">0일</td><td class="oq">14</td><td style="color:#8b949e;font-size:10px">3box</td><td><button>완료</button></td></tr>
+</tbody>
+</table>
+
+<h3 style="color:#56d364">변경 후</h3>
+<table>
+<thead><tr>
+  <th>상품</th>
+  <th style="color:#56d364">재고<span class="new">색상</span></th>
+  <th style="color:#ffd700">50일판매량<span class="new">NEW</span></th>
+  <th>품절까지</th>
+  <th>주문량</th>
+  <th>박스수량</th>
+  <th>완료</th>
+</tr></thead>
+<tbody>
+<tr><td>암막커튼 그레이 130X170CM</td><td style="color:#56d364;font-weight:700">0</td><td style="color:#ffd700">8</td><td style="color:#f85149;font-weight:700">0일</td><td class="oq">4</td><td style="color:#8b949e;font-size:10px">1box</td><td><button>완료</button></td></tr>
+<tr><td>토퍼 차콜 SS</td><td style="color:#56d364;font-weight:700">161</td><td style="color:#ffd700">197</td><td style="color:#d29922;font-weight:700">40일</td><td class="oq">177</td><td style="color:#8b949e;font-size:10px">3pt+3box</td><td><button>완료</button></td></tr>
+<tr><td>토퍼 화이트앤블랙 SS</td><td style="color:#56d364;font-weight:700">12</td><td style="color:#ffd700">72</td><td style="color:#f85149;font-weight:700">8일</td><td class="oq">1</td><td style="color:#8b949e;font-size:10px">1box</td><td><button>완료</button></td></tr>
+<tr><td>이불세트 크림화이트 SS</td><td style="color:#56d364;font-weight:700">27</td><td style="color:#ffd700">53</td><td style="color:#d29922;font-weight:700">25일</td><td class="oq">48</td><td style="color:#8b949e;font-size:10px">1pt+2box</td><td><button>완료</button></td></tr>
+<tr><td>이불세트 크림화이트 K</td><td style="color:#56d364;font-weight:700">0</td><td style="color:#ffd700">15</td><td style="color:#f85149;font-weight:700">0일</td><td class="oq">14</td><td style="color:#8b949e;font-size:10px">3box</td><td><button>완료</button></td></tr>
+</tbody>
+</table>
+
+<div style="font-size:10px;color:#546e7a">재고=초록 / 50일판매량=노란(최근30일판매×50÷30) / 품절까지=빨강긴급·주황발주·흰색여유</div>
+</body></html>
