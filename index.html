@@ -2263,13 +2263,6 @@ ${action} 수량:`;
   btn.disabled = false;
 }
 
-// 창고재고 탭 열릴 때 자동 로드
-const _origSwitchTab = switchTab;
-function switchTab(name) {
-  _origSwitchTab(name);
-  if (name === 'warehouse') loadWarehouseData();
-}
-
 /* ── Vision API: Ctrl+V 사진 붙여넣기 → 입고 SKU 인식 ── */
 let _visionImageB64 = null;
 let _visionMediaType = 'image/jpeg';
