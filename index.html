@@ -1742,10 +1742,10 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
 function switchTab(name) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  const tabs = document.querySelectorAll('.tab');
-  const map = {'margin': 0, 'inventory': 1, 'order': 2, 'wechat': 3, 'milkrun': 4, 'order_extra': 5, 'warehouse': 6};
-  tabs[map[name]].classList.add('active');
+  const content = document.getElementById('tab-' + name);
+  if (content) content.classList.add('active');
+  const tabEl = document.querySelector('.tab[data-tab="' + name + '"]');
+  if (tabEl) tabEl.classList.add('active');
 }
 
 /* ── 발주완료 시스템 (맥미니 HTTP API 직통) ── */
