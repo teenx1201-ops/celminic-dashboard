@@ -1746,6 +1746,7 @@ function switchTab(name) {
   if (content) content.classList.add('active');
   const tabEl = document.querySelector('.tab[data-tab="' + name + '"]');
   if (tabEl) tabEl.classList.add('active');
+  if (name === 'warehouse') loadWarehouseData();
 }
 
 /* ── 발주완료 시스템 (맥미니 HTTP API 직통) ── */
