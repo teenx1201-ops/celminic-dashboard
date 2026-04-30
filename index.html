@@ -2523,29 +2523,110 @@ function renderDate(idx) {
 }
 
 let _marginPeriodMode = false;
+let _calYear = 0, _calMonth = 0, _calStartDay = null, _calEndDay = null, _calPicking = 'start';
+
+function _calDaysInMonth(y, m) { return new Date(y, m, 0).getDate(); }
+function _calFirstDow(y, m) { return new Date(y, m - 1, 1).getDay(); }
+function _pad2(n) { return String(n).padStart(2, '0'); }
+
+function _calRender() {
+  const lbl = document.getElementById('cal-month-lbl');
+  if (lbl) lbl.textContent = _calYear + '년 ' + _calMonth + '월';
+  const grid = document.getElementById('cal-grid');
+  if (!grid) return;
+  const dows = ['일','월','화','수','목','금','토'];
+  let html = dows.map(function(d){ return '<div style="font-size:10px;color:#546e7a;padding:4px 0;font-weight:600;">' + d + '</div>'; }).join('');
+  const fd = _calFirstDow(_calYear, _calMonth);
+  const total = _calDaysInMonth(_calYear, _calMonth);
+  for (let i = 0; i < fd; i++) html += '<div></div>';
+  for (let day = 1; day <= total; day++) {
+    let bg = 'transparent', color = '#c9d1d9', fw = '400', radius = '4px';
+    if (_calStartDay && _calEndDay) {
+      if (day === _calStartDay && day === _calEndDay) { bg = '#1f6feb'; color = '#fff'; fw = '700'; }
+      else if (day === _calStartDay) { bg = '#1f6feb'; color = '#fff'; fw = '700'; radius = '4px 0 0 4px'; }
+      else if (day === _calEndDay)   { bg = '#56d364'; color = '#0d1117'; fw = '700'; radius = '0 4px 4px 0'; }
+      else if (day > _calStartDay && day < _calEndDay) { bg = '#132340'; color = '#79c0ff'; radius = '0'; }
+    } else if (_calStartDay && day === _calStartDay) { bg = '#1f6feb'; color = '#fff'; fw = '700'; }
+    html += '<div onclick="_calPickDay(' + day + ')" style="padding:8px 0;font-size:13px;border-radius:' + radius + ';cursor:pointer;background:' + bg + ';color:' + color + ';font-weight:' + fw + ';" onmouseover="if(this.style.background==='transparent')this.style.background='#21262d'" onmouseout="if(this.style.background==='#21262d')this.style.background='transparent'">' + day + '</div>';
+  }
+  grid.innerHTML = html;
+}
+
+function _calChangeMonth(d) {
+  _calMonth += d;
+  if (_calMonth > 12) { _calMonth = 1; _calYear++; }
+  if (_calMonth < 1)  { _calMonth = 12; _calYear--; }
+  _calRender();
+}
+
+function _calPickDay(day) {
+  if (_calPicking === 'start') {
+    _calStartDay = day; _calEndDay = null; _calPicking = 'end';
+    const hint = document.getElementById('cal-hint');
+    if (hint) hint.innerHTML = '✅ <b style="color:#58a6ff;">' + _calMonth + '/' + day + '</b> — 종료일 클릭';
+    const si = document.getElementById('cal-sel-info');
+    if (si) { si.style.display = 'flex'; }
+    const ss = document.getElementById('cal-sel-start');
+    if (ss) ss.textContent = _calMonth + '/' + day;
+    const se = document.getElementById('cal-sel-end');
+    if (se) se.textContent = '─';
+    const btn = document.getElementById('cal-apply-btn');
+    if (btn) btn.disabled = true;
+  } else {
+    if (day < _calStartDay) { _calEndDay = _calStartDay; _calStartDay = day; }
+    else { _calEndDay = day; }
+    _calPicking = 'start';
+    const days = _calEndDay - _calStartDay + 1;
+    const hint = document.getElementById('cal-hint');
+    if (hint) hint.innerHTML = '📅 <b style="color:#58a6ff;">' + days + '일</b> 선택됨';
+    const ss = document.getElementById('cal-sel-start');
+    if (ss) ss.textContent = _calMonth + '/' + _calStartDay;
+    const se = document.getElementById('cal-sel-end');
+    if (se) se.textContent = _calMonth + '/' + _calEndDay;
+    const btn = document.getElementById('cal-apply-btn');
+    if (btn) btn.disabled = false;
+  }
+  _calRender();
+}
 
 function toggleMarginPeriod() {
-  const ctrl = document.getElementById('margin-period-ctrl');
-  const show = ctrl.style.display === 'none' || ctrl.style.display === '';
-  ctrl.style.display = show ? 'flex' : 'none';
+  const cal = document.getElementById('margin-period-cal');
+  const isOpen = cal.style.display !== 'none';
+  if (isOpen) { closeMarginPeriod(); return; }
+  // 현재 보고 있는 날짜에서 연/월 추출
+  const dk = dateKeys[currentIdx];
+  _calYear = parseInt(dk.substring(0, 4));
+  _calMonth = parseInt(dk.substring(5, 7));
+  _calStartDay = null; _calEndDay = null; _calPicking = 'start';
+  const hint = document.getElementById('cal-hint');
+  if (hint) hint.textContent = '시작일을 클릭하세요';
+  const si = document.getElementById('cal-sel-info');
+  if (si) si.style.display = 'none';
+  const btn = document.getElementById('cal-apply-btn');
+  if (btn) btn.disabled = true;
+  document.getElementById('mp-status').textContent = '';
+  cal.style.display = 'block';
+  document.getElementById('margin-period-btn').style.cssText += ';background:#1a2332;border-color:#58a6ff;';
+  _calRender();
 }
 
 async function applyMarginPeriod() {
-  const start = document.getElementById('mp-start').value;
-  const end = document.getElementById('mp-end').value;
+  if (!_calStartDay || !_calEndDay) return;
+  const mm = _pad2(_calMonth);
+  const start = _calYear + '-' + mm + '-' + _pad2(_calStartDay);
+  const end   = _calYear + '-' + mm + '-' + _pad2(_calEndDay);
   const status = document.getElementById('mp-status');
-  if (!start || !end || start > end) {
-    status.textContent = '❌ 날짜를 올바르게 입력하세요';
-    return;
-  }
   status.textContent = '계산 중...';
+  const applyBtn = document.getElementById('cal-apply-btn');
+  if (applyBtn) applyBtn.disabled = true;
   const url = await getApiUrl();
-  if (!url) { status.textContent = '❌ 서버 연결 실패'; return; }
+  if (!url) { status.textContent = '❌ 서버 연결 실패'; if (applyBtn) applyBtn.disabled = false; return; }
   try {
     const r = await fetch(url + '/margin_period?start=' + start + '&end=' + end);
     const d = await r.json();
-    if (!d.ok) { status.textContent = '❌ 서버 오류'; return; }
+    if (!d.ok) { status.textContent = '❌ 서버 오류'; if (applyBtn) applyBtn.disabled = false; return; }
     _marginPeriodMode = true;
+    document.getElementById('margin-period-cal').style.display = 'none';
     const vals = document.querySelectorAll('.sum-val');
     vals[0].textContent = d.avg_margin.toFixed(1) + '%';
     vals[0].className = 'sum-val ' + (d.avg_margin >= 20 ? 'green' : d.avg_margin >= 10 ? 'yellow' : 'red');
@@ -2553,21 +2634,24 @@ async function applyMarginPeriod() {
     vals[2].textContent = fmt(d.profit);
     vals[2].className = 'sum-val ' + (d.profit > 0 ? 'green' : 'red');
     vals[3].textContent = fmt(d.ad);
-    const calDays = Math.round((new Date(end) - new Date(start)) / 86400000) + 1;
+    const calDays = _calEndDay - _calStartDay + 1;
     document.getElementById('date-display').textContent = start + ' ~ ' + end + ' (' + calDays + '일)';
-    document.getElementById('margin-period-btn').style.cssText += ';background:#58a6ff;color:#0d1117;border-color:#58a6ff;';
-    status.textContent = '✅ ' + calDays + '일 합산';
+    const pbtn = document.getElementById('margin-period-btn');
+    pbtn.textContent = '📅 기간 ▼';
+    pbtn.style.cssText = 'background:#1f6feb;color:#fff;border:1px solid #1f6feb;font-size:12px;cursor:pointer;padding:5px 12px;border-radius:4px;font-weight:600;';
     const mb = document.getElementById('margin-body');
     if (mb) mb.innerHTML = '<tr><td colspan="6" style="color:#8b949e;padding:20px;text-align:center;">📅 기간 합산 모드 — 상세 내역은 단일 날짜에서 확인</td></tr>';
   } catch(e) {
     status.textContent = '❌ ' + e.message;
+    if (applyBtn) applyBtn.disabled = false;
   }
 }
 
 function closeMarginPeriod() {
   _marginPeriodMode = false;
-  document.getElementById('margin-period-ctrl').style.display = 'none';
+  document.getElementById('margin-period-cal').style.display = 'none';
   const btn = document.getElementById('margin-period-btn');
+  btn.textContent = '📅 기간';
   btn.style.cssText = 'background:none;border:1px solid #2d4a6e;color:#58a6ff;font-size:12px;cursor:pointer;padding:5px 12px;border-radius:4px;font-weight:600;';
   renderDate(currentIdx);
 }
