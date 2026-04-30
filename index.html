@@ -2470,19 +2470,15 @@ function renderDate(idx) {
     wechatFrame.src = 'about:blank';
     wechatFrame.style.display = 'none';
     wechatEmpty.style.display = 'block';
-    // 2026-04-21: 파일 존재만 체크하면 "발주 계획(0건)" 도 보여버림.
-    // DB 실제 placed 수량이 있는 날짜에만 iframe 로드.
-    const placedQty = (data && data.placed_qty) ? data.placed_qty : 0;
-    if (placedQty > 0) {
-      const orderUrl = 'orders/order_' + d + '.html';
-      fetch(orderUrl, { method: 'HEAD' }).then(function(r) {
-        if (r.ok) {
-          wechatFrame.src = orderUrl;
-          wechatFrame.style.display = '';
-          wechatEmpty.style.display = 'none';
-        }
-      }).catch(function() { /* 실패 시 이미 플레이스홀더 상태 유지 */ });
-    }
+    // 파일 존재 여부로만 판단 (발주완료 도장 없어도 HTML 있으면 표시)
+    const orderUrl = 'orders/order_' + d + '.html';
+    fetch(orderUrl, { method: 'HEAD' }).then(function(r) {
+      if (r.ok) {
+        wechatFrame.src = orderUrl;
+        wechatFrame.style.display = '';
+        wechatEmpty.style.display = 'none';
+      }
+    }).catch(function() { /* 실패 시 이미 플레이스홀더 상태 유지 */ });
   }
 
   // 2026-04-21: 밀크런오더 — 날짜별 스냅샷 (위챗오더와 동일 패턴)
