@@ -2096,9 +2096,155 @@ document.addEventListener('change', (e) => {
   }
 });
 
-/* 2026-04-21: '✅ N (수정)' 초록 오버레이 제거.
-   주문량 칸 자체가 이미 already_ordered 를 차감한 값이라 중복 표시였음.
-   같은 날 오후 추가: 📦 박스 버튼도 제거, 파란 [완료] 하나로 통일. */
+/* 2026-04-21: '✅ N (수정)' 초록 오버레이 제거. */
+
+/* ── 발주+ 탭 ── */
+const _PALETTE_SKUS = {"암막커튼": {"variants": ["130X170CM", "140X230CM", "210X235CM"], "colors": ["크림화이트", "밀크베이지", "그레이"], "color_variant_limit": {}}, "18L휴지통": {"variants": ["기본"], "colors": [], "color_variant_limit": {}}, "토퍼": {"variants": ["SS", "Q", "K"], "colors": ["차콜", "아이보리", "화이트앤블랙", "베이지", "그레이"], "color_variant_limit": {"그레이": ["SS", "Q"]}}, "20L휴지통": {"variants": ["기본"], "colors": [], "color_variant_limit": {}}, "이불세트": {"variants": ["SS", "Q", "K"], "colors": ["크림화이트", "밀크베이지", "모카브라운", "스모키차콜"], "color_variant_limit": {}}, "페이스타올": {"variants": ["1개입", "2개입", "3개입"], "colors": [], "color_variant_limit": {}}};
+
+(function initXoDropdowns() {
+  const sel = document.getElementById('xo-prod');
+  if (!sel) return;
+  Object.keys(_PALETTE_SKUS).forEach(pk => {
+    const opt = document.createElement('option');
+    opt.value = pk; opt.textContent = pk;
+    sel.appendChild(opt);
+  });
+})();
+
+function xoUpdateVariants() {
+  const prod = document.getElementById('xo-prod').value;
+  const varSel = document.getElementById('xo-variant');
+  const colSel = document.getElementById('xo-color');
+  varSel.innerHTML = '<option value="">선택...</option>';
+  colSel.innerHTML = '<option value="">(단색)</option>';
+  if (!prod || !_PALETTE_SKUS[prod]) return;
+  _PALETTE_SKUS[prod].variants.forEach(v => {
+    varSel.innerHTML += `<option value="${v}">${v}</option>`;
+  });
+}
+
+function xoUpdateColors() {
+  const prod = document.getElementById('xo-prod').value;
+  const vr = document.getElementById('xo-variant').value;
+  const colSel = document.getElementById('xo-color');
+  colSel.innerHTML = '';
+  if (!prod || !_PALETTE_SKUS[prod]) return;
+  const colors = _PALETTE_SKUS[prod].colors || [];
+  const limit = _PALETTE_SKUS[prod].color_variant_limit || {};
+  if (colors.length === 0) {
+    colSel.innerHTML = '<option value="">(단색)</option>';
+    return;
+  }
+  colors.forEach(c => {
+    if (limit[vr] && !limit[vr].includes(c)) return;
+    colSel.innerHTML += `<option value="${c}">${c}</option>`;
+  });
+}
+
+async function submitExtraOrder() {
+  const prod = document.getElementById('xo-prod').value;
+  const vr = document.getElementById('xo-variant').value;
+  const col = document.getElementById('xo-color').value;
+  const qty = parseInt(document.getElementById('xo-qty').value, 10);
+  const date = document.getElementById('xo-date').value;
+  const status = document.getElementById('xo-status');
+  if (!prod || !vr || isNaN(qty) || qty <= 0 || !date) {
+    status.textContent = '❌ 모든 항목을 입력하세요';
+    status.style.color = '#f85149'; return;
+  }
+  const url = await getApiUrl();
+  if (!url) { status.textContent = '❌ 서버 URL 없음'; return; }
+  status.textContent = '처리 중...'; status.style.color = '#546e7a';
+  try {
+    const r = await fetch(url + '/extra_order', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+      body: JSON.stringify({prod_key: prod, variant: vr, color: col, qty: qty, order_date: date})
+    });
+    const data = await r.json();
+    if (r.ok && data.ok) {
+      status.textContent = `✅ 등록완료! 도착예정 ${data.arrival}`;
+      status.style.color = '#56d364';
+      setTimeout(() => location.reload(), 2500);
+    } else {
+      status.textContent = '❌ ' + (data.detail || '등록 실패');
+      status.style.color = '#f85149';
+    }
+  } catch(e) {
+    status.textContent = '❌ 네트워크 오류: ' + e.message;
+    status.style.color = '#f85149';
+  }
+}
+
+/* ── 창고재고 탭 ── */
+async function loadWarehouseData() {
+  const url = await getApiUrl();
+  if (!url) return;
+  try {
+    const r = await fetch(url + '/warehouse_all');
+    if (!r.ok) return;
+    const data = await r.json();
+    const map = {};
+    (data.items || []).forEach(item => {
+      map[`${item.prod_key}|${item.variant}|${item.color}`] = item;
+    });
+    document.querySelectorAll('#warehouse-tbody tr').forEach(tr => {
+      const key = `${tr.dataset.prod}|${tr.dataset.var}|${tr.dataset.col}`;
+      const item = map[key];
+      tr.querySelector('.wh-qty').textContent = item ? item.qty : '0';
+      tr.querySelector('.wh-qtc').textContent = item ? item.qty_to_coupang : '0';
+    });
+  } catch(e) { console.warn('창고 로드 실패:', e); }
+}
+
+async function whUpdate(btn) {
+  const action = btn.dataset.action;
+  const pk = btn.dataset.pk;
+  const vr = btn.dataset.var;
+  const cl = btn.dataset.col;
+  const label = [pk, cl, vr].filter(Boolean).join(' ');
+  let promptMsg = action === '쿠팡출고'
+    ? `${label}
+쿠팡출고 예정 수량 입력 (절댓값, 0=취소):`
+    : `${label}
+${action} 수량:`;
+  const raw = window.prompt(promptMsg);
+  if (raw === null) return;
+  const qty = parseInt(raw, 10);
+  if (isNaN(qty) || qty < 0) { alert('유효한 수량을 입력하세요 (0 이상 정수)'); return; }
+  const actualAction = (action === '쿠팡출고' && qty === 0) ? '쿠팡출고_취소' : action;
+  const url = await getApiUrl();
+  if (!url) { showStatus('❌ 서버 URL 없음'); return; }
+  btn.disabled = true;
+  const whStatus = document.getElementById('wh-status');
+  if (whStatus) whStatus.textContent = '처리 중...';
+  try {
+    const r = await fetch(url + '/warehouse_update', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+      body: JSON.stringify({prod_key: pk, variant: vr, color: cl, action: actualAction, qty: qty})
+    });
+    const data = await r.json();
+    if (r.ok && data.ok) {
+      const tr = btn.closest('tr');
+      tr.querySelector('.wh-qty').textContent = data.qty;
+      tr.querySelector('.wh-qtc').textContent = data.qty_to_coupang;
+      if (whStatus) { whStatus.textContent = `✅ ${label} ${actualAction} ${qty}개`; whStatus.style.color = '#56d364'; }
+    } else {
+      if (whStatus) { whStatus.textContent = '❌ ' + (data.detail || '실패'); whStatus.style.color = '#f85149'; }
+    }
+  } catch(e) {
+    if (whStatus) { whStatus.textContent = '❌ 네트워크 오류: ' + e.message; whStatus.style.color = '#f85149'; }
+  }
+  btn.disabled = false;
+}
+
+// 창고재고 탭 열릴 때 자동 로드
+const _origSwitchTab = switchTab;
+function switchTab(name) {
+  _origSwitchTab(name);
+  if (name === 'warehouse') loadWarehouseData();
+}
 </script>
 
 <script>
