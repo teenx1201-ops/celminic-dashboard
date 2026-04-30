@@ -1281,6 +1281,438 @@ tbody td { padding: 7px 4px; text-align: center; color: #90a4ae; line-height: 1.
   <div id="milkrun-status" style="text-align:center;color:#546e7a;font-size:11px;margin-top:12px;"></div>
 </div>
 
+<!-- 발주+ 탭 -->
+<div id="tab-order_extra" class="tab-content">
+  <div class="section-title">➕추가발주 (발주+)</div>
+  <div style="background:#0f1720;border-radius:8px;padding:20px;margin-top:12px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+      <div>
+        <label style="font-size:11px;color:#8b949e;display:block;margin-bottom:4px;">상품</label>
+        <select id="xo-prod" onchange="xoUpdateVariants()" style="width:100%;background:#161b22;color:#b0bec5;border:1px solid #1e2a35;border-radius:4px;padding:6px;font-size:12px;">
+          <option value="">선택...</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11px;color:#8b949e;display:block;margin-bottom:4px;">사이즈</label>
+        <select id="xo-variant" onchange="xoUpdateColors()" style="width:100%;background:#161b22;color:#b0bec5;border:1px solid #1e2a35;border-radius:4px;padding:6px;font-size:12px;">
+          <option value="">상품 먼저 선택</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11px;color:#8b949e;display:block;margin-bottom:4px;">색상</label>
+        <select id="xo-color" style="width:100%;background:#161b22;color:#b0bec5;border:1px solid #1e2a35;border-radius:4px;padding:6px;font-size:12px;">
+          <option value="">(단색)</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+      <div>
+        <label style="font-size:11px;color:#8b949e;display:block;margin-bottom:4px;">수량</label>
+        <input id="xo-qty" type="number" min="1" placeholder="발주 수량" style="width:100%;background:#161b22;color:#b0bec5;border:1px solid #1e2a35;border-radius:4px;padding:6px;font-size:12px;box-sizing:border-box;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:#8b949e;display:block;margin-bottom:4px;">발주날짜 (위챗 주문한 날)</label>
+        <input id="xo-date" type="date" value="2026-04-30" style="width:100%;background:#161b22;color:#b0bec5;border:1px solid #1e2a35;border-radius:4px;padding:6px;font-size:12px;box-sizing:border-box;">
+      </div>
+    </div>
+    <button onclick="submitExtraOrder()" style="width:100%;padding:10px;background:rgba(0,229,255,0.12);color:#00e5ff;border:1px solid #00e5ff;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;">➕ 추가발주 등록</button>
+    <div id="xo-status" style="text-align:center;margin-top:10px;font-size:11px;color:#546e7a;min-height:16px;"></div>
+  </div>
+  <div style="margin-top:20px;">
+    <div class="section-title" style="font-size:13px;">등록된 추가발주 목록</div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>발주날짜</th><th>상품</th><th>수량</th><th>도착예정</th></tr></thead>
+      <tbody><tr><td colspan='4' style='color:#546e7a;padding:20px;text-align:center;'>등록된 추가발주 없음</td></tr></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- 창고재고 탭 -->
+<div id="tab-warehouse" class="tab-content">
+  <div class="section-title">🏭창고재고</div>
+  <div style="font-size:11px;color:#546e7a;margin-bottom:8px;">
+    🟦 쿠팡출고 수량은 발주탭 주문수량 자동 차감됨 · 고객출고/입고는 발주 계산 무관
+  </div>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead><tr><th>상품</th><th style="color:#00e5ff;">창고qty</th><th style="color:#f0883e;">쿠팡출고예정</th><th>관리</th></tr></thead>
+    <tbody id="warehouse-tbody"><tr data-prod="암막커튼" data-var="130X170CM" data-col="크림화이트">
+  <td class="left">암막커튼 크림화이트 130X170CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="130X170CM" data-col="크림화이트" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="130X170CM" data-col="크림화이트" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="130X170CM" data-col="크림화이트" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="130X170CM" data-col="밀크베이지">
+  <td class="left">암막커튼 밀크베이지 130X170CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="130X170CM" data-col="밀크베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="130X170CM" data-col="밀크베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="130X170CM" data-col="밀크베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="130X170CM" data-col="그레이">
+  <td class="left">암막커튼 그레이 130X170CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="130X170CM" data-col="그레이" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="130X170CM" data-col="그레이" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="130X170CM" data-col="그레이" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="140X230CM" data-col="크림화이트">
+  <td class="left">암막커튼 크림화이트 140X230CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="140X230CM" data-col="크림화이트" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="140X230CM" data-col="크림화이트" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="140X230CM" data-col="크림화이트" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="140X230CM" data-col="밀크베이지">
+  <td class="left">암막커튼 밀크베이지 140X230CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="140X230CM" data-col="밀크베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="140X230CM" data-col="밀크베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="140X230CM" data-col="밀크베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="140X230CM" data-col="그레이">
+  <td class="left">암막커튼 그레이 140X230CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="140X230CM" data-col="그레이" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="140X230CM" data-col="그레이" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="140X230CM" data-col="그레이" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="210X235CM" data-col="크림화이트">
+  <td class="left">암막커튼 크림화이트 210X235CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="210X235CM" data-col="크림화이트" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="210X235CM" data-col="크림화이트" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="210X235CM" data-col="크림화이트" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="210X235CM" data-col="밀크베이지">
+  <td class="left">암막커튼 밀크베이지 210X235CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="210X235CM" data-col="밀크베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="210X235CM" data-col="밀크베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="210X235CM" data-col="밀크베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="암막커튼" data-var="210X235CM" data-col="그레이">
+  <td class="left">암막커튼 그레이 210X235CM</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="암막커튼" data-var="210X235CM" data-col="그레이" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="암막커튼" data-var="210X235CM" data-col="그레이" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="암막커튼" data-var="210X235CM" data-col="그레이" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="18L휴지통" data-var="기본" data-col="">
+  <td class="left">18L휴지통</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="18L휴지통" data-var="기본" data-col="" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="18L휴지통" data-var="기본" data-col="" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="18L휴지통" data-var="기본" data-col="" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="SS" data-col="차콜">
+  <td class="left">토퍼 차콜 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="SS" data-col="차콜" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="SS" data-col="차콜" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="SS" data-col="차콜" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="SS" data-col="아이보리">
+  <td class="left">토퍼 아이보리 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="SS" data-col="아이보리" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="SS" data-col="아이보리" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="SS" data-col="아이보리" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="SS" data-col="화이트앤블랙">
+  <td class="left">토퍼 화이트앤블랙 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="SS" data-col="화이트앤블랙" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="SS" data-col="화이트앤블랙" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="SS" data-col="화이트앤블랙" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="SS" data-col="베이지">
+  <td class="left">토퍼 베이지 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="SS" data-col="베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="SS" data-col="베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="SS" data-col="베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="SS" data-col="그레이">
+  <td class="left">토퍼 그레이 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="SS" data-col="그레이" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="SS" data-col="그레이" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="SS" data-col="그레이" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="Q" data-col="차콜">
+  <td class="left">토퍼 차콜 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="Q" data-col="차콜" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="Q" data-col="차콜" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="Q" data-col="차콜" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="Q" data-col="아이보리">
+  <td class="left">토퍼 아이보리 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="Q" data-col="아이보리" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="Q" data-col="아이보리" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="Q" data-col="아이보리" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="Q" data-col="화이트앤블랙">
+  <td class="left">토퍼 화이트앤블랙 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="Q" data-col="화이트앤블랙" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="Q" data-col="화이트앤블랙" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="Q" data-col="화이트앤블랙" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="Q" data-col="베이지">
+  <td class="left">토퍼 베이지 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="Q" data-col="베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="Q" data-col="베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="Q" data-col="베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="Q" data-col="그레이">
+  <td class="left">토퍼 그레이 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="Q" data-col="그레이" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="Q" data-col="그레이" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="Q" data-col="그레이" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="K" data-col="차콜">
+  <td class="left">토퍼 차콜 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="K" data-col="차콜" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="K" data-col="차콜" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="K" data-col="차콜" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="K" data-col="아이보리">
+  <td class="left">토퍼 아이보리 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="K" data-col="아이보리" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="K" data-col="아이보리" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="K" data-col="아이보리" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="K" data-col="화이트앤블랙">
+  <td class="left">토퍼 화이트앤블랙 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="K" data-col="화이트앤블랙" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="K" data-col="화이트앤블랙" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="K" data-col="화이트앤블랙" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="K" data-col="베이지">
+  <td class="left">토퍼 베이지 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="K" data-col="베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="K" data-col="베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="K" data-col="베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="토퍼" data-var="K" data-col="그레이">
+  <td class="left">토퍼 그레이 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="토퍼" data-var="K" data-col="그레이" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="토퍼" data-var="K" data-col="그레이" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="토퍼" data-var="K" data-col="그레이" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="20L휴지통" data-var="기본" data-col="">
+  <td class="left">20L휴지통</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="20L휴지통" data-var="기본" data-col="" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="20L휴지통" data-var="기본" data-col="" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="20L휴지통" data-var="기본" data-col="" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="SS" data-col="크림화이트">
+  <td class="left">이불세트 크림화이트 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="SS" data-col="크림화이트" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="SS" data-col="크림화이트" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="SS" data-col="크림화이트" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="SS" data-col="밀크베이지">
+  <td class="left">이불세트 밀크베이지 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="SS" data-col="밀크베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="SS" data-col="밀크베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="SS" data-col="밀크베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="SS" data-col="모카브라운">
+  <td class="left">이불세트 모카브라운 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="SS" data-col="모카브라운" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="SS" data-col="모카브라운" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="SS" data-col="모카브라운" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="SS" data-col="스모키차콜">
+  <td class="left">이불세트 스모키차콜 SS</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="SS" data-col="스모키차콜" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="SS" data-col="스모키차콜" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="SS" data-col="스모키차콜" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="Q" data-col="크림화이트">
+  <td class="left">이불세트 크림화이트 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="Q" data-col="크림화이트" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="Q" data-col="크림화이트" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="Q" data-col="크림화이트" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="Q" data-col="밀크베이지">
+  <td class="left">이불세트 밀크베이지 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="Q" data-col="밀크베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="Q" data-col="밀크베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="Q" data-col="밀크베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="Q" data-col="모카브라운">
+  <td class="left">이불세트 모카브라운 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="Q" data-col="모카브라운" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="Q" data-col="모카브라운" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="Q" data-col="모카브라운" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="Q" data-col="스모키차콜">
+  <td class="left">이불세트 스모키차콜 Q</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="Q" data-col="스모키차콜" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="Q" data-col="스모키차콜" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="Q" data-col="스모키차콜" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="K" data-col="크림화이트">
+  <td class="left">이불세트 크림화이트 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="K" data-col="크림화이트" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="K" data-col="크림화이트" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="K" data-col="크림화이트" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="K" data-col="밀크베이지">
+  <td class="left">이불세트 밀크베이지 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="K" data-col="밀크베이지" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="K" data-col="밀크베이지" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="K" data-col="밀크베이지" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="K" data-col="모카브라운">
+  <td class="left">이불세트 모카브라운 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="K" data-col="모카브라운" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="K" data-col="모카브라운" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="K" data-col="모카브라운" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="이불세트" data-var="K" data-col="스모키차콜">
+  <td class="left">이불세트 스모키차콜 K</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="이불세트" data-var="K" data-col="스모키차콜" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="이불세트" data-var="K" data-col="스모키차콜" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="이불세트" data-var="K" data-col="스모키차콜" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="페이스타올" data-var="1개입" data-col="">
+  <td class="left">페이스타올 1개입</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="페이스타올" data-var="1개입" data-col="" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="페이스타올" data-var="1개입" data-col="" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="페이스타올" data-var="1개입" data-col="" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="페이스타올" data-var="2개입" data-col="">
+  <td class="left">페이스타올 2개입</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="페이스타올" data-var="2개입" data-col="" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="페이스타올" data-var="2개입" data-col="" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="페이스타올" data-var="2개입" data-col="" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr><tr data-prod="페이스타올" data-var="3개입" data-col="">
+  <td class="left">페이스타올 3개입</td>
+  <td class="wh-qty" style="color:#00e5ff;font-weight:700;">-</td>
+  <td class="wh-qtc" style="color:#f0883e;">-</td>
+  <td style="white-space:nowrap;font-size:11px;">
+    <button class="btn-wh" data-action="입고" data-pk="페이스타올" data-var="3개입" data-col="" onclick="whUpdate(this)">+입고</button>
+    <button class="btn-wh btn-wh-ship" data-action="쿠팡출고" data-pk="페이스타올" data-var="3개입" data-col="" onclick="whUpdate(this)">쿠팡출고</button>
+    <button class="btn-wh" data-action="고객출고" data-pk="페이스타올" data-var="3개입" data-col="" onclick="whUpdate(this)">고객출고</button>
+  </td>
+</tr></tbody>
+  </table>
+  </div>
+  <div id="wh-status" style="text-align:center;color:#546e7a;font-size:11px;margin-top:12px;min-height:16px;"></div>
+</div>
+
 </div>
 
 <script>
@@ -1289,7 +1721,7 @@ function switchTab(name) {
   document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   const tabs = document.querySelectorAll('.tab');
-  const map = {'margin': 0, 'inventory': 1, 'order': 2, 'wechat': 3, 'milkrun': 4};
+  const map = {'margin': 0, 'inventory': 1, 'order': 2, 'wechat': 3, 'milkrun': 4, 'order_extra': 5, 'warehouse': 6};
   tabs[map[name]].classList.add('active');
 }
 
