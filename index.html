@@ -2268,6 +2268,118 @@ function switchTab(name) {
   _origSwitchTab(name);
   if (name === 'warehouse') loadWarehouseData();
 }
+
+/* ── Vision API: Ctrl+V 사진 붙여넣기 → 입고 SKU 인식 ── */
+let _visionImageB64 = null;
+let _visionMediaType = 'image/jpeg';
+
+document.addEventListener('paste', (e) => {
+  const active = document.querySelector('.tab-content.active');
+  if (!active || active.id !== 'tab-milkrun') return;
+  const items = e.clipboardData?.items || [];
+  for (const item of items) {
+    if (!item.type.startsWith('image/')) continue;
+    const file = item.getAsFile();
+    if (!file) continue;
+    _visionMediaType = item.type;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result;
+      _visionImageB64 = dataUrl.split(',')[1];
+      const img = document.getElementById('vision-img');
+      img.src = dataUrl;
+      document.getElementById('vision-preview').style.display = 'block';
+      document.getElementById('vision-results').style.display = 'none';
+      document.getElementById('vision-status').textContent = '이미지 준비됨 — [분석] 버튼을 누르세요';
+    };
+    reader.readAsDataURL(file);
+    break;
+  }
+});
+
+function visionReset() {
+  _visionImageB64 = null;
+  document.getElementById('vision-preview').style.display = 'none';
+  document.getElementById('vision-results').style.display = 'none';
+  document.getElementById('vision-status').textContent = '';
+}
+
+async function visionAnalyze() {
+  if (!_visionImageB64) { alert('이미지가 없습니다'); return; }
+  const url = await getApiUrl();
+  if (!url) { document.getElementById('vision-status').textContent = '❌ 서버 URL 없음'; return; }
+  const statusEl = document.getElementById('vision-status');
+  statusEl.textContent = '🔍 분석 중...';
+  try {
+    const r = await fetch(url + '/vision_parse', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+      body: JSON.stringify({image_b64: _visionImageB64, media_type: _visionMediaType})
+    });
+    const data = await r.json();
+    if (!r.ok || !data.ok) {
+      statusEl.textContent = '❌ ' + (data.detail || '분석 실패');
+      return;
+    }
+    const items = data.items || [];
+    if (items.length === 0) {
+      statusEl.textContent = '⚠️ 인식된 상품 없음. 사진이 명확한지 확인하세요.';
+      return;
+    }
+    statusEl.textContent = `✅ ${items.length}개 항목 인식됨 — 확인 후 [창고입고] 클릭`;
+    _visionRenderResults(items);
+  } catch(e) {
+    statusEl.textContent = '❌ 네트워크 오류: ' + e.message;
+  }
+}
+
+function _visionRenderResults(items) {
+  const resultsEl = document.getElementById('vision-results');
+  let html = '<table style="width:100%;font-size:11px;"><thead><tr>'
+    + '<th>상품</th><th>사이즈</th><th>색상</th><th>수량</th><th>단위</th></tr></thead><tbody>';
+  items.forEach((item, i) => {
+    html += `<tr>
+      <td><input type="text" value="${item.prod_key||''}" id="vr-pk-${i}" style="width:80px;background:#0a1015;color:#b0bec5;border:1px solid #1e2a35;border-radius:3px;padding:2px 4px;font-size:10px;"></td>
+      <td><input type="text" value="${item.variant||''}" id="vr-var-${i}" style="width:60px;background:#0a1015;color:#b0bec5;border:1px solid #1e2a35;border-radius:3px;padding:2px 4px;font-size:10px;"></td>
+      <td><input type="text" value="${item.color||''}" id="vr-col-${i}" style="width:80px;background:#0a1015;color:#b0bec5;border:1px solid #1e2a35;border-radius:3px;padding:2px 4px;font-size:10px;"></td>
+      <td><input type="number" value="${item.qty||''}" id="vr-qty-${i}" style="width:50px;background:#0a1015;color:#00e5ff;border:1px solid #1e2a35;border-radius:3px;padding:2px 4px;font-size:10px;font-weight:700;"></td>
+      <td style="color:#546e7a;">${item.unit||'개'}</td>
+    </tr>`;
+  });
+  html += `</tbody></table>
+    <button onclick="visionConfirm(${items.length})" style="margin-top:8px;width:100%;padding:6px;background:rgba(86,211,100,0.12);color:#56d364;border:1px solid #56d364;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;">
+      📦 창고입고 확정 (warehouse_stock +추가)
+    </button>`;
+  resultsEl.innerHTML = html;
+  resultsEl.style.display = 'block';
+}
+
+async function visionConfirm(count) {
+  const url = await getApiUrl();
+  if (!url) return;
+  const statusEl = document.getElementById('vision-status');
+  statusEl.textContent = '저장 중...';
+  let saved = 0, failed = 0;
+  for (let i = 0; i < count; i++) {
+    const pk = document.getElementById(`vr-pk-${i}`)?.value?.trim();
+    const vr = document.getElementById(`vr-var-${i}`)?.value?.trim() || '기본';
+    const cl = document.getElementById(`vr-col-${i}`)?.value?.trim() || '';
+    const qty = parseInt(document.getElementById(`vr-qty-${i}`)?.value || '0', 10);
+    if (!pk || isNaN(qty) || qty <= 0) continue;
+    try {
+      const r = await fetch(url + '/warehouse_update', {
+        method: 'POST',
+        headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+        body: JSON.stringify({prod_key: pk, variant: vr, color: cl, action: '추가', qty: qty, note: '사진 자동인식'})
+      });
+      const d = await r.json();
+      if (r.ok && d.ok) saved++; else failed++;
+    } catch(e) { failed++; }
+  }
+  statusEl.textContent = `✅ ${saved}건 창고입고 완료${failed > 0 ? ` (실패 ${failed}건)` : ''} — 창고재고 탭에서 확인하세요`;
+  statusEl.style.color = '#56d364';
+  document.getElementById('vision-results').style.display = 'none';
+}
 </script>
 
 <script>
