@@ -14,29 +14,33 @@ body {
 h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2px; }
 .date { text-align: center; color: #888; font-size: 13px; margin-bottom: 16px; }
 
-/* ── 상품명 드롭다운 ── */
-.prod-dropdown-wrap {
-  position: relative; max-width: 740px; margin: 0 auto 16px;
+/* ── 네비게이션 바 (상품명 드롭다운 + 박스/CBM + 박스스티커) ── */
+.nav-bar {
+  display: flex; gap: 8px; align-items: stretch;
+  max-width: 740px; margin: 0 auto 16px; flex-wrap: wrap;
 }
-.prod-dropdown-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 16px; border: 2px solid #333; border-radius: 8px;
+.nav-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 14px; border: 2px solid #ddd; border-radius: 8px;
   background: #fff; cursor: pointer; font-family: inherit;
-  font-size: 13px; font-weight: 700; color: #333;
-  user-select: none;
+  font-size: 13px; font-weight: 700; color: #aaa;
+  user-select: none; white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
-.prod-dropdown-btn:hover { background: #f5f5f5; }
-.prod-arrow { font-size: 10px; transition: transform 0.18s; margin-left: 2px; }
-.prod-dropdown-wrap.open .prod-arrow { transform: rotate(180deg); }
+.nav-btn:hover { border-color: #999; color: #555; background: #f5f5f5; }
+.nav-btn.active { border-color: #333; color: #333; background: #fff; }
 .prod-badge {
   display: inline-block; font-size: 10px; font-weight: 800;
   background: #0066ff20; color: #0066ff; border-radius: 4px;
   padding: 1px 6px;
 }
+.prod-arrow { font-size: 10px; transition: transform 0.18s; margin-left: 2px; }
+.prod-dropdown-wrap { position: relative; }
+.prod-dropdown-wrap.open .prod-arrow { transform: rotate(180deg); }
 .prod-dropdown-menu {
   display: none; position: absolute; top: calc(100% + 4px); left: 0;
   z-index: 200; background: #fff; border: 2px solid #333;
-  border-radius: 8px; min-width: 200px;
+  border-radius: 8px; min-width: 180px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.13); overflow: hidden;
 }
 .prod-dropdown-wrap.open .prod-dropdown-menu { display: block; }
@@ -53,7 +57,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   background: #0066ff20; color: #0066ff; border-radius: 4px;
   padding: 1px 5px; margin-left: auto;
 }
-/* ────────────────────── */
+/* ─────────────────────────── */
 .sub-content { display: none; max-width: 740px; margin: 0 auto; }
 .sub-content.active { display: block; }
 
@@ -126,22 +130,24 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <h1>CELMINIC ORDER</h1>
 <div class="date">2026-04-30</div>
 
-<div class="prod-dropdown-wrap" id="prod-dropdown-wrap">
-  <button class="prod-dropdown-btn" onclick="toggleProdDropdown(event)">
-    <span id="prod-btn-label">상품명</span>
-    <span id="prod-btn-badge" class="prod-badge" style="display:none"></span>
-    <span class="prod-arrow">▼</span>
-  </button>
-  <div class="prod-dropdown-menu" id="prod-dropdown-menu">
-    <div class="prod-dropdown-item active" onclick="selectProd('topper',this)">토퍼<span class="di-count">16</span></div>
-    <div class="prod-dropdown-item" onclick="selectProd('bedding',this)">이불세트<span class="di-count">54</span></div>
-    <div class="prod-dropdown-item" onclick="selectProd('curtain',this)">커튼<span class="di-count">0</span></div>
-    <div class="prod-dropdown-item" onclick="selectProd('trash18',this)">휴지통18L<span class="di-count">0</span></div>
-    <div class="prod-dropdown-item" onclick="selectProd('trash20',this)">휴지통20L<span class="di-count">0</span></div>
-    <div class="prod-dropdown-item" onclick="selectProd('facetowel',this)">페이스타올<span class="di-count">0</span></div>
-    <div class="prod-dropdown-item" onclick="selectProd('sticker',this)">박스/CBM<span class="di-count">13b · 1.56m³</span></div>
-    <div class="prod-dropdown-item" onclick="selectProd('pdf',this)">박스스티커<span class="di-count">PDF</span></div>
+<div class="nav-bar">
+  <div class="prod-dropdown-wrap" id="prod-dropdown-wrap">
+    <button class="nav-btn active" id="prod-dropdown-btn" onclick="toggleProdDropdown(event)">
+      <span id="prod-btn-label">상품명</span>
+      <span id="prod-btn-badge" class="prod-badge" style="display:none"></span>
+      <span class="prod-arrow">▼</span>
+    </button>
+    <div class="prod-dropdown-menu" id="prod-dropdown-menu">
+      <div class="prod-dropdown-item active" onclick="selectProd('topper',this)">토퍼<span class="di-count">16</span></div>
+      <div class="prod-dropdown-item" onclick="selectProd('bedding',this)">이불세트<span class="di-count">54</span></div>
+      <div class="prod-dropdown-item" onclick="selectProd('curtain',this)">커튼<span class="di-count">0</span></div>
+      <div class="prod-dropdown-item" onclick="selectProd('trash18',this)">휴지통18L<span class="di-count">0</span></div>
+      <div class="prod-dropdown-item" onclick="selectProd('trash20',this)">휴지통20L<span class="di-count">0</span></div>
+      <div class="prod-dropdown-item" onclick="selectProd('facetowel',this)">페이스타올<span class="di-count">0</span></div>
+    </div>
   </div>
+  <button class="nav-btn" id="nav-btn-sticker" onclick="switchSub('sticker')">박스/CBM</button>
+  <button class="nav-btn" id="nav-btn-pdf" onclick="switchSub('pdf')">박스스티커</button>
 </div>
 
 <div id="sub-topper" class="sub-content active">
@@ -469,37 +475,47 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 /* ── 상품명 레이블 맵 ── */
 const _PROD_LABEL = {
   topper:'토퍼', bedding:'이불세트', curtain:'커튼',
-  trash18:'휴지통18L', trash20:'휴지통20L', facetowel:'페이스타올',
-  sticker:'박스/CBM', pdf:'박스스티커'
+  trash18:'휴지통18L', trash20:'휴지통20L', facetowel:'페이스타올'
 };
+const _PROD_NAMES = Object.keys(_PROD_LABEL);
 
-function switchSub(name) {
-  /* 콘텐츠 전환 */
-  document.querySelectorAll('.sub-content').forEach(el => el.classList.remove('active'));
-  document.getElementById('sub-' + name).classList.add('active');
-  /* 드롭다운 버튼 레이블 + 뱃지 업데이트 */
-  const lbl = document.getElementById('prod-btn-label');
+function _updateNavActive(name) {
+  const isProd = _PROD_NAMES.includes(name);
+  const prodBtn    = document.getElementById('prod-dropdown-btn');
+  const stickerBtn = document.getElementById('nav-btn-sticker');
+  const pdfBtn     = document.getElementById('nav-btn-pdf');
+  if (prodBtn)    prodBtn.classList.toggle('active', isProd);
+  if (stickerBtn) stickerBtn.classList.toggle('active', name === 'sticker');
+  if (pdfBtn)     pdfBtn.classList.toggle('active', name === 'pdf');
+
+  /* 상품명 버튼 레이블·뱃지 업데이트 */
+  const lbl   = document.getElementById('prod-btn-label');
   const badge = document.getElementById('prod-btn-badge');
-  if (lbl) lbl.textContent = _PROD_LABEL[name] || name;
-  const item = document.querySelector('.prod-dropdown-item.active');
-  const countEl = item && item.querySelector('.di-count');
-  const countTxt = countEl ? countEl.textContent.trim() : '';
-  if (badge) {
-    if (countTxt && countTxt !== '0' && countTxt !== 'PDF') {
-      badge.textContent = countTxt; badge.style.display = '';
-    } else {
-      badge.style.display = 'none';
+  if (isProd) {
+    if (lbl) lbl.textContent = _PROD_LABEL[name];
+    const item     = document.querySelector('.prod-dropdown-item.active');
+    const countTxt = item ? (item.querySelector('.di-count') || {}).textContent || '' : '';
+    if (badge) {
+      const show = countTxt.trim() && countTxt.trim() !== '0';
+      badge.textContent = countTxt.trim();
+      badge.style.display = show ? '' : 'none';
     }
+  } else {
+    if (lbl)   lbl.textContent = '상품명';
+    if (badge) badge.style.display = 'none';
   }
 }
 
+function switchSub(name) {
+  document.querySelectorAll('.sub-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('sub-' + name).classList.add('active');
+  _updateNavActive(name);
+}
+
 function selectProd(name, itemEl) {
-  /* 드롭다운 아이템 active 전환 */
   document.querySelectorAll('.prod-dropdown-item').forEach(el => el.classList.remove('active'));
   if (itemEl) itemEl.classList.add('active');
-  /* 드롭다운 닫기 */
   closeProdDropdown();
-  /* 실제 콘텐츠 전환 */
   switchSub(name);
 }
 
@@ -515,18 +531,12 @@ document.addEventListener('click', function(e) {
   if (wrap && !wrap.contains(e.target)) closeProdDropdown();
 });
 
-/* 초기 로드 시 버튼 레이블 세팅 (토퍼 기본) */
+/* 초기 로드: 첫 상품(토퍼) 기본 선택 상태 세팅 */
 window.addEventListener('DOMContentLoaded', function() {
   const firstItem = document.querySelector('.prod-dropdown-item.active');
   if (firstItem) {
-    const countEl = firstItem.querySelector('.di-count');
-    const countTxt = countEl ? countEl.textContent.trim() : '';
-    const lbl = document.getElementById('prod-btn-label');
-    const badge = document.getElementById('prod-btn-badge');
-    if (lbl) lbl.textContent = firstItem.childNodes[0].textContent.trim();
-    if (badge && countTxt && countTxt !== '0' && countTxt !== 'PDF') {
-      badge.textContent = countTxt; badge.style.display = '';
-    }
+    const name = firstItem.getAttribute('onclick').match(/'(\w+)'/)[1];
+    _updateNavActive(name);
   }
 });
 
