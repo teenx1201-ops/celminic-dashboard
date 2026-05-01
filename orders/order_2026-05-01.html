@@ -17,11 +17,14 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 .sub-tabs {
   display: flex; gap: 0; max-width: 740px; margin: 0 auto;
   border-bottom: 2px solid #333;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.sub-tabs::-webkit-scrollbar { display: none; }
 .sub-tab {
-  flex: 1; padding: 12px 8px; text-align: center;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  color: #999; letter-spacing: 1px;
+  flex: 0 0 auto; padding: 10px 10px; text-align: center;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  color: #999; letter-spacing: 0.5px; white-space: nowrap;
   border: 1px solid #ddd; border-bottom: none;
   border-radius: 6px 6px 0 0; margin-right: -1px;
   background: #f5f5f5; transition: all 0.2s;
@@ -36,7 +39,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 .sub-tab .count {
   display: inline-block; font-size: 10px; font-weight: 800;
   background: #0066ff20; color: #0066ff; border-radius: 4px;
-  padding: 1px 6px; margin-left: 4px;
+  padding: 1px 5px; margin-left: 3px;
 }
 .sub-content { display: none; max-width: 740px; margin: 0 auto; }
 .sub-content.active { display: block; }
@@ -111,13 +114,17 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date">2026-05-01</div>
 
 <div class="sub-tabs">
-  <div class="sub-tab active" onclick="switchSub('factory1')">토퍼+이불세트<span class="count">194</span></div>
+  <div class="sub-tab active" onclick="switchSub('topper')">토퍼<span class="count">16</span></div>
+  <div class="sub-tab" onclick="switchSub('bedding')">이불세트<span class="count">178</span></div>
   <div class="sub-tab" onclick="switchSub('curtain')">커튼<span class="count">0</span></div>
+  <div class="sub-tab" onclick="switchSub('trash18')">휴지통18L<span class="count">0</span></div>
+  <div class="sub-tab" onclick="switchSub('trash20')">휴지통20L<span class="count">0</span></div>
+  <div class="sub-tab" onclick="switchSub('facetowel')">페이스타올<span class="count">0</span></div>
   <div class="sub-tab" onclick="switchSub('sticker')">박스/CBM<span class="count">36b · 4.32m³</span></div>
   <div class="sub-tab" onclick="switchSub('pdf')">박스스티커<span class="count">PDF</span></div>
 </div>
 
-<div id="sub-factory1" class="sub-content active">
+<div id="sub-topper" class="sub-content active">
 <div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 5pcs / 1.5: 5pcs / 1.8: 4pcs</div>
 
 <div class="card">
@@ -197,7 +204,26 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div class="section-total">TOPPER: 16 PCS / 4 BOXES</div>
 
-<div style="font-size:14px;font-weight:800;color:#ff4444;margin:24px 0 8px;padding-top:16px;border-top:2px dashed #ddd;">BEDDING SET</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+<div class="section-total" style="margin-top:20px;font-size:16px;">토퍼+이불 TOTAL: 194 PCS / 36 BOXES</div>
+
+<div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #e65100;border-radius:8px;background:#fff8f0;">
+  <div style="font-size:12px;font-weight:800;color:#e65100;margin-bottom:10px;">🔒 토퍼+이불 원가</div>
+  <table class="size-table">
+    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
+    <tbody>
+      <tr><td>토퍼 K (1.8)</td><td class="box-val">16</td><td class="box-val">50.00</td><td class="box-val">800.00</td></tr>
+      <tr><td>이불 SS</td><td class="box-val">108</td><td class="box-val">68.00</td><td class="box-val">7,344.00</td></tr>
+      <tr><td>이불 K</td><td class="box-val">70</td><td class="box-val">78.00</td><td class="box-val">5,460.00</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #e65100;text-align:center;">
+    <div style="font-size:16px;font-weight:800;color:#e65100;">13,604.00 CNY</div>
+  </div>
+</div>
+</div>
+
+<div id="sub-bedding" class="sub-content">
+<div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING SET</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
 
 <div class="card">
   <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
@@ -281,6 +307,18 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div id="sub-curtain" class="sub-content">
 <div style="padding:20px;text-align:center;color:#999;">커튼 발주 없음</div>
+</div>
+
+<div id="sub-trash18" class="sub-content">
+<div style="padding:20px;text-align:center;color:#999;">발주 없음</div>
+</div>
+
+<div id="sub-trash20" class="sub-content">
+<div style="padding:20px;text-align:center;color:#999;">발주 없음</div>
+</div>
+
+<div id="sub-facetowel" class="sub-content">
+<div style="padding:20px;text-align:center;color:#999;">발주 없음</div>
 </div>
 
 <div id="sub-sticker" class="sub-content">
@@ -419,7 +457,7 @@ function switchSub(name) {
   document.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
   document.getElementById('sub-' + name).classList.add('active');
   const tabs = document.querySelectorAll('.sub-tab');
-  const map = {'factory1': 0, 'curtain': 1, 'sticker': 2, 'pdf': 3};
+  const map = {'topper': 0, 'bedding': 1, 'curtain': 2, 'trash18': 3, 'trash20': 4, 'facetowel': 5, 'sticker': 6, 'pdf': 7};
   tabs[map[name]].classList.add('active');
 }
 
