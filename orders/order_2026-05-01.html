@@ -126,17 +126,19 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 /* 날짜 토글 바 */
 .date-bar {
-  display: flex; gap: 6px; max-width: 740px; margin: 0 auto 10px;
-  overflow-x: auto; padding: 2px 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 8px;
+  max-width: 740px; margin: 0 auto 10px;
 }
 .date-btn {
-  flex-shrink: 0; padding: 7px 14px; border: 2px solid #ddd; border-radius: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; padding: 9px 14px; border: 2px solid #ddd; border-radius: 8px;
   background: #fff; cursor: pointer; font-family: inherit;
-  font-size: 12px; font-weight: 700; color: #aaa;
-  transition: all 0.15s; white-space: nowrap;
+  font-size: 13px; font-weight: 700; color: #aaa;
+  user-select: none; white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 .date-btn:hover { border-color: #999; color: #555; }
-.date-btn.active { border-color: #0066ff; color: #0066ff; background: #f0f4ff; }
+.date-btn.active { border-color: #333; color: #333; background: #fff; }
 .date-type {
   font-size: 9px; font-weight: 800; margin-left: 4px;
   padding: 1px 5px; border-radius: 3px;
@@ -1824,7 +1826,14 @@ async function downloadAllPDF() {
   btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
   status.textContent = '✅ 전체 PDF 다운로드 완료! (총 ' + allData.length + '장)';
 }
-</script>
 
+function switchDate(dateId) {
+  document.querySelectorAll('.date-btn').forEach(function(b) { b.classList.remove('active'); });
+  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.date-content').forEach(function(d) {
+    d.classList.toggle('active', d.getAttribute('data-date') === dateId);
+  });
+}
+</script>
 </body>
 </html>
