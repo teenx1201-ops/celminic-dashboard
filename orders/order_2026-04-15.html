@@ -64,13 +64,14 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 .box-info { text-align: center; color: #666; font-size: 11px; margin: 14px 0; }
 
+.cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .card {
-  display: flex; gap: 14px; align-items: stretch;
+  display: flex; gap: 10px; align-items: stretch;
   border: 1px solid #e0e0e0; border-radius: 8px;
-  padding: 12px; margin-bottom: 12px; background: #fafafa;
+  padding: 10px; background: #fafafa;
 }
 .card-photo {
-  width: 140px; min-height: 120px; border-radius: 6px;
+  width: 100px; min-height: 90px; border-radius: 6px;
   flex-shrink: 0; position: relative; overflow: hidden;
   background-size: cover; background-position: center;
 }
@@ -86,17 +87,17 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 .size-table { width: 100%; border-collapse: collapse; }
 .size-table th {
-  font-size: 10px; color: #999; font-weight: 700;
-  padding: 4px 8px; text-align: center; border-bottom: 1px solid #e0e0e0;
+  font-size: 9px; color: #999; font-weight: 700;
+  padding: 3px 4px; text-align: center; border-bottom: 1px solid #e0e0e0;
   letter-spacing: 1px;
 }
 .size-table th:first-child { text-align: left; }
 .size-table td {
-  font-size: 14px; font-weight: 800; padding: 6px 8px;
+  font-size: 12px; font-weight: 800; padding: 4px 4px;
   text-align: center; border-bottom: 1px solid #f0f0f0;
 }
 .size-table td:first-child {
-  text-align: left; font-size: 13px; font-weight: 700; color: #555;
+  text-align: left; font-size: 11px; font-weight: 700; color: #555;
 }
 .size-table td.qty-val { color: #0066ff; }
 .size-table td.qty-zero { color: #ff4444; }
@@ -116,12 +117,12 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 .note { font-size: 10px; color: #999; font-weight: 400; }
 
 .card-text {
-  width: 140px; min-height: 120px; border-radius: 6px;
+  width: 100px; min-height: 90px; border-radius: 6px;
   flex-shrink: 0; display: flex; align-items: center;
   justify-content: center; flex-direction: column;
   background: #f0f0f0; gap: 4px;
 }
-.card-text .cn { font-size: 20px; font-weight: 800; color: #333; }
+.card-text .cn { font-size: 14px; font-weight: 800; color: #333; }
 .card-text .en { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 1px; }
 
 /* 날짜 토글 바 */
@@ -185,6 +186,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date-content active" data-date="total">
 <div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
 
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
   <div class="card-body">
@@ -199,7 +201,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">102 pcs / 17 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../ivory.jpg');"><div class="label">IVORY</div></div>
   <div class="card-body">
@@ -214,7 +215,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">542 pcs / 93 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../whiteblack.jpg');"><div class="label">WHITE &amp; BLACK</div></div>
   <div class="card-body">
@@ -229,7 +229,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">86 pcs / 16 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../beige.jpg');"><div class="label">BEIGE</div></div>
   <div class="card-body">
@@ -244,7 +243,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">370 pcs / 64 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../grey.jpg');"><div class="label">GREY</div></div>
   <div class="card-body">
@@ -258,6 +256,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     </table>
     <div class="card-total">22 pcs / 4 boxes</div>
   </div>
+</div>
 </div>
 
 <div class="section-total">TOPPER: 1,122 PCS / 194 BOXES</div>
@@ -281,6 +280,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   </div>
 </div></div>
 <div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
   <div class="card-body">
@@ -295,7 +295,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">102 pcs / 17 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../ivory.jpg');"><div class="label">IVORY</div></div>
   <div class="card-body">
@@ -310,7 +309,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">542 pcs / 93 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../whiteblack.jpg');"><div class="label">WHITE &amp; BLACK</div></div>
   <div class="card-body">
@@ -325,7 +323,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">74 pcs / 13 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../beige.jpg');"><div class="label">BEIGE</div></div>
   <div class="card-body">
@@ -340,7 +337,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">366 pcs / 63 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../grey.jpg');"><div class="label">GREY</div></div>
   <div class="card-body">
@@ -355,8 +351,10 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">22 pcs / 4 boxes</div>
   </div>
 </div>
+</div>
 <div class="section-total">TOPPER: 1,106 PCS / 190 BOXES</div></div>
 <div class="date-content" data-date="2026-04-30"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
   <div class="card-body">
@@ -371,7 +369,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../ivory.jpg');"><div class="label">IVORY</div></div>
   <div class="card-body">
@@ -386,7 +383,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../whiteblack.jpg');"><div class="label">WHITE &amp; BLACK</div></div>
   <div class="card-body">
@@ -401,7 +397,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">12 pcs / 3 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../beige.jpg');"><div class="label">BEIGE</div></div>
   <div class="card-body">
@@ -416,7 +411,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">4 pcs / 1 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../grey.jpg');"><div class="label">GREY</div></div>
   <div class="card-body">
@@ -431,6 +425,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
+</div>
 <div class="section-total">TOPPER: 16 PCS / 4 BOXES</div></div>
 <div class="date-content" data-date="2026-05-01"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -439,6 +434,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date-content active" data-date="total">
 <div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING SET</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
 
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
   <div class="card-body">
@@ -453,7 +449,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">54 pcs / 9 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
   <div class="card-body">
@@ -468,7 +463,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">94 pcs / 17 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
   <div class="card-body">
@@ -483,7 +477,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">70 pcs / 14 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
   <div class="card-body">
@@ -497,6 +490,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     </table>
     <div class="card-total">30 pcs / 6 boxes</div>
   </div>
+</div>
 </div>
 
 <div class="section-total">BEDDING: 248 PCS / 46 BOXES</div>
@@ -520,6 +514,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   </div>
 </div></div>
 <div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
   <div class="card-body">
@@ -534,7 +529,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
   <div class="card-body">
@@ -549,7 +543,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
   <div class="card-body">
@@ -564,7 +557,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">70 pcs / 14 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
   <div class="card-body">
@@ -579,8 +571,10 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
+</div>
 <div class="section-total">BEDDING: 70 PCS / 14 BOXES</div></div>
 <div class="date-content" data-date="2026-04-30"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
   <div class="card-body">
@@ -595,7 +589,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">54 pcs / 9 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
   <div class="card-body">
@@ -610,7 +603,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
   <div class="card-body">
@@ -625,7 +617,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
   <div class="card-body">
@@ -640,8 +631,10 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
+</div>
 <div class="section-total">BEDDING: 54 PCS / 9 BOXES</div></div>
 <div class="date-content" data-date="2026-05-01"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
   <div class="card-body">
@@ -656,7 +649,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
   <div class="card-body">
@@ -671,7 +663,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">94 pcs / 17 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
   <div class="card-body">
@@ -686,7 +677,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">0 pcs / 0 boxes</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
   <div class="card-body">
@@ -701,6 +691,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">30 pcs / 6 boxes</div>
   </div>
 </div>
+</div>
 <div class="section-total">BEDDING: 124 PCS / 23 BOXES</div></div>
 </div>
 
@@ -709,6 +700,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="box-info">per box — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
 
 
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_cream.jpg');"><div class="label">奶油白色 CREAM WHITE</div></div>
   <div class="card-body">
@@ -723,7 +715,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">243 pcs</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_milkbeige.jpg');"><div class="label">牛奶米色 MILK BEIGE</div></div>
   <div class="card-body">
@@ -738,7 +729,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">45 pcs</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_grey.jpg');"><div class="label">灰色 GREY</div></div>
   <div class="card-body">
@@ -752,6 +742,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     </table>
     <div class="card-total">24 pcs</div>
   </div>
+</div>
 </div>
 
 <div style="margin-top:16px; padding:12px; border:1px solid #e0e0e0; border-radius:8px; background:#f8f8f8;">
@@ -782,6 +773,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   </div>
 </div></div>
 <div class="date-content" data-date="2026-04-15"><div class="box-info">per box — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_cream.jpg');"><div class="label">奶油白色 CREAM WHITE</div></div>
   <div class="card-body">
@@ -796,7 +788,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">243 pcs</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_milkbeige.jpg');"><div class="label">牛奶米色 MILK BEIGE</div></div>
   <div class="card-body">
@@ -811,7 +802,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">45 pcs</div>
   </div>
 </div>
-
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_grey.jpg');"><div class="label">灰色 GREY</div></div>
   <div class="card-body">
@@ -825,6 +815,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     </table>
     <div class="card-total">24 pcs</div>
   </div>
+</div>
 </div>
 <div style="margin-top:16px; padding:12px; border:1px solid #e0e0e0; border-radius:8px; background:#f8f8f8;">
   <table class="size-table">
@@ -847,6 +838,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div class="box-info">per box — 12pcs</div>
 
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../trash18.jpg');"><div class="label">MATTE WHITE</div></div>
   <div class="card-body">
@@ -859,9 +851,11 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">700 pcs / 59 boxes</div>
   </div>
 </div>
+</div>
 
 <div class="section-total">BIN 18L: 700 PCS / 59 BOXES</div></div>
 <div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 18L</div><div class="box-info">per box — 12pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../trash18.jpg');"><div class="label">MATTE WHITE</div></div>
   <div class="card-body">
@@ -873,6 +867,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     </table>
     <div class="card-total">700 pcs / 59 boxes</div>
   </div>
+</div>
 </div>
 <div class="section-total">BIN 18L: 700 PCS / 59 BOXES</div></div>
 <div class="date-content" data-date="2026-04-30"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
@@ -885,6 +880,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div class="box-info">per box — 4pcs</div>
 
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../trash20.jpg');"><div class="label">COTA WHITE</div></div>
   <div class="card-body">
@@ -897,9 +893,11 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">320 pcs / 80 boxes</div>
   </div>
 </div>
+</div>
 
 <div class="section-total">BIN 20L: 320 PCS / 80 BOXES</div></div>
 <div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 20L</div><div class="box-info">per box — 4pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../trash20.jpg');"><div class="label">COTA WHITE</div></div>
   <div class="card-body">
@@ -911,6 +909,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     </table>
     <div class="card-total">320 pcs / 80 boxes</div>
   </div>
+</div>
 </div>
 <div class="section-total">BIN 20L: 320 PCS / 80 BOXES</div></div>
 <div class="date-content" data-date="2026-04-30"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
@@ -923,6 +922,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div class="box-info">per box — 1팩: 60pcs / 2팩: 30pcs / 3팩: 20pcs</div>
 
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../facetowel.jpg');"><div class="label">FACE TOWEL</div></div>
   <div class="card-body">
@@ -937,9 +937,11 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div class="card-total">1,320 pcs / 56 boxes</div>
   </div>
 </div>
+</div>
 
 <div class="section-total">FACE TOWEL: 1,320 PCS / 56 BOXES</div></div>
 <div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">FACE TOWEL</div><div class="box-info">per box — 1팩: 60pcs / 2팩: 30pcs / 3팩: 20pcs</div>
+<div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../facetowel.jpg');"><div class="label">FACE TOWEL</div></div>
   <div class="card-body">
@@ -953,6 +955,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     </table>
     <div class="card-total">1,320 pcs / 56 boxes</div>
   </div>
+</div>
 </div>
 <div class="section-total">FACE TOWEL: 1,320 PCS / 56 BOXES</div></div>
 <div class="date-content" data-date="2026-04-30"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
