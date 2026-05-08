@@ -1041,10 +1041,11 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 .bar-row:hover { background: #fafafa; }
 .bar-color { width: 110px; font-size: 12px; font-weight: 700; color: #555; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
 .color-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
-.bar-boxes { width: 32px; text-align: right; font-size: 14px; font-weight: 800; color: #333; flex-shrink: 0; }
-.bar-track { flex: 1; height: 16px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
-.bar-fill { height: 100%; background: #333; border-radius: 3px; min-width: 2px; }
-.bar-cbm { width: 48px; text-align: right; font-size: 12px; font-weight: 700; color: #888; flex-shrink: 0; }
+.bar-info { font-size: 13px; font-weight: 800; color: #333; white-space: nowrap; flex-shrink: 0; }
+.bar-ea { font-size: 11px; font-weight: 600; color: #888; }
+.bar-cbm { font-size: 12px; font-weight: 700; color: #888; white-space: nowrap; flex-shrink: 0; }
+.bar-gauge { width: 40px; height: 14px; background: #f0f0f0; border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.gauge-fill { height: 100%; border-radius: 3px; min-width: 1px; }
 .bar-mix-detail { flex: 1; font-size: 11px; color: #555; line-height: 1.4; }
 .bar-total {
   display: flex; justify-content: space-between; align-items: center;
@@ -1055,8 +1056,10 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 @media (max-width: 600px) {
   .bar-color { width: 82px; font-size: 11px; }
   .color-dot { width: 10px; height: 10px; }
-  .bar-boxes { width: 28px; font-size: 12px; }
-  .bar-cbm { width: 40px; font-size: 11px; }
+  .bar-info { font-size: 11px; }
+  .bar-ea { font-size: 10px; }
+  .bar-cbm { font-size: 11px; }
+  .bar-gauge { width: 32px; height: 12px; }
   .bar-group-header { font-size: 12px; }
   .bar-group-sub { font-size: 11px; }
   .bar-mix-detail { font-size: 10px; }
@@ -1072,27 +1075,27 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 186 boxes · 22.32 CBM</span></div>
 <div class="bar-group-header">SS (1.2) · 6ea/box<span class="bar-group-sub">116 box · 13.92 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-boxes">65</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">7.80</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-boxes">38</span><span class="bar-track"><span class="bar-fill" style="width:58%;background:#d4c5a9;border:1px solid #ccc;"></span></span><span class="bar-cbm">4.56</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-boxes">10</span><span class="bar-track"><span class="bar-fill" style="width:15%;background:#222222;"></span></span><span class="bar-cbm">1.20</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#9e9e9e;"></span>그레이</span><span class="bar-boxes">3</span><span class="bar-track"><span class="bar-fill" style="width:5%;background:#9e9e9e;"></span></span><span class="bar-cbm">0.36</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">65박스 <span class="bar-ea">(390개)</span></span><span class="bar-cbm">7.80cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">38박스 <span class="bar-ea">(228개)</span></span><span class="bar-cbm">4.56cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#d4c5a9;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">10박스 <span class="bar-ea">(60개)</span></span><span class="bar-cbm">1.20cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#222222;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#9e9e9e;"></span>그레이</span><span class="bar-info">3박스 <span class="bar-ea">(18개)</span></span><span class="bar-cbm">0.36cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#9e9e9e;"></span></span></div>
 <div class="bar-group-header">Q (1.5) · 6ea/box<span class="bar-group-sub">53 box · 6.36 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">2.16</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%;background:#d4c5a9;border:1px solid #ccc;"></span></span><span class="bar-cbm">2.16</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#4a4a4a;"></span>차콜</span><span class="bar-boxes">17</span><span class="bar-track"><span class="bar-fill" style="width:26%;background:#4a4a4a;"></span></span><span class="bar-cbm">2.04</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#d4c5a9;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#4a4a4a;"></span>차콜</span><span class="bar-info">17박스 <span class="bar-ea">(102개)</span></span><span class="bar-cbm">2.04cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#4a4a4a;"></span></span></div>
 <div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">17 box · 2.04 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-boxes">7</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.84</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-boxes">6</span><span class="bar-track"><span class="bar-fill" style="width:9%;background:#d4c5a9;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.72</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-boxes">4</span><span class="bar-track"><span class="bar-fill" style="width:6%;background:#222222;"></span></span><span class="bar-cbm">0.48</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">7박스 <span class="bar-ea">(35개)</span></span><span class="bar-cbm">0.84cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">6박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.72cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#d4c5a9;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">4박스 <span class="bar-ea">(20개)</span></span><span class="bar-cbm">0.48cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#222222;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>186 boxes · 22.32 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 6 boxes · 0.72 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">아이보리 5개 + 화이트앤블랙 1개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">그레이 4개 + 화이트앤블랙 2개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">화이트앤블랙 1개 + 베이지 1개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">Q (1.5)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">아이보리 2개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">베이지 3개 + 아이보리 2개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">화이트앤블랙 2개</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-mix-detail">아이보리 5개 + 화이트앤블랙 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-mix-detail">그레이 4개 + 화이트앤블랙 2개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-mix-detail">화이트앤블랙 1개 + 베이지 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">Q (1.5)</span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-mix-detail">아이보리 2개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-info">1박스 <span class="bar-ea">(5개)</span></span><span class="bar-mix-detail">베이지 3개 + 아이보리 2개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-mix-detail">화이트앤블랙 2개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:40%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>6 boxes · 0.72 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1100,12 +1103,12 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 46 boxes · 5.52 CBM</span></div>
 <div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">18 box · 2.16 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:64%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">1.08</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:64%;background:#e8dcc8;border:1px solid #ccc;"></span></span><span class="bar-cbm">1.08</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#e8dcc8;border:1px solid #ccc;"></span></span></div>
 <div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">28 box · 3.36 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#8b6f4e;"></span>모카브라운</span><span class="bar-boxes">14</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#8b6f4e;"></span></span><span class="bar-cbm">1.68</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-boxes">8</span><span class="bar-track"><span class="bar-fill" style="width:57%;background:#e8dcc8;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.96</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#5a5a5a;"></span>스모키차콜</span><span class="bar-boxes">6</span><span class="bar-track"><span class="bar-fill" style="width:43%;background:#5a5a5a;"></span></span><span class="bar-cbm">0.72</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#8b6f4e;"></span>모카브라운</span><span class="bar-info">14박스 <span class="bar-ea">(70개)</span></span><span class="bar-cbm">1.68cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#8b6f4e;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">8박스 <span class="bar-ea">(40개)</span></span><span class="bar-cbm">0.96cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#e8dcc8;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#5a5a5a;"></span>스모키차콜</span><span class="bar-info">6박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.72cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#5a5a5a;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>46 boxes · 5.52 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
@@ -1116,19 +1119,19 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 12 boxes · 1.20 CBM</span></div>
 <div class="bar-group-header">130 X 170 · 30ea/box<span class="bar-group-sub">1 box · 0.10 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
 <div class="bar-group-header">140 X 230 · 25ea/box<span class="bar-group-sub">2 box · 0.20 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#e8dcc8;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#e8dcc8;border:1px solid #ccc;"></span></span></div>
 <div class="bar-group-header">210 X 235 · 17ea/box<span class="bar-group-sub">9 box · 0.90 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.90</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(153개)</span></span><span class="bar-cbm">0.90cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>12 boxes · 1.20 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 4 boxes · 0.40 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">130 X 170</span><span class="bar-boxes">1</span><span class="bar-mix-detail">크림화이트 10개 + 밀크베이지 6개 + 그레이 4개</span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">그레이 20개 + 밀크베이지 5개</span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">크림화이트 9개 + 밀크베이지 8개</span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row mix"><span class="bar-color">210 X 235</span><span class="bar-boxes">1</span><span class="bar-mix-detail">크림화이트 16개 + 밀크베이지 1개</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">130 X 170</span><span class="bar-info">1박스 <span class="bar-ea">(20개)</span></span><span class="bar-mix-detail">크림화이트 10개 + 밀크베이지 6개 + 그레이 4개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:67%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-mix-detail">그레이 20개 + 밀크베이지 5개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-mix-detail">크림화이트 9개 + 밀크베이지 8개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:68%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">210 X 235</span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-mix-detail">크림화이트 16개 + 밀크베이지 1개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>4 boxes · 0.40 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1136,14 +1139,14 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 54 boxes · 7.02 CBM</span></div>
 <div class="bar-group-header">2 PACK · 30ea/box<span class="bar-group-sub">22 box · 2.86 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">22</span><span class="bar-track"><span class="bar-fill" style="width:69%;background:#888;"></span></span><span class="bar-cbm">2.86</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">22박스 <span class="bar-ea">(660개)</span></span><span class="bar-cbm">2.86cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-group-header">3 PACK · 20ea/box<span class="bar-group-sub">32 box · 4.16 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">32</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#888;"></span></span><span class="bar-cbm">4.16</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">32박스 <span class="bar-ea">(640개)</span></span><span class="bar-cbm">4.16cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>54 boxes · 7.02 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 2 boxes · 0.26 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">2 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13</span></div>
-<div class="bar-row mix"><span class="bar-color">3 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13</span></div>
+<div class="bar-row mix"><span class="bar-color">2 PACK</span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">3 PACK</span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:50%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>2 boxes · 0.26 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1151,11 +1154,11 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 58 boxes · 11.60 CBM</span></div>
 <div class="bar-group-header">BIN 18L · 12ea/box<span class="bar-group-sub">58 box · 11.60 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">58</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#888;"></span></span><span class="bar-cbm">11.60</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">58박스 <span class="bar-ea">(696개)</span></span><span class="bar-cbm">11.60cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>58 boxes · 11.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 1 boxes · 0.20 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">BIN 18L</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 4개</span><span class="bar-cbm">0.20</span></div>
+<div class="bar-row mix"><span class="bar-color">BIN 18L</span><span class="bar-info">1박스 <span class="bar-ea">(4개)</span></span><span class="bar-mix-detail"> 4개</span><span class="bar-cbm">0.20cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>1 boxes · 0.20 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1163,7 +1166,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 80 boxes · 17.60 CBM</span></div>
 <div class="bar-group-header">BIN 20L · 4ea/box<span class="bar-group-sub">80 box · 17.60 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">80</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#888;"></span></span><span class="bar-cbm">17.60</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">80박스 <span class="bar-ea">(320개)</span></span><span class="bar-cbm">17.60cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>80 boxes · 17.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
@@ -1203,27 +1206,27 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 183 boxes · 21.96 CBM</span></div>
 <div class="bar-group-header">SS (1.2) · 6ea/box<span class="bar-group-sub">116 box · 13.92 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-boxes">65</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">7.80</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-boxes">38</span><span class="bar-track"><span class="bar-fill" style="width:58%;background:#d4c5a9;border:1px solid #ccc;"></span></span><span class="bar-cbm">4.56</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-boxes">10</span><span class="bar-track"><span class="bar-fill" style="width:15%;background:#222222;"></span></span><span class="bar-cbm">1.20</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#9e9e9e;"></span>그레이</span><span class="bar-boxes">3</span><span class="bar-track"><span class="bar-fill" style="width:5%;background:#9e9e9e;"></span></span><span class="bar-cbm">0.36</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">65박스 <span class="bar-ea">(390개)</span></span><span class="bar-cbm">7.80cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">38박스 <span class="bar-ea">(228개)</span></span><span class="bar-cbm">4.56cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#d4c5a9;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">10박스 <span class="bar-ea">(60개)</span></span><span class="bar-cbm">1.20cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#222222;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#9e9e9e;"></span>그레이</span><span class="bar-info">3박스 <span class="bar-ea">(18개)</span></span><span class="bar-cbm">0.36cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#9e9e9e;"></span></span></div>
 <div class="bar-group-header">Q (1.5) · 6ea/box<span class="bar-group-sub">53 box · 6.36 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">2.16</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%;background:#d4c5a9;border:1px solid #ccc;"></span></span><span class="bar-cbm">2.16</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#4a4a4a;"></span>차콜</span><span class="bar-boxes">17</span><span class="bar-track"><span class="bar-fill" style="width:26%;background:#4a4a4a;"></span></span><span class="bar-cbm">2.04</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#d4c5a9;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#4a4a4a;"></span>차콜</span><span class="bar-info">17박스 <span class="bar-ea">(102개)</span></span><span class="bar-cbm">2.04cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#4a4a4a;"></span></span></div>
 <div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-boxes">7</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.84</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-boxes">5</span><span class="bar-track"><span class="bar-fill" style="width:8%;background:#d4c5a9;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.60</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-boxes">2</span><span class="bar-track"><span class="bar-fill" style="width:3%;background:#222222;"></span></span><span class="bar-cbm">0.24</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">7박스 <span class="bar-ea">(35개)</span></span><span class="bar-cbm">0.84cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">5박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.60cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#d4c5a9;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">2박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.24cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#222222;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>183 boxes · 21.96 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 6 boxes · 0.72 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">아이보리 5개 + 화이트앤블랙 1개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">그레이 4개 + 화이트앤블랙 2개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">화이트앤블랙 1개 + 베이지 1개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">Q (1.5)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">아이보리 2개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">베이지 4개 + 아이보리 1개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">아이보리 1개</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-mix-detail">아이보리 5개 + 화이트앤블랙 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-mix-detail">그레이 4개 + 화이트앤블랙 2개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-mix-detail">화이트앤블랙 1개 + 베이지 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">Q (1.5)</span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-mix-detail">아이보리 2개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-info">1박스 <span class="bar-ea">(5개)</span></span><span class="bar-mix-detail">베이지 4개 + 아이보리 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-info">1박스 <span class="bar-ea">(1개)</span></span><span class="bar-mix-detail">아이보리 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:20%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>6 boxes · 0.72 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1231,7 +1234,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 14 boxes · 1.68 CBM</span></div>
 <div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#8b6f4e;"></span>모카브라운</span><span class="bar-boxes">14</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#8b6f4e;"></span></span><span class="bar-cbm">1.68</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#8b6f4e;"></span>모카브라운</span><span class="bar-info">14박스 <span class="bar-ea">(70개)</span></span><span class="bar-cbm">1.68cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#8b6f4e;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>14 boxes · 1.68 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
@@ -1242,19 +1245,19 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 12 boxes · 1.20 CBM</span></div>
 <div class="bar-group-header">130 X 170 · 30ea/box<span class="bar-group-sub">1 box · 0.10 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
 <div class="bar-group-header">140 X 230 · 25ea/box<span class="bar-group-sub">2 box · 0.20 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%;background:#e8dcc8;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#e8dcc8;border:1px solid #ccc;"></span></span></div>
 <div class="bar-group-header">210 X 235 · 17ea/box<span class="bar-group-sub">9 box · 0.90 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.90</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(153개)</span></span><span class="bar-cbm">0.90cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>12 boxes · 1.20 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 4 boxes · 0.40 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">130 X 170</span><span class="bar-boxes">1</span><span class="bar-mix-detail">크림화이트 10개 + 밀크베이지 6개 + 그레이 4개</span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">그레이 20개 + 밀크베이지 5개</span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">크림화이트 9개 + 밀크베이지 8개</span><span class="bar-cbm">0.10</span></div>
-<div class="bar-row mix"><span class="bar-color">210 X 235</span><span class="bar-boxes">1</span><span class="bar-mix-detail">크림화이트 16개 + 밀크베이지 1개</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">130 X 170</span><span class="bar-info">1박스 <span class="bar-ea">(20개)</span></span><span class="bar-mix-detail">크림화이트 10개 + 밀크베이지 6개 + 그레이 4개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:67%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-mix-detail">그레이 20개 + 밀크베이지 5개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-mix-detail">크림화이트 9개 + 밀크베이지 8개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:68%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">210 X 235</span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-mix-detail">크림화이트 16개 + 밀크베이지 1개</span><span class="bar-cbm">0.10cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>4 boxes · 0.40 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1262,14 +1265,14 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 54 boxes · 7.02 CBM</span></div>
 <div class="bar-group-header">2 PACK · 30ea/box<span class="bar-group-sub">22 box · 2.86 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">22</span><span class="bar-track"><span class="bar-fill" style="width:69%;background:#888;"></span></span><span class="bar-cbm">2.86</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">22박스 <span class="bar-ea">(660개)</span></span><span class="bar-cbm">2.86cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-group-header">3 PACK · 20ea/box<span class="bar-group-sub">32 box · 4.16 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">32</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#888;"></span></span><span class="bar-cbm">4.16</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">32박스 <span class="bar-ea">(640개)</span></span><span class="bar-cbm">4.16cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>54 boxes · 7.02 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 2 boxes · 0.26 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">2 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13</span></div>
-<div class="bar-row mix"><span class="bar-color">3 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13</span></div>
+<div class="bar-row mix"><span class="bar-color">2 PACK</span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">3 PACK</span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-mix-detail"> 10개</span><span class="bar-cbm">0.13cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:50%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>2 boxes · 0.26 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1277,11 +1280,11 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 58 boxes · 11.60 CBM</span></div>
 <div class="bar-group-header">BIN 18L · 12ea/box<span class="bar-group-sub">58 box · 11.60 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">58</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#888;"></span></span><span class="bar-cbm">11.60</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">58박스 <span class="bar-ea">(696개)</span></span><span class="bar-cbm">11.60cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>58 boxes · 11.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 1 boxes · 0.20 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">BIN 18L</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 4개</span><span class="bar-cbm">0.20</span></div>
+<div class="bar-row mix"><span class="bar-color">BIN 18L</span><span class="bar-info">1박스 <span class="bar-ea">(4개)</span></span><span class="bar-mix-detail"> 4개</span><span class="bar-cbm">0.20cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:33%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>1 boxes · 0.20 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1289,7 +1292,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 80 boxes · 17.60 CBM</span></div>
 <div class="bar-group-header">BIN 20L · 4ea/box<span class="bar-group-sub">80 box · 17.60 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-boxes">80</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#888;"></span></span><span class="bar-cbm">17.60</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">80박스 <span class="bar-ea">(320개)</span></span><span class="bar-cbm">17.60cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#888;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>80 boxes · 17.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
@@ -1328,12 +1331,12 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 2 boxes · 0.24 CBM</span></div>
 <div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">2 box · 0.24 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-boxes">2</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#222222;"></span></span><span class="bar-cbm">0.24</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">2박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.24cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#222222;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>2 boxes · 0.24 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 2 boxes · 0.24 CBM</span></div>
-<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">베이지 4개 + 화이트앤블랙 1개</span><span class="bar-cbm">0.12</span></div>
-<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">화이트앤블랙 1개</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-info">1박스 <span class="bar-ea">(5개)</span></span><span class="bar-mix-detail">베이지 4개 + 화이트앤블랙 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#0066ff;"></span></span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-info">1박스 <span class="bar-ea">(1개)</span></span><span class="bar-mix-detail">화이트앤블랙 1개</span><span class="bar-cbm">0.12cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:20%;background:#0066ff;"></span></span></div>
 <div class="bar-total mix"><span>MIX</span><span>2 boxes · 0.24 CBM</span></div>
 
 <hr class="bx-divider">
@@ -1341,7 +1344,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 9 boxes · 1.08 CBM</span></div>
 <div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">9 box · 1.08 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span><span class="bar-cbm">1.08</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#f5f0e1;border:1px solid #ccc;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>9 boxes · 1.08 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
@@ -1363,10 +1366,10 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 23 boxes · 2.76 CBM</span></div>
 <div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">9 box · 1.08 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%;background:#e8dcc8;border:1px solid #ccc;"></span></span><span class="bar-cbm">1.08</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#e8dcc8;border:1px solid #ccc;"></span></span></div>
 <div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-boxes">8</span><span class="bar-track"><span class="bar-fill" style="width:89%;background:#e8dcc8;border:1px solid #ccc;"></span></span><span class="bar-cbm">0.96</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#5a5a5a;"></span>스모키차콜</span><span class="bar-boxes">6</span><span class="bar-track"><span class="bar-fill" style="width:67%;background:#5a5a5a;"></span></span><span class="bar-cbm">0.72</span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">8박스 <span class="bar-ea">(40개)</span></span><span class="bar-cbm">0.96cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#e8dcc8;border:1px solid #ccc;"></span></span></div>
+<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#5a5a5a;"></span>스모키차콜</span><span class="bar-info">6박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.72cbm</span><span class="bar-gauge"><span class="gauge-fill" style="width:100%;background:#5a5a5a;"></span></span></div>
 <div class="bar-total"><span>FULL</span><span>23 boxes · 2.76 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
