@@ -1024,123 +1024,298 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div id="sub-sticker" class="sub-content">
 <div class="date-content active" data-date="total">
 <style>
-.bx-section { font-size: 15px; font-weight: 800; color: #333; margin: 24px 0 4px; padding-bottom: 6px; border-bottom: 2px solid #333; }
-.bx-sub { font-size: 12px; color: #888; margin-bottom: 12px; }
-/* ── B스타일 바 그래프 ── */
-.bar-group-header {
+/* ── 2열 카드 그리드 (박스/CBM) ── */
+.prod-header {
+  font-size: 15px; font-weight: 800; padding: 8px 4px 6px;
   display: flex; justify-content: space-between; align-items: baseline;
-  font-size: 14px; font-weight: 800; color: #333;
-  margin: 16px 0 6px; padding: 8px 0 6px;
-  border-bottom: 2px solid #e0e0e0;
 }
-.bar-group-sub { font-size: 12px; font-weight: 700; color: #0066ff; }
-.bar-row {
-  display: flex; align-items: center; gap: 8px;
-  padding: 5px 4px; border-bottom: 1px solid #f0f0f0;
+.prod-header .sub { font-size: 11px; color: #888; font-weight: 400; }
+.per-box-info { font-size: 10px; color: #999; padding: 3px 4px 6px; }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
 }
-.bar-row:hover { background: #fafafa; }
-.bar-color { width: 110px; font-size: 12px; font-weight: 700; color: #555; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
-.color-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
-.bar-info { font-size: 13px; font-weight: 800; color: #333; white-space: nowrap; flex-shrink: 0; }
-.bar-ea { font-size: 11px; font-weight: 600; color: #888; }
-.bar-cbm { font-size: 12px; font-weight: 700; color: #888; white-space: nowrap; flex-shrink: 0; }
-.gauge-badge { font-size: 11px; font-weight: 800; padding: 1px 6px; border-radius: 8px; flex-shrink: 0; white-space: nowrap; }
+.box-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px;
+  background: #fff;
+}
+.card-head {
+  display: flex; align-items: center; gap: 4px;
+  margin-bottom: 6px; padding-bottom: 5px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.card-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.card-color-name { font-size: 12px; font-weight: 700; color: #333; }
+.card-total { margin-left: auto; font-size: 10px; color: #888; font-weight: 600; }
+.size-row {
+  display: flex; align-items: center; gap: 3px;
+  padding: 2px 0; font-size: 11px;
+}
+.size-label { font-weight: 700; color: #555; width: 22px; flex-shrink: 0; }
+.size-qty { font-weight: 800; color: #333; white-space: nowrap; }
+.size-ea { font-size: 10px; color: #888; }
+.size-cbm { font-size: 9px; color: #aaa; margin-left: auto; }
+.size-empty { color: #ddd; font-size: 11px; }
+.gauge-badge { font-size: 9px; font-weight: 800; padding: 1px 4px; border-radius: 5px; flex-shrink: 0; }
 .gauge-badge.full { background: #e8f5e9; color: #2e7d32; }
 .gauge-badge.partial { background: #fff3e0; color: #e65100; }
-.bar-mix-sub { padding: 2px 4px 6px 20px; font-size: 11px; color: #555; line-height: 1.5; display: flex; align-items: center; flex-wrap: wrap; gap: 2px; }
-.color-dot-sm { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 2px; vertical-align: middle; flex-shrink: 0; }
-.mix-plus { color: #aaa; font-size: 10px; margin: 0 2px; }
-.mix-icon { display: inline-block; background: #0066ff; color: #fff; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 3px; letter-spacing: 0.5px; }
-.bar-row.mix-row { background: #f8f9ff; }
-.bar-total {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 10px 4px; margin-top: 4px;
-  border-top: 2px solid #333; font-weight: 800; font-size: 14px;
+.box-card.mix-card {
+  border-color: #d0d8ff;
+  background: #f8f9ff;
 }
+.mix-label {
+  display: inline-block; background: #0066ff; color: #fff;
+  font-size: 8px; font-weight: 800; padding: 1px 5px; border-radius: 3px;
+}
+.mix-row {
+  display: flex; align-items: flex-start; gap: 3px;
+  padding: 3px 0; font-size: 10px;
+  border-bottom: 1px solid #eef0ff;
+}
+.mix-row:last-child { border-bottom: none; }
+.mix-size { font-weight: 700; color: #555; width: 20px; flex-shrink: 0; }
+.mix-contents { flex: 1; font-size: 10px; color: #444; line-height: 1.4; }
+.mix-info { font-size: 10px; color: #888; white-space: nowrap; flex-shrink: 0; }
+.cdot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 2px;
+  margin-right: 1px; vertical-align: middle;
+}
+.mplus { color: #bbb; font-size: 9px; }
+.total-bar {
+  display: flex; justify-content: space-between;
+  padding: 8px 4px; margin-top: 4px;
+  border-top: 2px solid #333; font-weight: 800; font-size: 13px;
+}
+.section-divider { margin: 14px 0 6px; border: none; border-top: 1px dashed #ddd; }
 @media (max-width: 600px) {
-  .bar-color { width: 82px; font-size: 11px; }
-  .color-dot { width: 10px; height: 10px; }
-  .bar-info { font-size: 11px; }
-  .bar-ea { font-size: 10px; }
-  .bar-cbm { font-size: 11px; }
-  .gauge-badge { font-size: 10px; padding: 1px 5px; }
-  .bar-group-header { font-size: 12px; }
-  .bar-group-sub { font-size: 11px; }
-  .bar-mix-sub { font-size: 10px; padding-left: 16px; }
-  .color-dot-sm { width: 8px; height: 8px; }
-  .mix-icon { font-size: 8px; padding: 1px 4px; }
+  .card-grid { gap: 3px; }
+  .box-card { padding: 6px; }
+  .card-color-name { font-size: 11px; }
+  .card-dot { width: 10px; height: 10px; }
+  .size-row { font-size: 10px; }
+  .size-label { width: 20px; }
+  .size-ea { font-size: 9px; }
+  .size-cbm { font-size: 8px; }
+  .mix-row { font-size: 9px; }
+  .mix-contents { font-size: 9px; }
+  .cdot { width: 6px; height: 6px; }
+  .gauge-badge { font-size: 8px; padding: 0px 3px; }
 }
-.bx-divider { margin: 28px 0 0; border: none; border-top: 1px dashed #ccc; }
 .bx-summary { margin-top: 20px; padding: 14px; border: 2px solid #333; border-radius: 8px; font-size: 13px; }
 .bx-srow { display: flex; justify-content: space-between; padding: 4px 0; }
 .bx-srow.total { font-weight: 800; border-top: 2px solid #333; margin-top: 8px; padding-top: 10px; font-size: 15px; }
 </style>
-<div class="bx-section" style="color:#e65100;border-color:#e65100;">토퍼 <span style="font-size:12px;color:#888;font-weight:400;">192 boxes · 23.04 CBM</span></div>
-<div class="bar-group-header">SS (1.2) · 6ea/box<span class="bar-group-sub">119 box · 14.28 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">65박스 <span class="bar-ea">(390개)</span></span><span class="bar-cbm">7.80cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">38박스 <span class="bar-ea">(228개)</span></span><span class="bar-cbm">4.56cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">10박스 <span class="bar-ea">(60개)</span></span><span class="bar-cbm">1.20cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#9e9e9e;"></span>그레이</span><span class="bar-info">3박스 <span class="bar-ea">(18개)</span></span><span class="bar-cbm">0.36cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 5개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 1개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#9e9e9e;"></span>그레이 4개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 2개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 1개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 1개</div>
-<div class="bar-group-header">Q (1.5) · 6ea/box<span class="bar-group-sub">54 box · 6.48 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#4a4a4a;"></span>차콜</span><span class="bar-info">17박스 <span class="bar-ea">(102개)</span></span><span class="bar-cbm">2.04cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 2개</div>
-<div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">19 box · 2.28 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">7박스 <span class="bar-ea">(35개)</span></span><span class="bar-cbm">0.84cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">6박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.72cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">4박스 <span class="bar-ea">(20개)</span></span><span class="bar-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(5개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 3개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 2개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge partial">40%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 2개</div>
-<div class="bar-total"><span>합계</span><span>192 boxes · 23.04 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">46 boxes · 5.52 CBM</span></div>
-<div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">18 box · 2.16 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">28 box · 3.36 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#8b6f4e;"></span>모카브라운</span><span class="bar-info">14박스 <span class="bar-ea">(70개)</span></span><span class="bar-cbm">1.68cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">8박스 <span class="bar-ea">(40개)</span></span><span class="bar-cbm">0.96cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#5a5a5a;"></span>스모키차콜</span><span class="bar-info">6박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.72cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-total"><span>합계</span><span>46 boxes · 5.52 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#e65100;border-color:#e65100;">커튼 <span style="font-size:12px;color:#888;font-weight:400;">16 boxes · 1.60 CBM</span></div>
-<div class="bar-group-header">130 X 170 · 30ea/box<span class="bar-group-sub">2 box · 0.20 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(20개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge partial">67%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 10개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 6개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#9e9e9e;"></span>그레이 4개</div>
-<div class="bar-group-header">140 X 230 · 25ea/box<span class="bar-group-sub">4 box · 0.40 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#9e9e9e;"></span>그레이 20개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 5개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge partial">68%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 9개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 8개</div>
-<div class="bar-group-header">210 X 235 · 17ea/box<span class="bar-group-sub">10 box · 1.00 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(153개)</span></span><span class="bar-cbm">0.90cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 16개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 1개</div>
-<div class="bar-total"><span>합계</span><span>16 boxes · 1.60 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#2e7d32;border-color:#2e7d32;">페이스타올 <span style="font-size:12px;color:#888;font-weight:400;">56 boxes · 7.28 CBM</span></div>
-<div class="bar-group-header">2 PACK · 30ea/box<span class="bar-group-sub">23 box · 2.99 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">22박스 <span class="bar-ea">(660개)</span></span><span class="bar-cbm">2.86cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.13cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#888;"></span> 10개</div>
-<div class="bar-group-header">3 PACK · 20ea/box<span class="bar-group-sub">33 box · 4.29 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">32박스 <span class="bar-ea">(640개)</span></span><span class="bar-cbm">4.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.13cbm</span><span class="gauge-badge partial">50%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#888;"></span> 10개</div>
-<div class="bar-total"><span>합계</span><span>56 boxes · 7.28 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#424242;border-color:#424242;">18L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">59 boxes · 11.80 CBM</span></div>
-<div class="bar-group-header">BIN 18L · 12ea/box<span class="bar-group-sub">59 box · 11.80 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">58박스 <span class="bar-ea">(696개)</span></span><span class="bar-cbm">11.60cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(4개)</span></span><span class="bar-cbm">0.20cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#888;"></span> 4개</div>
-<div class="bar-total"><span>합계</span><span>59 boxes · 11.80 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#37474f;border-color:#37474f;">20L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">80 boxes · 17.60 CBM</span></div>
-<div class="bar-group-header">BIN 20L · 4ea/box<span class="bar-group-sub">80 box · 17.60 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">80박스 <span class="bar-ea">(320개)</span></span><span class="bar-cbm">17.60cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-total"><span>합계</span><span>80 boxes · 17.60 CBM</span></div>
-<hr class="bx-divider">
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">192 boxes · 23.04 CBM</span></div>
+<div class="per-box-info">SS (1.2): 6개/box · Q (1.5): 6개/box · K (1.8): 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
+<span class="card-color-name">아이보리</span>
+<span class="card-total">90박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">65박스</span><span class="size-ea">(390개)</span><span class="size-cbm">7.80cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">18박스</span><span class="size-ea">(108개)</span><span class="size-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">7박스</span><span class="size-ea">(35개)</span><span class="size-cbm">0.84cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#222222;"></span>
+<span class="card-color-name">화이트앤블랙</span>
+<span class="card-total">14박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">10박스</span><span class="size-ea">(60개)</span><span class="size-cbm">1.20cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">4박스</span><span class="size-ea">(20개)</span><span class="size-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>
+<span class="card-color-name">베이지</span>
+<span class="card-total">62박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">38박스</span><span class="size-ea">(228개)</span><span class="size-cbm">4.56cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">18박스</span><span class="size-ea">(108개)</span><span class="size-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">6박스</span><span class="size-ea">(30개)</span><span class="size-cbm">0.72cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#9e9e9e;"></span>
+<span class="card-color-name">그레이</span>
+<span class="card-total">3박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">3박스</span><span class="size-ea">(18개)</span><span class="size-cbm">0.36cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#4a4a4a;"></span>
+<span class="card-color-name">차콜</span>
+<span class="card-total">17박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">17박스</span><span class="size-ea">(102개)</span><span class="size-cbm">2.04cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">6박스 · 0.72cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">SS (1.2)</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 5개 <span class="mplus">+</span> <span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개</span><span class="mix-info">6개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">SS (1.2)</span><span class="mix-contents"><span class="cdot" style="background:#9e9e9e;"></span>그레이 4개 <span class="mplus">+</span> <span class="cdot" style="background:#222222;"></span>화이트앤블랙 2개</span><span class="mix-info">6개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">SS (1.2)</span><span class="mix-contents"><span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개 <span class="mplus">+</span> <span class="cdot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 1개</span><span class="mix-info">2개 <span class="gauge-badge partial">33%</span></span></div>
+<div class="mix-row"><span class="mix-size">Q (1.5)</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 2개</span><span class="mix-info">2개 <span class="gauge-badge partial">33%</span></span></div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 3개 <span class="mplus">+</span> <span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 2개</span><span class="mix-info">5개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#222222;"></span>화이트앤블랙 2개</span><span class="mix-info">2개 <span class="gauge-badge partial">40%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>토퍼 합계</span><span>192 boxes · 23.04 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">이불세트 <span class="sub">46 boxes · 5.52 CBM</span></div>
+<div class="per-box-info">SS: 6개/box · K: 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#8b6f4e;"></span>
+<span class="card-color-name">모카브라운</span>
+<span class="card-total">14박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">14박스</span><span class="size-ea">(70개)</span><span class="size-cbm">1.68cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
+<span class="card-color-name">밀크베이지</span>
+<span class="card-total">17박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-qty">9박스</span><span class="size-ea">(54개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">8박스</span><span class="size-ea">(40개)</span><span class="size-cbm">0.96cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#5a5a5a;"></span>
+<span class="card-color-name">스모키차콜</span>
+<span class="card-total">6박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">6박스</span><span class="size-ea">(30개)</span><span class="size-cbm">0.72cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
+<span class="card-color-name">크림화이트</span>
+<span class="card-total">9박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-qty">9박스</span><span class="size-ea">(54개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-empty">—</span></div>
+</div>
+</div>
+<div class="total-bar"><span>이불세트 합계</span><span>46 boxes · 5.52 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">커튼 <span class="sub">16 boxes · 1.60 CBM</span></div>
+<div class="per-box-info">130 X 170: 30개/box · 140 X 230: 25개/box · 210 X 235: 17개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
+<span class="card-color-name">크림화이트</span>
+<span class="card-total">11박스</span>
+</div>
+<div class="size-row"><span class="size-label">130 X 170</span><span class="size-qty">1박스</span><span class="size-ea">(30개)</span><span class="size-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">140 X 230</span><span class="size-qty">1박스</span><span class="size-ea">(25개)</span><span class="size-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">210 X 235</span><span class="size-qty">9박스</span><span class="size-ea">(153개)</span><span class="size-cbm">0.90cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
+<span class="card-color-name">밀크베이지</span>
+<span class="card-total">1박스</span>
+</div>
+<div class="size-row"><span class="size-label">130 X 170</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">140 X 230</span><span class="size-qty">1박스</span><span class="size-ea">(25개)</span><span class="size-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">210 X 235</span><span class="size-empty">—</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">4박스 · 0.40cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">130 X 170</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 10개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 6개 <span class="mplus">+</span> <span class="cdot" style="background:#9e9e9e;"></span>그레이 4개</span><span class="mix-info">20개 <span class="gauge-badge partial">67%</span></span></div>
+<div class="mix-row"><span class="mix-size">140 X 230</span><span class="mix-contents"><span class="cdot" style="background:#9e9e9e;"></span>그레이 20개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 5개</span><span class="mix-info">25개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">140 X 230</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 9개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 8개</span><span class="mix-info">17개 <span class="gauge-badge partial">68%</span></span></div>
+<div class="mix-row"><span class="mix-size">210 X 235</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 16개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 1개</span><span class="mix-info">17개 <span class="gauge-badge full">✓</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>커튼 합계</span><span>16 boxes · 1.60 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#2e7d32;border-color:#2e7d32;">페이스타올 <span class="sub">56 boxes · 7.28 CBM</span></div>
+<div class="per-box-info">2 PACK: 30개/box · 3 PACK: 20개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#888;"></span>
+<span class="card-color-name"></span>
+<span class="card-total">54박스</span>
+</div>
+<div class="size-row"><span class="size-label">2 PACK</span><span class="size-qty">22박스</span><span class="size-ea">(660개)</span><span class="size-cbm">2.86cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">3 PACK</span><span class="size-qty">32박스</span><span class="size-ea">(640개)</span><span class="size-cbm">4.16cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">2박스 · 0.26cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">2 PACK</span><span class="mix-contents"><span class="cdot" style="background:#888;"></span> 10개</span><span class="mix-info">10개 <span class="gauge-badge partial">33%</span></span></div>
+<div class="mix-row"><span class="mix-size">3 PACK</span><span class="mix-contents"><span class="cdot" style="background:#888;"></span> 10개</span><span class="mix-info">10개 <span class="gauge-badge partial">50%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>페이스타올 합계</span><span>56 boxes · 7.28 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#424242;border-color:#424242;">18L휴지통 <span class="sub">59 boxes · 11.80 CBM</span></div>
+<div class="per-box-info">BIN 18L: 12개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#888;"></span>
+<span class="card-color-name"></span>
+<span class="card-total">58박스</span>
+</div>
+<div class="size-row"><span class="size-label">BIN 18L</span><span class="size-qty">58박스</span><span class="size-ea">(696개)</span><span class="size-cbm">11.60cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">1박스 · 0.20cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">BIN 18L</span><span class="mix-contents"><span class="cdot" style="background:#888;"></span> 4개</span><span class="mix-info">4개 <span class="gauge-badge partial">33%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>18L휴지통 합계</span><span>59 boxes · 11.80 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#37474f;border-color:#37474f;">20L휴지통 <span class="sub">80 boxes · 17.60 CBM</span></div>
+<div class="per-box-info">BIN 20L: 4개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#888;"></span>
+<span class="card-color-name"></span>
+<span class="card-total">80박스</span>
+</div>
+<div class="size-row"><span class="size-label">BIN 20L</span><span class="size-qty">80박스</span><span class="size-ea">(320개)</span><span class="size-cbm">17.60cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+</div>
+<div class="total-bar"><span>20L휴지통 합계</span><span>80 boxes · 17.60 CBM</span></div>
+<hr class="section-divider">
 
 <div class="bx-summary">
   <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
@@ -1170,67 +1345,186 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>20L휴지통 소계</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 80 + mix 0)</span></span></div>
   <div class="bx-srow total"><span>TOTAL</span><span>449 boxes · 66.84 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 436 + mix 13)</span></span></div>
 </div></div>
-<div class="date-content" data-date="2026-04-15"><div class="bx-section" style="color:#e65100;border-color:#e65100;">토퍼 <span style="font-size:12px;color:#888;font-weight:400;">189 boxes · 22.68 CBM</span></div>
-<div class="bar-group-header">SS (1.2) · 6ea/box<span class="bar-group-sub">119 box · 14.28 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">65박스 <span class="bar-ea">(390개)</span></span><span class="bar-cbm">7.80cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">38박스 <span class="bar-ea">(228개)</span></span><span class="bar-cbm">4.56cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">10박스 <span class="bar-ea">(60개)</span></span><span class="bar-cbm">1.20cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#9e9e9e;"></span>그레이</span><span class="bar-info">3박스 <span class="bar-ea">(18개)</span></span><span class="bar-cbm">0.36cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 5개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 1개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(6개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#9e9e9e;"></span>그레이 4개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 2개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 1개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 1개</div>
-<div class="bar-group-header">Q (1.5) · 6ea/box<span class="bar-group-sub">54 box · 6.48 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">18박스 <span class="bar-ea">(108개)</span></span><span class="bar-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#4a4a4a;"></span>차콜</span><span class="bar-info">17박스 <span class="bar-ea">(102개)</span></span><span class="bar-cbm">2.04cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(2개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 2개</div>
-<div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">16 box · 1.92 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리</span><span class="bar-info">7박스 <span class="bar-ea">(35개)</span></span><span class="bar-cbm">0.84cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지</span><span class="bar-info">5박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.60cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">2박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.24cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(5개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 4개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 1개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(1개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge partial">20%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 1개</div>
-<div class="bar-total"><span>합계</span><span>189 boxes · 22.68 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">14 boxes · 1.68 CBM</span></div>
-<div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#8b6f4e;"></span>모카브라운</span><span class="bar-info">14박스 <span class="bar-ea">(70개)</span></span><span class="bar-cbm">1.68cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-total"><span>합계</span><span>14 boxes · 1.68 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#e65100;border-color:#e65100;">커튼 <span style="font-size:12px;color:#888;font-weight:400;">16 boxes · 1.60 CBM</span></div>
-<div class="bar-group-header">130 X 170 · 30ea/box<span class="bar-group-sub">2 box · 0.20 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(20개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge partial">67%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 10개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 6개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#9e9e9e;"></span>그레이 4개</div>
-<div class="bar-group-header">140 X 230 · 25ea/box<span class="bar-group-sub">4 box · 0.40 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(25개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#9e9e9e;"></span>그레이 20개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 5개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge partial">68%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 9개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 8개</div>
-<div class="bar-group-header">210 X 235 · 17ea/box<span class="bar-group-sub">10 box · 1.00 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(153개)</span></span><span class="bar-cbm">0.90cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(17개)</span></span><span class="bar-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 16개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 1개</div>
-<div class="bar-total"><span>합계</span><span>16 boxes · 1.60 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#2e7d32;border-color:#2e7d32;">페이스타올 <span style="font-size:12px;color:#888;font-weight:400;">56 boxes · 7.28 CBM</span></div>
-<div class="bar-group-header">2 PACK · 30ea/box<span class="bar-group-sub">23 box · 2.99 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">22박스 <span class="bar-ea">(660개)</span></span><span class="bar-cbm">2.86cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.13cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#888;"></span> 10개</div>
-<div class="bar-group-header">3 PACK · 20ea/box<span class="bar-group-sub">33 box · 4.29 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">32박스 <span class="bar-ea">(640개)</span></span><span class="bar-cbm">4.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.13cbm</span><span class="gauge-badge partial">50%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#888;"></span> 10개</div>
-<div class="bar-total"><span>합계</span><span>56 boxes · 7.28 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#424242;border-color:#424242;">18L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">59 boxes · 11.80 CBM</span></div>
-<div class="bar-group-header">BIN 18L · 12ea/box<span class="bar-group-sub">59 box · 11.80 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">58박스 <span class="bar-ea">(696개)</span></span><span class="bar-cbm">11.60cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(4개)</span></span><span class="bar-cbm">0.20cbm</span><span class="gauge-badge partial">33%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#888;"></span> 4개</div>
-<div class="bar-total"><span>합계</span><span>59 boxes · 11.80 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#37474f;border-color:#37474f;">20L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">80 boxes · 17.60 CBM</span></div>
-<div class="bar-group-header">BIN 20L · 4ea/box<span class="bar-group-sub">80 box · 17.60 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#888;"></span></span><span class="bar-info">80박스 <span class="bar-ea">(320개)</span></span><span class="bar-cbm">17.60cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-total"><span>합계</span><span>80 boxes · 17.60 CBM</span></div>
-<hr class="bx-divider">
+<div class="date-content" data-date="2026-04-15"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">189 boxes · 22.68 CBM</span></div>
+<div class="per-box-info">SS (1.2): 6개/box · Q (1.5): 6개/box · K (1.8): 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
+<span class="card-color-name">아이보리</span>
+<span class="card-total">90박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">65박스</span><span class="size-ea">(390개)</span><span class="size-cbm">7.80cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">18박스</span><span class="size-ea">(108개)</span><span class="size-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">7박스</span><span class="size-ea">(35개)</span><span class="size-cbm">0.84cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#222222;"></span>
+<span class="card-color-name">화이트앤블랙</span>
+<span class="card-total">12박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">10박스</span><span class="size-ea">(60개)</span><span class="size-cbm">1.20cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">2박스</span><span class="size-ea">(10개)</span><span class="size-cbm">0.24cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#d4c5a9;border:1px solid #ccc;"></span>
+<span class="card-color-name">베이지</span>
+<span class="card-total">61박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">38박스</span><span class="size-ea">(228개)</span><span class="size-cbm">4.56cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">18박스</span><span class="size-ea">(108개)</span><span class="size-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">5박스</span><span class="size-ea">(25개)</span><span class="size-cbm">0.60cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#9e9e9e;"></span>
+<span class="card-color-name">그레이</span>
+<span class="card-total">3박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">3박스</span><span class="size-ea">(18개)</span><span class="size-cbm">0.36cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#4a4a4a;"></span>
+<span class="card-color-name">차콜</span>
+<span class="card-total">17박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">17박스</span><span class="size-ea">(102개)</span><span class="size-cbm">2.04cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">6박스 · 0.72cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">SS (1.2)</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 5개 <span class="mplus">+</span> <span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개</span><span class="mix-info">6개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">SS (1.2)</span><span class="mix-contents"><span class="cdot" style="background:#9e9e9e;"></span>그레이 4개 <span class="mplus">+</span> <span class="cdot" style="background:#222222;"></span>화이트앤블랙 2개</span><span class="mix-info">6개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">SS (1.2)</span><span class="mix-contents"><span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개 <span class="mplus">+</span> <span class="cdot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 1개</span><span class="mix-info">2개 <span class="gauge-badge partial">33%</span></span></div>
+<div class="mix-row"><span class="mix-size">Q (1.5)</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 2개</span><span class="mix-info">2개 <span class="gauge-badge partial">33%</span></span></div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 4개 <span class="mplus">+</span> <span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 1개</span><span class="mix-info">5개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>아이보리 1개</span><span class="mix-info">1개 <span class="gauge-badge partial">20%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>토퍼 합계</span><span>189 boxes · 22.68 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">이불세트 <span class="sub">14 boxes · 1.68 CBM</span></div>
+<div class="per-box-info">K: 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#8b6f4e;"></span>
+<span class="card-color-name">모카브라운</span>
+<span class="card-total">14박스</span>
+</div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">14박스</span><span class="size-ea">(70개)</span><span class="size-cbm">1.68cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+</div>
+<div class="total-bar"><span>이불세트 합계</span><span>14 boxes · 1.68 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">커튼 <span class="sub">16 boxes · 1.60 CBM</span></div>
+<div class="per-box-info">130 X 170: 30개/box · 140 X 230: 25개/box · 210 X 235: 17개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
+<span class="card-color-name">크림화이트</span>
+<span class="card-total">11박스</span>
+</div>
+<div class="size-row"><span class="size-label">130 X 170</span><span class="size-qty">1박스</span><span class="size-ea">(30개)</span><span class="size-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">140 X 230</span><span class="size-qty">1박스</span><span class="size-ea">(25개)</span><span class="size-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">210 X 235</span><span class="size-qty">9박스</span><span class="size-ea">(153개)</span><span class="size-cbm">0.90cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
+<span class="card-color-name">밀크베이지</span>
+<span class="card-total">1박스</span>
+</div>
+<div class="size-row"><span class="size-label">130 X 170</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">140 X 230</span><span class="size-qty">1박스</span><span class="size-ea">(25개)</span><span class="size-cbm">0.10cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">210 X 235</span><span class="size-empty">—</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">4박스 · 0.40cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">130 X 170</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 10개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 6개 <span class="mplus">+</span> <span class="cdot" style="background:#9e9e9e;"></span>그레이 4개</span><span class="mix-info">20개 <span class="gauge-badge partial">67%</span></span></div>
+<div class="mix-row"><span class="mix-size">140 X 230</span><span class="mix-contents"><span class="cdot" style="background:#9e9e9e;"></span>그레이 20개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 5개</span><span class="mix-info">25개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">140 X 230</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 9개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 8개</span><span class="mix-info">17개 <span class="gauge-badge partial">68%</span></span></div>
+<div class="mix-row"><span class="mix-size">210 X 235</span><span class="mix-contents"><span class="cdot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트 16개 <span class="mplus">+</span> <span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 1개</span><span class="mix-info">17개 <span class="gauge-badge full">✓</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>커튼 합계</span><span>16 boxes · 1.60 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#2e7d32;border-color:#2e7d32;">페이스타올 <span class="sub">56 boxes · 7.28 CBM</span></div>
+<div class="per-box-info">2 PACK: 30개/box · 3 PACK: 20개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#888;"></span>
+<span class="card-color-name"></span>
+<span class="card-total">54박스</span>
+</div>
+<div class="size-row"><span class="size-label">2 PACK</span><span class="size-qty">22박스</span><span class="size-ea">(660개)</span><span class="size-cbm">2.86cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">3 PACK</span><span class="size-qty">32박스</span><span class="size-ea">(640개)</span><span class="size-cbm">4.16cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">2박스 · 0.26cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">2 PACK</span><span class="mix-contents"><span class="cdot" style="background:#888;"></span> 10개</span><span class="mix-info">10개 <span class="gauge-badge partial">33%</span></span></div>
+<div class="mix-row"><span class="mix-size">3 PACK</span><span class="mix-contents"><span class="cdot" style="background:#888;"></span> 10개</span><span class="mix-info">10개 <span class="gauge-badge partial">50%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>페이스타올 합계</span><span>56 boxes · 7.28 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#424242;border-color:#424242;">18L휴지통 <span class="sub">59 boxes · 11.80 CBM</span></div>
+<div class="per-box-info">BIN 18L: 12개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#888;"></span>
+<span class="card-color-name"></span>
+<span class="card-total">58박스</span>
+</div>
+<div class="size-row"><span class="size-label">BIN 18L</span><span class="size-qty">58박스</span><span class="size-ea">(696개)</span><span class="size-cbm">11.60cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">1박스 · 0.20cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">BIN 18L</span><span class="mix-contents"><span class="cdot" style="background:#888;"></span> 4개</span><span class="mix-info">4개 <span class="gauge-badge partial">33%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>18L휴지통 합계</span><span>59 boxes · 11.80 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#37474f;border-color:#37474f;">20L휴지통 <span class="sub">80 boxes · 17.60 CBM</span></div>
+<div class="per-box-info">BIN 20L: 4개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#888;"></span>
+<span class="card-color-name"></span>
+<span class="card-total">80박스</span>
+</div>
+<div class="size-row"><span class="size-label">BIN 20L</span><span class="size-qty">80박스</span><span class="size-ea">(320개)</span><span class="size-cbm">17.60cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+</div>
+<div class="total-bar"><span>20L휴지통 합계</span><span>80 boxes · 17.60 CBM</span></div>
+<hr class="section-divider">
 
 <div class="bx-summary">
   <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
@@ -1259,18 +1553,43 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>20L휴지통 소계</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 80 + mix 0)</span></span></div>
   <div class="bx-srow total"><span>TOTAL</span><span>414 boxes · 62.64 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 401 + mix 13)</span></span></div>
 </div></div>
-<div class="date-content" data-date="2026-04-30"><div class="bx-section" style="color:#e65100;border-color:#e65100;">토퍼 <span style="font-size:12px;color:#888;font-weight:400;">4 boxes · 0.48 CBM</span></div>
-<div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">4 box · 0.48 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#222222;"></span>화이트앤블랙</span><span class="bar-info">2박스 <span class="bar-ea">(10개)</span></span><span class="bar-cbm">0.24cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(5개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 4개 <span class="mix-plus">+</span> <span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 1개</div>
-<div class="bar-row mix-row"><span class="bar-color"><span class="mix-icon">MIX</span></span><span class="bar-info">1박스 <span class="bar-ea">(1개)</span></span><span class="bar-cbm">0.12cbm</span><span class="gauge-badge partial">20%</span></div><div class="bar-mix-sub"><span class="color-dot-sm" style="background:#222222;"></span>화이트앤블랙 1개</div>
-<div class="bar-total"><span>합계</span><span>4 boxes · 0.48 CBM</span></div>
-<hr class="bx-divider">
-<div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">9 boxes · 1.08 CBM</span></div>
-<div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">9 box · 1.08 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>크림화이트</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-total"><span>합계</span><span>9 boxes · 1.08 CBM</span></div>
-<hr class="bx-divider">
+<div class="date-content" data-date="2026-04-30"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">4 boxes · 0.48 CBM</span></div>
+<div class="per-box-info">K (1.8): 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#222222;"></span>
+<span class="card-color-name">화이트앤블랙</span>
+<span class="card-total">2박스</span>
+</div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">2박스</span><span class="size-ea">(10개)</span><span class="size-cbm">0.24cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">2박스 · 0.24cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 4개 <span class="mplus">+</span> <span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개</span><span class="mix-info">5개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개</span><span class="mix-info">1개 <span class="gauge-badge partial">20%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>토퍼 합계</span><span>4 boxes · 0.48 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">이불세트 <span class="sub">9 boxes · 1.08 CBM</span></div>
+<div class="per-box-info">SS: 6개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
+<span class="card-color-name">크림화이트</span>
+<span class="card-total">9박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-qty">9박스</span><span class="size-ea">(54개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+</div>
+<div class="total-bar"><span>이불세트 합계</span><span>9 boxes · 1.08 CBM</span></div>
+<hr class="section-divider">
 
 <div class="bx-summary">
   <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
@@ -1282,14 +1601,30 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>이불세트 소계</span><span>9 boxes · 1.08 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 9 + mix 0)</span></span></div>
   <div class="bx-srow total"><span>TOTAL</span><span>13 boxes · 1.56 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 11 + mix 2)</span></span></div>
 </div></div>
-<div class="date-content" data-date="2026-05-01"><div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">23 boxes · 2.76 CBM</span></div>
-<div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">9 box · 1.08 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">9박스 <span class="bar-ea">(54개)</span></span><span class="bar-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지</span><span class="bar-info">8박스 <span class="bar-ea">(40개)</span></span><span class="bar-cbm">0.96cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-row"><span class="bar-color"><span class="color-dot" style="background:#5a5a5a;"></span>스모키차콜</span><span class="bar-info">6박스 <span class="bar-ea">(30개)</span></span><span class="bar-cbm">0.72cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="bar-total"><span>합계</span><span>23 boxes · 2.76 CBM</span></div>
-<hr class="bx-divider">
+<div class="date-content" data-date="2026-05-01"><div class="prod-header" style="color:#e65100;border-color:#e65100;">이불세트 <span class="sub">23 boxes · 2.76 CBM</span></div>
+<div class="per-box-info">SS: 6개/box · K: 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
+<span class="card-color-name">밀크베이지</span>
+<span class="card-total">17박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-qty">9박스</span><span class="size-ea">(54개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">8박스</span><span class="size-ea">(40개)</span><span class="size-cbm">0.96cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#5a5a5a;"></span>
+<span class="card-color-name">스모키차콜</span>
+<span class="card-total">6박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">6박스</span><span class="size-ea">(30개)</span><span class="size-cbm">0.72cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+</div>
+<div class="total-bar"><span>이불세트 합계</span><span>23 boxes · 2.76 CBM</span></div>
+<hr class="section-divider">
 
 <div class="bx-summary">
   <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
