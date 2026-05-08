@@ -984,13 +984,39 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <style>
 .bx-section { font-size: 15px; font-weight: 800; color: #333; margin: 24px 0 4px; padding-bottom: 6px; border-bottom: 2px solid #333; }
 .bx-sub { font-size: 12px; color: #888; margin-bottom: 12px; }
-.bx-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
-.bx-table th { background: #f5f5f5; padding: 8px 10px; text-align: left; font-weight: 800; border-bottom: 2px solid #333; font-size: 12px; color: #555; }
-.bx-table td { padding: 7px 10px; border-bottom: 1px solid #eee; }
-.bx-table tr:hover { background: #fafafa; }
-.bx-table .num { text-align: center; font-weight: 700; }
-.bx-table .boxes { text-align: center; font-weight: 800; font-size: 14px; color: #333; }
-.bx-table .mixed-detail { font-size: 12px; color: #555; line-height: 1.6; }
+/* ── B스타일 바 그래프 ── */
+.bar-group-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 14px; font-weight: 800; color: #333;
+  margin: 16px 0 6px; padding: 8px 0 6px;
+  border-bottom: 2px solid #e0e0e0;
+}
+.bar-group-sub { font-size: 12px; font-weight: 700; color: #0066ff; }
+.bar-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 4px; border-bottom: 1px solid #f0f0f0;
+}
+.bar-row:hover { background: #fafafa; }
+.bar-color { width: 100px; font-size: 12px; font-weight: 700; color: #555; flex-shrink: 0; }
+.bar-boxes { width: 32px; text-align: right; font-size: 14px; font-weight: 800; color: #333; flex-shrink: 0; }
+.bar-track { flex: 1; height: 16px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; background: #333; border-radius: 3px; min-width: 2px; }
+.bar-cbm { width: 48px; text-align: right; font-size: 12px; font-weight: 700; color: #888; flex-shrink: 0; }
+.bar-mix-detail { flex: 1; font-size: 11px; color: #555; line-height: 1.4; }
+.bar-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 4px; margin-top: 4px;
+  border-top: 2px solid #333; font-weight: 800; font-size: 14px;
+}
+.bar-total.mix { border-top-color: #0066ff; color: #0066ff; }
+@media (max-width: 600px) {
+  .bar-color { width: 72px; font-size: 11px; }
+  .bar-boxes { width: 28px; font-size: 12px; }
+  .bar-cbm { width: 40px; font-size: 11px; }
+  .bar-group-header { font-size: 12px; }
+  .bar-group-sub { font-size: 11px; }
+  .bar-mix-detail { font-size: 10px; }
+}
 .bx-full-tag { display: inline-block; background: #333; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; letter-spacing: 1px; }
 .bx-mix-tag { display: inline-block; background: #0066ff; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; letter-spacing: 1px; }
 .bx-divider { margin: 28px 0 0; border: none; border-top: 1px dashed #ccc; }
@@ -1001,64 +1027,42 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="bx-section" style="color:#e65100;border-color:#e65100;">토퍼 <span style="font-size:12px;color:#888;font-weight:400;">192 boxes · 23.04 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 186 boxes · 22.32 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="4">SS (1.2)</td><td>GREY</td><td class="num">6</td><td class="boxes">3</td><td class="num">0.12</td><td class="num">0.36</td></tr>
-<tr ><td>BEIGE</td><td class="num">6</td><td class="boxes">38</td><td class="num">0.12</td><td class="num">4.56</td></tr>
-<tr ><td>IVORY</td><td class="num">6</td><td class="boxes">65</td><td class="num">0.12</td><td class="num">7.80</td></tr>
-<tr ><td>WHITE&amp;BLACK</td><td class="num">6</td><td class="boxes">10</td><td class="num">0.12</td><td class="num">1.20</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="3">Q (1.5)</td><td>BEIGE</td><td class="num">6</td><td class="boxes">18</td><td class="num">0.12</td><td class="num">2.16</td></tr>
-<tr ><td>IVORY</td><td class="num">6</td><td class="boxes">18</td><td class="num">0.12</td><td class="num">2.16</td></tr>
-<tr ><td>CHARCOAL</td><td class="num">6</td><td class="boxes">17</td><td class="num">0.12</td><td class="num">2.04</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="3">K (1.8)</td><td>BEIGE</td><td class="num">5</td><td class="boxes">6</td><td class="num">0.12</td><td class="num">0.72</td></tr>
-<tr ><td>IVORY</td><td class="num">5</td><td class="boxes">7</td><td class="num">0.12</td><td class="num">0.84</td></tr>
-<tr ><td>WHITE&amp;BLACK</td><td class="num">5</td><td class="boxes">4</td><td class="num">0.12</td><td class="num">0.48</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">186</td><td></td><td class="num" style="font-size:16px;">22.32</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">SS (1.2) · 6ea/box<span class="bar-group-sub">116 box · 13.92 CBM</span></div>
+<div class="bar-row"><span class="bar-color">IVORY</span><span class="bar-boxes">65</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">7.80</span></div>
+<div class="bar-row"><span class="bar-color">BEIGE</span><span class="bar-boxes">38</span><span class="bar-track"><span class="bar-fill" style="width:58%"></span></span><span class="bar-cbm">4.56</span></div>
+<div class="bar-row"><span class="bar-color">WHITE&amp;BLACK</span><span class="bar-boxes">10</span><span class="bar-track"><span class="bar-fill" style="width:15%"></span></span><span class="bar-cbm">1.20</span></div>
+<div class="bar-row"><span class="bar-color">GREY</span><span class="bar-boxes">3</span><span class="bar-track"><span class="bar-fill" style="width:5%"></span></span><span class="bar-cbm">0.36</span></div>
+<div class="bar-group-header">Q (1.5) · 6ea/box<span class="bar-group-sub">53 box · 6.36 CBM</span></div>
+<div class="bar-row"><span class="bar-color">IVORY</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%"></span></span><span class="bar-cbm">2.16</span></div>
+<div class="bar-row"><span class="bar-color">BEIGE</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%"></span></span><span class="bar-cbm">2.16</span></div>
+<div class="bar-row"><span class="bar-color">CHARCOAL</span><span class="bar-boxes">17</span><span class="bar-track"><span class="bar-fill" style="width:26%"></span></span><span class="bar-cbm">2.04</span></div>
+<div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">17 box · 2.04 CBM</span></div>
+<div class="bar-row"><span class="bar-color">IVORY</span><span class="bar-boxes">7</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.84</span></div>
+<div class="bar-row"><span class="bar-color">BEIGE</span><span class="bar-boxes">6</span><span class="bar-track"><span class="bar-fill" style="width:9%"></span></span><span class="bar-cbm">0.72</span></div>
+<div class="bar-row"><span class="bar-color">WHITE&amp;BLACK</span><span class="bar-boxes">4</span><span class="bar-track"><span class="bar-fill" style="width:6%"></span></span><span class="bar-cbm">0.48</span></div>
+<div class="bar-total"><span>FULL</span><span>186 boxes · 22.32 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 6 boxes · 0.72 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>SS (1.2)</td><td class="mixed-detail">IVORY 5ea + WHITE&amp;BLACK 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr ><td>SS (1.2)</td><td class="mixed-detail">GREY 4ea + WHITE&amp;BLACK 2ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr ><td>SS (1.2)</td><td class="mixed-detail">WHITE&amp;BLACK 1ea + BEIGE 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>Q (1.5)</td><td class="mixed-detail">IVORY 2ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>K (1.8)</td><td class="mixed-detail">BEIGE 3ea + IVORY 2ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr ><td>K (1.8)</td><td class="mixed-detail">WHITE&amp;BLACK 2ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">6</td><td></td><td class="num" style="font-size:16px;">0.72</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">IVORY 5ea + WHITE&amp;BLACK 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">GREY 4ea + WHITE&amp;BLACK 2ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">WHITE&amp;BLACK 1ea + BEIGE 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">Q (1.5)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">IVORY 2ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">BEIGE 3ea + IVORY 2ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">WHITE&amp;BLACK 2ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-total mix"><span>MIX</span><span>6 boxes · 0.72 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">46 boxes · 5.52 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 46 boxes · 5.52 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="2">SS</td><td>MILKBEIGE</td><td class="num">6</td><td class="boxes">9</td><td class="num">0.12</td><td class="num">1.08</td></tr>
-<tr ><td>CREAMWHITE</td><td class="num">6</td><td class="boxes">9</td><td class="num">0.12</td><td class="num">1.08</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="3">K</td><td>MOCHA BROWN</td><td class="num">5</td><td class="boxes">14</td><td class="num">0.12</td><td class="num">1.68</td></tr>
-<tr ><td>MILKBEIGE</td><td class="num">5</td><td class="boxes">8</td><td class="num">0.12</td><td class="num">0.96</td></tr>
-<tr ><td>SMOKY CHARCOAL</td><td class="num">5</td><td class="boxes">6</td><td class="num">0.12</td><td class="num">0.72</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">46</td><td></td><td class="num" style="font-size:16px;">5.52</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">18 box · 2.16 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAMWHITE</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:64%"></span></span><span class="bar-cbm">1.08</span></div>
+<div class="bar-row"><span class="bar-color">MILKBEIGE</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:64%"></span></span><span class="bar-cbm">1.08</span></div>
+<div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">28 box · 3.36 CBM</span></div>
+<div class="bar-row"><span class="bar-color">MOCHA BROWN</span><span class="bar-boxes">14</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">1.68</span></div>
+<div class="bar-row"><span class="bar-color">MILKBEIGE</span><span class="bar-boxes">8</span><span class="bar-track"><span class="bar-fill" style="width:57%"></span></span><span class="bar-cbm">0.96</span></div>
+<div class="bar-row"><span class="bar-color">SMOKY CHARCOAL</span><span class="bar-boxes">6</span><span class="bar-track"><span class="bar-fill" style="width:43%"></span></span><span class="bar-cbm">0.72</span></div>
+<div class="bar-total"><span>FULL</span><span>46 boxes · 5.52 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
 <div style="padding:10px;color:#999;font-size:12px;">혼합 박스 없음</div>
@@ -1067,112 +1071,56 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="bx-section" style="color:#e65100;border-color:#e65100;">커튼 <span style="font-size:12px;color:#888;font-weight:400;">16 boxes · 1.60 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 12 boxes · 1.20 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">130 X 170</td><td>CREAM</td><td class="num">30</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="2">140 X 230</td><td>MILKBEIGE</td><td class="num">25</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr ><td>CREAM</td><td class="num">25</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="1">210 X 235</td><td>CREAM</td><td class="num">17</td><td class="boxes">9</td><td class="num">0.10</td><td class="num">0.90</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">12</td><td></td><td class="num" style="font-size:16px;">1.20</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">130 X 170 · 30ea/box<span class="bar-group-sub">1 box · 0.10 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAM</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-group-header">140 X 230 · 25ea/box<span class="bar-group-sub">2 box · 0.20 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAM</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row"><span class="bar-color">MILKBEIGE</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-group-header">210 X 235 · 17ea/box<span class="bar-group-sub">9 box · 0.90 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAM</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">0.90</span></div>
+<div class="bar-total"><span>FULL</span><span>12 boxes · 1.20 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 4 boxes · 0.40 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>130 X 170</td><td class="mixed-detail">CREAM 10ea + MILKBEIGE 6ea + GREY 4ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>140 X 230</td><td class="mixed-detail">GREY 20ea + MILKBEIGE 5ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr ><td>140 X 230</td><td class="mixed-detail">CREAM 9ea + MILKBEIGE 8ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>210 X 235</td><td class="mixed-detail">CREAM 16ea + MILKBEIGE 1ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">4</td><td></td><td class="num" style="font-size:16px;">0.40</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">130 X 170</span><span class="bar-boxes">1</span><span class="bar-mix-detail">CREAM 10ea + MILKBEIGE 6ea + GREY 4ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">GREY 20ea + MILKBEIGE 5ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">CREAM 9ea + MILKBEIGE 8ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">210 X 235</span><span class="bar-boxes">1</span><span class="bar-mix-detail">CREAM 16ea + MILKBEIGE 1ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-total mix"><span>MIX</span><span>4 boxes · 0.40 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#2e7d32;border-color:#2e7d32;">페이스타올 <span style="font-size:12px;color:#888;font-weight:400;">56 boxes · 7.28 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 54 boxes · 7.02 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">2 PACK</td><td></td><td class="num">30</td><td class="boxes">22</td><td class="num">0.13</td><td class="num">2.86</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="1">3 PACK</td><td></td><td class="num">20</td><td class="boxes">32</td><td class="num">0.13</td><td class="num">4.16</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">54</td><td></td><td class="num" style="font-size:16px;">7.02</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">2 PACK · 30ea/box<span class="bar-group-sub">22 box · 2.86 CBM</span></div>
+<div class="bar-row"><span class="bar-color"></span><span class="bar-boxes">22</span><span class="bar-track"><span class="bar-fill" style="width:69%"></span></span><span class="bar-cbm">2.86</span></div>
+<div class="bar-group-header">3 PACK · 20ea/box<span class="bar-group-sub">32 box · 4.16 CBM</span></div>
+<div class="bar-row"><span class="bar-color"></span><span class="bar-boxes">32</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">4.16</span></div>
+<div class="bar-total"><span>FULL</span><span>54 boxes · 7.02 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 2 boxes · 0.26 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>2 PACK</td><td class="mixed-detail"> 10ea</td><td class="boxes">1</td><td class="num">0.13</td><td class="num">0.13</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>3 PACK</td><td class="mixed-detail"> 10ea</td><td class="boxes">1</td><td class="num">0.13</td><td class="num">0.13</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">2</td><td></td><td class="num" style="font-size:16px;">0.26</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">2 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10ea</span><span class="bar-cbm">0.13</span></div>
+<div class="bar-row mix"><span class="bar-color">3 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10ea</span><span class="bar-cbm">0.13</span></div>
+<div class="bar-total mix"><span>MIX</span><span>2 boxes · 0.26 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#424242;border-color:#424242;">18L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">59 boxes · 11.80 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 58 boxes · 11.60 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">BIN 18L</td><td>MATTE WHITE</td><td class="num">12</td><td class="boxes">58</td><td class="num">0.20</td><td class="num">11.60</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">58</td><td></td><td class="num" style="font-size:16px;">11.60</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">BIN 18L · 12ea/box<span class="bar-group-sub">58 box · 11.60 CBM</span></div>
+<div class="bar-row"><span class="bar-color">MATTE WHITE</span><span class="bar-boxes">58</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">11.60</span></div>
+<div class="bar-total"><span>FULL</span><span>58 boxes · 11.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 1 boxes · 0.20 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>BIN 18L</td><td class="mixed-detail">MATTE WHITE 4ea</td><td class="boxes">1</td><td class="num">0.20</td><td class="num">0.20</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">1</td><td></td><td class="num" style="font-size:16px;">0.20</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">BIN 18L</span><span class="bar-boxes">1</span><span class="bar-mix-detail">MATTE WHITE 4ea</span><span class="bar-cbm">0.20</span></div>
+<div class="bar-total mix"><span>MIX</span><span>1 boxes · 0.20 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#37474f;border-color:#37474f;">20L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">80 boxes · 17.60 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 80 boxes · 17.60 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">BIN 20L</td><td>COTA WHITE</td><td class="num">4</td><td class="boxes">80</td><td class="num">0.22</td><td class="num">17.60</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">80</td><td></td><td class="num" style="font-size:16px;">17.60</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">BIN 20L · 4ea/box<span class="bar-group-sub">80 box · 17.60 CBM</span></div>
+<div class="bar-row"><span class="bar-color">COTA WHITE</span><span class="bar-boxes">80</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">17.60</span></div>
+<div class="bar-total"><span>FULL</span><span>80 boxes · 17.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
 <div style="padding:10px;color:#999;font-size:12px;">혼합 박스 없음</div>
@@ -1210,60 +1158,37 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date-content" data-date="2026-04-15"><div class="bx-section" style="color:#e65100;border-color:#e65100;">토퍼 <span style="font-size:12px;color:#888;font-weight:400;">189 boxes · 22.68 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 183 boxes · 21.96 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="4">SS (1.2)</td><td>GREY</td><td class="num">6</td><td class="boxes">3</td><td class="num">0.12</td><td class="num">0.36</td></tr>
-<tr ><td>BEIGE</td><td class="num">6</td><td class="boxes">38</td><td class="num">0.12</td><td class="num">4.56</td></tr>
-<tr ><td>IVORY</td><td class="num">6</td><td class="boxes">65</td><td class="num">0.12</td><td class="num">7.80</td></tr>
-<tr ><td>WHITE&amp;BLACK</td><td class="num">6</td><td class="boxes">10</td><td class="num">0.12</td><td class="num">1.20</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="3">Q (1.5)</td><td>BEIGE</td><td class="num">6</td><td class="boxes">18</td><td class="num">0.12</td><td class="num">2.16</td></tr>
-<tr ><td>IVORY</td><td class="num">6</td><td class="boxes">18</td><td class="num">0.12</td><td class="num">2.16</td></tr>
-<tr ><td>CHARCOAL</td><td class="num">6</td><td class="boxes">17</td><td class="num">0.12</td><td class="num">2.04</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="3">K (1.8)</td><td>BEIGE</td><td class="num">5</td><td class="boxes">5</td><td class="num">0.12</td><td class="num">0.60</td></tr>
-<tr ><td>IVORY</td><td class="num">5</td><td class="boxes">7</td><td class="num">0.12</td><td class="num">0.84</td></tr>
-<tr ><td>WHITE&amp;BLACK</td><td class="num">5</td><td class="boxes">2</td><td class="num">0.12</td><td class="num">0.24</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">183</td><td></td><td class="num" style="font-size:16px;">21.96</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">SS (1.2) · 6ea/box<span class="bar-group-sub">116 box · 13.92 CBM</span></div>
+<div class="bar-row"><span class="bar-color">IVORY</span><span class="bar-boxes">65</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">7.80</span></div>
+<div class="bar-row"><span class="bar-color">BEIGE</span><span class="bar-boxes">38</span><span class="bar-track"><span class="bar-fill" style="width:58%"></span></span><span class="bar-cbm">4.56</span></div>
+<div class="bar-row"><span class="bar-color">WHITE&amp;BLACK</span><span class="bar-boxes">10</span><span class="bar-track"><span class="bar-fill" style="width:15%"></span></span><span class="bar-cbm">1.20</span></div>
+<div class="bar-row"><span class="bar-color">GREY</span><span class="bar-boxes">3</span><span class="bar-track"><span class="bar-fill" style="width:5%"></span></span><span class="bar-cbm">0.36</span></div>
+<div class="bar-group-header">Q (1.5) · 6ea/box<span class="bar-group-sub">53 box · 6.36 CBM</span></div>
+<div class="bar-row"><span class="bar-color">IVORY</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%"></span></span><span class="bar-cbm">2.16</span></div>
+<div class="bar-row"><span class="bar-color">BEIGE</span><span class="bar-boxes">18</span><span class="bar-track"><span class="bar-fill" style="width:28%"></span></span><span class="bar-cbm">2.16</span></div>
+<div class="bar-row"><span class="bar-color">CHARCOAL</span><span class="bar-boxes">17</span><span class="bar-track"><span class="bar-fill" style="width:26%"></span></span><span class="bar-cbm">2.04</span></div>
+<div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
+<div class="bar-row"><span class="bar-color">IVORY</span><span class="bar-boxes">7</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.84</span></div>
+<div class="bar-row"><span class="bar-color">BEIGE</span><span class="bar-boxes">5</span><span class="bar-track"><span class="bar-fill" style="width:8%"></span></span><span class="bar-cbm">0.60</span></div>
+<div class="bar-row"><span class="bar-color">WHITE&amp;BLACK</span><span class="bar-boxes">2</span><span class="bar-track"><span class="bar-fill" style="width:3%"></span></span><span class="bar-cbm">0.24</span></div>
+<div class="bar-total"><span>FULL</span><span>183 boxes · 21.96 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 6 boxes · 0.72 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>SS (1.2)</td><td class="mixed-detail">IVORY 5ea + WHITE&amp;BLACK 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr ><td>SS (1.2)</td><td class="mixed-detail">GREY 4ea + WHITE&amp;BLACK 2ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr ><td>SS (1.2)</td><td class="mixed-detail">WHITE&amp;BLACK 1ea + BEIGE 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>Q (1.5)</td><td class="mixed-detail">IVORY 2ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>K (1.8)</td><td class="mixed-detail">BEIGE 4ea + IVORY 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr ><td>K (1.8)</td><td class="mixed-detail">IVORY 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">6</td><td></td><td class="num" style="font-size:16px;">0.72</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">IVORY 5ea + WHITE&amp;BLACK 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">GREY 4ea + WHITE&amp;BLACK 2ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">SS (1.2)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">WHITE&amp;BLACK 1ea + BEIGE 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">Q (1.5)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">IVORY 2ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">BEIGE 4ea + IVORY 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">IVORY 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-total mix"><span>MIX</span><span>6 boxes · 0.72 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">14 boxes · 1.68 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 14 boxes · 1.68 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">K</td><td>MOCHA BROWN</td><td class="num">5</td><td class="boxes">14</td><td class="num">0.12</td><td class="num">1.68</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">14</td><td></td><td class="num" style="font-size:16px;">1.68</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
+<div class="bar-row"><span class="bar-color">MOCHA BROWN</span><span class="bar-boxes">14</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">1.68</span></div>
+<div class="bar-total"><span>FULL</span><span>14 boxes · 1.68 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
 <div style="padding:10px;color:#999;font-size:12px;">혼합 박스 없음</div>
@@ -1272,112 +1197,56 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="bx-section" style="color:#e65100;border-color:#e65100;">커튼 <span style="font-size:12px;color:#888;font-weight:400;">16 boxes · 1.60 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 12 boxes · 1.20 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">130 X 170</td><td>CREAM</td><td class="num">30</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="2">140 X 230</td><td>MILKBEIGE</td><td class="num">25</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr ><td>CREAM</td><td class="num">25</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="1">210 X 235</td><td>CREAM</td><td class="num">17</td><td class="boxes">9</td><td class="num">0.10</td><td class="num">0.90</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">12</td><td></td><td class="num" style="font-size:16px;">1.20</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">130 X 170 · 30ea/box<span class="bar-group-sub">1 box · 0.10 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAM</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-group-header">140 X 230 · 25ea/box<span class="bar-group-sub">2 box · 0.20 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAM</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row"><span class="bar-color">MILKBEIGE</span><span class="bar-boxes">1</span><span class="bar-track"><span class="bar-fill" style="width:11%"></span></span><span class="bar-cbm">0.10</span></div>
+<div class="bar-group-header">210 X 235 · 17ea/box<span class="bar-group-sub">9 box · 0.90 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAM</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">0.90</span></div>
+<div class="bar-total"><span>FULL</span><span>12 boxes · 1.20 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 4 boxes · 0.40 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>130 X 170</td><td class="mixed-detail">CREAM 10ea + MILKBEIGE 6ea + GREY 4ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>140 X 230</td><td class="mixed-detail">GREY 20ea + MILKBEIGE 5ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr ><td>140 X 230</td><td class="mixed-detail">CREAM 9ea + MILKBEIGE 8ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>210 X 235</td><td class="mixed-detail">CREAM 16ea + MILKBEIGE 1ea</td><td class="boxes">1</td><td class="num">0.10</td><td class="num">0.10</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">4</td><td></td><td class="num" style="font-size:16px;">0.40</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">130 X 170</span><span class="bar-boxes">1</span><span class="bar-mix-detail">CREAM 10ea + MILKBEIGE 6ea + GREY 4ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">GREY 20ea + MILKBEIGE 5ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">140 X 230</span><span class="bar-boxes">1</span><span class="bar-mix-detail">CREAM 9ea + MILKBEIGE 8ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-row mix"><span class="bar-color">210 X 235</span><span class="bar-boxes">1</span><span class="bar-mix-detail">CREAM 16ea + MILKBEIGE 1ea</span><span class="bar-cbm">0.10</span></div>
+<div class="bar-total mix"><span>MIX</span><span>4 boxes · 0.40 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#2e7d32;border-color:#2e7d32;">페이스타올 <span style="font-size:12px;color:#888;font-weight:400;">56 boxes · 7.28 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 54 boxes · 7.02 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">2 PACK</td><td></td><td class="num">30</td><td class="boxes">22</td><td class="num">0.13</td><td class="num">2.86</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="1">3 PACK</td><td></td><td class="num">20</td><td class="boxes">32</td><td class="num">0.13</td><td class="num">4.16</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">54</td><td></td><td class="num" style="font-size:16px;">7.02</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">2 PACK · 30ea/box<span class="bar-group-sub">22 box · 2.86 CBM</span></div>
+<div class="bar-row"><span class="bar-color"></span><span class="bar-boxes">22</span><span class="bar-track"><span class="bar-fill" style="width:69%"></span></span><span class="bar-cbm">2.86</span></div>
+<div class="bar-group-header">3 PACK · 20ea/box<span class="bar-group-sub">32 box · 4.16 CBM</span></div>
+<div class="bar-row"><span class="bar-color"></span><span class="bar-boxes">32</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">4.16</span></div>
+<div class="bar-total"><span>FULL</span><span>54 boxes · 7.02 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 2 boxes · 0.26 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>2 PACK</td><td class="mixed-detail"> 10ea</td><td class="boxes">1</td><td class="num">0.13</td><td class="num">0.13</td></tr>
-<tr style="border-top:1px solid #ddd;"><td>3 PACK</td><td class="mixed-detail"> 10ea</td><td class="boxes">1</td><td class="num">0.13</td><td class="num">0.13</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">2</td><td></td><td class="num" style="font-size:16px;">0.26</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">2 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10ea</span><span class="bar-cbm">0.13</span></div>
+<div class="bar-row mix"><span class="bar-color">3 PACK</span><span class="bar-boxes">1</span><span class="bar-mix-detail"> 10ea</span><span class="bar-cbm">0.13</span></div>
+<div class="bar-total mix"><span>MIX</span><span>2 boxes · 0.26 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#424242;border-color:#424242;">18L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">59 boxes · 11.80 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 58 boxes · 11.60 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">BIN 18L</td><td>MATTE WHITE</td><td class="num">12</td><td class="boxes">58</td><td class="num">0.20</td><td class="num">11.60</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">58</td><td></td><td class="num" style="font-size:16px;">11.60</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">BIN 18L · 12ea/box<span class="bar-group-sub">58 box · 11.60 CBM</span></div>
+<div class="bar-row"><span class="bar-color">MATTE WHITE</span><span class="bar-boxes">58</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">11.60</span></div>
+<div class="bar-total"><span>FULL</span><span>58 boxes · 11.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 1 boxes · 0.20 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>BIN 18L</td><td class="mixed-detail">MATTE WHITE 4ea</td><td class="boxes">1</td><td class="num">0.20</td><td class="num">0.20</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">1</td><td></td><td class="num" style="font-size:16px;">0.20</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">BIN 18L</span><span class="bar-boxes">1</span><span class="bar-mix-detail">MATTE WHITE 4ea</span><span class="bar-cbm">0.20</span></div>
+<div class="bar-total mix"><span>MIX</span><span>1 boxes · 0.20 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#37474f;border-color:#37474f;">20L휴지통 <span style="font-size:12px;color:#888;font-weight:400;">80 boxes · 17.60 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 80 boxes · 17.60 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">BIN 20L</td><td>COTA WHITE</td><td class="num">4</td><td class="boxes">80</td><td class="num">0.22</td><td class="num">17.60</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">80</td><td></td><td class="num" style="font-size:16px;">17.60</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">BIN 20L · 4ea/box<span class="bar-group-sub">80 box · 17.60 CBM</span></div>
+<div class="bar-row"><span class="bar-color">COTA WHITE</span><span class="bar-boxes">80</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">17.60</span></div>
+<div class="bar-total"><span>FULL</span><span>80 boxes · 17.60 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
 <div style="padding:10px;color:#999;font-size:12px;">혼합 박스 없음</div>
@@ -1414,47 +1283,22 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date-content" data-date="2026-04-30"><div class="bx-section" style="color:#e65100;border-color:#e65100;">토퍼 <span style="font-size:12px;color:#888;font-weight:400;">4 boxes · 0.48 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 2 boxes · 0.24 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">K (1.8)</td><td>WHITE&amp;BLACK</td><td class="num">5</td><td class="boxes">2</td><td class="num">0.12</td><td class="num">0.24</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">2</td><td></td><td class="num" style="font-size:16px;">0.24</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">K (1.8) · 5ea/box<span class="bar-group-sub">2 box · 0.24 CBM</span></div>
+<div class="bar-row"><span class="bar-color">WHITE&amp;BLACK</span><span class="bar-boxes">2</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">0.24</span></div>
+<div class="bar-total"><span>FULL</span><span>2 boxes · 0.24 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 2 boxes · 0.24 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>STICKER CONTENTS</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td>K (1.8)</td><td class="mixed-detail">BEIGE 4ea + WHITE&amp;BLACK 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-<tr ><td>K (1.8)</td><td class="mixed-detail">WHITE&amp;BLACK 1ea</td><td class="boxes">1</td><td class="num">0.12</td><td class="num">0.12</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="2" style="padding:8px 10px;">MIX</td><td class="boxes" style="font-size:16px;">2</td><td></td><td class="num" style="font-size:16px;">0.24</td></tr>
-</tfoot>
-</table>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">BEIGE 4ea + WHITE&amp;BLACK 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-row mix"><span class="bar-color">K (1.8)</span><span class="bar-boxes">1</span><span class="bar-mix-detail">WHITE&amp;BLACK 1ea</span><span class="bar-cbm">0.12</span></div>
+<div class="bar-total mix"><span>MIX</span><span>2 boxes · 0.24 CBM</span></div>
 
 <hr class="bx-divider">
 <div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">9 boxes · 1.08 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 9 boxes · 1.08 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">SS</td><td>CREAMWHITE</td><td class="num">6</td><td class="boxes">9</td><td class="num">0.12</td><td class="num">1.08</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">9</td><td></td><td class="num" style="font-size:16px;">1.08</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">9 box · 1.08 CBM</span></div>
+<div class="bar-row"><span class="bar-color">CREAMWHITE</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">1.08</span></div>
+<div class="bar-total"><span>FULL</span><span>9 boxes · 1.08 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
 <div style="padding:10px;color:#999;font-size:12px;">혼합 박스 없음</div>
@@ -1474,19 +1318,12 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date-content" data-date="2026-05-01"><div class="bx-section" style="color:#e65100;border-color:#e65100;">이불세트 <span style="font-size:12px;color:#888;font-weight:400;">23 boxes · 2.76 CBM</span></div>
 
 <div style="margin-top:12px;"><span class="bx-full-tag">FULL</span> <span style="font-size:12px;color:#888;">단일 색상 — 23 boxes · 2.76 CBM</span></div>
-<table class="bx-table" style="margin-top:8px;">
-<thead>
-  <tr><th>SIZE</th><th>COLOR</th><th style="text-align:center;">EA/BOX</th><th style="text-align:center;">BOXES</th><th style="text-align:center;">CBM/BOX</th><th style="text-align:center;">CBM</th></tr>
-</thead>
-<tbody>
-  <tr ><td rowspan="1">SS</td><td>MILKBEIGE</td><td class="num">6</td><td class="boxes">9</td><td class="num">0.12</td><td class="num">1.08</td></tr>
-<tr style="border-top:1px solid #ddd;"><td rowspan="2">K</td><td>MILKBEIGE</td><td class="num">5</td><td class="boxes">8</td><td class="num">0.12</td><td class="num">0.96</td></tr>
-<tr ><td>SMOKY CHARCOAL</td><td class="num">5</td><td class="boxes">6</td><td class="num">0.12</td><td class="num">0.72</td></tr>
-</tbody>
-<tfoot>
-  <tr style="border-top:2px solid #333;font-weight:800;"><td colspan="3" style="padding:8px 10px;">FULL</td><td class="boxes" style="font-size:16px;">23</td><td></td><td class="num" style="font-size:16px;">2.76</td></tr>
-</tfoot>
-</table>
+<div class="bar-group-header">SS · 6ea/box<span class="bar-group-sub">9 box · 1.08 CBM</span></div>
+<div class="bar-row"><span class="bar-color">MILKBEIGE</span><span class="bar-boxes">9</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-cbm">1.08</span></div>
+<div class="bar-group-header">K · 5ea/box<span class="bar-group-sub">14 box · 1.68 CBM</span></div>
+<div class="bar-row"><span class="bar-color">MILKBEIGE</span><span class="bar-boxes">8</span><span class="bar-track"><span class="bar-fill" style="width:89%"></span></span><span class="bar-cbm">0.96</span></div>
+<div class="bar-row"><span class="bar-color">SMOKY CHARCOAL</span><span class="bar-boxes">6</span><span class="bar-track"><span class="bar-fill" style="width:67%"></span></span><span class="bar-cbm">0.72</span></div>
+<div class="bar-total"><span>FULL</span><span>23 boxes · 2.76 CBM</span></div>
 
 <div style="margin-top:16px;"><span class="bx-mix-tag">MIX</span> <span style="font-size:12px;color:#888;">혼합 색상 — 0 boxes · 0.00 CBM</span></div>
 <div style="padding:10px;color:#999;font-size:12px;">혼합 박스 없음</div>
