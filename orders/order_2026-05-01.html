@@ -1584,16 +1584,20 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 .pdf-btn.f1 { background:#ff4444; }
 .pdf-btn.f2 { background:#2196f3; }
 .pdf-preview { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+@media (max-width: 600px) {
+  .pdf-preview { grid-template-columns: 1fr; gap:8px; }
+}
 .pdf-card {
   position:relative;
   border:3px solid #333; border-radius:10px; padding:18px 22px; text-align:center;
   display:flex; flex-direction:column; justify-content:center; gap:10px;
   aspect-ratio:7/5;
+  min-width:0; overflow:hidden;
 }
 .pdf-card.mix { border-color:#333; background:#fff; }
 .pdf-card .pc-brand { font-size:54px; font-weight:800; letter-spacing:6px; line-height:1; }
-.pdf-card .pc-en { font-size:22px; font-weight:700; color:#222; word-break:keep-all; line-height:1.25; }
-.pdf-card .pc-zh { font-size:20px; font-weight:600; color:#333; word-break:keep-all; line-height:1.25; }
+.pdf-card .pc-en { font-size:22px; font-weight:700; color:#222; word-break:break-word; line-height:1.25; }
+.pdf-card .pc-zh { font-size:20px; font-weight:600; color:#333; word-break:break-word; line-height:1.25; }
 .pdf-card .pc-qty {
   position:absolute; top:14px; right:14px;
   background:#333; color:#fff;
@@ -1783,56 +1787,99 @@ function drawSticker(ctx, s, w, h) {
   ctx.font = 'bold 200px Inter, sans-serif';
   ctx.fillText('CNIC', w/2, h * 0.30);
 
-  /* 텍스트를 1~2줄로 wrap (폰트 일정 유지) — 자연 split (", " 또는 " + ") */
-  function _wrapToTwoLines(text, maxWidth) {
-    if (!text || ctx.measureText(text).width <= maxWidth) return [text || ''];
-    /* 자연스러운 split 위치 찾기 */
+  /* 자연 split 후보 위치 ", " / " + " */
+  function _splitPositions(text) {
     const splits = [];
-    let idx = -1;
-    while ((idx = text.indexOf(', ', idx + 1)) !== -1) splits.push(idx + 2);
-    let pidx = -1;
-    while ((pidx = text.indexOf(' + ', pidx + 1)) !== -1) splits.push(pidx + 3);
-    if (splits.length === 0) return [text];
-    /* 가운데에 가장 가까운 split 선택 (양쪽 줄 균형) */
-    const mid = text.length / 2;
-    splits.sort((a, b) => Math.abs(a - mid) - Math.abs(b - mid));
-    const sp = splits[0];
-    const line1 = text.substring(0, sp).trim();
-    const line2 = text.substring(sp).trim();
-    return [line1, line2];
+    let i = -1;
+    while ((i = text.indexOf(', ', i + 1)) !== -1) splits.push(i + 2);
+    let p = -1;
+    while ((p = text.indexOf(' + ', p + 1)) !== -1) splits.push(p + 3);
+    splits.sort((a, b) => a - b);
+    return splits;
+  }
+  /* maxLines 개로 균등 split (1=무wrap, 2=중앙, 3=1/3·2/3) */
+  function _wrapToLines(text, maxWidth, maxLines) {
+    if (!text || ctx.measureText(text).width <= maxWidth) return [text || ''];
+    const splits = _splitPositions(text);
+    if (splits.length === 0 || maxLines <= 1) return [text];
+    if (maxLines === 2) {
+      const mid = text.length / 2;
+      const sp = splits.slice().sort((a,b) => Math.abs(a-mid)-Math.abs(b-mid))[0];
+      return [text.substring(0, sp).trim(), text.substring(sp).trim()];
+    }
+    /* 3줄: 1/3, 2/3 지점에 가까운 split 두 개 */
+    if (splits.length < 2) {
+      const mid = text.length / 2;
+      const sp = splits.slice().sort((a,b) => Math.abs(a-mid)-Math.abs(b-mid))[0];
+      return [text.substring(0, sp).trim(), text.substring(sp).trim()];
+    }
+    const t1 = text.length / 3;
+    const t2 = 2 * text.length / 3;
+    const s1 = splits.slice().sort((a,b) => Math.abs(a-t1)-Math.abs(b-t1))[0];
+    const rest = splits.filter(s => s > s1);
+    if (rest.length === 0) {
+      return [text.substring(0, s1).trim(), text.substring(s1).trim()];
+    }
+    const s2 = rest.slice().sort((a,b) => Math.abs(a-t2)-Math.abs(b-t2))[0];
+    return [
+      text.substring(0, s1).trim(),
+      text.substring(s1, s2).trim(),
+      text.substring(s2).trim()
+    ];
+  }
+  /* 폰트 자동 축소 + wrap: 들어가는 가장 큰 폰트/적은 줄수 조합 반환 */
+  function _fitLines(text, baseFs, fontStr, maxWidth) {
+    if (!text) return { fs: baseFs, lines: [''] };
+    /* 시도 순서: (fs, maxLines) — 큰 폰트·적은 줄 우선 */
+    const tries = [
+      [baseFs, 2], [baseFs, 3],
+      [Math.round(baseFs * 0.83), 3],   /* 90→75, 80→66 */
+      [Math.round(baseFs * 0.66), 3],   /* 90→60, 80→53 fallback */
+    ];
+    for (const [fs, mx] of tries) {
+      ctx.font = 'bold ' + fs + 'px ' + fontStr;
+      const lines = _wrapToLines(text, maxWidth, mx);
+      let ok = true;
+      for (const L of lines) {
+        if (ctx.measureText(L).width > maxWidth) { ok = false; break; }
+      }
+      if (ok) return { fs: fs, lines: lines };
+    }
+    /* 모두 실패 → 최소 폰트 + 3줄 */
+    const fs = Math.round(baseFs * 0.66);
+    ctx.font = 'bold ' + fs + 'px ' + fontStr;
+    return { fs: fs, lines: _wrapToLines(text, maxWidth, 3) };
+  }
+  /* 여러 줄을 중앙Y 기준으로 그림 */
+  function _drawLines(lines, fs, centerY) {
+    const lh = fs * 1.15;
+    const totalH = lh * lines.length;
+    const startY = centerY - totalH / 2 + lh / 2;
+    for (let i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], w/2, startY + i * lh);
+    }
   }
 
-  /* 영문 — 폰트 90px 절대 고정, 한 줄 안 맞으면 두 줄 wrap (폰트 축소 X) */
+  /* 영문 — 기본 90px, 안 들어가면 자동 축소·3줄 wrap */
   ctx.fillStyle = '#222';
   const enLine = (s.en_line || s.size) || '';
-  const enFs = 90;
-  ctx.font = 'bold ' + enFs + 'px Inter, sans-serif';
-  const enLines = _wrapToTwoLines(enLine, w - 80);
-  const enLineHeight = enFs * 1.15;
-  const enCenterY = h * 0.56;
-  if (enLines.length === 1) {
-    ctx.fillText(enLines[0], w/2, enCenterY);
-  } else {
-    ctx.fillText(enLines[0], w/2, enCenterY - enLineHeight/2);
-    ctx.fillText(enLines[1], w/2, enCenterY + enLineHeight/2);
-  }
+  const enFit = _fitLines(enLine, 90, 'Inter, sans-serif', w - 80);
+  ctx.font = 'bold ' + enFit.fs + 'px Inter, sans-serif';
+  _drawLines(enFit.lines, enFit.fs, h * 0.56);
 
-  /* 중국어 — 폰트 80px 절대 고정, 한 줄 안 맞으면 두 줄 wrap (폰트 축소 X) */
+  /* 중국어 — 기본 80px, 안 들어가면 자동 축소·3줄 wrap */
   ctx.fillStyle = '#333';
   const zhLine = s.zh_line || '';
-  const zhFs = 80;
-  ctx.font = 'bold ' + zhFs + 'px "Noto Sans SC","Microsoft YaHei",sans-serif';
-  const zhLines = _wrapToTwoLines(zhLine, w - 80);
-  const zhLineHeight = zhFs * 1.15;
-  /* 영문 줄 수에 따라 중문 위치 동적 */
-  const zhStartY = enLines.length === 1 ? h * 0.80 : h * 0.86;
+  const zhFs0 = 80;
+  const zhFontStr = '"Noto Sans SC","Microsoft YaHei",sans-serif';
   if (zhLine) {
-    if (zhLines.length === 1) {
-      ctx.fillText(zhLines[0], w/2, zhStartY);
-    } else {
-      ctx.fillText(zhLines[0], w/2, zhStartY - zhLineHeight/2);
-      ctx.fillText(zhLines[1], w/2, zhStartY + zhLineHeight/2);
-    }
+    const zhFit = _fitLines(zhLine, zhFs0, zhFontStr, w - 80);
+    ctx.font = 'bold ' + zhFit.fs + 'px ' + zhFontStr;
+    /* 영문 줄 수에 따라 중문 위치 동적 (영문이 길수록 중문 더 아래) */
+    const zhCenterY = enFit.lines.length >= 3 ? h * 0.90
+                    : enFit.lines.length === 2 ? h * 0.86
+                    : h * 0.80;
+    _drawLines(zhFit.lines, zhFit.fs, zhCenterY);
   }
 }
 
