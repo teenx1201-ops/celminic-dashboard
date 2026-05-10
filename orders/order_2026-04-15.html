@@ -166,6 +166,23 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   .date-btn { font-size: 11px; padding: 7px 8px; white-space: normal; }
   .date-type { font-size: 8px; }
 }
+
+.date-btn-wrap { position: relative; display: inline-block; }
+.extra-menu {
+  display: none; position: absolute; top: 100%; left: 0; z-index: 10;
+  background: #fff; border: 2px solid #333; border-radius: 8px;
+  margin-top: 4px; min-width: 200px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.extra-menu.on { display: block; }
+.extra-menu button {
+  display: block; width: 100%; padding: 10px 14px; border: none;
+  background: #fff; cursor: pointer; font-size: 12px; font-weight: 600;
+  text-align: left; color: #333; border-bottom: 1px solid #eee;
+  font-family: inherit;
+}
+.extra-menu button:last-child { border-bottom: none; }
+.extra-menu button:hover { background: #f5f5f5; }
+.date-btn .caret { font-size: 9px; margin-left: 4px; }
 </style>
 </head>
 <body>
@@ -174,9 +191,8 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date">2026-04-15</div>
 
 <div class="date-bar">
-<button class="date-btn" onclick="switchDate('2026-04-15')">4/15 <span class="date-type type-main">정식 2,508개</span></button>
-<button class="date-btn" onclick="switchDate('2026-04-30_extra')">4/30 <span class="date-type type-extra">추가 70개</span></button>
-<button class="date-btn" onclick="switchDate('2026-05-01_extra')">5/1 <span class="date-type type-extra">추가 124개</span></button>
+<button class="date-btn" onclick="switchDate('main')">정식발주 <span class="date-type type-main">2,508개</span></button>
+<div class="date-btn-wrap"><button class="date-btn" onclick="toggleExtraMenu(event)">추가발주 <span class="caret">▼</span> <span class="date-type type-extra">2건 / 194개</span></button><div class="extra-menu" id="extra-menu"><button onclick="switchDate('extra_all')">전체 추가 (2건 / 194개)</button><button onclick="switchDate('2026-04-30_extra')">4/30 추가 (70개)</button><button onclick="switchDate('2026-05-01_extra')">5/1 추가 (124개)</button></div></div>
 <button class="date-btn active" onclick="switchDate('total')">전체 합산 <span class="date-type type-total">2,702개</span></button>
 </div>
 <div class="nav-bar">
@@ -310,7 +326,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div style="font-size:16px;font-weight:800;color:#e65100;">64,314.00 CNY</div>
   </div>
 </div></div>
-<div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
+<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
@@ -398,6 +414,94 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 </div>
 <div class="section-total">TOPPER: 1,106 PCS / 190 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
+<div class="cards-grid">
+<div class="card">
+  <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../ivory.jpg');"><div class="label">IVORY</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../whiteblack.jpg');"><div class="label">WHITE &amp; BLACK</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../whiteblack.jpg');"><div class="label">WHITE &amp; BLACK</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-val">12</td><td class="box-val">3</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">12 pcs / 3 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../beige.jpg');"><div class="label">BEIGE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-val">4</td><td class="box-val">1</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">4 pcs / 1 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../grey.jpg');"><div class="label">GREY</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
+  </div>
+</div>
+</div>
+<div class="section-total">TOPPER: 16 PCS / 4 BOXES</div></div>
 <div class="date-content" data-date="2026-04-30_extra"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
 <div class="cards-grid">
 <div class="card">
@@ -572,7 +676,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div style="font-size:16px;font-weight:800;color:#e65100;">64,314.00 CNY</div>
   </div>
 </div></div>
-<div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
@@ -632,6 +736,66 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 </div>
 <div class="section-total">BEDDING: 70 PCS / 14 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+<div class="cards-grid">
+<div class="card">
+  <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-val">54</td><td class="box-val">9</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">54 pcs / 9 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-val">54</td><td class="box-val">9</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-val">40</td><td class="box-val">8</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">94 pcs / 17 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">0 pcs / 0 boxes</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-photo" style="background-image:url('../charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
+        <tr><td>K</td><td class="qty-val">30</td><td class="box-val">6</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">30 pcs / 6 boxes</div>
+  </div>
+</div>
+</div>
+<div class="section-total">BEDDING: 178 PCS / 32 BOXES</div></div>
 <div class="date-content" data-date="2026-04-30_extra"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
 <div class="cards-grid">
 <div class="card">
@@ -831,7 +995,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div style="font-size:16px;font-weight:800;color:#e65100;">16,637.40 CNY</div>
   </div>
 </div></div>
-<div class="date-content" data-date="2026-04-15"><div class="box-info">per box — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
+<div class="date-content" data-date="main"><div class="box-info">per box — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_cream.jpg');"><div class="label">奶油白色 CREAM WHITE</div></div>
@@ -887,6 +1051,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   </table>
 </div>
 <div class="section-total">CURTAIN TOTAL: 312 PCS / 16 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-04-30_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-01_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -913,7 +1078,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 
 <div class="section-total">BIN 18L: 700 PCS / 59 BOXES</div></div>
-<div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 18L</div><div class="box-info">per box — 12pcs</div>
+<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 18L</div><div class="box-info">per box — 12pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../trash18.jpg');"><div class="label">MATTE WHITE</div></div>
@@ -929,6 +1094,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 </div>
 <div class="section-total">BIN 18L: 700 PCS / 59 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-04-30_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-01_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -955,7 +1121,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 
 <div class="section-total">BIN 20L: 320 PCS / 80 BOXES</div></div>
-<div class="date-content" data-date="2026-04-15"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 20L</div><div class="box-info">per box — 4pcs</div>
+<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 20L</div><div class="box-info">per box — 4pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../trash20.jpg');"><div class="label">COTA WHITE</div></div>
@@ -971,6 +1137,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 </div>
 <div class="section-total">BIN 20L: 320 PCS / 80 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-04-30_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-01_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -978,7 +1145,8 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div id="sub-facetowel" class="sub-content">
 <div class="date-content active" data-date="total">
 <div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
-<div class="date-content" data-date="2026-04-15"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="main"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-04-30_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-01_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -1308,7 +1476,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>20L휴지통 소계</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 80 + mix 0)</span></span></div>
   <div class="bx-srow total"><span>TOTAL</span><span>393 boxes · 59.56 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 382 + mix 11)</span></span></div>
 </div></div>
-<div class="date-content" data-date="2026-04-15"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">187 boxes · 22.42 CBM</span></div>
+<div class="date-content" data-date="main"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">187 boxes · 22.42 CBM</span></div>
 <div class="per-box-info">SS (1.2): 6개/box · Q (1.5): 6개/box · K (1.8): 5개/box</div>
 <div class="card-grid">
 <div class="box-card">
@@ -1488,6 +1656,74 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   <div class="bx-srow"><span>20L휴지통 BIN 20L</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;">(full 80)</span></span></div>
   <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>20L휴지통 소계</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 80 + mix 0)</span></span></div>
   <div class="bx-srow total"><span>TOTAL</span><span>356 boxes · 55.10 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 347 + mix 9)</span></span></div>
+</div></div>
+<div class="date-content" data-date="extra_all"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">4 boxes · 0.48 CBM</span></div>
+<div class="per-box-info">K (1.8): 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#222222;"></span>
+<span class="card-color-name">화이트앤블랙</span>
+<span class="card-total">2박스</span>
+</div>
+<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">2박스</span><span class="size-ea">(10개)</span><span class="size-cbm">0.24cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card mix-card">
+<div class="card-head">
+<span class="mix-label">MIX</span>
+<span class="card-color-name" style="font-size:11px;">혼합</span>
+<span class="card-total">2박스 · 0.24cbm</span>
+</div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#d4c5a9;border:1px solid #ccc;"></span>베이지 4개 <span class="mplus">+</span> <span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개</span><span class="mix-info">5개 <span class="gauge-badge full">✓</span></span></div>
+<div class="mix-row"><span class="mix-size">K (1.8)</span><span class="mix-contents"><span class="cdot" style="background:#222222;"></span>화이트앤블랙 1개</span><span class="mix-info">1개 <span class="gauge-badge partial">20%</span></span></div>
+</div>
+</div>
+<div class="total-bar"><span>토퍼 합계</span><span>4 boxes · 0.48 CBM</span></div>
+<hr class="section-divider">
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">이불세트 <span class="sub">32 boxes · 3.84 CBM</span></div>
+<div class="per-box-info">SS: 6개/box · K: 5개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
+<span class="card-color-name">크림화이트</span>
+<span class="card-total">9박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-qty">9박스</span><span class="size-ea">(54개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-empty">—</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
+<span class="card-color-name">밀크베이지</span>
+<span class="card-total">17박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-qty">9박스</span><span class="size-ea">(54개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">8박스</span><span class="size-ea">(40개)</span><span class="size-cbm">0.96cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#5a5a5a;"></span>
+<span class="card-color-name">스모키차콜</span>
+<span class="card-total">6박스</span>
+</div>
+<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
+<div class="size-row"><span class="size-label">K</span><span class="size-qty">6박스</span><span class="size-ea">(30개)</span><span class="size-cbm">0.72cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+</div>
+<div class="total-bar"><span>이불세트 합계</span><span>32 boxes · 3.84 CBM</span></div>
+<hr class="section-divider">
+
+<div class="bx-summary">
+  <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
+  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">토퍼 <span style="color:#888;font-weight:400;">(0.12 CBM/box)</span></div>
+  <div class="bx-srow"><span>토퍼 K (1.8)</span><span>4 boxes · 0.48 CBM <span style="color:#888;font-size:11px;">(full 2 + mix 2)</span></span></div>
+  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>토퍼 소계</span><span>4 boxes · 0.48 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 2 + mix 2)</span></span></div>
+  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">이불세트 <span style="color:#888;font-weight:400;">(0.12 CBM/box)</span></div>
+  <div class="bx-srow"><span>이불세트 SS</span><span>18 boxes · 2.16 CBM <span style="color:#888;font-size:11px;">(full 18)</span></span></div>
+  <div class="bx-srow"><span>이불세트 K</span><span>14 boxes · 1.68 CBM <span style="color:#888;font-size:11px;">(full 14)</span></span></div>
+  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>이불세트 소계</span><span>32 boxes · 3.84 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 32 + mix 0)</span></span></div>
+  <div class="bx-srow total"><span>TOTAL</span><span>36 boxes · 4.32 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 34 + mix 2)</span></span></div>
 </div></div>
 <div class="date-content" data-date="2026-04-30_extra"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">4 boxes · 0.48 CBM</span></div>
 <div class="per-box-info">K (1.8): 5개/box</div>
@@ -1964,12 +2200,38 @@ async function downloadAllPDF() {
 }
 
 function switchDate(dateId) {
+  // 추가 드롭다운 항목 클릭 시 → 추가발주 버튼 활성화
+  const isExtraItem = dateId === 'extra_all' || dateId.endsWith('_extra');
   document.querySelectorAll('.date-btn').forEach(function(b) { b.classList.remove('active'); });
-  event.currentTarget.classList.add('active');
+  if (isExtraItem) {
+    const wrap = document.querySelector('.date-btn-wrap .date-btn');
+    if (wrap) wrap.classList.add('active');
+  } else if (event && event.currentTarget && event.currentTarget.classList) {
+    event.currentTarget.classList.add('active');
+  }
+  // 메뉴 닫기
+  const menu = document.getElementById('extra-menu');
+  if (menu) menu.classList.remove('on');
+  // 콘텐츠 전환
   document.querySelectorAll('.date-content').forEach(function(d) {
     d.classList.toggle('active', d.getAttribute('data-date') === dateId);
   });
 }
+
+function toggleExtraMenu(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('extra-menu');
+  if (menu) menu.classList.toggle('on');
+}
+
+// 메뉴 외부 클릭 시 닫기
+document.addEventListener('click', function(e) {
+  const wrap = document.querySelector('.date-btn-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    const menu = document.getElementById('extra-menu');
+    if (menu) menu.classList.remove('on');
+  }
+});
 </script>
 </body>
 </html>

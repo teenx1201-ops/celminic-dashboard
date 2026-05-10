@@ -166,6 +166,23 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   .date-btn { font-size: 11px; padding: 7px 8px; white-space: normal; }
   .date-type { font-size: 8px; }
 }
+
+.date-btn-wrap { position: relative; display: inline-block; }
+.extra-menu {
+  display: none; position: absolute; top: 100%; left: 0; z-index: 10;
+  background: #fff; border: 2px solid #333; border-radius: 8px;
+  margin-top: 4px; min-width: 200px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.extra-menu.on { display: block; }
+.extra-menu button {
+  display: block; width: 100%; padding: 10px 14px; border: none;
+  background: #fff; cursor: pointer; font-size: 12px; font-weight: 600;
+  text-align: left; color: #333; border-bottom: 1px solid #eee;
+  font-family: inherit;
+}
+.extra-menu button:last-child { border-bottom: none; }
+.extra-menu button:hover { background: #f5f5f5; }
+.date-btn .caret { font-size: 9px; margin-left: 4px; }
 </style>
 </head>
 <body>
@@ -174,8 +191,8 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="date">2026-05-09</div>
 
 <div class="date-bar">
-<button class="date-btn" onclick="switchDate('2026-05-09')">5/9 <span class="date-type type-main">정식 905개</span></button>
-<button class="date-btn" onclick="switchDate('2026-05-09_extra')">5/9 <span class="date-type type-extra">추가 320개</span></button>
+<button class="date-btn" onclick="switchDate('main')">정식발주 <span class="date-type type-main">905개</span></button>
+<div class="date-btn-wrap"><button class="date-btn" onclick="toggleExtraMenu(event)">추가발주 <span class="caret">▼</span> <span class="date-type type-extra">1건 / 320개</span></button><div class="extra-menu" id="extra-menu"><button onclick="switchDate('extra_all')">전체 추가 (1건 / 320개)</button><button onclick="switchDate('2026-05-09_extra')">5/9 추가 (320개)</button></div></div>
 <button class="date-btn active" onclick="switchDate('total')">전체 합산 <span class="date-type type-total">1,225개</span></button>
 </div>
 <div class="nav-bar">
@@ -310,7 +327,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div style="font-size:16px;font-weight:800;color:#e65100;">47,721.00 CNY</div>
   </div>
 </div></div>
-<div class="date-content" data-date="2026-05-09"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
+<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per box — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
@@ -398,6 +415,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 </div>
 <div class="section-total">TOPPER: 224 PCS / 38 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-09_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
 
@@ -485,7 +503,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div style="font-size:16px;font-weight:800;color:#e65100;">47,721.00 CNY</div>
   </div>
 </div></div>
-<div class="date-content" data-date="2026-05-09"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
+<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per box — SS: 6pcs / Q: 5pcs / K: 5pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
@@ -545,6 +563,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 </div>
 <div class="section-total">BEDDING: 557 PCS / 107 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-09_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
 
@@ -624,7 +643,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <div style="font-size:16px;font-weight:800;color:#e65100;">7,734.60 CNY</div>
   </div>
 </div></div>
-<div class="date-content" data-date="2026-05-09"><div class="box-info">per box — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
+<div class="date-content" data-date="main"><div class="box-info">per box — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
 <div class="cards-grid">
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_cream.jpg');"><div class="label">奶油白色 CREAM WHITE</div></div>
@@ -680,13 +699,15 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   </table>
 </div>
 <div class="section-total">CURTAIN TOTAL: 124 PCS / 6 BOXES</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-09_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
 
 <div id="sub-trash18" class="sub-content">
 <div class="date-content active" data-date="total">
 <div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
-<div class="date-content" data-date="2026-05-09"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="main"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-09_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
 
@@ -712,7 +733,23 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 </div>
 
 <div class="section-total">BIN 20L: 320 PCS / 80 BOXES</div></div>
-<div class="date-content" data-date="2026-05-09"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="main"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="extra_all"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 20L</div><div class="box-info">per box — 4pcs</div>
+<div class="cards-grid">
+<div class="card">
+  <div class="card-photo" style="background-image:url('../trash20.jpg');"><div class="label">COTA WHITE</div></div>
+  <div class="card-body">
+    <table class="size-table">
+      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
+      <tbody>
+        <tr><td>기본</td><td class="qty-val">320</td><td class="box-val">80</td></tr>
+      </tbody>
+    </table>
+    <div class="card-total">320 pcs / 80 boxes</div>
+  </div>
+</div>
+</div>
+<div class="section-total">BIN 20L: 320 PCS / 80 BOXES</div></div>
 <div class="date-content" data-date="2026-05-09_extra"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BIN 20L</div><div class="box-info">per box — 4pcs</div>
 <div class="cards-grid">
 <div class="card">
@@ -734,7 +771,8 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div id="sub-facetowel" class="sub-content">
 <div class="date-content active" data-date="total">
 <div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
-<div class="date-content" data-date="2026-05-09"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="main"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
+<div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-09_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
 
@@ -1013,7 +1051,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>20L휴지통 소계</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 80 + mix 0)</span></span></div>
   <div class="bx-srow total"><span>TOTAL</span><span>232 boxes · 35.70 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 231 + mix 1)</span></span></div>
 </div></div>
-<div class="date-content" data-date="2026-05-09"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">38 boxes · 4.56 CBM</span></div>
+<div class="date-content" data-date="main"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">38 boxes · 4.56 CBM</span></div>
 <div class="per-box-info">SS (1.2): 6개/box · Q (1.5): 6개/box · K (1.8): 5개/box</div>
 <div class="card-grid">
 <div class="box-card">
@@ -1154,6 +1192,28 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
   <div class="bx-srow"><span>커튼 사이즈혼합</span><span>1 boxes · 0.10 CBM <span style="color:#888;font-size:11px;">(full 0 + mix 1)</span></span></div>
   <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>커튼 소계</span><span>7 boxes · 0.70 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 6 + mix 1)</span></span></div>
   <div class="bx-srow total"><span>TOTAL</span><span>152 boxes · 18.10 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 151 + mix 1)</span></span></div>
+</div></div>
+<div class="date-content" data-date="extra_all"><div class="prod-header" style="color:#37474f;border-color:#37474f;">20L휴지통 <span class="sub">80 boxes · 17.60 CBM</span></div>
+<div class="per-box-info">BIN 20L: 4개/box</div>
+<div class="card-grid">
+<div class="box-card">
+<div class="card-head">
+<span class="card-dot" style="background:#888;"></span>
+<span class="card-color-name"></span>
+<span class="card-total">80박스</span>
+</div>
+<div class="size-row"><span class="size-label">BIN 20L</span><span class="size-qty">80박스</span><span class="size-ea">(320개)</span><span class="size-cbm">17.60cbm</span><span class="gauge-badge full">✓</span></div>
+</div>
+</div>
+<div class="total-bar"><span>20L휴지통 합계</span><span>80 boxes · 17.60 CBM</span></div>
+<hr class="section-divider">
+
+<div class="bx-summary">
+  <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
+  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">20L휴지통 <span style="color:#888;font-weight:400;">(0.22 CBM/box)</span></div>
+  <div class="bx-srow"><span>20L휴지통 BIN 20L</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;">(full 80)</span></span></div>
+  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>20L휴지통 소계</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 80 + mix 0)</span></span></div>
+  <div class="bx-srow total"><span>TOTAL</span><span>80 boxes · 17.60 CBM <span style="color:#888;font-size:11px;font-weight:400;">(full 80 + mix 0)</span></span></div>
 </div></div>
 <div class="date-content" data-date="2026-05-09_extra"><div class="prod-header" style="color:#37474f;border-color:#37474f;">20L휴지통 <span class="sub">80 boxes · 17.60 CBM</span></div>
 <div class="per-box-info">BIN 20L: 4개/box</div>
@@ -1571,12 +1631,38 @@ async function downloadAllPDF() {
 }
 
 function switchDate(dateId) {
+  // 추가 드롭다운 항목 클릭 시 → 추가발주 버튼 활성화
+  const isExtraItem = dateId === 'extra_all' || dateId.endsWith('_extra');
   document.querySelectorAll('.date-btn').forEach(function(b) { b.classList.remove('active'); });
-  event.currentTarget.classList.add('active');
+  if (isExtraItem) {
+    const wrap = document.querySelector('.date-btn-wrap .date-btn');
+    if (wrap) wrap.classList.add('active');
+  } else if (event && event.currentTarget && event.currentTarget.classList) {
+    event.currentTarget.classList.add('active');
+  }
+  // 메뉴 닫기
+  const menu = document.getElementById('extra-menu');
+  if (menu) menu.classList.remove('on');
+  // 콘텐츠 전환
   document.querySelectorAll('.date-content').forEach(function(d) {
     d.classList.toggle('active', d.getAttribute('data-date') === dateId);
   });
 }
+
+function toggleExtraMenu(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('extra-menu');
+  if (menu) menu.classList.toggle('on');
+}
+
+// 메뉴 외부 클릭 시 닫기
+document.addEventListener('click', function(e) {
+  const wrap = document.querySelector('.date-btn-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    const menu = document.getElementById('extra-menu');
+    if (menu) menu.classList.remove('on');
+  }
+});
 </script>
 </body>
 </html>
