@@ -140,7 +140,21 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 /* 날짜 토글 바 */
 .date-bar {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 8px;
-  max-width: 740px; margin: 0 auto 10px;
+  max-width: 980px; margin: 0 auto 10px;
+}
+/* 그리트리 다운로드 버튼 — 동작 (모드 전환 아님) */
+.gritree-dl-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; padding: 9px 14px; border: 2px solid #2e7d32; border-radius: 8px;
+  background: #2e7d32; cursor: pointer; font-family: inherit;
+  font-size: 13px; font-weight: 700; color: #fff;
+  user-select: none; white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.gritree-dl-btn:hover { background: #256528; border-color: #256528; }
+.gritree-dl-btn:disabled { opacity: 0.6; cursor: wait; }
+@media (max-width: 600px) {
+  .gritree-dl-btn { font-size: 11px; padding: 7px 8px; }
 }
 .date-btn {
   display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -194,6 +208,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <button class="date-btn" onclick="switchDate('main')">정식발주 <span class="date-type type-main">2,508개</span></button>
 <div class="date-btn-wrap"><button class="date-btn" onclick="toggleExtraMenu(event)">추가발주 <span class="caret">▼</span> <span class="date-type type-extra">2건 / 194개</span></button><div class="extra-menu" id="extra-menu"><button onclick="switchDate('extra_all')">전체 추가 (2건 / 194개)</button><button onclick="switchDate('2026-04-30_extra')">4/30 추가 (70개)</button><button onclick="switchDate('2026-05-01_extra')">5/1 추가 (124개)</button></div></div>
 <button class="date-btn active" onclick="switchDate('total')">전체 합산 <span class="date-type type-total">2,702개</span></button>
+<button class="gritree-dl-btn" onclick="downloadGritreeExcel(event)" title="현재 보이는 발주서 → 그리트리 배대지 엑셀">🌳 그리트리 엑셀</button>
 </div>
 <div class="nav-bar">
   <div class="prod-dropdown-wrap" id="prod-dropdown-wrap">
@@ -2232,6 +2247,57 @@ document.addEventListener('click', function(e) {
     if (menu) menu.classList.remove('on');
   }
 });
+
+// 2026-05-17: 그리트리 엑셀 — 현재 선택 모드 (정식/추가/합산) 따라 동작
+function _currentGritreeMode() {
+  // .date-btn-wrap (추가발주 wrap) 안의 .active 가 있으면 extra
+  const extraWrap = document.querySelector('.date-btn-wrap .date-btn.active');
+  if (extraWrap) return 'extra';
+  // 모든 .date-btn 중 active 가 어느 위치인지 찾기 (drop 외부)
+  const allBtns = Array.from(document.querySelectorAll('.date-bar > .date-btn'));
+  const activeIdx = allBtns.findIndex(function(b) { return b.classList.contains('active'); });
+  // [정식][전체합산] → idx 0=main, idx 1=total. 추가는 wrap 안이라 위에서 처리.
+  if (activeIdx === 0 && allBtns.length >= 2) return 'main';
+  return 'all';  // 전체 합산이 디폴트
+}
+
+function _orderPageDate() {
+  // 파일명 orders/order_YYYY-MM-DD.html → 날짜 추출
+  const m = window.location.pathname.match(/order_(\d{4}-\d{2}-\d{2})\.html/);
+  return m ? m[1] : '';
+}
+
+async function downloadGritreeExcel(e) {
+  if (e) e.stopPropagation();
+  const btn = e && e.currentTarget;
+  const orig = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ 생성 중...'; }
+  try {
+    const date = _orderPageDate();
+    const mode = _currentGritreeMode();
+    // iframe 은 dashboard 서버에서 서빙됨 → same-origin, 상대 경로 fetch 가능
+    const url = '/gritree_excel?date=' + encodeURIComponent(date) + '&mode=' + mode;
+    const resp = await fetch(url);
+    if (!resp.ok) {
+      const err = await resp.text();
+      alert('❌ 그리트리 엑셀 생성 실패: ' + err.slice(0, 200));
+      return;
+    }
+    const blob = await resp.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'gritree_' + (date || 'export') + '_' + mode + '.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    if (btn) { btn.textContent = '✅ 완료'; setTimeout(function() { btn.textContent = orig; }, 2000); }
+  } catch (err) {
+    alert('❌ 네트워크 오류: ' + err.message);
+    if (btn) btn.textContent = orig;
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
 </script>
 </body>
 </html>
