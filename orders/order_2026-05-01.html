@@ -2231,6 +2231,32 @@ function switchDate(dateId) {
   document.querySelectorAll('.date-content').forEach(function(d) {
     d.classList.toggle('active', d.getAttribute('data-date') === dateId);
   });
+  // 상품명 드롭다운 카운트 갱신 (2026-05-17)
+  _updateProdCounts(dateId);
+}
+
+// 모드 (total/main/extra_all/{po}_extra) 따라 상품 드롭다운 카운트 라벨 갱신
+function _updateProdCounts(dateId) {
+  const counts = (window._modeCounts || {})[dateId]
+              || (window._modeCounts || {}).total
+              || {};
+  const cats = ['topper','bedding','curtain','trash18','trash20','facetowel'];
+  cats.forEach(function(cat) {
+    // selectProd('<cat>', ...) 가 포함된 dropdown item 의 .di-count 갱신
+    document.querySelectorAll('.prod-dropdown-item').forEach(function(item) {
+      const onc = item.getAttribute('onclick') || '';
+      if (onc.indexOf("'" + cat + "'") >= 0) {
+        const cnt = item.querySelector('.di-count');
+        if (cnt) cnt.textContent = counts[cat] || 0;
+      }
+    });
+    // 드롭다운 버튼 라벨 (현재 선택된 카테고리) 도 갱신
+    const btn = document.getElementById('prod-dropdown-btn');
+    if (btn && btn.dataset.activeCat === cat) {
+      const cnt = btn.querySelector('.di-count');
+      if (cnt) cnt.textContent = counts[cat] || 0;
+    }
+  });
 }
 
 function toggleExtraMenu(e) {
@@ -2298,6 +2324,10 @@ async function downloadGritreeExcel(e) {
     if (btn) btn.disabled = false;
   }
 }
+
+window._modeCounts = {"total": {"topper": 1122, "bedding": 248, "curtain": 312, "trash18": 700, "trash20": 320, "facetowel": 0}, "main": {"topper": 1106, "bedding": 70, "curtain": 312, "trash18": 700, "trash20": 320, "facetowel": 0}, "extra_all": {"topper": 16, "bedding": 178, "curtain": 0, "trash18": 0, "trash20": 0, "facetowel": 0}, "2026-04-30_extra": {"topper": 16, "bedding": 54, "curtain": 0, "trash18": 0, "trash20": 0, "facetowel": 0}, "2026-05-01_extra": {"topper": 0, "bedding": 124, "curtain": 0, "trash18": 0, "trash20": 0, "facetowel": 0}};
+// 페이지 로드 시 초기 카운트 (total) 갱신
+if (typeof _updateProdCounts === 'function') { _updateProdCounts('total'); }
 </script>
 </body>
 </html>
