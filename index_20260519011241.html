@@ -340,7 +340,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 
 /* 봇 Health 카드 */
 </style>
-<script>window._buildTs="20260519011338";</script></head>
+<script>window._buildTs="20260519011241";</script></head>
 <body>
 <!-- 커스텀 모달 (prompt/confirm/alert 대체) -->
 <div id="ui-modal-overlay">
@@ -1421,7 +1421,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
     <div style="font-size:14px;font-weight:700;color:#b0b8c8;">이 날짜에 공장 발주 없음</div>
     <div style="font-size:11px;margin-top:6px;">발주한 날짜를 선택하면 해당 공장 발주서가 표시됩니다.</div>
   </div>
-  <iframe id="wechat-frame" src="orders/order_2026-05-17.html?v=20260519011338" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
+  <iframe id="wechat-frame" src="orders/order_2026-05-17.html?v=20260519011241" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
 </div>
 
 <!-- 밀크런오더 탭 (2026-04-21: 날짜별 스냅샷 iframe) -->
@@ -3509,14 +3509,14 @@ function _renderHourly(d) {
     data: {
       labels: d.hours.map(h => h + ''),
       datasets: [
-        { label: '오늘', data: d.units_today, backgroundColor: '#7c5cf1', borderRadius: 3, stack: 'h' },
-        { label: '어제', data: d.units_yesterday, backgroundColor: 'rgba(160,168,184,0.5)', borderRadius: 2, stack: 'h' },
+        { label: '어제', data: d.units_yesterday, backgroundColor: 'rgba(160,168,184,0.55)', borderRadius: 2, grouped: false, order: 2, categoryPercentage: 0.9, barPercentage: 1.0 },
+        { label: '오늘', data: d.units_today, backgroundColor: '#7c5cf1', borderRadius: 3, grouped: false, order: 1, categoryPercentage: 0.9, barPercentage: 0.6 },
       ],
     },
     options: { responsive: true, maintainAspectRatio: false,
       plugins: { legend: { labels: { color: '#a0a8b8', font: { size: 11 } } } },
-      scales: { x: { stacked: true, ticks: { color: '#6b7280', font: { size: 9 } }, grid: { display: false } },
-                y: { stacked: true, ticks: { color: '#6b7280', font: { size: 9 } }, grid: { color: '#2d323c' } } } },
+      scales: { x: { ticks: { color: '#6b7280', font: { size: 9 } }, grid: { display: false } },
+                y: { ticks: { color: '#6b7280', font: { size: 9 } }, grid: { color: '#2d323c' } } } },
   });
 }
 
@@ -3533,9 +3533,9 @@ function _renderDaily(d) {
     data: {
       labels: d.dates.map(s => s.slice(5)),
       datasets: [
-        { label: metricLabel, data: metricData, backgroundColor: '#7c5cf1', borderRadius: 3, yAxisID: 'y', stack: 'wk' },
-        { label: '지난주', data: prevData, backgroundColor: 'rgba(160,168,184,0.5)', borderRadius: 2, yAxisID: 'y', stack: 'wk' },
-        { label: '광고비', data: d.ad_cost, type: 'line', borderColor: '#f59e0b', borderDash: [6,4], backgroundColor: 'rgba(245,158,11,0.1)', tension: 0, pointRadius: 0, yAxisID: 'y1' },
+        { label: '지난주', data: prevData, backgroundColor: 'rgba(160,168,184,0.55)', borderRadius: 2, yAxisID: 'y', grouped: false, order: 2, categoryPercentage: 0.9, barPercentage: 1.0 },
+        { label: metricLabel, data: metricData, backgroundColor: '#7c5cf1', borderRadius: 3, yAxisID: 'y', grouped: false, order: 1, categoryPercentage: 0.9, barPercentage: 0.6 },
+        { label: '광고비', data: d.ad_cost, type: 'line', borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', tension: 0, pointRadius: 0, yAxisID: 'y1' },
         { label: 'ROAS %', data: d.roas, type: 'line', borderColor: '#10b981', borderDash: [4,4], pointRadius: 0, tension: 0, yAxisID: 'y2', hidden: window._trendMetric !== 'revenue' },
       ],
     },
@@ -3543,8 +3543,8 @@ function _renderDaily(d) {
       interaction: { mode: 'index', intersect: false },
       plugins: { legend: { labels: { color: '#a0a8b8', font: { size: 11 } } },
                  tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + (c.dataset.label.includes('%') ? c.parsed.y + '%' : c.parsed.y.toLocaleString()); } } } },
-      scales: { x: { stacked: true, ticks: { color: '#6b7280', font: { size: 9 }, maxRotation: 0, autoSkipPadding: 8 }, grid: { display: false } },
-                y: { position: 'left', stacked: true, ticks: { color: '#7c5cf1', font: { size: 9 }, callback: v => _fmtMoney(v) }, grid: { color: '#2d323c' } },
+      scales: { x: { ticks: { color: '#6b7280', font: { size: 9 }, maxRotation: 0, autoSkipPadding: 8 }, grid: { display: false } },
+                y: { position: 'left', ticks: { color: '#7c5cf1', font: { size: 9 }, callback: v => _fmtMoney(v) }, grid: { color: '#2d323c' } },
                 y1: { position: 'right', ticks: { color: '#f59e0b', font: { size: 9 }, callback: v => _fmtMoney(v) }, grid: { display: false } },
                 y2: { display: false } } },
   });
