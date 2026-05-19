@@ -41,19 +41,12 @@ h1 {
   display: flex; gap: 4px; margin-bottom: 0;
   background: #22262e; border-radius: 10px 10px 0 0;
   padding: 4px 4px 0 4px;
-  /* 2026-05-19: 가로 스크롤 (모바일 글자 깨짐 방지). PC 에선 모든 탭이 자연스레 보임 */
-  overflow-x: auto; flex-wrap: nowrap;
-  scrollbar-width: none; -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
 }
-.tabs::-webkit-scrollbar { display: none; }
 .tab {
-  flex: 0 0 auto; padding: 11px 14px; text-align: center;
+  flex: 1; padding: 11px 8px; text-align: center;
   font-size: 12px; font-weight: 500; cursor: pointer;
   color: #6b7280; transition: all 0.2s; letter-spacing: 0.5px;
   border-radius: 8px 8px 0 0; user-select: none;
-  white-space: nowrap; scroll-snap-align: start;
 }
 .tab:last-child { border-right: none; }
 .tab:hover { color: #a0a8b8; background: #2a2e38; }
@@ -280,12 +273,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
   /* 상품명: 줄바꿈 허용, 넓이는 colgroup 에 맡김 */
   .left { white-space: normal; word-break: keep-all; overflow: hidden; text-overflow: ellipsis; }
   .order-qty { font-size: 11px; }
-  .tab { font-size: 12px; padding: 10px 12px; }
-  /* 모바일에서만 우측 fade 힌트 — "더 많은 탭이 있음" 시각 신호 */
-  .tabs {
-    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
-  }
+  .tab { font-size: 12px; padding: 10px 4px; }
   .badge { padding: 2px 4px; font-size: 8px; }
   /* 창고재고 관리 버튼: 인라인 nowrap 강제 해제 → 버튼 세로 줄바꿈 */
   #tab-warehouse tbody td:last-child { white-space: normal !important; }
@@ -352,7 +340,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 
 /* 봇 Health 카드 */
 </style>
-<script>window._buildTs="20260519171012";</script></head>
+<script>window._buildTs="20260519170924";</script></head>
 <body>
 <!-- 커스텀 모달 (prompt/confirm/alert 대체) -->
 <div id="ui-modal-overlay">
@@ -1445,7 +1433,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
     <div style="font-size:14px;font-weight:700;color:#b0b8c8;">이 날짜에 공장 발주 없음</div>
     <div style="font-size:11px;margin-top:6px;">발주한 날짜를 선택하면 해당 공장 발주서가 표시됩니다.</div>
   </div>
-  <iframe id="wechat-frame" src="orders/order_2026-05-18.html?v=20260519171012" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
+  <iframe id="wechat-frame" src="orders/order_2026-05-18.html?v=20260519170924" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
 </div>
 
 <!-- 밀크런오더 탭 (2026-04-21: 날짜별 스냅샷 iframe) -->
