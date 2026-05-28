@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>적재리스트 — 셀미닉 자비스</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 14px; background: #0d1117; color: #c9d1d9; font-size: 13px; }
+  .toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; position: sticky; top: 0; background: #0d1117; padding: 8px 0; z-index: 100; border-bottom: 1px solid #21262d; }
+  .toolbar .spacer { flex: 1; }
+  .toolbar .right-group { display: flex; gap: 8px; align-items: center; }
+  /* 기본 버튼 (적재리스트 PDF) — 2번 스타일: 옅은 회색 박스 */
+  button { background: #2d3540; color: #c8cfda; border: 1px solid #3d4a5a; padding: 8px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+  button:hover { background: #3d4a5a; border-color: #5b6878; }
+  button:disabled { background: #1e2229; color: #484f58; border-color: #21262d; cursor: not-allowed; }
+  /* 새로고침 아이콘 버튼 — 적재리스트 PDF 와 통일 */
+  button.icon-only { padding: 8px; width: 36px; height: 36px; border-radius: 6px; justify-content: center; font-size: 14px; }
+  /* 카드 — GitHub Dark + 쿠팡 레이아웃 */
+  .card { background: #161b22; border-radius: 8px; padding: 16px 18px; margin-bottom: 10px; border: 1px solid #21262d; }
+  .card-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8b949e; margin-bottom: 12px; }
+  .card-top .iid { font-weight: 600; color: #c9d1d9; }
+  .card-top .sep { color: #484f58; }
+  .card-top .status { margin-left: auto; color: #3fb950; font-size: 12px; display: flex; align-items: center; gap: 4px; }
+  .card-top .status::before { content: '●'; font-size: 8px; }
+  .card-top .ctime { color: #6e7681; font-size: 12px; }
+  .card-main { display: flex; align-items: flex-start; gap: 14px; }
+  .card-check { transform: scale(1.3); margin-top: 3px; accent-color: #58a6ff; flex-shrink: 0; }
+  .card-body { flex: 1; min-width: 0; }
+  .card-product { font-size: 14px; color: #c9d1d9; margin-bottom: 10px; line-height: 1.4; }
+  .card-meta-row { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; }
+  .meta-chip { background: #21262d; border: 1px solid #30363d; border-radius: 16px; padding: 3px 12px; color: #c9d1d9; display: inline-flex; align-items: center; gap: 5px; }
+  .meta-chip .icon { font-size: 12px; opacity: 0.85; }
+  .card-right { background: #1c2128; border: 1px solid #21262d; border-radius: 6px; padding: 10px 14px; font-size: 12px; min-width: 140px; flex-shrink: 0; }
+  .card-right .row { display: flex; justify-content: space-between; padding: 2px 0; color: #8b949e; }
+  .card-right .row .v { color: #c9d1d9; font-weight: 500; }
+  .card-foot { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #21262d; font-size: 12px; }
+  .pickup-chip { background: #21262d; border: 1px solid #30363d; border-radius: 14px; padding: 4px 10px; color: #c9d1d9; display: inline-flex; align-items: center; gap: 5px; }
+  .pickup-chip .icon { font-size: 12px; }
+  .auto-group { color: #3fb950; margin-left: auto; font-weight: 500; }
+  .expand-btn { color: #58a6ff; cursor: pointer; user-select: none; padding: 4px 10px; border-radius: 4px; }
+  .expand-btn:hover { background: #21262d; }
+  .card-expand { display: none; padding-top: 10px; margin-top: 8px; border-top: 1px solid #21262d; }
+  .card.expanded .card-expand { display: block; }
+  .sku-list { display: flex; flex-direction: column; gap: 3px; }
+  .sku-list label { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #0d1117; border: 1px solid #21262d; border-radius: 4px; font-size: 12px; cursor: pointer; color: #c9d1d9; }
+  .sku-list label input { transform: scale(1.1); accent-color: #58a6ff; }
+  .sku-list .qty { color: #8b949e; font-size: 11px; margin-left: auto; }
+  .sku-list .no-match { color: #f85149; padding: 8px; font-size: 12px; }
+  .status-msg { margin-top: 12px; padding: 8px 12px; border-radius: 6px; font-size: 12px; }
+  .status-msg.info { background: #0d1117; color: #58a6ff; border: 1px solid #21262d; }
+  .status-msg.ok { background: #0d1117; color: #3fb950; border: 1px solid #21262d; }
+  .status-msg.error { background: #0d1117; color: #f85149; border: 1px solid #21262d; }
+  .cache-info { color: #6e7681; font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <span id="statusLine" style="color:#8b95a5;font-size:13px;"></span>
+  <span class="cache-info" id="cacheInfo"></span>
+  <div class="spacer"></div>
+  <div class="right-group">
+    <button id="refreshBtn" class="icon-only" title="새로고침">🔄</button>
+    <button id="generateBtn" disabled>📄 적재리스트 PDF</button>
+  </div>
+</div>
+<div id="cards"></div>
+<div id="result"></div>
+
+<script>
+const _API_TOKEN = 'MTY62OiLv40WkCHcDpqj9JBTn6lnQ0zi3YcTAl_2Qlg';
+let _candidates = [];
+let _groups = {};
+
+async function fetchCandidates(force) {
+  document.getElementById('statusLine').textContent = '⏳ Wing 크롤링 + 그룹 매칭 중...';
+  document.getElementById('cards').innerHTML = '';
+  document.getElementById('generateBtn').disabled = true;
+  document.getElementById('cacheInfo').textContent = '';
+  try {
+    const url = '/loadlist/candidates' + (force ? '?force=1' : '');
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    _candidates = d.candidates || [];
+    _groups = d.groups || {};
+    renderCards();
+    document.getElementById('statusLine').textContent = `${_candidates.length} 건`;
+    if (d.cached_at) {
+      const ago = Math.floor((Date.now()/1000 - d.cached_at));
+      document.getElementById('cacheInfo').textContent = ago < 3 ? '방금 갱신' : `캐시 ${ago}초 전`;
+    }
+  } catch (e) {
+    document.getElementById('statusLine').textContent = '❌ ' + e.message;
+  }
+}
+
+function renderCards() {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  for (const c of _candidates) {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.iid = c.inbound_id;
+    div.dataset.group = c.auto_group || '';
+    div.innerHTML = `
+      <div class="card-top">
+        <span class="iid">입고 ID ${c.inbound_id}</span>
+        <span class="sep">·</span>
+        <span>밀크런 ${c.milkrun_no || '-'}</span>
+        <span class="status">${c.status}</span>
+        <span class="ctime">${c.created_at || ''}</span>
+      </div>
+      <div class="card-main">
+        <input type="checkbox" class="card-check">
+        <div class="card-body">
+          <div class="card-product">${c.first_product || '-'}</div>
+          <div class="card-meta-row">
+            <span class="meta-chip"><span class="icon">📦</span>밀크런팔레트 팔레트 ${c.palette_count ?? '-'} · 총수량 ${c.total_qty ?? '-'}</span>
+            <span class="meta-chip"><span class="icon">🏠</span>${c.warehouse || '-'}</span>
+            <span class="meta-chip"><span class="icon">📅</span>도착예정일 ${c.arrival_date || '-'}</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="row"><span>입고생성</span><span class="v">${c.total_qty ?? '-'}</span></div>
+          <div class="row"><span>입고완료</span><span class="v">0</span></div>
+          <div class="row"><span>판매개시</span><span class="v">0</span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="pickup-chip"><span class="icon">🚛</span>픽업 (${c.pickup_d || '-'})</span>
+        <span class="auto-group">${c.auto_group ? '🔗 그룹 ' + c.auto_group + ' 자동매칭' : '⚠️ 그룹 매칭 실패'}</span>
+        <span class="expand-btn">SKU 펼치기 ▼</span>
+      </div>
+      <div class="card-expand">
+        <div class="sku-list"></div>
+      </div>
+    `;
+    container.appendChild(div);
+    div.querySelector('.expand-btn').addEventListener('click', () => {
+      div.classList.toggle('expanded');
+      div.querySelector('.expand-btn').textContent = div.classList.contains('expanded') ? 'SKU 접기 ▲' : 'SKU 펼치기 ▼';
+      renderSkus(div);
+    });
+    div.querySelector('.card-check').addEventListener('change', updateGenerateBtn);
+  }
+  updateGenerateBtn();
+}
+
+function renderSkus(cardDiv) {
+  const group = cardDiv.dataset.group;
+  const list = cardDiv.querySelector('.sku-list');
+  if (!group) {
+    list.innerHTML = '<div class="no-match">⚠️ 그룹 매칭 실패 — 적재리스트 생성 불가</div>';
+    return;
+  }
+  const skus = _groups[group] || [];
+  list.innerHTML = skus.map(s => `
+    <label>
+      <input type="checkbox" class="sku-check" data-key="${s.key}" checked>
+      <span>${s.prod_key} ${s.variant}${s.color ? ' ' + s.color : ''}</span>
+      <span class="qty">${s.qty}개</span>
+    </label>
+  `).join('');
+}
+
+function updateGenerateBtn() {
+  const any = document.querySelectorAll('.card-check:checked').length > 0;
+  document.getElementById('generateBtn').disabled = !any;
+}
+
+async function generate() {
+  const items = [];
+  document.querySelectorAll('.card').forEach(div => {
+    const check = div.querySelector('.card-check');
+    if (!check.checked) return;
+    const group = div.dataset.group;
+    if (!group) return;
+    const excluded = [];
+    div.querySelectorAll('.sku-check').forEach(cb => {
+      if (!cb.checked) excluded.push(cb.dataset.key);
+    });
+    items.push({
+      inbound_id: div.dataset.iid,
+      group: group,
+      excluded_keys: excluded,
+    });
+  });
+  if (items.length === 0) return;
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 생성중...';
+  document.getElementById('result').innerHTML = '<div class="status-msg info">⏳ 처리 중 (1~3분)...</div>';
+  try {
+    const r = await fetch('/loadlist/generate', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+      body: JSON.stringify({items}),
+    });
+    const d = await r.json();
+    const lines = (d.results || []).map(rs => {
+      if (rs.error) {
+        return `<div class="status-msg error">❌ ${rs.inbound_id}: ${rs.error}</div>`;
+      }
+      const tg = rs.telegram_sent ? '📤 텔레그램 전송' : '⚠️ 텔레그램 미전송';
+      return `<div class="status-msg ok">✅ ${rs.inbound_id}: ${rs.pallets} 팔레트, ${tg}</div>`;
+    });
+    document.getElementById('result').innerHTML = lines.join('');
+  } catch (e) {
+    document.getElementById('result').innerHTML = `<div class="status-msg error">❌ ${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '📄 적재리스트 PDF';
+  }
+}
+
+// 새로고침 = 항상 강제 갱신 (캐시 무시). 페이지 처음 진입은 캐시 활용.
+document.getElementById('refreshBtn').addEventListener('click', () => fetchCandidates(true));
+document.getElementById('generateBtn').addEventListener('click', generate);
+fetchCandidates(false);
+</script>
+</body>
+</html>

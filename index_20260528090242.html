@@ -464,7 +464,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 
 /* 봇 Health 카드 */
 </style>
-<script>window._buildTs="20260528164139";</script></head>
+<script>window._buildTs="20260528090241";</script></head>
 <body>
 <!-- 커스텀 모달 (prompt/confirm/alert 대체) -->
 <div id="ui-modal-overlay">
@@ -535,7 +535,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
     <div class="nav-item active" data-tab="margin" onclick="switchTab('margin')">💰 마진<span class="tab-count" id="margin-tab-count">33</span></div>
     <div class="nav-item" data-tab="ad" onclick="switchTab('ad')">📈 광고<span class="tab-count" id="ad-tab-count">-</span></div>
     <div class="nav-item" data-tab="inventory" onclick="switchTab('inventory')">📊 재고<span class="tab-count" id="inventory-tab-count">40</span></div>
-    <div class="nav-item" data-tab="competitor" onclick="switchTab('competitor')">🥊 경쟁사 판매·재고</div>
   </div>
   <div class="nav-group">
     <div class="nav-group-title">발주</div>
@@ -1440,7 +1439,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
     <div style="font-size:14px;font-weight:700;color:#b0b8c8;">이 날짜에 공장 발주 없음</div>
     <div style="font-size:11px;margin-top:6px;">발주한 날짜를 선택하면 해당 공장 발주서가 표시됩니다.</div>
   </div>
-  <iframe id="wechat-frame" src="orders/order_2026-05-27.html?v=20260528164139" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
+  <iframe id="wechat-frame" src="orders/order_2026-05-27.html?v=20260528090241" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
 </div>
 
 <!-- 밀크런오더 탭 (2026-04-21: 날짜별 스냅샷 iframe) -->
@@ -1989,241 +1988,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
 <div id="tab-loadlist" class="tab-content">
   <iframe src="/loadlist.html" style="width:100%;height:calc(100vh - 120px);border:0;background:transparent;border-radius:8px;"></iframe>
 </div>
-
-<div id="tab-competitor" class="tab-content">
-<style>
-.cmp-wrap{font-family:'Inter','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#b0b8c8;}
-.cmp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;}
-.cmp-top-l{flex:0 1 auto;min-width:0;}
-.cmp-top-r{display:flex;flex-direction:column;align-items:flex-end;gap:9px;flex:0 0 auto;}
-.cmp-title{font-size:19px;font-weight:800;color:#e2e6ed;letter-spacing:.3px;white-space:nowrap;}
-.cmp-live{font-size:12px;color:#6ee7a0;margin-top:7px;}
-.cmp-tools{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;justify-content:flex-end;}
-.cmp-tools button{background:#22262e;color:#8b95a5;border:1px solid #2d323c;border-radius:8px;
-  padding:7px 9px;font-size:11.5px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s;}
-.cmp-tools button:hover{color:#c8cfda;background:#2a2e38;}
-.cmp-tools .cmp-dot{color:#6ee7a0;font-size:9px;}
-.cmp-tools .cmp-live-on{background:#1e3329;color:#6ee7a0;border-color:#2f5740;}
-.cmp-tools .cmp-blue{background:#2d3a52;color:#7db4f5;border-color:#36507a;font-weight:600;}
-.cmp-tools button.cmp-on{background:#2d3a52;color:#7db4f5;border-color:#36507a;font-weight:600;}
-.cmp-seg{display:inline-flex;background:#22262e;border:1px solid #2d323c;border-radius:8px;overflow:hidden;}
-.cmp-seg button{border:0 !important;border-radius:0 !important;background:transparent;}
-.cmp-seg button.cmp-on{background:#2d3a52;color:#7db4f5;font-weight:600;}
-/* 라이트 테마 (탭 한정) */
-.cmp-wrap.cmp-light{color:#3a4150;}
-.cmp-wrap.cmp-light .cmp-title{color:#1a1f29;}
-.cmp-wrap.cmp-light .cmp-card,.cmp-wrap.cmp-light .cmp-ibar,.cmp-wrap.cmp-light .cmp-tools button,
-.cmp-wrap.cmp-light .cmp-seg{background:#fff;border-color:#dfe3ea;}
-.cmp-wrap.cmp-light .cmp-ibar input{background:#f4f6f9;border-color:#dfe3ea;color:#3a4150;}
-.cmp-wrap.cmp-light .cmp-ctitle{color:#1a1f29;}
-.cmp-wrap.cmp-light .cmp-idx,.cmp-wrap.cmp-light .cmp-opt,
-.cmp-wrap.cmp-light .cmp-tw tfoot td{background:#fff;}
-.cmp-wrap.cmp-light .cmp-num{color:#1a1f29;}
-.cmp-wrap.cmp-light .cmp-tw th,.cmp-wrap.cmp-light .cmp-tw td{border-color:#eef1f5;}
-.cmp-wrap.cmp-light .cmp-tcol.cmp-wine,.cmp-wrap.cmp-light .cmp-tw th.cmp-tcol.cmp-wine{background:#fbe9ef;}
-.cmp-wrap.cmp-light .cmp-ol{color:#2a303c;}
-.cmp-scode{font-size:11px;color:#6b7280;letter-spacing:1px;}
-.cmp-ibar{display:flex;align-items:center;gap:12px;background:#22262e;border:1px solid #2d323c;
-  border-radius:10px;padding:13px 14px;margin:16px 0 12px;flex-wrap:wrap;}
-.cmp-ibar input{flex:0 1 430px;min-width:160px;background:#1a1d23;border:1px solid #2d323c;border-radius:8px;
-  color:#b0b8c8;padding:11px 13px;font-size:13px;font-family:inherit;}
-.cmp-ibar .cmp-reg{flex:0 0 auto;white-space:nowrap;background:#2d3a52;color:#7db4f5;border:1px solid #36507a;
-  border-radius:8px;padding:0 22px;height:42px;font-weight:700;cursor:pointer;font-family:inherit;}
-.cmp-ihelp{flex:1 1 auto;font-size:11.5px;color:#6b7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.cmp-legend{font-size:11.5px;color:#6b7280;margin-bottom:16px;display:flex;gap:15px;align-items:center;flex-wrap:wrap;}
-.cmp-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
-.cmp-legend .cmp-wn{background:#5c2a38;} .cmp-legend .cmp-gn{background:#2f6b48;}
-.cmp-legend .cmp-rd{color:#f5a0a0;font-weight:600;}
-.cmp-card{background:#22262e;border:1px solid #2d323c;border-radius:12px;padding:16px;margin-bottom:16px;}
-.cmp-chead{display:flex;gap:13px;align-items:flex-start;}
-.cmp-thumb{width:52px;height:52px;border-radius:9px;object-fit:cover;background:#2a2e38;flex:0 0 52px;}
-.cmp-meta{flex:1;min-width:0;}
-.cmp-ctitle{font-size:15px;font-weight:700;color:#e2e6ed;}
-.cmp-csub{font-size:11.5px;color:#6b7280;margin-top:4px;}
-.cmp-csub b{color:#b0b8c8;} .cmp-csub .cmp-white{color:#e2e6ed;}
-.cmp-cbtns{display:flex;gap:6px;flex:0 0 auto;}
-.cmp-cbtns button{background:#1a1d23;color:#8b95a5;border:1px solid #2d323c;border-radius:7px;
-  padding:6px 10px;font-size:12px;cursor:pointer;}
-.cmp-cbtns .cmp-x{color:#f5a0a0;}
-.cmp-tw{overflow-x:auto;margin-top:13px;border-radius:8px;}
-.cmp-tw table{border-collapse:collapse;font-size:12px;width:100%;}
-.cmp-tw th,.cmp-tw td{padding:8px 7px;text-align:center;border-bottom:1px solid #2a2e38;white-space:nowrap;}
-.cmp-tw th{color:#6b7280;font-weight:600;font-size:11px;}
-.cmp-idx{position:sticky;left:0;z-index:2;background:#22262e;color:#6b7280;width:30px;}
-.cmp-opt{position:sticky;left:30px;z-index:2;background:#22262e;text-align:left !important;min-width:120px;
-  box-shadow:1px 0 0 #2d323c;}
-.cmp-tw thead .cmp-idx,.cmp-tw thead .cmp-opt{z-index:3;}
-.cmp-tcol{min-width:62px;}
-.cmp-tcol.cmp-wine,.cmp-tw th.cmp-tcol.cmp-wine{background:#3a2230;}
-.cmp-wd{color:#6b7280;font-size:10px;font-weight:400;}
-.cmp-ol{color:#d1d5de;font-weight:500;}
-.cmp-vid{font-size:10px;color:#6b7280;}
-.cmp-num{font-weight:700;color:#e2e6ed;}
-.cmp-tw td.cmp-empty{color:#3a3f4a;}
-.cmp-sold{color:#f5a0a0;font-size:10.5px;font-weight:600;}
-.cmp-restock{color:#6ee7a0;font-size:10.5px;font-weight:600;}
-.cmp-zero{color:#5a626e;font-size:10.5px;}
-.cmp-tw tfoot td{font-weight:800;border-top:2px solid #2d323c;border-bottom:0;background:#22262e;}
-.cmp-tw tfoot .cmp-num{color:#e2e6ed;}
-.cmp-foot{text-align:center;font-size:11px;color:#6b7280;margin-top:22px;line-height:1.7;}
-.cmp-foot code{color:#8b95a5;}
-.cmp-empty-state{text-align:center;color:#6b7280;padding:40px 20px;font-size:13px;}
-@media (max-width:768px){
-  .cmp-opt{min-width:96px;}
-  .cmp-top{flex-direction:column;}
-  .cmp-tools{flex-wrap:wrap;justify-content:flex-start;}
-  .cmp-title{white-space:normal;}
-}
-</style>
-<div class="cmp-wrap">
-<div class="cmp-top">
-  <div class="cmp-top-l">
-    <div class="cmp-title">쿠팡 경쟁사 판매량·재고 대시보드</div>
-    <div class="cmp-live">✅ Live · 8 옵션 / 2 그룹 · 2026-05-28T16:41:39</div>
-  </div>
-  <div class="cmp-top-r">
-    <div class="cmp-tools">
-      <button class="cmp-live-on"><span class="cmp-dot">●</span> 1시간 자동수집 가동중</button>
-      <button id="cmp-collect-btn" onclick="cmpCollect()">📊 수동수집</button>
-      <button id="cmp-expand-btn" onclick="cmpToggleExpand()">⏱ 시간 접기</button>
-      <span class="cmp-seg">
-        <button data-theme="light" onclick="cmpSetTheme('light')">☀ 라이트</button>
-        <button data-theme="dark" onclick="cmpSetTheme('dark')">☾ 다크</button>
-        <button data-theme="auto" onclick="cmpSetTheme('auto')">⇋ 자동</button>
-      </span>
-    </div>
-    <div class="cmp-scode">COUPANGSALES-001</div>
-  </div>
-</div>
-<div class="cmp-ibar">
-  <input id="cmp-pid-input" placeholder="쿠팡 상품번호 (예: 8473798698) 또는 상품 URL">
-  <button class="cmp-reg" onclick="cmpRegister()">옵션 자동 등록</button>
-  <span class="cmp-ihelp">상품번호 1개로 모든 옵션·썸네일·노출아이디 자동 채움 (POST /tracking/by-product)</span>
-</div>
-<div class="cmp-legend">
-  <span><i class="cmp-wn"></i>오늘 (와인 — 좌측=최근)</span>
-  <span><i class="cmp-gn"></i>재입고 감지 (+)</span>
-  <span class="cmp-rd">-숫자 = 판매량</span>
-</div>
-
-    <div class="cmp-card">
-      <div class="cmp-chead">
-        <img class="cmp-thumb" src="https://thumbnail.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/e5aa/4b229b0da2df32a254fb345810255fd09e84b9a08b3eed7345e06f8729c1.png" onerror="this.style.visibility='hidden'">
-        <div class="cmp-meta">
-          <div class="cmp-ctitle">라즈웰 이동식 트롤리 수납함 회전 철제 수납장</div>
-          <div class="cmp-csub">노출아이디 8473798698 · 판매자 <b>디자인플렉스</b> · 라즈웰</div>
-          <div class="cmp-csub">현재 총재고 <b class="cmp-white">2,054</b>개 · 옵션 4개</div>
-        </div>
-        <div class="cmp-cbtns">
-          <button class="cmp-x" title="이 상품 추적 중지" onclick="cmpHideProduct(8473798698)">✕</button>
-        </div>
-      </div>
-      <div class="cmp-tw">
-      <table>
-        <thead><tr><th class="cmp-idx">#</th><th class="cmp-opt">옵션</th><th class='cmp-tcol cmp-wine' data-day='2026-05-28'>5/28<br><span class='cmp-wd'>목 15:53</span></th><th class='cmp-tcol' data-day='2026-05-28'>14:50</th><th class='cmp-tcol' data-day='2026-05-28'>14:37</th><th class='cmp-tcol' data-day='2026-05-28'>14:25</th><th class='cmp-tcol' data-day='2026-05-28'>13:58</th></tr></thead>
-        <tbody><tr><td class='cmp-idx'>1</td><td class='cmp-opt'><div class='cmp-ol'>4단 블랙</div><span class='cmp-vid'>vid 94677677820</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>86</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>86</div><span class='cmp-restock'>+81</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>5</div><span class='cmp-sold'>-81</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>86</div><span class='cmp-restock'>+81</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>5</div></td></tr><tr><td class='cmp-idx'>2</td><td class='cmp-opt'><div class='cmp-ol'>5단 화이트</div><span class='cmp-vid'>vid 94677677823</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>710</div><span class='cmp-sold'>-10</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>720</div><span class='cmp-restock'>+710</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>10</div><span class='cmp-restock'>+8</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>2</div><span class='cmp-sold'>-8</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>10</div></td></tr><tr><td class='cmp-idx'>3</td><td class='cmp-opt'><div class='cmp-ol'>4단 화이트</div><span class='cmp-vid'>vid 94677677821</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>1,000</div><span class='cmp-restock'>+999</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1</div><span class='cmp-sold'>-1242</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1,243</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1,243</div><span class='cmp-sold'>-2</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1,245</div></td></tr><tr><td class='cmp-idx'>4</td><td class='cmp-opt'><div class='cmp-ol'>5단 블랙</div><span class='cmp-vid'>vid 94677677822</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>258</div><span class='cmp-sold'>-2</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>260</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>260</div><span class='cmp-restock'>+10</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>250</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>250</div></td></tr></tbody>
-        <tfoot><tr><td class="cmp-idx"></td><td class="cmp-opt">합계</td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>2,054</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1,067</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1,518</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1,581</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1,510</div></td></tr></tfoot>
-      </table>
-      </div>
-    </div>
-    <div class="cmp-card">
-      <div class="cmp-chead">
-        <img class="cmp-thumb" src="https://thumbnail.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/6545/915ddfbf4bd13c9b6dc472ee264bee551be2649021949177e0ad75c05e2c.jpg" onerror="this.style.visibility='hidden'">
-        <div class="cmp-meta">
-          <div class="cmp-ctitle">Kleeno 다목적 철제 이동식 수납 트롤리 회전 트롤리 주방 욕실 베란다 트롤리 장난감 트롤리</div>
-          <div class="cmp-csub">노출아이디 8494954258 · 판매자 <b>토니동 유한회사</b> · Kleeno</div>
-          <div class="cmp-csub">현재 총재고 <b class="cmp-white">484</b>개 · 옵션 4개</div>
-        </div>
-        <div class="cmp-cbtns">
-          <button class="cmp-x" title="이 상품 추적 중지" onclick="cmpHideProduct(8494954258)">✕</button>
-        </div>
-      </div>
-      <div class="cmp-tw">
-      <table>
-        <thead><tr><th class="cmp-idx">#</th><th class="cmp-opt">옵션</th><th class='cmp-tcol cmp-wine' data-day='2026-05-28'>5/28<br><span class='cmp-wd'>목 15:53</span></th><th class='cmp-tcol' data-day='2026-05-28'>14:50</th><th class='cmp-tcol' data-day='2026-05-28'>14:37</th><th class='cmp-tcol' data-day='2026-05-28'>14:25</th><th class='cmp-tcol' data-day='2026-05-28'>13:58</th></tr></thead>
-        <tbody><tr><td class='cmp-idx'>1</td><td class='cmp-opt'><div class='cmp-ol'>4단 블랙</div><span class='cmp-vid'>vid 95126466169</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>5</div><span class='cmp-sold'>-95</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>100</div><span class='cmp-sold'>-46</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>146</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>146</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>146</div></td></tr><tr><td class='cmp-idx'>2</td><td class='cmp-opt'><div class='cmp-ol'>4단 흰색</div><span class='cmp-vid'>vid 95126466172</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>374</div><span class='cmp-restock'>+372</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>2</div><span class='cmp-restock'>+1</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1</div><span class='cmp-sold'>-378</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>379</div><span class='cmp-restock'>+29</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>350</div></td></tr><tr><td class='cmp-idx'>3</td><td class='cmp-opt'><div class='cmp-ol'>5단 흰색</div><span class='cmp-vid'>vid 95126466171</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>10</div><span class='cmp-sold'>-188</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>198</div><span class='cmp-sold'>-1</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>199</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>199</div><span class='cmp-sold'>-2</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>201</div></td></tr><tr><td class='cmp-idx'>4</td><td class='cmp-opt'><div class='cmp-ol'>5단 블랙</div><span class='cmp-vid'>vid 95126466170</span></td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>95</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>95</div><span class='cmp-zero'>0</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>95</div><span class='cmp-restock'>+94</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>1</div><span class='cmp-sold'>-4</span></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>5</div></td></tr></tbody>
-        <tfoot><tr><td class="cmp-idx"></td><td class="cmp-opt">합계</td><td class='cmp-tcol cmp-wine' data-day='2026-05-28'><div class='cmp-num'>484</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>395</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>441</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>725</div></td><td class='cmp-tcol' data-day='2026-05-28'><div class='cmp-num'>702</div></td></tr></tfoot>
-      </table>
-      </div>
-    </div>
-<div class="cmp-foot">데이터 출처: <code>/next-api/products/quantity-info</code> arrivalDate boundary 이분탐색 · 옵션 열 고정 + 가로 스크롤</div>
-</div>
-<script>
-(function(){
-  var saved = localStorage.getItem('cmpTheme') || 'dark';
-  cmpApplyTheme(saved);
-  if (localStorage.getItem('cmpActive')) {
-    localStorage.removeItem('cmpActive');
-    if (typeof switchTab === 'function') setTimeout(function(){ switchTab('competitor'); }, 60);
-  }
-})();
-function cmpApplyTheme(mode){
-  var w = document.querySelector('.cmp-wrap'); if(!w) return;
-  var h = new Date().getHours();
-  var dark = (mode==='dark') || (mode==='auto' && (h < 7 || h >= 19));
-  w.classList.toggle('cmp-light', !dark);
-  document.querySelectorAll('.cmp-seg button').forEach(function(b){
-    b.classList.toggle('cmp-on', b.getAttribute('data-theme')===mode);
-  });
-}
-function cmpSetTheme(mode){ localStorage.setItem('cmpTheme', mode); cmpApplyTheme(mode); }
-async function cmpPost(path, body){
-  if (typeof getApiUrl !== 'function'){ alert('API 연결 함수 없음'); return null; }
-  var url = await getApiUrl();
-  if(!url){ alert('API URL 을 찾지 못함'); return null; }
-  try {
-    var r = await fetch(url + path, {
-      method:'POST',
-      headers:{'Authorization':'Bearer '+_API_TOKEN, 'Content-Type':'application/json'},
-      body: body ? JSON.stringify(body) : '{}'
-    });
-    if(!r.ok){ alert('실패: ' + (await r.text())); return null; }
-    return await r.json();
-  } catch(e){ alert('요청 오류: ' + e); return null; }
-}
-async function cmpRegister(){
-  var inp = document.getElementById('cmp-pid-input');
-  var v = (inp && inp.value || '').trim();
-  if(!v){ alert('쿠팡 상품번호를 입력하세요'); return; }
-  var btn = document.querySelector('.cmp-reg'); var orig = btn.textContent;
-  btn.textContent = '등록 중... (~40초)'; btn.disabled = true;
-  var res = await cmpPost('/competitor/register', {input_text: v});
-  btn.textContent = orig; btn.disabled = false;
-  if(res && res.ok){ localStorage.setItem('cmpActive','1'); location.reload(); }
-}
-async function cmpCollect(){
-  var btn = document.getElementById('cmp-collect-btn');
-  var res = await cmpPost('/competitor/collect', {});
-  if(res && res.ok){
-    btn.textContent = '📊 수집 중...'; btn.disabled = true;
-    alert('수집 시작됨 — 완료까지 약 10분. 끝나면 자동 반영됩니다.');
-  }
-}
-async function cmpHideProduct(pid){
-  if(!confirm('이 상품 추적을 중지(숨김)할까요?')) return;
-  var res = await cmpPost('/competitor/toggle_hidden', {kind:'product', id:pid, hidden:true});
-  if(res && res.ok){ localStorage.setItem('cmpActive','1'); location.reload(); }
-}
-var cmpExpanded = true;
-function cmpToggleExpand(){
-  cmpExpanded = !cmpExpanded;
-  var btn = document.getElementById('cmp-expand-btn');
-  btn.textContent = cmpExpanded ? '⏱ 시간 접기' : '⏱ 시간 펼치기';
-  document.querySelectorAll('.cmp-tw table').forEach(function(tbl){
-    var seen = {}, hideIdx = {};
-    tbl.querySelectorAll('thead th[data-day]').forEach(function(th, i){
-      if(cmpExpanded) return;
-      var day = th.getAttribute('data-day');
-      if(seen[day]) hideIdx[i] = true; else seen[day] = true;
-    });
-    tbl.querySelectorAll('tr').forEach(function(tr){
-      tr.querySelectorAll('[data-day]').forEach(function(c, i){
-        c.style.display = (!cmpExpanded && hideIdx[i]) ? 'none' : '';
-      });
-    });
-  });
-}
-</script></div>
 
 <div style="text-align:center;color:#484f58;font-size:11px;margin-top:20px;padding-bottom:20px;">
   셀미닉 자동화 시스템 | 2026-05-27 생성
