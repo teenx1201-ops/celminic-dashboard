@@ -464,7 +464,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 
 /* 봇 Health 카드 */
 </style>
-<script>window._buildTs="20260529134221";</script></head>
+<script>window._buildTs="20260529132858";</script></head>
 <body>
 <!-- 커스텀 모달 (prompt/confirm/alert 대체) -->
 <div id="ui-modal-overlay">
@@ -1634,7 +1634,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
           <td class="chk-cell"><input type="checkbox" class="row-chk" checked onchange="updateChkSummary()" data-cbm="0.84"></td><td><span class="qty-edit" data-label="이불세트 스모키차콜 K" data-qty="35" data-prodkey="이불세트" data-variant="K" data-color="스모키차콜">35</span></td>
         </tr><tr><td colspan="8" style="padding:6px 0 2px;border:none;"><div style="border-top:2px dashed #353b47;margin:0;padding:4px 0 0;"><span style="font-size:11px;font-weight:600;color:#f5c876;">📦 자투리 MIX (체크하면 발주에 포함)</span></div></td></tr><tr><td class="chk-cell"><input type="checkbox" class="row-chk leftover-chk" checked onchange="updateChkSummary();updateMixFillByGroup('mix_0')" data-prodkey="암막커튼" data-variant="130X170CM" data-color="크림화이트" data-qty="24" data-perbox="30" data-mixgid="mix_0" data-boxcbm="0.1"></td><td class="left"><span style="display:inline-block;border-left:3px solid #f5c876;padding-left:6px;color:#ffffff;font-weight:700;">커튼 크림화이트 130X170CM</span><div style="font-size:10px;color:#f5c876;margin-top:1px;">+17일 초과 (기본 9개, 최대 24개)</div></td><td style="color:#7db4f5;">38</td><td style="color:#7db4f5;">0</td><td style="color:#7db4f5;">43</td><td style="color:#7db4f5;">43일</td><td rowspan="1" class="mix-fill-cell" data-mixgid="mix_0" style="color:#f5c876;vertical-align:middle;text-align:center;">MIX 1박스<br><span class="mix-fill-pct">80%</span></td><td><span class="qty-edit lo-qty-edit" data-label="커튼 크림화이트 130X170CM" data-qty="24" data-maxfill="24" data-perbox="30" data-baseqty="9" data-prodkey="암막커튼" data-variant="130X170CM" data-color="크림화이트" data-mixgid="mix_0">24</span></td></tr></tbody>
   </table>
-  <div id="box-info-overlay" class="box-info-overlay" onclick="if(event.target===this)toggleBoxInfo()"><div class="box-info-modal"><h3>📦 박스 적재량 안내</h3><table><thead><tr><th>품목</th><th>1pt 적재박스</th><th>1pt 적재수량</th><th>1박스 적재량</th></tr></thead><tbody id="order-body"><tr><td>암막커튼</td><td>8박스</td><td>130cm = 240개 / 140cm = 200개 / 210cm = 136개</td><td>130 = 30개 / 140 = 25개 / 210 = 17개</td></tr><tr><td>토퍼</td><td>12박스</td><td>SS,Q = 72개 / K = 60개</td><td>SS,Q = 6개 / K = 5개</td></tr><tr><td>이불세트</td><td>12박스</td><td>SS,Q = 72개 / K = 60개</td><td>SS,Q = 6개 / K = 5개</td></tr><tr><td>페이스타올</td><td>큰박스 10박스 + 작은박스 2박스</td><td>1개 = 660개 / 2개 = 328개 / 3개 = 220개</td><td>큰1=60/작1=30 / 큰2=30/작2=14 / 큰3=20/작3=10</td></tr><tr><td>18L휴지통</td><td>8박스</td><td>96개</td><td>12개</td></tr><tr><td>20L휴지통</td><td>8박스</td><td>32개</td><td>4개</td></tr></tbody></table><button class="box-info-close" onclick="toggleBoxInfo()">닫기</button></div></div>
+  <div id="box-info-overlay" class="box-info-overlay" onclick="if(event.target===this)toggleBoxInfo()"><div class="box-info-modal"><h3>📦 박스 적재량 안내</h3><table><thead><tr><th>품목</th><th>1pt 적재박스</th><th>1pt 적재량</th><th>1박스 적재량</th></tr></thead><tbody id="order-body"><tr><td>암막커튼</td><td>8 box</td><td>130cm = 240개 / 140cm = 200개 / 210cm = 136개</td><td>130 = 30개 / 140 = 25개 / 210 = 17개</td></tr><tr><td>토퍼</td><td>12 box</td><td>SS,Q = 72개 / K = 60개</td><td>SS,Q = 6개 / K = 5개</td></tr><tr><td>이불세트</td><td>12 box</td><td>SS,Q = 72개 / K = 60개</td><td>SS,Q = 6개 / K = 5개</td></tr><tr><td>페이스타올</td><td>큰박스 10 box + 작은박스 2 box</td><td>1개 = 660개 / 2개 = 328개 / 3개 = 220개</td><td>큰1=60/작1=30 / 큰2=30/작2=14 / 큰3=20/작3=10</td></tr><tr><td>18L휴지통</td><td>96개</td><td>96개</td><td>12개</td></tr><tr><td>20L휴지통</td><td>8 box</td><td>32개</td><td>4개</td></tr></tbody></table><button class="box-info-close" onclick="toggleBoxInfo()">닫기</button></div></div>
   <div style="display:flex;gap:8px;align-items:stretch;margin-top:16px;">
     <button class="btn-all-done" style="margin:0;flex:1;white-space:nowrap;" onclick="orderChecked()">📦 선택 발주완료 <span id="order-chk-count"></span></button>
   </div>
@@ -1651,7 +1651,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
     <div style="font-size:14px;font-weight:700;color:#b0b8c8;">이 날짜에 공장 발주 없음</div>
     <div style="font-size:11px;margin-top:6px;">발주한 날짜를 선택하면 해당 공장 발주서가 표시됩니다.</div>
   </div>
-  <iframe id="wechat-frame" src="orders/order_2026-05-28.html?v=20260529134221" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
+  <iframe id="wechat-frame" src="orders/order_2026-05-28.html?v=20260529132858" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
 </div>
 
 <!-- 밀크런오더 탭 (2026-04-21: 날짜별 스냅샷 iframe) -->
@@ -2315,7 +2315,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 <div class="cmp-top">
   <div class="cmp-top-l">
     <div class="cmp-title">쿠팡 경쟁사 판매량·재고 대시보드</div>
-    <div class="cmp-live">✅ Live · 9 옵션 / 3 그룹 · 2026-05-29T13:42:21</div>
+    <div class="cmp-live">✅ Live · 9 옵션 / 3 그룹 · 2026-05-29T13:28:58</div>
   </div>
   <div class="cmp-top-r">
     <div class="cmp-tools">
