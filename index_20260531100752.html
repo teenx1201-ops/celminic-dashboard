@@ -464,7 +464,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 
 /* 봇 Health 카드 */
 </style>
-<script>window._buildTs="20260531102237";</script></head>
+<script>window._buildTs="20260531100752";</script></head>
 <body>
 <!-- 커스텀 모달 (prompt/confirm/alert 대체) -->
 <div id="ui-modal-overlay">
@@ -1608,7 +1608,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
     <div style="font-size:14px;font-weight:700;color:#b0b8c8;">이 날짜에 공장 발주 없음</div>
     <div style="font-size:11px;margin-top:6px;">발주한 날짜를 선택하면 해당 공장 발주서가 표시됩니다.</div>
   </div>
-  <iframe id="wechat-frame" src="orders/order_2026-05-30.html?v=20260531102237" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
+  <iframe id="wechat-frame" src="orders/order_2026-05-30.html?v=20260531100752" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
 </div>
 
 <!-- 밀크런오더 탭 (2026-04-21: 날짜별 스냅샷 iframe) -->
@@ -2272,7 +2272,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 <div class="cmp-top">
   <div class="cmp-top-l">
     <div class="cmp-title">쿠팡 경쟁사 판매량·재고 대시보드</div>
-    <div class="cmp-live">✅ Live · 9 옵션 / 3 그룹 · 2026-05-31T10:22:37</div>
+    <div class="cmp-live">✅ Live · 9 옵션 / 3 그룹 · 2026-05-31T10:07:52</div>
   </div>
   <div class="cmp-top-r">
     <div class="cmp-tools">
@@ -4089,9 +4089,7 @@ async function downloadOrderSummaryExcel(e) {
   const orig = btn ? btn.textContent : '';
   if (btn) { btn.disabled = true; btn.textContent = '⏳ 생성 중...'; }
   try {
-    // 진짜 원인 fix: _orderPageDate·window.curDate 둘 다 정의 X였음 → 항상 빈 date → 서버 today 사용 → override 매칭 X.
-    // 다른 다운로드 함수(downloadInboundExcel 등)와 동일 패턴 — 위챗오더 현재 선택 날짜 = dateKeys[currentIdx].
-    const date = (typeof dateKeys !== 'undefined' && dateKeys[currentIdx]) || '';
+    const date = (typeof _orderPageDate === 'function') ? _orderPageDate() : (window.curDate || '');
     const r = await fetch('/order_summary_excel?date=' + encodeURIComponent(date || '') + '&_=' + Date.now(), {cache: 'no-store'});
     if (!r.ok) {
       const t = await r.text();
