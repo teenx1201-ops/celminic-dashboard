@@ -194,12 +194,26 @@ async function generate() {
     const r = await fetch('/loadlist/generate', {
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
-      body: JSON.stringify({items}),
+      body: JSON.stringify({items, target: _target}),
     });
     const d = await r.json();
     const lines = (d.results || []).map(rs => {
       if (rs.error) {
         return `<div class="status-msg error">❌ ${rs.inbound_id}: ${rs.error}</div>`;
+      }
+      // 윈도우 모드: 응답의 download_urls 받아 PDF+DOCX 자동 다운로드
+      if (_target === 'download' && rs.download_urls) {
+        ['pdf', 'docx'].forEach(t => {
+          const url = rs.download_urls[t];
+          if (!url) return;
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${rs.inbound_id}.${t}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        });
+        return `<div class="status-msg ok">✅ ${rs.inbound_id}: ${rs.pallets} 팔레트, 💾 다운로드 (PDF+DOCX)</div>`;
       }
       const tg = rs.telegram_sent ? '📤 텔레그램 전송' : '⚠️ 텔레그램 미전송';
       return `<div class="status-msg ok">✅ ${rs.inbound_id}: ${rs.pallets} 팔레트, ${tg}</div>`;
@@ -213,9 +227,46 @@ async function generate() {
   }
 }
 
+let _target = 'telegram';
+
+// 적재리스트 PDF 클릭 → 윈도우/텔레그램 선택 모달
+function openTargetModal() {
+  let modal = document.getElementById('targetModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'targetModal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = `
+      <div style="background:#fff;border-radius:12px;padding:24px;width:min(360px,90vw);">
+        <div style="font-size:16px;font-weight:800;margin-bottom:16px;color:#263238;">📄 적재리스트 받는 곳</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+          <label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #ccc;border-radius:6px;cursor:pointer;color:#263238;">
+            <input type="radio" name="target" value="download" checked> 💾 윈도우 (브라우저 다운로드)
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #ccc;border-radius:6px;cursor:pointer;color:#263238;">
+            <input type="radio" name="target" value="telegram"> 📤 텔레그램
+          </label>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button id="targetCancel" style="padding:8px 14px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;color:#263238;">취소</button>
+          <button id="targetOk" style="padding:8px 18px;border:none;background:#1976d2;color:#fff;border-radius:6px;cursor:pointer;font-weight:600;">확인</button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.querySelector('#targetCancel').addEventListener('click', () => modal.style.display = 'none');
+    modal.querySelector('#targetOk').addEventListener('click', () => {
+      _target = modal.querySelector('input[name="target"]:checked').value;
+      modal.style.display = 'none';
+      generate();
+    });
+  } else {
+    modal.style.display = 'flex';
+  }
+}
+
 // 새로고침 = 항상 강제 갱신 (캐시 무시). 페이지 처음 진입은 캐시 활용.
 document.getElementById('refreshBtn').addEventListener('click', () => fetchCandidates(true));
-document.getElementById('generateBtn').addEventListener('click', generate);
+document.getElementById('generateBtn').addEventListener('click', openTargetModal);
 fetchCandidates(false);
 </script>
 </body>
