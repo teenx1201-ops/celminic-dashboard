@@ -1879,9 +1879,11 @@ async function downloadAllPDF() {
 
 <script>
 (function(){
+  // 토큰 우선순위: URL 쿼리 > localStorage (대시보드 1번 방문 시 자동 주입)
   var params = new URLSearchParams(location.search);
-  var EDIT_MODE = params.get('edit') === '1';
-  var TOKEN = params.get('token') || '';
+  var TOKEN = params.get('token') || (function(){ try { return localStorage.getItem('cnic_api_token') || ''; } catch(e) { return ''; } })();
+  // 편집 모드 = 토큰 있으면 자동 활성 (URL ?edit=1 불필요)
+  var EDIT_MODE = !!TOKEN || params.get('edit') === '1';
   var DATE = '2026-05-22';
   var auto_mix = {};
   var current = {};
