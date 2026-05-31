@@ -1554,6 +1554,181 @@ async function downloadAllPDF() {
   btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
   status.textContent = '✅ 전체 PDF 다운로드 완료! (총 ' + allData.length + '장)';
 }
+</script>
+
+<!-- ── BOX OVERRIDE EDITOR (편집 모드 only: ?edit=1&token=XXX) ── -->
+<div id="box-edit-fab" style="display:none;position:fixed;bottom:24px;right:24px;background:#e65100;color:#fff;padding:12px 18px;border-radius:50px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2);font-weight:700;font-size:13px;z-index:9998;" onclick="openBoxEditor()">✏️ 자투리 박스 편집</div>
+
+<div id="box-edit-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:12px;width:min(960px,95vw);max-height:90vh;display:flex;flex-direction:column;">
+    <div style="padding:16px 20px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:16px;font-weight:800;">자투리·혼합박스 편집 — <span id="bem-date"></span></div>
+      <button onclick="closeBoxEditor()" style="background:none;border:none;font-size:20px;cursor:pointer;">✕</button>
+    </div>
+    <div style="flex:1;overflow:auto;display:grid;grid-template-columns:1fr 1fr;">
+      <div style="padding:16px;border-right:1px solid #eee;overflow:auto;">
+        <div style="font-size:12px;color:#888;margin-bottom:8px;">편집 (자투리·혼합박스만)</div>
+        <div id="bem-edit-list"></div>
+      </div>
+      <div style="padding:16px;background:#fafafa;overflow:auto;">
+        <div style="font-size:12px;color:#888;margin-bottom:8px;">박스스티커 미리보기</div>
+        <div id="bem-preview"></div>
+      </div>
+    </div>
+    <div style="padding:12px 20px;border-top:1px solid #eee;display:flex;justify-content:space-between;gap:8px;">
+      <button onclick="resetBoxEditor()" style="padding:8px 16px;border:1px solid #999;background:#fff;border-radius:6px;cursor:pointer;">원래대로(자동 패킹)</button>
+      <div>
+        <button onclick="closeBoxEditor()" style="padding:8px 16px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;margin-right:6px;">닫기</button>
+        <button onclick="saveBoxEditor()" style="padding:8px 20px;border:none;background:#e65100;color:#fff;border-radius:6px;cursor:pointer;font-weight:700;">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var EDIT_MODE = params.get('edit') === '1';
+  var TOKEN = params.get('token') || '';
+  var DATE = '2026-05-01';
+  var auto_mix = {};
+  var current = {};
+
+  if (EDIT_MODE) document.getElementById('box-edit-fab').style.display = '';
+
+  function sumBox(b){ var s=0; for(var c in b) s += (+b[c]||0); return s; }
+
+  window.openBoxEditor = async function(){
+    document.getElementById('bem-date').textContent = DATE;
+    try {
+      var r = await fetch('/box_override?date=' + DATE);
+      var data = await r.json();
+      auto_mix = data.auto_mix || {};
+      current = {};
+      for (var k in auto_mix) {
+        current[k] = (data.override && data.override[k])
+          ? JSON.parse(JSON.stringify(data.override[k]))
+          : JSON.parse(JSON.stringify(auto_mix[k].mix_boxes));
+      }
+      renderEditor();
+      document.getElementById('box-edit-modal').style.display = 'flex';
+    } catch(e){ alert('로드 실패: '+e.message); }
+  };
+
+  window.closeBoxEditor = function(){
+    document.getElementById('box-edit-modal').style.display = 'none';
+  };
+
+  window.saveBoxEditor = async function(){
+    for (var k in current) {
+      var orig = auto_mix[k].mix_boxes.reduce(function(s,b){return s+sumBox(b);},0);
+      var ov = current[k].reduce(function(s,b){return s+sumBox(b);},0);
+      if (orig !== ov) { alert(k+': 수량 합 안 맞음 (원본 '+orig+', 편집 '+ov+')'); return; }
+    }
+    try {
+      var r = await fetch('/box_override?date='+DATE, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
+        body: JSON.stringify({overrides: current})
+      });
+      if (r.ok) { location.reload(); }
+      else { alert('저장 실패: '+await r.text()); }
+    } catch(e){ alert('저장 실패: '+e.message); }
+  };
+
+  window.resetBoxEditor = async function(){
+    if (!confirm('자동 패킹으로 복원?')) return;
+    try {
+      var r = await fetch('/box_override?date='+DATE, {
+        method:'DELETE',
+        headers:{'Authorization':'Bearer '+TOKEN}
+      });
+      if (r.ok) location.reload();
+      else alert('복원 실패: '+await r.text());
+    } catch(e){ alert('복원 실패: '+e.message); }
+  };
+
+  function renderEditor(){
+    var root = document.getElementById('bem-edit-list');
+    root.innerHTML = '';
+    var keys = Object.keys(current);
+    if (keys.length === 0) {
+      root.innerHTML = '<div style="color:#999;padding:20px;text-align:center;">자투리·혼합박스 없음 (모두 완박스)</div>';
+      document.getElementById('bem-preview').innerHTML = '';
+      return;
+    }
+    for (var k of keys) {
+      var info = auto_mix[k];
+      var origTotal = info.mix_boxes.reduce(function(s,b){return s+sumBox(b);},0);
+      var card = document.createElement('div');
+      card.style.cssText = 'margin-bottom:16px;padding:12px;border:1px solid #ddd;border-radius:8px;';
+      card.innerHTML = '<div style="font-weight:700;margin-bottom:8px;">'+k+' <span style="color:#888;font-size:11px;">(per_box='+info.per_box+', 자투리합='+origTotal+'개)</span></div><div data-key="'+k+'" class="bem-boxes"></div><button onclick="addBox(\''+k+'\')" style="margin-top:6px;padding:4px 10px;border:1px dashed #999;background:#fff;border-radius:4px;cursor:pointer;font-size:11px;">+ 박스 추가</button>';
+      root.appendChild(card);
+      renderBoxes(k);
+    }
+    updatePreview();
+  }
+
+  function renderBoxes(k){
+    var wrap = document.querySelector('[data-key="'+k+'"]');
+    wrap.innerHTML = '';
+    var colors = Object.keys(auto_mix[k].alloc);
+    current[k].forEach(function(box, i){
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:4px;font-size:12px;';
+      var inner = '<span style="color:#666;width:46px;">박스'+(i+1)+'</span>';
+      colors.forEach(function(c){
+        inner += '<input type="number" min="0" value="'+(box[c]||'')+'" data-k="'+k+'" data-i="'+i+'" data-c="'+c+'" style="width:50px;padding:3px 6px;border:1px solid #ccc;border-radius:4px;" oninput="updateBox(this)">';
+        inner += '<span style="color:#999;font-size:10px;margin-right:6px;">'+c.slice(0,3)+'</span>';
+      });
+      inner += '<button onclick="removeBox(\''+k+'\','+i+')" style="margin-left:auto;padding:2px 8px;border:none;background:#fee;color:#c00;border-radius:3px;cursor:pointer;">×</button>';
+      row.innerHTML = inner;
+      wrap.appendChild(row);
+    });
+  }
+
+  window.updateBox = function(input){
+    var k=input.dataset.k, i=+input.dataset.i, c=input.dataset.c;
+    var v = +input.value || 0;
+    if (v > 0) current[k][i][c] = v;
+    else delete current[k][i][c];
+    updatePreview();
+  };
+
+  window.addBox = function(k){
+    current[k].push({});
+    renderBoxes(k);
+    updatePreview();
+  };
+
+  window.removeBox = function(k, i){
+    current[k].splice(i,1);
+    renderBoxes(k);
+    updatePreview();
+  };
+
+  function updatePreview(){
+    var root = document.getElementById('bem-preview');
+    root.innerHTML = '';
+    for (var k in current) {
+      var parts2 = k.split(':');
+      var div = document.createElement('div');
+      div.style.cssText = 'margin-bottom:12px;';
+      div.innerHTML = '<div style="font-size:11px;color:#666;margin-bottom:4px;font-weight:700;">'+parts2[0]+' '+parts2[1]+'</div>';
+      current[k].forEach(function(box){
+        var parts = [];
+        for (var c in box) if (+box[c]>0) parts.push(c+' '+box[c]+'ea');
+        if (parts.length === 0) return;
+        var card = document.createElement('div');
+        var isMix = parts.length > 1;
+        card.style.cssText = 'display:inline-block;margin:4px;padding:8px 12px;border:2px solid '+(isMix?'#e65100':'#333')+';border-radius:6px;background:#fff;font-size:11px;min-width:120px;';
+        card.innerHTML = '<div style="font-weight:800;margin-bottom:4px;">× 1 BOX</div><div>'+parts.join(' + ')+'</div>';
+        div.appendChild(card);
+      });
+      root.appendChild(div);
+    }
+  }
+})();
 
 function switchDate(dateId) {
   // 추가 드롭다운 항목 클릭 시 → 추가발주 버튼 활성화
