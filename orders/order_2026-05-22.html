@@ -2118,6 +2118,8 @@ async function downloadAllPDF() {
 })();
 
 function switchDate(dateId) {
+  // 현재 모드 추적 (그리트리 엑셀에서 날짜별 추가 구별용)
+  window._currentDateId = dateId;
   // 추가 드롭다운 항목 클릭 시 → 추가발주 버튼 활성화
   const isExtraItem = dateId === 'extra_all' || dateId.endsWith('_extra');
   document.querySelectorAll('.date-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -2179,15 +2181,19 @@ document.addEventListener('click', function(e) {
 
 // 2026-05-17: 그리트리 엑셀 — 현재 선택 모드 (정식/추가/합산) 따라 동작
 function _currentGritreeMode() {
-  // .date-btn-wrap (추가발주 wrap) 안의 .active 가 있으면 extra
+  // 1순위: switchDate가 저장한 현재 dateId (날짜별 추가 모드 정확 구별)
+  const cur = window._currentDateId;
+  if (cur === 'main') return 'main';
+  if (cur === 'extra_all') return 'extra';
+  if (cur === 'total') return 'all';
+  if (cur && cur.endsWith('_extra')) return cur;  // 예: '2026-05-09_extra'
+  // 2순위 (폴백): switchDate 호출 전 초기 상태 — DOM 검사
   const extraWrap = document.querySelector('.date-btn-wrap .date-btn.active');
   if (extraWrap) return 'extra';
-  // 모든 .date-btn 중 active 가 어느 위치인지 찾기 (drop 외부)
   const allBtns = Array.from(document.querySelectorAll('.date-bar > .date-btn'));
   const activeIdx = allBtns.findIndex(function(b) { return b.classList.contains('active'); });
-  // [정식][전체합산] → idx 0=main, idx 1=total. 추가는 wrap 안이라 위에서 처리.
   if (activeIdx === 0 && allBtns.length >= 2) return 'main';
-  return 'all';  // 전체 합산이 디폴트
+  return 'all';
 }
 
 function _orderPageDate() {
