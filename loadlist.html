@@ -51,6 +51,8 @@
   .status-msg.ok { background: #0d1117; color: #3fb950; border: 1px solid #21262d; }
   .status-msg.error { background: #0d1117; color: #f85149; border: 1px solid #21262d; }
   .cache-info { color: #6e7681; font-size: 11px; }
+  .cycle-pick { display: inline-flex; align-items: center; gap: 6px; color: #8b949e; font-size: 12px; }
+  .cycle-pick select { background: #2d3540; color: #c8cfda; border: 1px solid #3d4a5a; border-radius: 6px; padding: 7px 10px; font-size: 13px; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -59,6 +61,7 @@
   <span class="cache-info" id="cacheInfo"></span>
   <div class="spacer"></div>
   <div class="right-group">
+    <label class="cycle-pick">📦 발주시기 <select id="cycleSelect"></select></label>
     <button id="refreshBtn" class="icon-only" title="새로고침">🔄</button>
     <button id="generateBtn" disabled>📄 적재리스트 PDF</button>
   </div>
@@ -70,6 +73,29 @@
 const _API_TOKEN = 'MTY62OiLv40WkCHcDpqj9JBTn6lnQ0zi3YcTAl_2Qlg';
 let _candidates = [];
 let _groups = {};
+let _cycles = [];
+let _groupsByCycle = {};
+let _selectedCycle = '';  // '' = 활성 사이클(/pending, 기존 동작)
+
+// 현재 선택 사이클의 groups (기본='' → 활성 사이클 _groups)
+function currentGroups() {
+  return (_selectedCycle && _groupsByCycle[_selectedCycle]) || _groups;
+}
+// 카드의 현재 사이클 기준 group 번호 (group 번호는 사이클마다 재사용되므로)
+function cardGroup(c) {
+  if (_selectedCycle && c.auto_group_by_cycle) return c.auto_group_by_cycle[_selectedCycle] || '';
+  return c.auto_group || '';
+}
+function populateCycleSelect() {
+  const sel = document.getElementById('cycleSelect');
+  if (!sel) return;
+  if (!_cycles.length) { sel.innerHTML = '<option value="">-</option>'; return; }
+  // 첫 옵션(최신)은 value='' → 활성 사이클 = 기존 동작 100% 동일
+  sel.innerHTML = _cycles.map((d, i) =>
+    `<option value="${i === 0 ? '' : d}">${d}${i === 0 ? ' (최신)' : ''}</option>`
+  ).join('');
+  sel.value = '';
+}
 
 async function fetchCandidates(force) {
   document.getElementById('statusLine').textContent = '⏳ Wing 크롤링 + 그룹 매칭 중...';
@@ -83,6 +109,10 @@ async function fetchCandidates(force) {
     const d = await r.json();
     _candidates = d.candidates || [];
     _groups = d.groups || {};
+    _cycles = d.cycles || [];
+    _groupsByCycle = d.groups_by_cycle || {};
+    _selectedCycle = '';
+    populateCycleSelect();
     renderCards();
     document.getElementById('statusLine').textContent = `${_candidates.length} 건`;
     if (d.cached_at) {
@@ -101,7 +131,7 @@ function renderCards() {
     const div = document.createElement('div');
     div.className = 'card';
     div.dataset.iid = c.inbound_id;
-    div.dataset.group = c.auto_group || '';
+    div.dataset.group = cardGroup(c);
     div.innerHTML = `
       <div class="card-top">
         <span class="iid">입고 ID ${c.inbound_id}</span>
@@ -128,7 +158,7 @@ function renderCards() {
       </div>
       <div class="card-foot">
         <span class="pickup-chip"><span class="icon">🚛</span>픽업 (${c.pickup_d || '-'})</span>
-        <span class="auto-group">${c.auto_group ? '🔗 그룹 ' + c.auto_group + ' 자동매칭' : '⚠️ 그룹 매칭 실패'}</span>
+        <span class="auto-group">${cardGroup(c) ? '🔗 그룹 ' + cardGroup(c) + ' 자동매칭' : '⚠️ 그룹 매칭 실패'}</span>
         <span class="expand-btn">SKU 펼치기 ▼</span>
       </div>
       <div class="card-expand">
@@ -153,7 +183,7 @@ function renderSkus(cardDiv) {
     list.innerHTML = '<div class="no-match">⚠️ 그룹 매칭 실패 — 적재리스트 생성 불가</div>';
     return;
   }
-  const skus = _groups[group] || [];
+  const skus = currentGroups()[group] || [];
   list.innerHTML = skus.map(s => `
     <label>
       <input type="checkbox" class="sku-check" data-key="${s.key}" checked>
@@ -241,7 +271,7 @@ async function openEditorModal() {
       const r = await fetch('/loadlist/preview', {
         method: 'POST',
         headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
-        body: JSON.stringify({inbound_id: it.inbound_id, group: it.group}),
+        body: JSON.stringify({inbound_id: it.inbound_id, group: it.group, cycle_date: _selectedCycle}),
       });
       const d = await r.json();
       if (!r.ok) {
@@ -431,6 +461,7 @@ function collectItem(iid) {
     inbound_id: it.inbound_id, group: it.group, excluded_keys: it.excluded_keys,
     box_overrides: overrides, mix_box_overrides: mixBoxes,
     leftover_mode: leftoverEl ? leftoverEl.value : 'mix',
+    cycle_date: _selectedCycle,
   };
 }
 
@@ -510,7 +541,7 @@ async function generate(prebuiltItems) {
     const r = await fetch('/loadlist/generate', {
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
-      body: JSON.stringify({items, target: _target, skip_pdf: !!window._skipPdf}),
+      body: JSON.stringify({items, target: _target, skip_pdf: !!window._skipPdf, cycle_date: _selectedCycle}),
     });
     const d = await r.json();
     // 다운로드 sequential delay — 동시 a.click() 다발 = Chrome 차단 ("사이트 사용 불가").
@@ -550,6 +581,10 @@ async function generate(prebuiltItems) {
 
 document.getElementById('refreshBtn').addEventListener('click', () => fetchCandidates(true));
 document.getElementById('generateBtn').addEventListener('click', openTargetModal);
+document.getElementById('cycleSelect').addEventListener('change', (e) => {
+  _selectedCycle = e.target.value;
+  renderCards();  // 발주시기 바꾸면 group 번호·SKU 가 그 사이클 기준으로 다시 그려짐
+});
 fetchCandidates(false);
 </script>
 </body>
