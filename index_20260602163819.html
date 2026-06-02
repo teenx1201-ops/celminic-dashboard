@@ -464,7 +464,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 
 /* 봇 Health 카드 */
 </style>
-<script>window._buildTs="20260602172945";</script><script>window._cycleMap={"2026-04-16": "2026-04-15", "2026-04-17": "2026-04-15", "2026-04-18": "2026-04-15", "2026-04-19": "2026-04-15", "2026-04-20": "2026-04-15", "2026-04-21": "2026-04-15", "2026-04-22": "2026-04-15", "2026-04-23": "2026-04-15", "2026-04-24": "2026-04-15", "2026-04-25": "2026-04-15", "2026-04-26": "2026-04-15", "2026-04-27": "2026-04-15", "2026-04-28": "2026-04-15", "2026-04-29": "2026-04-15", "2026-05-02": "2026-05-01", "2026-05-03": "2026-05-01", "2026-05-04": "2026-05-01", "2026-05-05": "2026-05-01", "2026-05-06": "2026-05-01", "2026-05-07": "2026-05-01", "2026-05-08": "2026-05-01", "2026-05-10": "2026-05-09", "2026-05-11": "2026-05-09", "2026-05-12": "2026-05-09", "2026-05-13": "2026-05-09", "2026-05-14": "2026-05-09", "2026-05-15": "2026-05-09", "2026-05-16": "2026-05-09", "2026-05-17": "2026-05-09", "2026-05-18": "2026-05-09", "2026-05-19": "2026-05-09", "2026-05-20": "2026-05-09", "2026-05-21": "2026-05-09", "2026-05-23": "2026-05-22", "2026-05-24": "2026-05-22", "2026-05-25": "2026-05-22", "2026-05-26": "2026-05-22", "2026-05-27": "2026-05-22", "2026-05-28": "2026-05-22", "2026-05-29": "2026-05-22", "2026-05-30": "2026-05-22", "2026-05-31": "2026-05-22"};</script></head>
+<script>window._buildTs="20260602163819";</script><script>window._cycleMap={"2026-04-16": "2026-04-15", "2026-04-17": "2026-04-15", "2026-04-18": "2026-04-15", "2026-04-19": "2026-04-15", "2026-04-20": "2026-04-15", "2026-04-21": "2026-04-15", "2026-04-22": "2026-04-15", "2026-04-23": "2026-04-15", "2026-04-24": "2026-04-15", "2026-04-25": "2026-04-15", "2026-04-26": "2026-04-15", "2026-04-27": "2026-04-15", "2026-04-28": "2026-04-15", "2026-04-29": "2026-04-15", "2026-05-02": "2026-05-01", "2026-05-03": "2026-05-01", "2026-05-04": "2026-05-01", "2026-05-05": "2026-05-01", "2026-05-06": "2026-05-01", "2026-05-07": "2026-05-01", "2026-05-08": "2026-05-01", "2026-05-10": "2026-05-09", "2026-05-11": "2026-05-09", "2026-05-12": "2026-05-09", "2026-05-13": "2026-05-09", "2026-05-14": "2026-05-09", "2026-05-15": "2026-05-09", "2026-05-16": "2026-05-09", "2026-05-17": "2026-05-09", "2026-05-18": "2026-05-09", "2026-05-19": "2026-05-09", "2026-05-20": "2026-05-09", "2026-05-21": "2026-05-09", "2026-05-23": "2026-05-22", "2026-05-24": "2026-05-22", "2026-05-25": "2026-05-22", "2026-05-26": "2026-05-22", "2026-05-27": "2026-05-22", "2026-05-28": "2026-05-22", "2026-05-29": "2026-05-22", "2026-05-30": "2026-05-22", "2026-05-31": "2026-05-22"};</script></head>
 <body>
 <!-- 커스텀 모달 (prompt/confirm/alert 대체) -->
 <div id="ui-modal-overlay">
@@ -932,26 +932,23 @@ tr.unchecked td.chk-cell { opacity: 1; }
   </div>
   <table style="table-layout:fixed;width:100%;">
     <colgroup>
-      <col style="width:28%;"><!-- 상품 -->
-      <col style="width:12%;"><!-- 현재고 -->
-      <col style="width:12%;"><!-- 입고예정 -->
-      <col style="width:12%;"><!-- 지난7일 -->
-      <col style="width:12%;"><!-- 지난30일 -->
-      <col style="width:12%;"><!-- 보관료재고 -->
-      <col style="width:12%;"><!-- 품절까지 -->
+      <col style="width:30%;"><!-- 상품 -->
+      <col style="width:14%;"><!-- 현재고 -->
+      <col style="width:14%;"><!-- 지난7일 -->
+      <col style="width:14%;"><!-- 지난30일 -->
+      <col style="width:14%;"><!-- 보관료재고 -->
+      <col style="width:14%;"><!-- 품절까지 -->
     </colgroup>
-    <thead><tr><th>상품</th><th>현재고</th><th>입고예정</th><th>지난7일</th><th>지난30일</th><th>보관료재고</th><th>품절까지</th></tr></thead>
+    <thead><tr><th>상품</th><th>현재고</th><th>지난7일</th><th>지난30일</th><th>보관료재고</th><th>품절까지</th></tr></thead>
     <tbody id="inv-body"><tr data-sd="0" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 밀크베이지 SS</td>
           <td style="color:#7db4f5;">0</td>
-          <td style="color:#7db4f5;">54</td>
           <td style="color:#7db4f5;">13</td>
           <td style="color:#7db4f5;">91</td>
           <td><span style="color:#7db4f5;">-</span></td>
           <td style="color:#7db4f5;">0일</td>
         </tr><tr data-sd="0" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 밀크베이지 Q</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">6</td>
           <td style="color:#7db4f5;">59</td>
@@ -960,7 +957,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="0" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 스모키차콜 Q</td>
           <td style="color:#7db4f5;">0</td>
-          <td style="color:#7db4f5;">36</td>
           <td style="color:#7db4f5;">8</td>
           <td style="color:#7db4f5;">80</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -968,7 +964,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="0" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 모카브라운 K</td>
           <td style="color:#7db4f5;">0</td>
-          <td style="color:#7db4f5;">120</td>
           <td style="color:#7db4f5;">39</td>
           <td style="color:#7db4f5;">62</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -976,7 +971,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr style="background:rgba(227,179,65,0.05);" data-sd="2" data-bq="0" data-wq="13" data-pk="topper">
           <td class="left">토퍼 차콜 SS</td>
           <td style="color:#7db4f5;">12</td>
-          <td style="color:#7db4f5;">84</td>
           <td style="color:#7db4f5;">29</td>
           <td style="color:#7db4f5;">133</td>
           <td><span style="color:#e3b341;font-size:9px;">●</span> <span style="color:#7db4f5;">13</span></td>
@@ -984,7 +978,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="5" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 스모키차콜 K</td>
           <td style="color:#7db4f5;">10</td>
-          <td style="color:#7db4f5;">40</td>
           <td style="color:#7db4f5;">6</td>
           <td style="color:#7db4f5;">51</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -992,7 +985,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="8" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 밀크베이지 K</td>
           <td style="color:#7db4f5;">14</td>
-          <td style="color:#7db4f5;">45</td>
           <td style="color:#7db4f5;">11</td>
           <td style="color:#7db4f5;">49</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1000,7 +992,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="10" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 크림화이트 Q</td>
           <td style="color:#7db4f5;">9</td>
-          <td style="color:#7db4f5;">42</td>
           <td style="color:#7db4f5;">7</td>
           <td style="color:#7db4f5;">26</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1008,7 +999,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="11" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 크림화이트 SS</td>
           <td style="color:#7db4f5;">18</td>
-          <td style="color:#7db4f5;">54</td>
           <td style="color:#7db4f5;">10</td>
           <td style="color:#7db4f5;">46</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1016,7 +1006,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="12" data-bq="0" data-wq="0" data-pk="curtain">
           <td class="left">암막커튼 크림화이트 140X230CM</td>
           <td style="color:#7db4f5;">26</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">7</td>
           <td style="color:#7db4f5;">62</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1024,7 +1013,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="21" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 화이트앤블랙 SS</td>
           <td style="color:#7db4f5;">15</td>
-          <td style="color:#7db4f5;">36</td>
           <td style="color:#7db4f5;">4</td>
           <td style="color:#7db4f5;">21</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1032,7 +1020,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="22" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 화이트앤블랙 Q</td>
           <td style="color:#7db4f5;">12</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">3</td>
           <td style="color:#7db4f5;">16</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1040,7 +1027,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr style="background:rgba(227,179,65,0.05);" data-sd="22" data-bq="0" data-wq="35" data-pk="bedding">
           <td class="left">이불세트 모카브라운 Q</td>
           <td style="color:#7db4f5;">35</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">9</td>
           <td style="color:#7db4f5;">46</td>
           <td><span style="color:#e3b341;font-size:9px;">●</span> <span style="color:#7db4f5;">35</span></td>
@@ -1048,7 +1034,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr style="background:rgba(255,82,82,0.06);" data-sd="23" data-bq="10" data-wq="0" data-pk="curtain">
           <td class="left">암막커튼 그레이 210X235CM</td>
           <td style="color:#7db4f5;">11</td>
-          <td style="color:#7db4f5;">34</td>
           <td style="color:#7db4f5;">3</td>
           <td style="color:#7db4f5;">14</td>
           <td><span style="color:#ef5350;font-size:9px;">●</span> <span style="color:#7db4f5;">10</span></td>
@@ -1056,7 +1041,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr style="background:rgba(255,82,82,0.06);" data-sd="24" data-bq="6" data-wq="0" data-pk="topper">
           <td class="left">토퍼 차콜 K</td>
           <td style="color:#7db4f5;">8</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">3</td>
           <td style="color:#7db4f5;">10</td>
           <td><span style="color:#ef5350;font-size:9px;">●</span> <span style="color:#7db4f5;">6</span></td>
@@ -1064,7 +1048,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="30" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 아이보리 Q</td>
           <td style="color:#7db4f5;">71</td>
-          <td style="color:#7db4f5;">102</td>
           <td style="color:#7db4f5;">16</td>
           <td style="color:#7db4f5;">70</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1072,7 +1055,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr style="background:rgba(227,179,65,0.05);" data-sd="31" data-bq="0" data-wq="82" data-pk="bedding">
           <td class="left">이불세트 스모키차콜 SS</td>
           <td style="color:#7db4f5;">83</td>
-          <td style="color:#7db4f5;">120</td>
           <td style="color:#7db4f5;">14</td>
           <td style="color:#7db4f5;">79</td>
           <td><span style="color:#e3b341;font-size:9px;">●</span> <span style="color:#7db4f5;">82</span></td>
@@ -1080,7 +1062,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="33" data-bq="0" data-wq="0" data-pk="curtain">
           <td class="left">암막커튼 크림화이트 210X235CM</td>
           <td style="color:#7db4f5;">137</td>
-          <td style="color:#7db4f5;">85</td>
           <td style="color:#7db4f5;">14</td>
           <td style="color:#7db4f5;">121</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1088,7 +1069,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="33" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 베이지 SS</td>
           <td style="color:#7db4f5;">171</td>
-          <td style="color:#7db4f5;">126</td>
           <td style="color:#7db4f5;">26</td>
           <td style="color:#7db4f5;">151</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1096,7 +1076,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr style="background:rgba(227,179,65,0.05);" data-sd="34" data-bq="0" data-wq="84" data-pk="bedding">
           <td class="left">이불세트 모카브라운 SS</td>
           <td style="color:#7db4f5;">85</td>
-          <td style="color:#7db4f5;">114</td>
           <td style="color:#7db4f5;">11</td>
           <td style="color:#7db4f5;">74</td>
           <td><span style="color:#e3b341;font-size:9px;">●</span> <span style="color:#7db4f5;">84</span></td>
@@ -1104,7 +1083,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="39" data-bq="0" data-wq="0" data-pk="curtain">
           <td class="left">암막커튼 밀크베이지 210X235CM</td>
           <td style="color:#7db4f5;">29</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">2</td>
           <td style="color:#7db4f5;">22</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1112,7 +1090,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="40" data-bq="0" data-wq="0" data-pk="trash18">
           <td class="left">18L휴지통 기본</td>
           <td style="color:#7db4f5;">504</td>
-          <td style="color:#7db4f5;">768</td>
           <td style="color:#7db4f5;">108</td>
           <td style="color:#7db4f5;">373</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1120,7 +1097,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="40" data-bq="0" data-wq="0" data-pk="trash20">
           <td class="left">20L휴지통 기본</td>
           <td style="color:#7db4f5;">164</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">43</td>
           <td style="color:#7db4f5;">122</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1128,7 +1104,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="40" data-bq="0" data-wq="0" data-pk="bedding">
           <td class="left">이불세트 크림화이트 K</td>
           <td style="color:#7db4f5;">20</td>
-          <td style="color:#7db4f5;">30</td>
           <td style="color:#7db4f5;">6</td>
           <td style="color:#7db4f5;">15</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1136,7 +1111,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="46" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 아이보리 K</td>
           <td style="color:#7db4f5;">31</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">2</td>
           <td style="color:#7db4f5;">20</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1144,7 +1118,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="46" data-bq="0" data-wq="0" data-pk="facetowel">
           <td class="left">페이스타올 3개입</td>
           <td style="color:#7db4f5;">442</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">61</td>
           <td style="color:#7db4f5;">286</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1153,14 +1126,12 @@ tr.unchecked td.chk-cell { opacity: 1; }
           <td class="left">암막커튼 그레이 140X230CM</td>
           <td style="color:#7db4f5;">16</td>
           <td style="color:#7db4f5;">0</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">10</td>
           <td><span style="color:#7db4f5;">-</span></td>
           <td style="color:#7db4f5;">48일</td>
         </tr><tr data-sd="49" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 아이보리 SS</td>
           <td style="color:#7db4f5;">308</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">28</td>
           <td style="color:#7db4f5;">187</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1168,7 +1139,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr style="background:rgba(227,179,65,0.05);" data-sd="52" data-bq="0" data-wq="14" data-pk="topper">
           <td class="left">토퍼 그레이 Q</td>
           <td style="color:#7db4f5;">14</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">2</td>
           <td style="color:#7db4f5;">8</td>
           <td><span style="color:#e3b341;font-size:9px;">●</span> <span style="color:#7db4f5;">14</span></td>
@@ -1176,7 +1146,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="54" data-bq="0" data-wq="0" data-pk="curtain">
           <td class="left">암막커튼 크림화이트 130X170CM</td>
           <td style="color:#7db4f5;">36</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">5</td>
           <td style="color:#7db4f5;">20</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1184,7 +1153,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="67" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 베이지 Q</td>
           <td style="color:#7db4f5;">72</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">17</td>
           <td style="color:#7db4f5;">32</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1192,7 +1160,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="75" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 차콜 Q</td>
           <td style="color:#7db4f5;">95</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">10</td>
           <td style="color:#7db4f5;">38</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1200,7 +1167,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="84" data-bq="0" data-wq="0" data-pk="curtain">
           <td class="left">암막커튼 그레이 130X170CM</td>
           <td style="color:#7db4f5;">14</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">1</td>
           <td style="color:#7db4f5;">5</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1209,14 +1175,12 @@ tr.unchecked td.chk-cell { opacity: 1; }
           <td class="left">암막커튼 밀크베이지 130X170CM</td>
           <td style="color:#7db4f5;">12</td>
           <td style="color:#7db4f5;">0</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">4</td>
           <td><span style="color:#7db4f5;">-</span></td>
           <td style="color:#7db4f5;">90일</td>
         </tr><tr style="background:rgba(227,179,65,0.05);" data-sd="168" data-bq="0" data-wq="373" data-pk="facetowel">
           <td class="left">페이스타올 1개입</td>
           <td style="color:#7db4f5;">377</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">12</td>
           <td style="color:#7db4f5;">67</td>
           <td><span style="color:#e3b341;font-size:9px;">●</span> <span style="color:#7db4f5;">373</span></td>
@@ -1224,7 +1188,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="190" data-bq="0" data-wq="0" data-pk="curtain">
           <td class="left">암막커튼 밀크베이지 140X230CM</td>
           <td style="color:#7db4f5;">70</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">1</td>
           <td style="color:#7db4f5;">11</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1232,7 +1195,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="230" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 그레이 SS</td>
           <td style="color:#7db4f5;">46</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">3</td>
           <td style="color:#7db4f5;">6</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1240,7 +1202,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="240" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 베이지 K</td>
           <td style="color:#7db4f5;">24</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">2</td>
           <td style="color:#7db4f5;">3</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1248,7 +1209,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="278" data-bq="0" data-wq="0" data-pk="facetowel">
           <td class="left">페이스타올 2개입</td>
           <td style="color:#7db4f5;">575</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">9</td>
           <td style="color:#7db4f5;">62</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1256,7 +1216,6 @@ tr.unchecked td.chk-cell { opacity: 1; }
         </tr><tr data-sd="540" data-bq="0" data-wq="0" data-pk="topper">
           <td class="left">토퍼 화이트앤블랙 K</td>
           <td style="color:#7db4f5;">18</td>
-          <td style="color:#7db4f5;">0</td>
           <td style="color:#7db4f5;">1</td>
           <td style="color:#7db4f5;">1</td>
           <td><span style="color:#7db4f5;">-</span></td>
@@ -1430,7 +1389,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
     <div style="font-size:14px;font-weight:700;color:#b0b8c8;">이 날짜에 공장 발주 없음</div>
     <div style="font-size:11px;margin-top:6px;">발주한 날짜를 선택하면 해당 공장 발주서가 표시됩니다.</div>
   </div>
-  <iframe id="wechat-frame" src="orders/order_2026-06-01.html?v=20260602172945" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
+  <iframe id="wechat-frame" src="orders/order_2026-06-01.html?v=20260602163819" style="width:100%;height:1600px;border:none;border-radius:8px;background:#fff;" onerror="document.getElementById('wechat-empty').style.display='block';this.style.display='none';"></iframe>
 </div>
 
 <!-- 밀크런오더 탭 (2026-04-21: 날짜별 스냅샷 iframe) -->
@@ -1977,7 +1936,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 
 <!-- 적재리스트 탭 (2026-05-27) -->
 <div id="tab-loadlist" class="tab-content">
-  <iframe src="/loadlist.html?v=20260602172945" style="width:100%;height:calc(100vh - 120px);border:0;background:transparent;border-radius:8px;"></iframe>
+  <iframe src="/loadlist.html?v=20260602163819" style="width:100%;height:calc(100vh - 120px);border:0;background:transparent;border-radius:8px;"></iframe>
 </div>
 
 <div id="tab-competitor" class="tab-content">
@@ -2094,7 +2053,7 @@ tr.unchecked td.chk-cell { opacity: 1; }
 <div class="cmp-top">
   <div class="cmp-top-l">
     <div class="cmp-title">쿠팡 경쟁사 판매량·재고 대시보드</div>
-    <div class="cmp-live">✅ Live · 11 옵션 / 4 그룹 · 2026-06-02T17:29:45</div>
+    <div class="cmp-live">✅ Live · 11 옵션 / 4 그룹 · 2026-06-02T16:38:19</div>
   </div>
   <div class="cmp-top-r">
     <div class="cmp-tools">
