@@ -209,6 +209,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div style="text-align:center;color:#888;font-size:11px;margin:-8px 0 12px;"><span style="color:#1976d2;">정식 —</span> &nbsp;·&nbsp; <span style="color:#e65100;">추가 4/30, 5/1</span></div>
 
 <div class="date-bar">
+<button class="date-btn" onclick="switchDate('main')">정식발주 <span class="date-type type-main">0개</span></button>
 <div class="date-btn-wrap"><button class="date-btn" onclick="toggleExtraMenu(event)">추가발주 <span class="caret">▼</span> <span class="date-type type-extra">2건 / 194개</span></button><div class="extra-menu" id="extra-menu"><button onclick="switchDate('extra_all')">전체 추가 (2건 / 194개)</button><button onclick="switchDate('2026-04-30_extra')">4/30 추가 (70개)</button><button onclick="switchDate('2026-05-01_extra')">5/1 추가 (124개)</button></div></div>
 <button class="date-btn active" onclick="switchDate('total')">전체 합산 <span class="date-type type-total">194개</span></button>
 <button class="gritree-dl-btn" onclick="downloadGritreeExcel(event)" title="현재 보이는 발주서 → 그리트리 배대지 엑셀">🌳 그리트리 엑셀</button>
@@ -1259,7 +1260,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const topperData = [{"size": "TOPPER 1.8", "colors": ["WHITE&BLACK 5ea"], "qty": 2, "en_line": "TOPPER 1.8, WHITE&BLACK 5ea", "zh_line": "床褥 1.8, 黑白色 5件", "ko_line": "토퍼 1.8, 화이트블랙 5ea"}, {"size": "TOPPER 1.8", "colors": ["BEIGE 4ea", "WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER 1.8, BEIGE 4ea + WHITE&BLACK 1ea", "zh_line": "床褥 1.8, 米色 4件 + 黑白色 1件", "ko_line": "토퍼 1.8, 베이지 4ea + 화이트블랙 1ea", "mix": true}, {"size": "TOPPER 1.8", "colors": ["WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER 1.8, WHITE&BLACK 1ea", "zh_line": "床褥 1.8, 黑白色 1件", "ko_line": "토퍼 1.8, 화이트블랙 1ea", "mix": true}];
+const topperData = [{"size": "TOPPER 1.8", "colors": ["WHITE&BLACK 5ea"], "qty": 2, "en_line": "TOPPER K, WHITE&BLACK 5ea", "zh_line": "床褥 K, 黑白色 5件", "ko_line": "토퍼 K, 화이트블랙 5ea"}, {"size": "TOPPER K", "colors": ["BEIGE 4ea", "WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER K, BEIGE 4ea + WHITE&BLACK 1ea", "zh_line": "床褥 K, 米色 4件 + 黑白色 1件", "ko_line": "토퍼 K, 베이지 4ea + 화이트블랙 1ea", "mix": true}, {"size": "TOPPER K", "colors": ["WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER K, WHITE&BLACK 1ea", "zh_line": "床褥 K, 黑白色 1件", "ko_line": "토퍼 K, 화이트블랙 1ea", "mix": true}];
 const beddingData = [{"size": "DUVET SET, SS", "colors": ["CREAMWHITE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, CREAMWHITE 6ea", "zh_line": "被子套装 SS, 奶油白色 6件", "ko_line": "이불세트 SS, 크림화이트 6ea"}, {"size": "DUVET SET, SS", "colors": ["MILKBEIGE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, MILKBEIGE 6ea", "zh_line": "被子套装 SS, 牛奶米色 6件", "ko_line": "이불세트 SS, 밀크베이지 6ea"}, {"size": "DUVET SET, K", "colors": ["MILKBEIGE 5ea"], "qty": 8, "en_line": "DUVET SET, K, MILKBEIGE 5ea", "zh_line": "被子套装 K, 牛奶米色 5件", "ko_line": "이불세트 K, 밀크베이지 5ea"}, {"size": "DUVET SET, K", "colors": ["SMOKY CHARCOAL 5ea"], "qty": 6, "en_line": "DUVET SET, K, SMOKY CHARCOAL 5ea", "zh_line": "被子套装 K, 炭灰色 5件", "ko_line": "이불세트 K, 스모키차콜 5ea"}];
 const curtainData = [];
 const facetowelData = [];
@@ -1331,43 +1332,48 @@ function drawSticker(ctx, s, w, h, seqNum) {
   ctx.roundRect(20, 20, w-40, h-40, 24);
   ctx.stroke();
 
-  /* 우상단 검정 배지 — 1cm 여분, 폰트 60px (대시보드 미리보기 비율) */
-  const marginRight = Math.round(w * (1/7));
+  /* ── 상단 행: 좌=순번 네모칸 / 우=×N BOX 배지 (같은 높이·양 모서리 정렬) ── */
+  const topY = Math.round(h * 0.045);
+  const rowH = Math.round(h * 0.10);
+  const sideMargin = Math.round(w * 0.05);
+  const rowCY = topY + rowH / 2;
+
+  /* 우: ×N BOX 검정 배지 */
   const badgeText = 'x ' + s.qty + ' BOX';
-  ctx.font = 'bold 60px Inter, sans-serif';
-  const bw = ctx.measureText(badgeText).width + 44;
-  const bh = 84;
-  const bx = w - marginRight - bw;
-  const by = 22;
+  ctx.font = 'bold ' + Math.round(rowH * 0.5) + 'px Inter, sans-serif';
+  const bpad = Math.round(rowH * 0.45);
+  const bw = ctx.measureText(badgeText).width + bpad * 2;
+  const bx = w - sideMargin - bw;
   ctx.fillStyle = '#333333';
   ctx.beginPath();
-  ctx.roundRect(bx, by, bw, bh, 42);
+  ctx.roundRect(bx, topY, bw, rowH, rowH * 0.28);
   ctx.fill();
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(badgeText, bx + bw/2, by + bh/2);
+  ctx.fillText(badgeText, bx + bw / 2, rowCY);
 
-  /* 좌상단 순번 — 전체 박스 통합 연번 (원 안 숫자) */
+  /* 좌: 순번 네모칸 (배지와 동일 높이의 정사각) */
   if (seqNum != null) {
-    const cR = Math.round(h * 0.085);
-    const cX = Math.round(w * (1/7)) + cR;
-    const cY = by + bh/2;
-    ctx.strokeStyle = '#333';
+    const sq = rowH;
+    const sx = sideMargin;
+    ctx.fillStyle = '#fff';
+    ctx.strokeStyle = '#333333';
     ctx.lineWidth = 7;
     ctx.beginPath();
-    ctx.arc(cX, cY, cR, 0, Math.PI*2);
+    ctx.roundRect(sx, topY, sq, sq, rowH * 0.18);
+    ctx.fill();
     ctx.stroke();
     ctx.fillStyle = '#000';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     const seqStr = String(seqNum);
-    let seqFs = Math.round(cR * 1.15);
+    let seqFs = Math.round(sq * 0.55);
     ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
-    while (ctx.measureText(seqStr).width > cR*1.6 && seqFs > 20) {
-      seqFs -= 6; ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
+    while (ctx.measureText(seqStr).width > sq * 0.78 && seqFs > 18) {
+      seqFs -= 5; ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
     }
-    ctx.fillText(seqStr, cX, cY);
+    ctx.fillText(seqStr, sx + sq / 2, rowCY);
   }
 
   /* CNIC: 가운데 맨 위 (배지 아래) — 화면 가득 채우게 크게 */

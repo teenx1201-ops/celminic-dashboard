@@ -210,6 +210,7 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div class="date-bar">
 <button class="date-btn" onclick="switchDate('main')">정식발주 <span class="date-type type-main">1,890개</span></button>
+<button class="date-btn" disabled style="opacity:0.4;cursor:default;">추가발주 <span class="date-type type-extra">0건</span></button>
 <button class="date-btn active" onclick="switchDate('total')">전체 합산 <span class="date-type type-total">1,890개</span></button>
 <button class="gritree-dl-btn" onclick="downloadGritreeExcel(event)" title="현재 보이는 발주서 → 그리트리 배대지 엑셀">🌳 그리트리 엑셀</button>
 </div>
@@ -1293,7 +1294,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const topperData = [{"size": "TOPPER 1.2", "colors": ["CHARCOAL 6ea"], "qty": 14, "en_line": "TOPPER 1.2, CHARCOAL 6ea", "zh_line": "床褥 1.2, 炭灰色 6件", "ko_line": "토퍼 1.2, 차콜 6ea"}, {"size": "TOPPER 1.2", "colors": ["WHITE&BLACK 6ea"], "qty": 6, "en_line": "TOPPER 1.2, WHITE&BLACK 6ea", "zh_line": "床褥 1.2, 黑白色 6件", "ko_line": "토퍼 1.2, 화이트블랙 6ea"}, {"size": "TOPPER 1.2", "colors": ["BEIGE 6ea"], "qty": 21, "en_line": "TOPPER 1.2, BEIGE 6ea", "zh_line": "床褥 1.2, 米色 6件", "ko_line": "토퍼 1.2, 베이지 6ea"}, {"size": "TOPPER 1.5", "colors": ["IVORY 6ea"], "qty": 17, "en_line": "TOPPER 1.5, IVORY 6ea", "zh_line": "床褥 1.5, 象牙白 6件", "ko_line": "토퍼 1.5, 아이보리 6ea"}];
+const topperData = [{"size": "TOPPER 1.2", "colors": ["CHARCOAL 6ea"], "qty": 14, "en_line": "TOPPER SS, CHARCOAL 6ea", "zh_line": "床褥 SS, 炭灰色 6件", "ko_line": "토퍼 SS, 차콜 6ea"}, {"size": "TOPPER 1.2", "colors": ["WHITE&BLACK 6ea"], "qty": 6, "en_line": "TOPPER SS, WHITE&BLACK 6ea", "zh_line": "床褥 SS, 黑白色 6件", "ko_line": "토퍼 SS, 화이트블랙 6ea"}, {"size": "TOPPER 1.2", "colors": ["BEIGE 6ea"], "qty": 21, "en_line": "TOPPER SS, BEIGE 6ea", "zh_line": "床褥 SS, 米色 6件", "ko_line": "토퍼 SS, 베이지 6ea"}, {"size": "TOPPER 1.5", "colors": ["IVORY 6ea"], "qty": 17, "en_line": "TOPPER Q, IVORY 6ea", "zh_line": "床褥 Q, 象牙白 6件", "ko_line": "토퍼 Q, 아이보리 6ea"}];
 const beddingData = [{"size": "DUVET SET, SS", "colors": ["CREAMWHITE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, CREAMWHITE 6ea", "zh_line": "被子套装 SS, 奶油白色 6件", "ko_line": "이불세트 SS, 크림화이트 6ea"}, {"size": "DUVET SET, SS", "colors": ["MILKBEIGE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, MILKBEIGE 6ea", "zh_line": "被子套装 SS, 牛奶米色 6件", "ko_line": "이불세트 SS, 밀크베이지 6ea"}, {"size": "DUVET SET, SS", "colors": ["MOCHA BROWN 6ea"], "qty": 19, "en_line": "DUVET SET, SS, MOCHA BROWN 6ea", "zh_line": "被子套装 SS, 摩卡棕色 6件", "ko_line": "이불세트 SS, 모카브라운 6ea"}, {"size": "DUVET SET, SS", "colors": ["SMOKY CHARCOAL 6ea"], "qty": 20, "en_line": "DUVET SET, SS, SMOKY CHARCOAL 6ea", "zh_line": "被子套装 SS, 炭灰色 6件", "ko_line": "이불세트 SS, 스모키차콜 6ea"}, {"size": "DUVET SET, Q", "colors": ["CREAMWHITE 6ea"], "qty": 7, "en_line": "DUVET SET, Q, CREAMWHITE 6ea", "zh_line": "被子套装 Q, 奶油白色 6件", "ko_line": "이불세트 Q, 크림화이트 6ea"}, {"size": "DUVET SET, Q", "colors": ["SMOKY CHARCOAL 6ea"], "qty": 6, "en_line": "DUVET SET, Q, SMOKY CHARCOAL 6ea", "zh_line": "被子套装 Q, 炭灰色 6件", "ko_line": "이불세트 Q, 스모키차콜 6ea"}, {"size": "DUVET SET, K", "colors": ["CREAMWHITE 5ea"], "qty": 6, "en_line": "DUVET SET, K, CREAMWHITE 5ea", "zh_line": "被子套装 K, 奶油白色 5件", "ko_line": "이불세트 K, 크림화이트 5ea"}, {"size": "DUVET SET, K", "colors": ["MILKBEIGE 5ea"], "qty": 9, "en_line": "DUVET SET, K, MILKBEIGE 5ea", "zh_line": "被子套装 K, 牛奶米色 5件", "ko_line": "이불세트 K, 밀크베이지 5ea"}, {"size": "DUVET SET, K", "colors": ["MOCHA BROWN 5ea"], "qty": 24, "en_line": "DUVET SET, K, MOCHA BROWN 5ea", "zh_line": "被子套装 K, 摩卡棕色 5件", "ko_line": "이불세트 K, 모카브라운 5ea"}, {"size": "DUVET SET, K", "colors": ["SMOKY CHARCOAL 5ea"], "qty": 8, "en_line": "DUVET SET, K, SMOKY CHARCOAL 5ea", "zh_line": "被子套装 K, 炭灰色 5件", "ko_line": "이불세트 K, 스모키차콜 5ea"}];
 const curtainData = [{"size": "CURTAIN 210X235CM", "colors": ["CREAM 17ea"], "qty": 5, "en_line": "CURTAIN 210X235CM, CREAM 17ea", "zh_line": "遮光窗帘 210X235CM, 奶油白色 17件", "ko_line": "암막커튼 210, 크림화이트 17ea"}, {"size": "CURTAIN 210X235CM", "colors": ["GREY 17ea"], "qty": 2, "en_line": "CURTAIN 210X235CM, GREY 17ea", "zh_line": "遮光窗帘 210X235CM, 灰色 17件", "ko_line": "암막커튼 210, 그레이 17ea"}];
 const facetowelData = [];
@@ -1365,43 +1366,48 @@ function drawSticker(ctx, s, w, h, seqNum) {
   ctx.roundRect(20, 20, w-40, h-40, 24);
   ctx.stroke();
 
-  /* 우상단 검정 배지 — 1cm 여분, 폰트 60px (대시보드 미리보기 비율) */
-  const marginRight = Math.round(w * (1/7));
+  /* ── 상단 행: 좌=순번 네모칸 / 우=×N BOX 배지 (같은 높이·양 모서리 정렬) ── */
+  const topY = Math.round(h * 0.045);
+  const rowH = Math.round(h * 0.10);
+  const sideMargin = Math.round(w * 0.05);
+  const rowCY = topY + rowH / 2;
+
+  /* 우: ×N BOX 검정 배지 */
   const badgeText = 'x ' + s.qty + ' BOX';
-  ctx.font = 'bold 60px Inter, sans-serif';
-  const bw = ctx.measureText(badgeText).width + 44;
-  const bh = 84;
-  const bx = w - marginRight - bw;
-  const by = 22;
+  ctx.font = 'bold ' + Math.round(rowH * 0.5) + 'px Inter, sans-serif';
+  const bpad = Math.round(rowH * 0.45);
+  const bw = ctx.measureText(badgeText).width + bpad * 2;
+  const bx = w - sideMargin - bw;
   ctx.fillStyle = '#333333';
   ctx.beginPath();
-  ctx.roundRect(bx, by, bw, bh, 42);
+  ctx.roundRect(bx, topY, bw, rowH, rowH * 0.28);
   ctx.fill();
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(badgeText, bx + bw/2, by + bh/2);
+  ctx.fillText(badgeText, bx + bw / 2, rowCY);
 
-  /* 좌상단 순번 — 전체 박스 통합 연번 (원 안 숫자) */
+  /* 좌: 순번 네모칸 (배지와 동일 높이의 정사각) */
   if (seqNum != null) {
-    const cR = Math.round(h * 0.085);
-    const cX = Math.round(w * (1/7)) + cR;
-    const cY = by + bh/2;
-    ctx.strokeStyle = '#333';
+    const sq = rowH;
+    const sx = sideMargin;
+    ctx.fillStyle = '#fff';
+    ctx.strokeStyle = '#333333';
     ctx.lineWidth = 7;
     ctx.beginPath();
-    ctx.arc(cX, cY, cR, 0, Math.PI*2);
+    ctx.roundRect(sx, topY, sq, sq, rowH * 0.18);
+    ctx.fill();
     ctx.stroke();
     ctx.fillStyle = '#000';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     const seqStr = String(seqNum);
-    let seqFs = Math.round(cR * 1.15);
+    let seqFs = Math.round(sq * 0.55);
     ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
-    while (ctx.measureText(seqStr).width > cR*1.6 && seqFs > 20) {
-      seqFs -= 6; ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
+    while (ctx.measureText(seqStr).width > sq * 0.78 && seqFs > 18) {
+      seqFs -= 5; ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
     }
-    ctx.fillText(seqStr, cX, cY);
+    ctx.fillText(seqStr, sx + sq / 2, rowCY);
   }
 
   /* CNIC: 가운데 맨 위 (배지 아래) — 화면 가득 채우게 크게 */
