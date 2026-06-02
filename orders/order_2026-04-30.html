@@ -1259,8 +1259,8 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const topperData = [{"size": "TOPPER 1.8", "colors": ["WHITE&BLACK 5ea"], "qty": 2, "en_line": "TOPPER 1.8, WHITE&BLACK 5ea", "zh_line": "床褥 1.8, 黑白色 5件"}, {"size": "TOPPER 1.8", "colors": ["BEIGE 4ea", "WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER 1.8, BEIGE 4ea + WHITE&BLACK 1ea", "zh_line": "床褥 1.8, 米色 4件 + 黑白色 1件", "mix": true}, {"size": "TOPPER 1.8", "colors": ["WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER 1.8, WHITE&BLACK 1ea", "zh_line": "床褥 1.8, 黑白色 1件", "mix": true}];
-const beddingData = [{"size": "DUVET SET, SS", "colors": ["CREAMWHITE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, CREAMWHITE 6ea", "zh_line": "被子套装 SS, 奶油白色 6件"}, {"size": "DUVET SET, SS", "colors": ["MILKBEIGE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, MILKBEIGE 6ea", "zh_line": "被子套装 SS, 牛奶米色 6件"}, {"size": "DUVET SET, K", "colors": ["MILKBEIGE 5ea"], "qty": 8, "en_line": "DUVET SET, K, MILKBEIGE 5ea", "zh_line": "被子套装 K, 牛奶米色 5件"}, {"size": "DUVET SET, K", "colors": ["SMOKY CHARCOAL 5ea"], "qty": 6, "en_line": "DUVET SET, K, SMOKY CHARCOAL 5ea", "zh_line": "被子套装 K, 炭灰色 5件"}];
+const topperData = [{"size": "TOPPER 1.8", "colors": ["WHITE&BLACK 5ea"], "qty": 2, "en_line": "TOPPER 1.8, WHITE&BLACK 5ea", "zh_line": "床褥 1.8, 黑白色 5件", "ko_line": "토퍼 1.8, 화이트블랙 5ea"}, {"size": "TOPPER 1.8", "colors": ["BEIGE 4ea", "WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER 1.8, BEIGE 4ea + WHITE&BLACK 1ea", "zh_line": "床褥 1.8, 米色 4件 + 黑白色 1件", "ko_line": "토퍼 1.8, 베이지 4ea + 화이트블랙 1ea", "mix": true}, {"size": "TOPPER 1.8", "colors": ["WHITE&BLACK 1ea"], "qty": 1, "en_line": "TOPPER 1.8, WHITE&BLACK 1ea", "zh_line": "床褥 1.8, 黑白色 1件", "ko_line": "토퍼 1.8, 화이트블랙 1ea", "mix": true}];
+const beddingData = [{"size": "DUVET SET, SS", "colors": ["CREAMWHITE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, CREAMWHITE 6ea", "zh_line": "被子套装 SS, 奶油白色 6件", "ko_line": "이불세트 SS, 크림화이트 6ea"}, {"size": "DUVET SET, SS", "colors": ["MILKBEIGE 6ea"], "qty": 9, "en_line": "DUVET SET, SS, MILKBEIGE 6ea", "zh_line": "被子套装 SS, 牛奶米色 6件", "ko_line": "이불세트 SS, 밀크베이지 6ea"}, {"size": "DUVET SET, K", "colors": ["MILKBEIGE 5ea"], "qty": 8, "en_line": "DUVET SET, K, MILKBEIGE 5ea", "zh_line": "被子套装 K, 牛奶米色 5件", "ko_line": "이불세트 K, 밀크베이지 5ea"}, {"size": "DUVET SET, K", "colors": ["SMOKY CHARCOAL 5ea"], "qty": 6, "en_line": "DUVET SET, K, SMOKY CHARCOAL 5ea", "zh_line": "被子套装 K, 炭灰色 5件", "ko_line": "이불세트 K, 스모키차콜 5ea"}];
 const curtainData = [];
 const facetowelData = [];
 const trash18Data = [];
@@ -1275,16 +1275,32 @@ const allCategories = {
   trash20: {data: trash20Data, label:'휴지통20L', fname:'外部箱子20升垃圾桶贴纸,bin 20L'},
 };
 
+/* 전역 박스 연번 — 모든 품목 가로질러 1~XX 연속 부여 (어느 PDF를 받든 번호 고정) */
+(function assignGlobalSeq(){
+  let counter = 0;
+  ['topper','bedding','curtain','facetowel','trash18','trash20'].forEach(function(k){
+    const cat = allCategories[k];
+    if (!cat || !cat.data) return;
+    cat.data.forEach(function(s){
+      s._seqStart = counter + 1;        /* 이 품목 첫 박스의 전역 번호 */
+      counter += (s.qty || 0);          /* 박스 수만큼 전진 */
+    });
+  });
+})();
+
 function renderCards(data, containerId) {
   const wrap = document.getElementById(containerId);
   data.forEach(s => {
     const d = document.createElement('div');
     d.className = 'pdf-card' + (s.mix ? ' mix' : '');
+    const seqEnd = (s._seqStart || 1) + (s.qty || 1) - 1;
+    const seqTxt = (s.qty > 1) ? (s._seqStart + '~' + seqEnd) : ('' + s._seqStart);
     d.innerHTML =
       '<div class="pc-qty">× ' + s.qty + ' BOX</div>' +
       '<div class="pc-brand">CNIC</div>' +
-      '<div class="pc-en">' + (s.en_line || s.size) + '</div>' +
-      '<div class="pc-zh">' + (s.zh_line || '') + '</div>';
+      '<div class="pc-en">' + (s.ko_line || s.en_line || s.size) + '</div>' +
+      '<div class="pc-zh">' + (s.zh_line || '') + '</div>' +
+      '<div style="margin-top:6px;font-size:12px;font-weight:700;color:#888;">No. ' + seqTxt + '</div>';
     wrap.appendChild(d);
   });
 }
@@ -1303,7 +1319,7 @@ renderCards(trash20Data, 'preview-trash20');
  *   4) "x N BOX" 검정 배지: 우상단 모서리, 1cm 여분
  *   5) 흑백 인쇄용 — 배지/외곽선 모두 검정 (FULL/MIX 외곽선만 동일)
  */
-function drawSticker(ctx, s, w, h) {
+function drawSticker(ctx, s, w, h, seqNum) {
   /* 배경 — 흑백 통일 (mix도 흰색) */
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, w, h);
@@ -1331,6 +1347,28 @@ function drawSticker(ctx, s, w, h) {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(badgeText, bx + bw/2, by + bh/2);
+
+  /* 좌상단 순번 — 전체 박스 통합 연번 (원 안 숫자) */
+  if (seqNum != null) {
+    const cR = Math.round(h * 0.085);
+    const cX = Math.round(w * (1/7)) + cR;
+    const cY = by + bh/2;
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 7;
+    ctx.beginPath();
+    ctx.arc(cX, cY, cR, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.fillStyle = '#000';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const seqStr = String(seqNum);
+    let seqFs = Math.round(cR * 1.15);
+    ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
+    while (ctx.measureText(seqStr).width > cR*1.6 && seqFs > 20) {
+      seqFs -= 6; ctx.font = 'bold ' + seqFs + 'px Inter, sans-serif';
+    }
+    ctx.fillText(seqStr, cX, cY);
+  }
 
   /* CNIC: 가운데 맨 위 (배지 아래) — 화면 가득 채우게 크게 */
   ctx.fillStyle = '#000';
@@ -1412,12 +1450,13 @@ function drawSticker(ctx, s, w, h) {
     }
   }
 
-  /* 영문 — 기본 90px, 안 들어가면 자동 축소·3줄 wrap */
+  /* 한글 상품명 — 기본 90px, 안 들어가면 자동 축소·3줄 wrap */
   ctx.fillStyle = '#222';
-  const enLine = (s.en_line || s.size) || '';
-  const enFit = _fitLines(enLine, 90, 'Inter, sans-serif', w - 80);
-  ctx.font = 'bold ' + enFit.fs + 'px Inter, sans-serif';
-  _drawLines(enFit.lines, enFit.fs, h * 0.56);
+  const koFontStr = '"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif';
+  const enLine = (s.ko_line || s.en_line || s.size) || '';
+  const enFit = _fitLines(enLine, 90, koFontStr, w - 80);
+  ctx.font = 'bold ' + enFit.fs + 'px ' + koFontStr;
+  _drawLines(enFit.lines, enFit.fs, h * 0.58);
 
   /* 중국어 — 기본 80px, 안 들어가면 자동 축소·3줄 wrap */
   ctx.fillStyle = '#333';
@@ -1435,23 +1474,30 @@ function drawSticker(ctx, s, w, h) {
   }
 }
 
-/* PDF 생성 — 7cm × 5cm 가로 형식, 페이지당 스티커 1장 */
+/* PDF 생성 — 10cm × 10cm 정사각, 박스마다 1장 (전역 연번) */
 function makePDFBlob(data, statusCb) {
   const { jsPDF } = window.jspdf;
-  /* 7cm × 5cm = 70mm × 50mm. 캔버스는 1400×1000px (200dpi 상당) */
-  const widthMm = 70;
-  const heightMm = 50;
-  const widthPx = 1400;
-  const heightPx = 1000;
-  const pdf = new jsPDF({ unit:'mm', format:[widthMm, heightMm], orientation:'landscape' });
+  /* 10cm × 10cm = 100mm × 100mm. 캔버스 1000×1000px */
+  const sizeMm = 100;
+  const px = 1000;
+  const pdf = new jsPDF({ unit:'mm', format:[sizeMm, sizeMm], orientation:'portrait' });
   const canvas = document.createElement('canvas');
-  canvas.width = widthPx; canvas.height = heightPx;
+  canvas.width = px; canvas.height = px;
   const ctx = canvas.getContext('2d');
+  /* 박스당 1장 펼침 — _seqStart 기준 전역 연번 (1~XX) */
+  const totalBoxes = data.reduce((a, s) => a + (s.qty || 1), 0);
+  let page = 0, done = 0;
   for (let i = 0; i < data.length; i++) {
-    if (i > 0) pdf.addPage([widthMm, heightMm], 'landscape');
-    if (statusCb) statusCb(i+1, data.length);
-    drawSticker(ctx, data[i], widthPx, heightPx);
-    pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, widthMm, heightMm);
+    const s = data[i];
+    const n = s.qty || 1;
+    const base = s._seqStart || 1;
+    for (let j = 0; j < n; j++) {
+      if (page > 0) pdf.addPage([sizeMm, sizeMm], 'portrait');
+      page++; done++;
+      if (statusCb) statusCb(done, totalBoxes);
+      drawSticker(ctx, s, px, px, base + j);
+      pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, sizeMm, sizeMm);
+    }
   }
   return pdf.output('blob');
 }
@@ -1478,7 +1524,7 @@ async function generatePDF(catKey) {
   URL.revokeObjectURL(url);
 
   btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
-  status.textContent = '✅ ' + cat.label + ' ' + cat.data.length + '장 PDF 다운로드 완료!';
+  status.textContent = '✅ ' + cat.label + ' ' + cat.data.reduce((a,s)=>a+(s.qty||1),0) + '장 PDF 다운로드 완료!';
 }
 
 /* 전체 PDF — 모든 카테고리 스티커를 한 PDF에 페이지 넘김 */
@@ -1512,7 +1558,7 @@ async function downloadAllPDF() {
   URL.revokeObjectURL(url);
 
   btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
-  status.textContent = '✅ 전체 PDF 다운로드 완료! (총 ' + allData.length + '장)';
+  status.textContent = '✅ 전체 PDF 다운로드 완료! (총 ' + allData.reduce((a,s)=>a+(s.qty||1),0) + '장)';
 }
 </script>
 
