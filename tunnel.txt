@@ -1,1 +1,1 @@
-https://reflected-prison-says-reader.trycloudflare.com
+https://api.trycloudflare.com
