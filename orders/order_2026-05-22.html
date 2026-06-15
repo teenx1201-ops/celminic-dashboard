@@ -206,12 +206,12 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <h1>CELMINIC ORDER</h1>
 <div class="date">2026-05-22</div>
-<div style="text-align:center;color:#888;font-size:11px;margin:-8px 0 12px;"><span style="color:#1976d2;">정식 5/9</span> &nbsp;·&nbsp; <span style="color:#e65100;">추가 5/22</span></div>
+<div style="text-align:center;color:#888;font-size:11px;margin:-8px 0 12px;"><span style="color:#1976d2;">정식 —</span> &nbsp;·&nbsp; <span style="color:#e65100;">추가 5/22</span></div>
 
 <div class="date-bar">
-<button class="date-btn" onclick="switchDate('main')">정식발주 <span class="date-type type-main">905개</span></button>
+<button class="date-btn" onclick="switchDate('main')">정식발주 <span class="date-type type-main">0개</span></button>
 <div class="date-btn-wrap"><button class="date-btn" onclick="toggleExtraMenu(event)">추가발주 <span class="caret">▼</span> <span class="date-type type-extra">1건 / 100개</span></button><div class="extra-menu" id="extra-menu"><button onclick="switchDate('extra_all')">전체 추가 (1건 / 100개)</button><button onclick="switchDate('2026-05-22_extra')">5/22 추가 (100개)</button></div></div>
-<button class="date-btn active" onclick="switchDate('total')">전체 합산 <span class="date-type type-total">1,005개</span></button>
+<button class="date-btn active" onclick="switchDate('total')">전체 합산 <span class="date-type type-total">100개</span></button>
 <button class="gritree-dl-btn" onclick="downloadGritreeExcel(event)" title="현재 보이는 발주서 → 그리트리 배대지 엑셀">🌳 그리트리 엑셀</button>
 </div>
 <div class="nav-bar">
@@ -222,9 +222,9 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
       <span class="prod-arrow">▼</span>
     </button>
     <div class="prod-dropdown-menu" id="prod-dropdown-menu">
-      <div class="prod-dropdown-item active" onclick="selectProd('topper',this)">토퍼<span class="di-count">224</span></div>
-      <div class="prod-dropdown-item" onclick="selectProd('bedding',this)">이불세트<span class="di-count">557</span></div>
-      <div class="prod-dropdown-item" onclick="selectProd('curtain',this)">커튼<span class="di-count">224</span></div>
+      <div class="prod-dropdown-item active" onclick="selectProd('topper',this)">토퍼<span class="di-count">0</span></div>
+      <div class="prod-dropdown-item" onclick="selectProd('bedding',this)">이불세트<span class="di-count">0</span></div>
+      <div class="prod-dropdown-item" onclick="selectProd('curtain',this)">커튼<span class="di-count">100</span></div>
       <div class="prod-dropdown-item" onclick="selectProd('trash18',this)">휴지통18L<span class="di-count">0</span></div>
       <div class="prod-dropdown-item" onclick="selectProd('trash20',this)">휴지통20L<span class="di-count">0</span></div>
       <div class="prod-dropdown-item" onclick="selectProd('facetowel',this)">페이스타올<span class="di-count">0</span></div>
@@ -236,360 +236,14 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 
 <div id="sub-topper" class="sub-content active">
 <div class="date-content active" data-date="total">
-<div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per박스 — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
-
-<div class="cards-grid">
-<div class="card">
-  <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-val">162</td><td class="box-val">27</td></tr>
-        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.8</td><td class="qty-val">20</td><td class="box-val">4</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">182 pcs / 31박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../ivory.jpg');"><div class="label">IVORY</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.5</td><td class="qty-val">6</td><td class="box-val">1</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">6 pcs / 1박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../whiteblack.jpg');"><div class="label">WHITE &amp; BLACK</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.5</td><td class="qty-val">24</td><td class="box-val">4</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">24 pcs / 4박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../beige.jpg');"><div class="label">BEIGE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">0 pcs / 0박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../grey.jpg');"><div class="label">GREY</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-val">12</td><td class="box-val">2</td></tr>
-        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">12 pcs / 2박스</div>
-  </div>
-</div>
-</div>
-
-<div class="section-total">TOPPER: 224 PCS / 38 BOXES</div>
-
-<div class="section-total" style="margin-top:20px;font-size:16px;">토퍼+이불 TOTAL: 781 PCS / 136 BOXES</div>
-
-<div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #e65100;border-radius:8px;background:#fff8f0;">
-  <div style="font-size:12px;font-weight:800;color:#e65100;margin-bottom:10px;">🔒 토퍼+이불 원가</div>
-  <table class="size-table">
-    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
-    <tbody>
-      <tr><td>토퍼 SS (1.2)</td><td class="box-val">174</td><td class="box-val">40.00</td><td class="box-val">6,960.00</td></tr>
-      <tr><td>토퍼 Q (1.5)</td><td class="box-val">30</td><td class="box-val">45.00</td><td class="box-val">1,350.00</td></tr>
-      <tr><td>토퍼 K (1.8)</td><td class="box-val">20</td><td class="box-val">50.00</td><td class="box-val">1,000.00</td></tr>
-      <tr><td>이불 SS</td><td class="box-val">132</td><td class="box-val">55.50</td><td class="box-val">7,326.00</td></tr>
-      <tr><td>이불 Q</td><td class="box-val">295</td><td class="box-val">71.00</td><td class="box-val">20,945.00</td></tr>
-      <tr><td>이불 K</td><td class="box-val">130</td><td class="box-val">78.00</td><td class="box-val">10,140.00</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #e65100;text-align:center;">
-    <div style="font-size:16px;font-weight:800;color:#e65100;">47,721.00 CNY</div>
-  </div>
-</div></div>
-<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">TOPPER</div><div class="box-info">per박스 — 1.2: 6pcs / 1.5: 6pcs / 1.8: 5pcs</div>
-<div class="cards-grid">
-<div class="card">
-  <div class="card-photo" style="background-image:url('../charcoal.jpg');"><div class="label">CHARCOAL</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-val">162</td><td class="box-val">27</td></tr>
-        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.8</td><td class="qty-val">20</td><td class="box-val">4</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">182 pcs / 31박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../ivory.jpg');"><div class="label">IVORY</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.5</td><td class="qty-val">6</td><td class="box-val">1</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">6 pcs / 1박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../whiteblack.jpg');"><div class="label">WHITE &amp; BLACK</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.5</td><td class="qty-val">24</td><td class="box-val">4</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">24 pcs / 4박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../beige.jpg');"><div class="label">BEIGE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">0 pcs / 0박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../grey.jpg');"><div class="label">GREY</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>1.2</td><td class="qty-val">12</td><td class="box-val">2</td></tr>
-        <tr><td>1.5</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>1.8</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">12 pcs / 2박스</div>
-  </div>
-</div>
-</div>
-<div class="section-total">TOPPER: 224 PCS / 38 BOXES</div>
-<div class="section-total" style="margin-top:20px;font-size:16px;">토퍼+이불 TOTAL: 781 PCS / 136 BOXES</div>
-<div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #e65100;border-radius:8px;background:#fff8f0;">
-  <div style="font-size:12px;font-weight:800;color:#e65100;margin-bottom:10px;">🔒 토퍼+이불 원가</div>
-  <table class="size-table">
-    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
-    <tbody>
-      <tr><td>토퍼 SS (1.2)</td><td class="box-val">174</td><td class="box-val">40.00</td><td class="box-val">6,960.00</td></tr>
-      <tr><td>토퍼 Q (1.5)</td><td class="box-val">30</td><td class="box-val">45.00</td><td class="box-val">1,350.00</td></tr>
-      <tr><td>토퍼 K (1.8)</td><td class="box-val">20</td><td class="box-val">50.00</td><td class="box-val">1,000.00</td></tr>
-      <tr><td>이불 SS</td><td class="box-val">132</td><td class="box-val">55.50</td><td class="box-val">7,326.00</td></tr>
-      <tr><td>이불 Q</td><td class="box-val">295</td><td class="box-val">71.00</td><td class="box-val">20,945.00</td></tr>
-      <tr><td>이불 K</td><td class="box-val">130</td><td class="box-val">78.00</td><td class="box-val">10,140.00</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #e65100;text-align:center;">
-    <div style="font-size:16px;font-weight:800;color:#e65100;">47,721.00 CNY</div>
-  </div>
-</div></div>
+<div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-22_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
 
 <div id="sub-bedding" class="sub-content">
 <div class="date-content active" data-date="total">
-<div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING SET</div><div class="box-info">per박스 — SS: 6pcs / Q: 6pcs / K: 5pcs</div>
-
-<div class="cards-grid">
-<div class="card">
-  <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-val">24</td><td class="box-val">4</td></tr>
-        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>K</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">24 pcs / 4박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-val">108</td><td class="box-val">18</td></tr>
-        <tr><td>Q</td><td class="qty-val">90</td><td class="box-val">15</td></tr>
-        <tr><td>K</td><td class="qty-val">45</td><td class="box-val">9</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">243 pcs / 42박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>Q</td><td class="qty-val">100</td><td class="box-val">17</td></tr>
-        <tr><td>K</td><td class="qty-val">35</td><td class="box-val">7</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">135 pcs / 24박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>Q</td><td class="qty-val">105</td><td class="box-val">18</td></tr>
-        <tr><td>K</td><td class="qty-val">50</td><td class="box-val">10</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">155 pcs / 28박스</div>
-  </div>
-</div>
-</div>
-
-<div class="section-total">BEDDING: 557 PCS / 98 BOXES</div>
-
-<div class="section-total" style="margin-top:20px;font-size:16px;">토퍼+이불 TOTAL: 781 PCS / 136 BOXES</div>
-
-<div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #e65100;border-radius:8px;background:#fff8f0;">
-  <div style="font-size:12px;font-weight:800;color:#e65100;margin-bottom:10px;">🔒 토퍼+이불 원가</div>
-  <table class="size-table">
-    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
-    <tbody>
-      <tr><td>토퍼 SS (1.2)</td><td class="box-val">174</td><td class="box-val">40.00</td><td class="box-val">6,960.00</td></tr>
-      <tr><td>토퍼 Q (1.5)</td><td class="box-val">30</td><td class="box-val">45.00</td><td class="box-val">1,350.00</td></tr>
-      <tr><td>토퍼 K (1.8)</td><td class="box-val">20</td><td class="box-val">50.00</td><td class="box-val">1,000.00</td></tr>
-      <tr><td>이불 SS</td><td class="box-val">132</td><td class="box-val">55.50</td><td class="box-val">7,326.00</td></tr>
-      <tr><td>이불 Q</td><td class="box-val">295</td><td class="box-val">71.00</td><td class="box-val">20,945.00</td></tr>
-      <tr><td>이불 K</td><td class="box-val">130</td><td class="box-val">78.00</td><td class="box-val">10,140.00</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #e65100;text-align:center;">
-    <div style="font-size:16px;font-weight:800;color:#e65100;">47,721.00 CNY</div>
-  </div>
-</div></div>
-<div class="date-content" data-date="main"><div style="font-size:14px;font-weight:800;color:#ff4444;margin-bottom:8px;">BEDDING</div><div class="box-info">per박스 — SS: 6pcs / Q: 6pcs / K: 5pcs</div>
-<div class="cards-grid">
-<div class="card">
-  <div class="card-photo" style="background-image:url('../creamwhite.jpg');"><div class="label">CREAM WHITE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-val">24</td><td class="box-val">4</td></tr>
-        <tr><td>Q</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>K</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">24 pcs / 4박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../milkbeige.jpg');"><div class="label">MILK BEIGE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-val">108</td><td class="box-val">18</td></tr>
-        <tr><td>Q</td><td class="qty-val">90</td><td class="box-val">15</td></tr>
-        <tr><td>K</td><td class="qty-val">45</td><td class="box-val">9</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">243 pcs / 42박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../mocha.jpg');"><div class="label">MOCHA BROWN</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>Q</td><td class="qty-val">100</td><td class="box-val">17</td></tr>
-        <tr><td>K</td><td class="qty-val">35</td><td class="box-val">7</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">135 pcs / 24박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../charcoal_bed.jpg');"><div class="label">SMOKY CHARCOAL</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>SS</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>Q</td><td class="qty-val">105</td><td class="box-val">18</td></tr>
-        <tr><td>K</td><td class="qty-val">50</td><td class="box-val">10</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">155 pcs / 28박스</div>
-  </div>
-</div>
-</div>
-<div class="section-total">BEDDING: 557 PCS / 98 BOXES</div>
-<div class="section-total" style="margin-top:20px;font-size:16px;">토퍼+이불 TOTAL: 781 PCS / 136 BOXES</div>
-<div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #e65100;border-radius:8px;background:#fff8f0;">
-  <div style="font-size:12px;font-weight:800;color:#e65100;margin-bottom:10px;">🔒 토퍼+이불 원가</div>
-  <table class="size-table">
-    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
-    <tbody>
-      <tr><td>토퍼 SS (1.2)</td><td class="box-val">174</td><td class="box-val">40.00</td><td class="box-val">6,960.00</td></tr>
-      <tr><td>토퍼 Q (1.5)</td><td class="box-val">30</td><td class="box-val">45.00</td><td class="box-val">1,350.00</td></tr>
-      <tr><td>토퍼 K (1.8)</td><td class="box-val">20</td><td class="box-val">50.00</td><td class="box-val">1,000.00</td></tr>
-      <tr><td>이불 SS</td><td class="box-val">132</td><td class="box-val">55.50</td><td class="box-val">7,326.00</td></tr>
-      <tr><td>이불 Q</td><td class="box-val">295</td><td class="box-val">71.00</td><td class="box-val">20,945.00</td></tr>
-      <tr><td>이불 K</td><td class="box-val">130</td><td class="box-val">78.00</td><td class="box-val">10,140.00</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #e65100;text-align:center;">
-    <div style="font-size:16px;font-weight:800;color:#e65100;">47,721.00 CNY</div>
-  </div>
-</div></div>
+<div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-22_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -608,97 +262,24 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
       <tbody>
         <tr><td>130</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
         <tr><td>140</td><td class="qty-val">100</td><td class="box-val">4박스</td></tr>
-        <tr><td>210</td><td class="qty-val">51</td><td class="box-val">3박스</td></tr>
+        <tr><td>210</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
       </tbody>
     </table>
-    <div class="card-total">151 pcs / 7박스</div>
+    <div class="card-total">100 pcs / 4박스</div>
   </div>
 </div>
 <div class="card">
   <div class="card-photo" style="background-image:url('../curtain_milkbeige.jpg');"><div class="label">牛奶米色 MILK BEIGE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>130</td><td class="qty-val">11</td><td class="box-val">0.37박스</td></tr>
-        <tr><td>140</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>210</td><td class="qty-val">61</td><td class="box-val">3.59박스</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">72 pcs / 3.95박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../curtain_grey.jpg');"><div class="label">灰色 GREY</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>130</td><td class="qty-val">1</td><td class="box-val">0.03박스</td></tr>
-        <tr><td>140</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>210</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">1 pcs / 0.03박스</div>
-  </div>
-</div>
-</div>
-
-<div style="margin-top:16px; padding:12px; border:1px solid #e0e0e0; border-radius:8px; background:#f8f8f8;">
-  <table class="size-table">
-    <thead><tr><th>SIZE</th><th>TOTAL QTY</th><th>MIXED BOX</th></tr></thead>
-    <tbody>
-      <tr><td>130cm</td><td class="qty-val">12</td><td class="box-val">0</td></tr>
-      <tr><td>140cm</td><td class="qty-val">100</td><td class="box-val">4</td></tr>
-      <tr><td>210cm</td><td class="qty-val">112</td><td class="box-val">6</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="section-total">CURTAIN TOTAL: 224 PCS / 10 BOXES (mixed)</div>
-
-<div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #e65100;border-radius:8px;background:#fff8f0;">
-  <div style="font-size:12px;font-weight:800;color:#e65100;margin-bottom:10px;">🔒 커튼 원가</div>
-  <table class="size-table">
-    <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
-    <tbody>
-      <tr><td>커튼 130cm</td><td class="box-val">12</td><td class="box-val">35.55</td><td class="box-val">426.60</td></tr>
-      <tr><td>커튼 140cm</td><td class="box-val">100</td><td class="box-val">40.95</td><td class="box-val">4,095.00</td></tr>
-      <tr><td>커튼 210cm</td><td class="box-val">112</td><td class="box-val">65.25</td><td class="box-val">7,308.00</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:10px;padding-top:10px;border-top:2px solid #e65100;text-align:center;">
-    <div style="font-size:16px;font-weight:800;color:#e65100;">11,829.60 CNY</div>
-  </div>
-</div></div>
-<div class="date-content" data-date="main"><div class="box-info">per박스 — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
-<div class="cards-grid">
-<div class="card">
-  <div class="card-photo" style="background-image:url('../curtain_cream.jpg');"><div class="label">奶油白色 CREAM WHITE</div></div>
   <div class="card-body">
     <table class="size-table">
       <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
       <tbody>
         <tr><td>130</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
         <tr><td>140</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>210</td><td class="qty-val">51</td><td class="box-val">3박스</td></tr>
+        <tr><td>210</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
       </tbody>
     </table>
-    <div class="card-total">51 pcs / 3박스</div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-photo" style="background-image:url('../curtain_milkbeige.jpg');"><div class="label">牛奶米色 MILK BEIGE</div></div>
-  <div class="card-body">
-    <table class="size-table">
-      <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
-      <tbody>
-        <tr><td>130</td><td class="qty-val">11</td><td class="box-val">0.37박스</td></tr>
-        <tr><td>140</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
-        <tr><td>210</td><td class="qty-val">61</td><td class="box-val">3.59박스</td></tr>
-      </tbody>
-    </table>
-    <div class="card-total">72 pcs / 3.95박스</div>
+    <div class="card-total">0 pcs / 0박스</div>
   </div>
 </div>
 <div class="card">
@@ -707,37 +288,39 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
     <table class="size-table">
       <thead><tr><th>SIZE</th><th>QTY</th><th>BOX</th></tr></thead>
       <tbody>
-        <tr><td>130</td><td class="qty-val">1</td><td class="box-val">0.03박스</td></tr>
+        <tr><td>130</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
         <tr><td>140</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
         <tr><td>210</td><td class="qty-zero">0</td><td class="box-val">-</td></tr>
       </tbody>
     </table>
-    <div class="card-total">1 pcs / 0.03박스</div>
+    <div class="card-total">0 pcs / 0박스</div>
   </div>
 </div>
 </div>
+
 <div style="margin-top:16px; padding:12px; border:1px solid #e0e0e0; border-radius:8px; background:#f8f8f8;">
   <table class="size-table">
     <thead><tr><th>SIZE</th><th>TOTAL QTY</th><th>MIXED BOX</th></tr></thead>
     <tbody>
-      <tr><td>130cm</td><td class="qty-val">12</td><td class="box-val">0</td></tr>
-      <tr><td>140cm</td><td class="qty-val">0</td><td class="box-val">0</td></tr>
-      <tr><td>210cm</td><td class="qty-val">112</td><td class="box-val">6</td></tr>
+      <tr><td>130cm</td><td class="qty-val">0</td><td class="box-val">0</td></tr>
+      <tr><td>140cm</td><td class="qty-val">100</td><td class="box-val">4</td></tr>
+      <tr><td>210cm</td><td class="qty-val">0</td><td class="box-val">0</td></tr>
     </tbody>
   </table>
 </div>
-<div class="section-total">CURTAIN TOTAL: 124 PCS / 6 BOXES</div>
+
+<div class="section-total">CURTAIN TOTAL: 100 PCS / 4 BOXES (mixed)</div>
+
 <div style="max-width:740px;margin:16px auto 0;padding:16px;border:2px solid #e65100;border-radius:8px;background:#fff8f0;">
   <div style="font-size:12px;font-weight:800;color:#e65100;margin-bottom:10px;">🔒 커튼 원가</div>
   <table class="size-table">
     <thead><tr><th style="text-align:left;">ITEM</th><th>PCS</th><th>UNIT(CNY)</th><th>TOTAL(CNY)</th></tr></thead>
     <tbody>
-      <tr><td>커튼 130cm</td><td class="box-val">12</td><td class="box-val">35.55</td><td class="box-val">426.60</td></tr>
-      <tr><td>커튼 210cm</td><td class="box-val">112</td><td class="box-val">65.25</td><td class="box-val">7,308.00</td></tr>
+      <tr><td>커튼 140cm</td><td class="box-val">100</td><td class="box-val">40.95</td><td class="box-val">4,095.00</td></tr>
     </tbody>
   </table>
   <div style="margin-top:10px;padding-top:10px;border-top:2px solid #e65100;text-align:center;">
-    <div style="font-size:16px;font-weight:800;color:#e65100;">7,734.60 CNY</div>
+    <div style="font-size:16px;font-weight:800;color:#e65100;">4,095.00 CNY</div>
   </div>
 </div></div>
 <div class="date-content" data-date="extra_all"><div class="box-info">per박스 — 130cm: 30pcs / 140cm: 25pcs / 210cm: 17pcs</div>
@@ -881,7 +464,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div id="sub-trash18" class="sub-content">
 <div class="date-content active" data-date="total">
 <div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
-<div class="date-content" data-date="main"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-22_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -889,7 +471,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div id="sub-trash20" class="sub-content">
 <div class="date-content active" data-date="total">
 <div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
-<div class="date-content" data-date="main"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-22_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -897,7 +478,6 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div id="sub-facetowel" class="sub-content">
 <div class="date-content active" data-date="total">
 <div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
-<div class="date-content" data-date="main"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="extra_all"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 <div class="date-content" data-date="2026-05-22_extra"><div style="padding:20px;text-align:center;color:#999;">발주 없음</div></div>
 </div>
@@ -1019,120 +599,16 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 .bx-srow.total { font-weight: 800; border-top: 2px solid #333; margin-top: 8px; padding-top: 10px; font-size: 15px; }
 .bx-subrow { padding: 1px 0 1px 18px; font-size: 11px; color: #6b6b6b; }
 </style>
-<div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">224개 · 38박스 · 4.56 CBM</span></div>
-<div class="per-box-info">SS (1.2): 6개/box · Q (1.5): 6개/box · K (1.8): 5개/box</div>
-<div class="card-grid">
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#4a4a4a;"></span>
-<span class="card-color-name">차콜</span>
-<span class="card-total">31박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">27박스</span><span class="size-ea">(162개)</span><span class="size-cbm">3.24cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">4박스</span><span class="size-ea">(20개)</span><span class="size-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#9e9e9e;"></span>
-<span class="card-color-name">그레이</span>
-<span class="card-total">2박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">2박스</span><span class="size-ea">(12개)</span><span class="size-cbm">0.24cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
-<span class="card-color-name">아이보리</span>
-<span class="card-total">1박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">1박스</span><span class="size-ea">(6개)</span><span class="size-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#222222;"></span>
-<span class="card-color-name">화이트블랙</span>
-<span class="card-total">4박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">4박스</span><span class="size-ea">(24개)</span><span class="size-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
-</div>
-</div>
-<div class="total-bar"><span>토퍼 합계</span><span>224개 · 38박스 · 4.56 CBM</span></div>
-<hr class="section-divider">
-<div class="prod-header" style="color:#e65100;border-color:#e65100;">이불세트 <span class="sub">557개 · 98박스 · 11.76 CBM</span></div>
-<div class="per-box-info">SS: 6개/box · Q: 6개/box · K: 5개/box</div>
+<div class="prod-header" style="color:#e65100;border-color:#e65100;">커튼 <span class="sub">122개 · 5박스 · 0.50 CBM</span></div>
+<div class="per-box-info">140 X 230: 25개/box</div>
 <div class="card-grid">
 <div class="box-card">
 <div class="card-head">
 <span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
 <span class="card-color-name">크림화이트</span>
 <span class="card-total">4박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-qty">4박스</span><span class="size-ea">(24개)</span><span class="size-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-empty">—</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
-<span class="card-color-name">밀크베이지</span>
-<span class="card-total">42박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-qty">18박스</span><span class="size-ea">(108개)</span><span class="size-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-qty">15박스</span><span class="size-ea">(90개)</span><span class="size-cbm">1.80cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-qty">9박스</span><span class="size-ea">(45개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#8b6f4e;"></span>
-<span class="card-color-name">모카브라운</span>
-<span class="card-total">24박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-qty">16박스</span><span class="size-ea">(96개)</span><span class="size-cbm">1.92cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row" style="background:#fff8e1;"><span class="size-label">Q <span style="color:#e65100;font-weight:600;">자투리</span></span><span class="size-qty">1박스</span><span class="size-ea">(4개)</span><span class="size-cbm">0.12cbm</span><span class="gauge-badge partial">67%</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-qty">7박스</span><span class="size-ea">(35개)</span><span class="size-cbm">0.84cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#5a5a5a;"></span>
-<span class="card-color-name">스모키차콜</span>
-<span class="card-total">28박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-qty">17박스</span><span class="size-ea">(102개)</span><span class="size-cbm">2.04cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row" style="background:#fff8e1;"><span class="size-label">Q <span style="color:#e65100;font-weight:600;">자투리</span></span><span class="size-qty">1박스</span><span class="size-ea">(3개)</span><span class="size-cbm">0.12cbm</span><span class="gauge-badge partial">50%</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-qty">10박스</span><span class="size-ea">(50개)</span><span class="size-cbm">1.20cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-</div>
-<div class="total-bar"><span>이불세트 합계</span><span>557개 · 98박스 · 11.76 CBM</span></div>
-<hr class="section-divider">
-<div class="prod-header" style="color:#e65100;border-color:#e65100;">커튼 <span class="sub">224개 · 11박스 · 1.10 CBM</span></div>
-<div class="per-box-info">140 X 230: 25개/box · 210 X 235: 17개/box</div>
-<div class="card-grid">
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
-<span class="card-color-name">크림화이트</span>
-<span class="card-total">7박스</span>
 </div>
 <div class="size-row"><span class="size-label">140 X 230</span><span class="size-qty">4박스</span><span class="size-ea">(100개)</span><span class="size-cbm">0.40cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">210 X 235</span><span class="size-qty">3박스</span><span class="size-ea">(51개)</span><span class="size-cbm">0.30cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
-<span class="card-color-name">밀크베이지</span>
-<span class="card-total">3박스</span>
-</div>
-<div class="size-row"><span class="size-label">140 X 230</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">210 X 235</span><span class="size-qty">3박스</span><span class="size-ea">(51개)</span><span class="size-cbm">0.30cbm</span><span class="gauge-badge full">✓</span></div>
 </div>
 <div class="box-card mix-card">
 <div class="card-head">
@@ -1144,196 +620,19 @@ h1 { text-align: center; font-size: 22px; margin-bottom: 4px; letter-spacing: 2p
 <div class="mix-row"><span class="mix-size">130 X 170</span><span class="mix-contents"><span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 11개 <span class="mplus">+</span> <span class="cdot" style="background:#9e9e9e;"></span>그레이 1개</span><span class="mix-info">12개 <span class="gauge-badge full">✓</span></span></div>
 </div>
 </div>
-<div class="total-bar"><span>커튼 합계</span><span>224개 · 11박스 · 1.10 CBM</span></div>
+<div class="total-bar"><span>커튼 합계</span><span>122개 · 5박스 · 0.50 CBM</span></div>
 <hr class="section-divider">
 
 <div class="bx-summary">
   <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
-  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">토퍼 <span style="color:#888;font-weight:400;">(0.12 CBM/box)</span></div>
-  <div class="bx-srow"><span>토퍼 SS (1.2)</span><span>174개 · 29박스 · 3.48 CBM <span style="color:#888;font-size:11px;">(정상 29)</span></span></div>
-  <div class="bx-subrow">└ 차콜 27 · 그레이 2박스</div>
-  <div class="bx-srow"><span>토퍼 Q (1.5)</span><span>30개 · 5박스 · 0.60 CBM <span style="color:#888;font-size:11px;">(정상 5)</span></span></div>
-  <div class="bx-subrow">└ 아이보리 1 · 화이트블랙 4박스</div>
-  <div class="bx-srow"><span>토퍼 K (1.8)</span><span>20개 · 4박스 · 0.48 CBM <span style="color:#888;font-size:11px;">(정상 4)</span></span></div>
-  <div class="bx-subrow">└ 차콜 4박스</div>
-  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>토퍼 소계</span><span>224개 · 38박스 · 4.56 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 38 + 혼합 0)</span></span></div>
-  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">이불세트 <span style="color:#888;font-weight:400;">(0.12 CBM/box)</span></div>
-  <div class="bx-srow"><span>이불세트 SS</span><span>132개 · 22박스 · 2.64 CBM <span style="color:#888;font-size:11px;">(정상 22)</span></span></div>
-  <div class="bx-subrow">└ 크림화이트 4 · 밀크베이지 18박스</div>
-  <div class="bx-srow"><span>이불세트 Q</span><span>295개 · 50박스 · 6.00 CBM <span style="color:#888;font-size:11px;">(정상 50)</span></span></div>
-  <div class="bx-subrow">└ 밀크베이지 15 · 모카브라운 17 · 스모키차콜 18박스</div>
-  <div class="bx-srow"><span>이불세트 K</span><span>130개 · 26박스 · 3.12 CBM <span style="color:#888;font-size:11px;">(정상 26)</span></span></div>
-  <div class="bx-subrow">└ 밀크베이지 9 · 모카브라운 7 · 스모키차콜 10박스</div>
-  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>이불세트 소계</span><span>557개 · 98박스 · 11.76 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 98 + 혼합 0)</span></span></div>
   <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">커튼 <span style="color:#888;font-weight:400;">(0.10 CBM/box)</span></div>
   <div class="bx-srow"><span>암막커튼 140 X 230</span><span>100개 · 4박스 · 0.40 CBM <span style="color:#888;font-size:11px;">(정상 4)</span></span></div>
   <div class="bx-subrow">└ 크림화이트 4박스</div>
-  <div class="bx-srow"><span>암막커튼 210 X 235</span><span>102개 · 6박스 · 0.60 CBM <span style="color:#888;font-size:11px;">(정상 6)</span></span></div>
-  <div class="bx-subrow">└ 크림화이트 3 · 밀크베이지 3박스</div>
   <div class="bx-srow"><span>커튼 사이즈혼합</span><span>22개 · 1박스 · 0.10 CBM <span style="color:#888;font-size:11px;">(정상 0 + 혼합 1)</span></span></div>
-  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>커튼 소계</span><span>224개 · 11박스 · 1.10 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 10 + 혼합 1)</span></span></div>
-  <div class="bx-srow total"><span>TOTAL</span><span>1005개 · 147박스 · 17.42 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 146 + 혼합 1)</span></span></div>
+  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>커튼 소계</span><span>122개 · 5박스 · 0.50 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 4 + 혼합 1)</span></span></div>
+  <div class="bx-srow total"><span>TOTAL</span><span>122개 · 5박스 · 0.50 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 4 + 혼합 1)</span></span></div>
 </div>
 <div id="box-edit-inline-wrap" style="display:none;text-align:center;margin:16px 0 8px;"><button onclick="openBoxEditor()" style="padding:6px 14px;font-size:12px;background:#e65100;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;">✏️ 박스 편집</button></div></div>
-<div class="date-content" data-date="main"><div class="prod-header" style="color:#e65100;border-color:#e65100;">토퍼 <span class="sub">224개 · 38박스 · 4.56 CBM</span></div>
-<div class="per-box-info">SS (1.2): 6개/box · Q (1.5): 6개/box · K (1.8): 5개/box</div>
-<div class="card-grid">
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#4a4a4a;"></span>
-<span class="card-color-name">차콜</span>
-<span class="card-total">31박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">27박스</span><span class="size-ea">(162개)</span><span class="size-cbm">3.24cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-qty">4박스</span><span class="size-ea">(20개)</span><span class="size-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#9e9e9e;"></span>
-<span class="card-color-name">그레이</span>
-<span class="card-total">2박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-qty">2박스</span><span class="size-ea">(12개)</span><span class="size-cbm">0.24cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
-<span class="card-color-name">아이보리</span>
-<span class="card-total">1박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">1박스</span><span class="size-ea">(6개)</span><span class="size-cbm">0.12cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#222222;"></span>
-<span class="card-color-name">화이트블랙</span>
-<span class="card-total">4박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS (1.2)</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q (1.5)</span><span class="size-qty">4박스</span><span class="size-ea">(24개)</span><span class="size-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">K (1.8)</span><span class="size-empty">—</span></div>
-</div>
-</div>
-<div class="total-bar"><span>토퍼 합계</span><span>224개 · 38박스 · 4.56 CBM</span></div>
-<hr class="section-divider">
-<div class="prod-header" style="color:#e65100;border-color:#e65100;">이불세트 <span class="sub">557개 · 98박스 · 11.76 CBM</span></div>
-<div class="per-box-info">SS: 6개/box · Q: 6개/box · K: 5개/box</div>
-<div class="card-grid">
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
-<span class="card-color-name">크림화이트</span>
-<span class="card-total">4박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-qty">4박스</span><span class="size-ea">(24개)</span><span class="size-cbm">0.48cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-empty">—</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
-<span class="card-color-name">밀크베이지</span>
-<span class="card-total">42박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-qty">18박스</span><span class="size-ea">(108개)</span><span class="size-cbm">2.16cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-qty">15박스</span><span class="size-ea">(90개)</span><span class="size-cbm">1.80cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-qty">9박스</span><span class="size-ea">(45개)</span><span class="size-cbm">1.08cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#8b6f4e;"></span>
-<span class="card-color-name">모카브라운</span>
-<span class="card-total">23박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-qty">16박스</span><span class="size-ea">(96개)</span><span class="size-cbm">1.92cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-qty">7박스</span><span class="size-ea">(35개)</span><span class="size-cbm">0.84cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#5a5a5a;"></span>
-<span class="card-color-name">스모키차콜</span>
-<span class="card-total">28박스</span>
-</div>
-<div class="size-row"><span class="size-label">SS</span><span class="size-empty">—</span></div>
-<div class="size-row"><span class="size-label">Q</span><span class="size-qty">17박스</span><span class="size-ea">(102개)</span><span class="size-cbm">2.04cbm</span><span class="gauge-badge full">✓</span></div>
-<div class="size-row" style="background:#fff8e1;"><span class="size-label">Q <span style="color:#e65100;font-weight:600;">자투리</span></span><span class="size-qty">1박스</span><span class="size-ea">(1개)</span><span class="size-cbm">0.12cbm</span><span class="gauge-badge partial">17%</span></div>
-<div class="size-row"><span class="size-label">K</span><span class="size-qty">10박스</span><span class="size-ea">(50개)</span><span class="size-cbm">1.20cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card mix-card">
-<div class="card-head">
-<span class="mix-label">MIX</span>
-<span class="card-color-name" style="font-size:11px;">혼합</span>
-<span class="card-total">1박스 · 0.12cbm</span>
-</div>
-<div class="mix-row"><span class="mix-size">Q</span><span class="mix-contents"><span class="cdot" style="background:#8b6f4e;"></span>모카브라운 4개 <span class="mplus">+</span> <span class="cdot" style="background:#5a5a5a;"></span>스모키차콜 2개</span><span class="mix-info">6개 <span class="gauge-badge full">✓</span></span></div>
-</div>
-</div>
-<div class="total-bar"><span>이불세트 합계</span><span>557개 · 98박스 · 11.76 CBM</span></div>
-<hr class="section-divider">
-<div class="prod-header" style="color:#e65100;border-color:#e65100;">커튼 <span class="sub">124개 · 7박스 · 0.70 CBM</span></div>
-<div class="per-box-info">210 X 235: 17개/box</div>
-<div class="card-grid">
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#f5f0e1;border:1px solid #ccc;"></span>
-<span class="card-color-name">크림화이트</span>
-<span class="card-total">3박스</span>
-</div>
-<div class="size-row"><span class="size-label">210 X 235</span><span class="size-qty">3박스</span><span class="size-ea">(51개)</span><span class="size-cbm">0.30cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card">
-<div class="card-head">
-<span class="card-dot" style="background:#e8dcc8;border:1px solid #ccc;"></span>
-<span class="card-color-name">밀크베이지</span>
-<span class="card-total">3박스</span>
-</div>
-<div class="size-row"><span class="size-label">210 X 235</span><span class="size-qty">3박스</span><span class="size-ea">(51개)</span><span class="size-cbm">0.30cbm</span><span class="gauge-badge full">✓</span></div>
-</div>
-<div class="box-card mix-card">
-<div class="card-head">
-<span class="mix-label">MIX</span>
-<span class="card-color-name" style="font-size:11px;">혼합</span>
-<span class="card-total">1박스 · 0.10cbm</span>
-</div>
-<div class="mix-row"><span class="mix-size">210 X 235</span><span class="mix-contents"><span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 10개</span><span class="mix-info">10개 <span class="gauge-badge full">✓</span></span></div>
-<div class="mix-row"><span class="mix-size">130 X 170</span><span class="mix-contents"><span class="cdot" style="background:#e8dcc8;border:1px solid #ccc;"></span>밀크베이지 11개 <span class="mplus">+</span> <span class="cdot" style="background:#9e9e9e;"></span>그레이 1개</span><span class="mix-info">12개 <span class="gauge-badge full">✓</span></span></div>
-</div>
-</div>
-<div class="total-bar"><span>커튼 합계</span><span>124개 · 7박스 · 0.70 CBM</span></div>
-<hr class="section-divider">
-
-<div class="bx-summary">
-  <div style="font-weight:800;margin-bottom:8px;font-size:14px;">박스 · CBM SUMMARY</div>
-  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">토퍼 <span style="color:#888;font-weight:400;">(0.12 CBM/box)</span></div>
-  <div class="bx-srow"><span>토퍼 SS (1.2)</span><span>174개 · 29박스 · 3.48 CBM <span style="color:#888;font-size:11px;">(정상 29)</span></span></div>
-  <div class="bx-subrow">└ 차콜 27 · 그레이 2박스</div>
-  <div class="bx-srow"><span>토퍼 Q (1.5)</span><span>30개 · 5박스 · 0.60 CBM <span style="color:#888;font-size:11px;">(정상 5)</span></span></div>
-  <div class="bx-subrow">└ 아이보리 1 · 화이트블랙 4박스</div>
-  <div class="bx-srow"><span>토퍼 K (1.8)</span><span>20개 · 4박스 · 0.48 CBM <span style="color:#888;font-size:11px;">(정상 4)</span></span></div>
-  <div class="bx-subrow">└ 차콜 4박스</div>
-  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>토퍼 소계</span><span>224개 · 38박스 · 4.56 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 38 + 혼합 0)</span></span></div>
-  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">이불세트 <span style="color:#888;font-weight:400;">(0.12 CBM/box)</span></div>
-  <div class="bx-srow"><span>이불세트 SS</span><span>132개 · 22박스 · 2.64 CBM <span style="color:#888;font-size:11px;">(정상 22)</span></span></div>
-  <div class="bx-subrow">└ 크림화이트 4 · 밀크베이지 18박스</div>
-  <div class="bx-srow"><span>이불세트 Q</span><span>295개 · 50박스 · 6.00 CBM <span style="color:#888;font-size:11px;">(정상 49 + 혼합 1)</span></span></div>
-  <div class="bx-subrow">└ 밀크베이지 15 · 모카브라운 16 · 스모키차콜 18박스</div>
-  <div class="bx-subrow">└ 혼합1: 모카브라운 4 + 스모키차콜 2</div>
-  <div class="bx-srow"><span>이불세트 K</span><span>130개 · 26박스 · 3.12 CBM <span style="color:#888;font-size:11px;">(정상 26)</span></span></div>
-  <div class="bx-subrow">└ 밀크베이지 9 · 모카브라운 7 · 스모키차콜 10박스</div>
-  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>이불세트 소계</span><span>557개 · 98박스 · 11.76 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 97 + 혼합 1)</span></span></div>
-  <div style="font-size:12px;color:#e65100;font-weight:700;margin:8px 0 4px;">커튼 <span style="color:#888;font-weight:400;">(0.10 CBM/box)</span></div>
-  <div class="bx-srow"><span>암막커튼 210 X 235</span><span>102개 · 6박스 · 0.60 CBM <span style="color:#888;font-size:11px;">(정상 6)</span></span></div>
-  <div class="bx-subrow">└ 크림화이트 3 · 밀크베이지 3박스</div>
-  <div class="bx-srow"><span>커튼 사이즈혼합</span><span>22개 · 1박스 · 0.10 CBM <span style="color:#888;font-size:11px;">(정상 0 + 혼합 1)</span></span></div>
-  <div class="bx-srow" style="font-weight:700;border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>커튼 소계</span><span>124개 · 7박스 · 0.70 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 6 + 혼합 1)</span></span></div>
-  <div class="bx-srow total"><span>TOTAL</span><span>905개 · 143박스 · 17.02 CBM <span style="color:#888;font-size:11px;font-weight:400;">(정상 141 + 혼합 2)</span></span></div>
-</div></div>
 <div class="date-content" data-date="extra_all"><div class="prod-header" style="color:#e65100;border-color:#e65100;">커튼 <span class="sub">100개 · 4박스 · 0.40 CBM</span></div>
 <div class="per-box-info">140 X 230: 25개/box</div>
 <div class="card-grid">
@@ -1517,9 +816,9 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const topperData = [{"size": "TOPPER 1.2", "colors": ["CHARCOAL 6ea"], "qty": 27, "en_line": "TOPPER SS, CHARCOAL 6ea", "zh_line": "床褥 SS, 炭灰色 6件", "ko_line": "토퍼 SS, 차콜 6ea", "pk": "토퍼", "var": "SS", "color": "차콜"}, {"size": "TOPPER 1.2", "colors": ["GREY 6ea"], "qty": 2, "en_line": "TOPPER SS, GREY 6ea", "zh_line": "床褥 SS, 灰色 6件", "ko_line": "토퍼 SS, 그레이 6ea", "pk": "토퍼", "var": "SS", "color": "그레이"}, {"size": "TOPPER 1.5", "colors": ["IVORY 6ea"], "qty": 1, "en_line": "TOPPER Q, IVORY 6ea", "zh_line": "床褥 Q, 象牙白 6件", "ko_line": "토퍼 Q, 아이보리 6ea", "pk": "토퍼", "var": "Q", "color": "아이보리"}, {"size": "TOPPER 1.5", "colors": ["WHITE&BLACK 6ea"], "qty": 4, "en_line": "TOPPER Q, WHITE&BLACK 6ea", "zh_line": "床褥 Q, 黑白色 6件", "ko_line": "토퍼 Q, 화이트블랙 6ea", "pk": "토퍼", "var": "Q", "color": "화이트블랙"}, {"size": "TOPPER 1.8", "colors": ["CHARCOAL 5ea"], "qty": 4, "en_line": "TOPPER K, CHARCOAL 5ea", "zh_line": "床褥 K, 炭灰色 5件", "ko_line": "토퍼 K, 차콜 5ea", "pk": "토퍼", "var": "K", "color": "차콜"}];
-const beddingData = [{"size": "DUVET SET, SS", "colors": ["CREAMWHITE 6ea"], "qty": 4, "en_line": "DUVET SET, SS, CREAMWHITE 6ea", "zh_line": "被子套装 SS, 奶油白色 6件", "ko_line": "이불세트 SS, 크림화이트 6ea", "pk": "이불세트", "var": "SS", "color": "크림화이트"}, {"size": "DUVET SET, SS", "colors": ["MILKBEIGE 6ea"], "qty": 18, "en_line": "DUVET SET, SS, MILKBEIGE 6ea", "zh_line": "被子套装 SS, 牛奶米色 6件", "ko_line": "이불세트 SS, 밀크베이지 6ea", "pk": "이불세트", "var": "SS", "color": "밀크베이지"}, {"size": "DUVET SET, Q", "colors": ["MILKBEIGE 6ea"], "qty": 15, "en_line": "DUVET SET, Q, MILKBEIGE 6ea", "zh_line": "被子套装 Q, 牛奶米色 6件", "ko_line": "이불세트 Q, 밀크베이지 6ea", "pk": "이불세트", "var": "Q", "color": "밀크베이지"}, {"size": "DUVET SET, Q", "colors": ["MOCHA BROWN 6ea"], "qty": 16, "en_line": "DUVET SET, Q, MOCHA BROWN 6ea", "zh_line": "被子套装 Q, 摩卡棕色 6件", "ko_line": "이불세트 Q, 모카브라운 6ea", "pk": "이불세트", "var": "Q", "color": "모카브라운"}, {"size": "DUVET SET, Q", "colors": ["SMOKY CHARCOAL 6ea"], "qty": 17, "en_line": "DUVET SET, Q, SMOKY CHARCOAL 6ea", "zh_line": "被子套装 Q, 炭灰色 6件", "ko_line": "이불세트 Q, 스모키차콜 6ea", "pk": "이불세트", "var": "Q", "color": "스모키차콜"}, {"size": "DUVET SET, K", "colors": ["MILKBEIGE 5ea"], "qty": 9, "en_line": "DUVET SET, K, MILKBEIGE 5ea", "zh_line": "被子套装 K, 牛奶米色 5件", "ko_line": "이불세트 K, 밀크베이지 5ea", "pk": "이불세트", "var": "K", "color": "밀크베이지"}, {"size": "DUVET SET, K", "colors": ["MOCHA BROWN 5ea"], "qty": 7, "en_line": "DUVET SET, K, MOCHA BROWN 5ea", "zh_line": "被子套装 K, 摩卡棕色 5件", "ko_line": "이불세트 K, 모카브라운 5ea", "pk": "이불세트", "var": "K", "color": "모카브라운"}, {"size": "DUVET SET, K", "colors": ["SMOKY CHARCOAL 5ea"], "qty": 10, "en_line": "DUVET SET, K, SMOKY CHARCOAL 5ea", "zh_line": "被子套装 K, 炭灰色 5件", "ko_line": "이불세트 K, 스모키차콜 5ea", "pk": "이불세트", "var": "K", "color": "스모키차콜"}, {"size": "DUVET SET, Q", "colors": ["MOCHA BROWN 4ea"], "qty": 1, "en_line": "DUVET SET, Q, MOCHA BROWN 4ea", "zh_line": "被子套装 Q, 摩卡棕色 4件", "ko_line": "이불세트 Q, 모카브라운 4ea", "mix": true, "pk": "이불세트", "var": "Q", "color": "모카브라운4"}, {"size": "DUVET SET, Q", "colors": ["SMOKY CHARCOAL 3ea"], "qty": 1, "en_line": "DUVET SET, Q, SMOKY CHARCOAL 3ea", "zh_line": "被子套装 Q, 炭灰色 3件", "ko_line": "이불세트 Q, 스모키차콜 3ea", "mix": true, "pk": "이불세트", "var": "Q", "color": "스모키차콜3"}];
-const curtainData = [{"size": "CURTAIN 210X235CM", "colors": ["CREAM 17ea"], "qty": 3, "en_line": "CURTAIN 210X235CM, CREAM 17ea", "zh_line": "遮光窗帘 210X235CM, 奶油白色 17件", "ko_line": "암막커튼 210, 크림화이트 17ea", "pk": "암막커튼", "var": "210X235CM", "color": "크림화이트"}, {"size": "CURTAIN 210X235CM", "colors": ["MILKBEIGE 17ea"], "qty": 3, "en_line": "CURTAIN 210X235CM, MILKBEIGE 17ea", "zh_line": "遮光窗帘 210X235CM, 牛奶米色 17件", "ko_line": "암막커튼 210, 밀크베이지 17ea", "pk": "암막커튼", "var": "210X235CM", "color": "밀크베이지"}, {"size": "CURTAIN 140X230CM", "colors": ["CREAM 25ea"], "qty": 4, "en_line": "CURTAIN 140X230CM, CREAM 25ea", "zh_line": "遮光窗帘 140X230CM, 奶油白色 25件", "ko_line": "암막커튼 140, 크림화이트 25ea", "pk": "암막커튼", "var": "140X230CM", "color": "크림화이트"}, {"size": "CURTAIN", "colors": ["210CM MILKBEIGE 10ea", "130CM MILKBEIGE 11ea", "130CM GREY 1ea"], "qty": 1, "en_line": "CURTAIN, 210CM MILKBEIGE 10ea + 130CM MILKBEIGE 11ea + 130CM GREY 1ea", "zh_line": "遮光窗帘, 210CM 牛奶米色 10件 + 130CM 牛奶米色 11件 + 130CM 灰色 1件", "ko_line": "암막커튼, 210CM 밀크베이지 10ea + 130CM 밀크베이지 11ea + 130CM 그레이 1ea", "mix": true, "pk": "암막커튼", "var": "", "color": "130X170CM:그레이1+130X170CM:밀크베이지11+210X235CM:밀크베이지10"}];
+const topperData = [];
+const beddingData = [];
+const curtainData = [{"size": "CURTAIN 140X230CM", "colors": ["CREAM 25ea"], "qty": 4, "en_line": "CURTAIN 140X230CM, CREAM 25ea", "zh_line": "遮光窗帘 140X230CM, 奶油白色 25件", "ko_line": "암막커튼 140, 크림화이트 25ea", "pk": "암막커튼", "var": "140X230CM", "color": "크림화이트"}, {"size": "CURTAIN", "colors": ["210CM MILKBEIGE 10ea", "130CM MILKBEIGE 11ea", "130CM GREY 1ea"], "qty": 1, "en_line": "CURTAIN, 210CM MILKBEIGE 10ea + 130CM MILKBEIGE 11ea + 130CM GREY 1ea", "zh_line": "遮光窗帘, 210CM 牛奶米色 10件 + 130CM 牛奶米色 11件 + 130CM 灰色 1件", "ko_line": "암막커튼, 210CM 밀크베이지 10ea + 130CM 밀크베이지 11ea + 130CM 그레이 1ea", "mix": true, "pk": "암막커튼", "var": "", "color": "130X170CM:그레이1+130X170CM:밀크베이지11+210X235CM:밀크베이지10"}];
 const facetowelData = [];
 const trash18Data = [];
 const trash20Data = [];
@@ -2135,8 +1434,8 @@ async function downloadAllPDF() {
   }
 })();
 </script>
-<script>window._pdfByDateExtra = {"main": {"topper": [{"size": "TOPPER 1.2", "colors": ["CHARCOAL 6ea"], "qty": 27, "en_line": "TOPPER SS, CHARCOAL 6ea", "zh_line": "床褥 SS, 炭灰色 6件", "ko_line": "토퍼 SS, 차콜 6ea", "pk": "토퍼", "var": "SS", "color": "차콜"}, {"size": "TOPPER 1.2", "colors": ["GREY 6ea"], "qty": 2, "en_line": "TOPPER SS, GREY 6ea", "zh_line": "床褥 SS, 灰色 6件", "ko_line": "토퍼 SS, 그레이 6ea", "pk": "토퍼", "var": "SS", "color": "그레이"}, {"size": "TOPPER 1.5", "colors": ["IVORY 6ea"], "qty": 1, "en_line": "TOPPER Q, IVORY 6ea", "zh_line": "床褥 Q, 象牙白 6件", "ko_line": "토퍼 Q, 아이보리 6ea", "pk": "토퍼", "var": "Q", "color": "아이보리"}, {"size": "TOPPER 1.5", "colors": ["WHITE&BLACK 6ea"], "qty": 4, "en_line": "TOPPER Q, WHITE&BLACK 6ea", "zh_line": "床褥 Q, 黑白色 6件", "ko_line": "토퍼 Q, 화이트블랙 6ea", "pk": "토퍼", "var": "Q", "color": "화이트블랙"}, {"size": "TOPPER 1.8", "colors": ["CHARCOAL 5ea"], "qty": 4, "en_line": "TOPPER K, CHARCOAL 5ea", "zh_line": "床褥 K, 炭灰色 5件", "ko_line": "토퍼 K, 차콜 5ea", "pk": "토퍼", "var": "K", "color": "차콜"}], "bedding": [{"size": "DUVET SET, SS", "colors": ["CREAMWHITE 6ea"], "qty": 4, "en_line": "DUVET SET, SS, CREAMWHITE 6ea", "zh_line": "被子套装 SS, 奶油白色 6件", "ko_line": "이불세트 SS, 크림화이트 6ea", "pk": "이불세트", "var": "SS", "color": "크림화이트"}, {"size": "DUVET SET, SS", "colors": ["MILKBEIGE 6ea"], "qty": 18, "en_line": "DUVET SET, SS, MILKBEIGE 6ea", "zh_line": "被子套装 SS, 牛奶米色 6件", "ko_line": "이불세트 SS, 밀크베이지 6ea", "pk": "이불세트", "var": "SS", "color": "밀크베이지"}, {"size": "DUVET SET, Q", "colors": ["MILKBEIGE 6ea"], "qty": 15, "en_line": "DUVET SET, Q, MILKBEIGE 6ea", "zh_line": "被子套装 Q, 牛奶米色 6件", "ko_line": "이불세트 Q, 밀크베이지 6ea", "pk": "이불세트", "var": "Q", "color": "밀크베이지"}, {"size": "DUVET SET, Q", "colors": ["MOCHA BROWN 6ea"], "qty": 16, "en_line": "DUVET SET, Q, MOCHA BROWN 6ea", "zh_line": "被子套装 Q, 摩卡棕色 6件", "ko_line": "이불세트 Q, 모카브라운 6ea", "pk": "이불세트", "var": "Q", "color": "모카브라운"}, {"size": "DUVET SET, Q", "colors": ["SMOKY CHARCOAL 6ea"], "qty": 17, "en_line": "DUVET SET, Q, SMOKY CHARCOAL 6ea", "zh_line": "被子套装 Q, 炭灰色 6件", "ko_line": "이불세트 Q, 스모키차콜 6ea", "pk": "이불세트", "var": "Q", "color": "스모키차콜"}, {"size": "DUVET SET, K", "colors": ["MILKBEIGE 5ea"], "qty": 9, "en_line": "DUVET SET, K, MILKBEIGE 5ea", "zh_line": "被子套装 K, 牛奶米色 5件", "ko_line": "이불세트 K, 밀크베이지 5ea", "pk": "이불세트", "var": "K", "color": "밀크베이지"}, {"size": "DUVET SET, K", "colors": ["MOCHA BROWN 5ea"], "qty": 7, "en_line": "DUVET SET, K, MOCHA BROWN 5ea", "zh_line": "被子套装 K, 摩卡棕色 5件", "ko_line": "이불세트 K, 모카브라운 5ea", "pk": "이불세트", "var": "K", "color": "모카브라운"}, {"size": "DUVET SET, K", "colors": ["SMOKY CHARCOAL 5ea"], "qty": 10, "en_line": "DUVET SET, K, SMOKY CHARCOAL 5ea", "zh_line": "被子套装 K, 炭灰色 5件", "ko_line": "이불세트 K, 스모키차콜 5ea", "pk": "이불세트", "var": "K", "color": "스모키차콜"}, {"size": "DUVET SET, Q", "colors": ["MOCHA BROWN 4ea", "SMOKY CHARCOAL 2ea"], "qty": 1, "en_line": "DUVET SET, Q, MOCHA BROWN 4ea + SMOKY CHARCOAL 2ea", "zh_line": "被子套装 Q, 摩卡棕色 4件 + 炭灰色 2件", "ko_line": "이불세트 Q, 모카브라운 4ea + 스모키차콜 2ea", "mix": true, "pk": "이불세트", "var": "Q", "color": "모카브라운4+스모키차콜2"}, {"size": "DUVET SET, Q", "colors": ["SMOKY CHARCOAL 1ea"], "qty": 1, "en_line": "DUVET SET, Q, SMOKY CHARCOAL 1ea", "zh_line": "被子套装 Q, 炭灰色 1件", "ko_line": "이불세트 Q, 스모키차콜 1ea", "mix": true, "pk": "이불세트", "var": "Q", "color": "스모키차콜1"}], "curtain": [{"size": "CURTAIN 210X235CM", "colors": ["CREAM 17ea"], "qty": 3, "en_line": "CURTAIN 210X235CM, CREAM 17ea", "zh_line": "遮光窗帘 210X235CM, 奶油白色 17件", "ko_line": "암막커튼 210, 크림화이트 17ea", "pk": "암막커튼", "var": "210X235CM", "color": "크림화이트"}, {"size": "CURTAIN 210X235CM", "colors": ["MILKBEIGE 17ea"], "qty": 3, "en_line": "CURTAIN 210X235CM, MILKBEIGE 17ea", "zh_line": "遮光窗帘 210X235CM, 牛奶米色 17件", "ko_line": "암막커튼 210, 밀크베이지 17ea", "pk": "암막커튼", "var": "210X235CM", "color": "밀크베이지"}, {"size": "CURTAIN", "colors": ["210CM MILKBEIGE 10ea", "130CM MILKBEIGE 11ea", "130CM GREY 1ea"], "qty": 1, "en_line": "CURTAIN, 210CM MILKBEIGE 10ea + 130CM MILKBEIGE 11ea + 130CM GREY 1ea", "zh_line": "遮光窗帘, 210CM 牛奶米色 10件 + 130CM 牛奶米色 11件 + 130CM 灰色 1件", "ko_line": "암막커튼, 210CM 밀크베이지 10ea + 130CM 밀크베이지 11ea + 130CM 그레이 1ea", "mix": true, "pk": "암막커튼", "var": "", "color": "130X170CM:그레이1+130X170CM:밀크베이지11+210X235CM:밀크베이지10"}], "facetowel": [], "trash18": [], "trash20": []}, "extra_all": {"topper": [], "bedding": [], "curtain": [{"size": "CURTAIN 140X230CM", "colors": ["CREAM 25ea"], "qty": 4, "en_line": "CURTAIN 140X230CM, CREAM 25ea", "zh_line": "遮光窗帘 140X230CM, 奶油白色 25件", "ko_line": "암막커튼 140, 크림화이트 25ea", "pk": "암막커튼", "var": "140X230CM", "color": "크림화이트"}], "facetowel": [], "trash18": [], "trash20": []}, "2026-05-22_extra": {"topper": [], "bedding": [], "curtain": [{"size": "CURTAIN 140X230CM", "colors": ["CREAM 25ea"], "qty": 4, "en_line": "CURTAIN 140X230CM, CREAM 25ea", "zh_line": "遮光窗帘 140X230CM, 奶油白色 25件", "ko_line": "암막커튼 140, 크림화이트 25ea", "pk": "암막커튼", "var": "140X230CM", "color": "크림화이트"}], "facetowel": [], "trash18": [], "trash20": []}};</script>
-<script>window._boxSeqMap = {"토퍼|SS|차콜": [1, 27], "토퍼|SS|그레이": [28, 29], "토퍼|Q|아이보리": [30, 30], "토퍼|Q|화이트블랙": [31, 34], "토퍼|K|차콜": [35, 38], "이불세트|SS|크림화이트": [39, 42], "이불세트|SS|밀크베이지": [43, 60], "이불세트|Q|밀크베이지": [61, 75], "이불세트|Q|모카브라운": [76, 91], "이불세트|Q|스모키차콜": [92, 108], "이불세트|K|밀크베이지": [109, 117], "이불세트|K|모카브라운": [118, 124], "이불세트|K|스모키차콜": [125, 134], "이불세트|Q|모카브라운4+스모키차콜2": [135, 135], "이불세트|Q|스모키차콜1": [136, 136], "암막커튼|210X235CM|크림화이트": [137, 139], "암막커튼|210X235CM|밀크베이지": [140, 142], "암막커튼||130X170CM:그레이1+130X170CM:밀크베이지11+210X235CM:밀크베이지10": [148, 148], "암막커튼|140X230CM|크림화이트": [144, 147]};
+<script>window._pdfByDateExtra = {"extra_all": {"topper": [], "bedding": [], "curtain": [{"size": "CURTAIN 140X230CM", "colors": ["CREAM 25ea"], "qty": 4, "en_line": "CURTAIN 140X230CM, CREAM 25ea", "zh_line": "遮光窗帘 140X230CM, 奶油白色 25件", "ko_line": "암막커튼 140, 크림화이트 25ea", "pk": "암막커튼", "var": "140X230CM", "color": "크림화이트"}], "facetowel": [], "trash18": [], "trash20": []}, "2026-05-22_extra": {"topper": [], "bedding": [], "curtain": [{"size": "CURTAIN 140X230CM", "colors": ["CREAM 25ea"], "qty": 4, "en_line": "CURTAIN 140X230CM, CREAM 25ea", "zh_line": "遮光窗帘 140X230CM, 奶油白色 25件", "ko_line": "암막커튼 140, 크림화이트 25ea", "pk": "암막커튼", "var": "140X230CM", "color": "크림화이트"}], "facetowel": [], "trash18": [], "trash20": []}};</script>
+<script>window._boxSeqMap = {"암막커튼|140X230CM|크림화이트": [1, 4], "암막커튼||130X170CM:그레이1+130X170CM:밀크베이지11+210X235CM:밀크베이지10": [5, 5]};
 function switchDate(dateId) {
   // 현재 모드 추적 (그리트리 엑셀에서 날짜별 추가 구별용)
   window._currentDateId = dateId;
@@ -2256,7 +1555,7 @@ async function downloadGritreeExcel(e) {
   }
 }
 
-window._modeCounts = {"total": {"topper": 224, "bedding": 557, "curtain": 224, "trash18": 0, "trash20": 0, "facetowel": 0}, "main": {"topper": 224, "bedding": 557, "curtain": 124, "trash18": 0, "trash20": 0, "facetowel": 0}, "extra_all": {"topper": 0, "bedding": 0, "curtain": 100, "trash18": 0, "trash20": 0, "facetowel": 0}, "2026-05-22_extra": {"topper": 0, "bedding": 0, "curtain": 100, "trash18": 0, "trash20": 0, "facetowel": 0}};
+window._modeCounts = {"total": {"topper": 0, "bedding": 0, "curtain": 100, "trash18": 0, "trash20": 0, "facetowel": 0}, "extra_all": {"topper": 0, "bedding": 0, "curtain": 100, "trash18": 0, "trash20": 0, "facetowel": 0}, "2026-05-22_extra": {"topper": 0, "bedding": 0, "curtain": 100, "trash18": 0, "trash20": 0, "facetowel": 0}};
 // 페이지 로드 시 초기 카운트 (total) 갱신
 if (typeof _updateProdCounts === 'function') { _updateProdCounts('total'); }
 </script>
