@@ -97,13 +97,21 @@ function populateCycleSelect() {
   sel.value = '';
 }
 
+let __API_URL=null;
+async function __api(){
+  if(__API_URL!==null) return __API_URL;
+  const o=location.origin;
+  if(o && !o.includes('github.io')){__API_URL=o;return o;}
+  try{const r=await fetch('tunnel.txt?t='+Date.now());if(r.ok){const u=(await r.text()).trim();if(u.startsWith('https://')){__API_URL=u;return u;}}}catch(e){}
+  __API_URL='';return '';
+}
 async function fetchCandidates(force) {
   document.getElementById('statusLine').textContent = '⏳ Wing 크롤링 + 그룹 매칭 중...';
   document.getElementById('cards').innerHTML = '';
   document.getElementById('generateBtn').disabled = true;
   document.getElementById('cacheInfo').textContent = '';
   try {
-    const url = '/loadlist/candidates' + (force ? '?force=1' : '');
+    const url = (await __api()) + '/loadlist/candidates' + (force ? '?force=1' : '');
     const r = await fetch(url);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
@@ -268,7 +276,7 @@ async function openEditorModal() {
   _previewData = {};
   for (const it of window._selectedItems) {
     try {
-      const r = await fetch('/loadlist/preview', {
+      const r = await fetch((await __api()) + '/loadlist/preview', {
         method: 'POST',
         headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
         body: JSON.stringify({inbound_id: it.inbound_id, group: it.group, cycle_date: _selectedCycle}),
@@ -477,7 +485,7 @@ async function recalcPallets(iid) {
   try {
     const payload = collectItem(iid);
     if (!payload) return;
-    const r = await fetch('/loadlist/pallet_preview', {
+    const r = await fetch((await __api()) + '/loadlist/pallet_preview', {
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
       body: JSON.stringify(payload),
@@ -538,7 +546,7 @@ async function generate(prebuiltItems) {
   btn.textContent = '⏳ 생성중...';
   document.getElementById('result').innerHTML = '<div class="status-msg info">⏳ 처리 중 (1~3분)...</div>';
   try {
-    const r = await fetch('/loadlist/generate', {
+    const r = await fetch((await __api()) + '/loadlist/generate', {
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
       body: JSON.stringify({items, target: _target, skip_pdf: !!window._skipPdf, cycle_date: _selectedCycle}),
