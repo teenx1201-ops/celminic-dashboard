@@ -566,7 +566,7 @@ async function generate(prebuiltItems) {
           const idx = downloadIdx++;
           setTimeout(() => {
             const a = document.createElement('a');
-            a.href = url;
+            a.href = (url && url.indexOf('http')===0) ? url : ((typeof __API_URL!=='undefined' && __API_URL) ? __API_URL + url : url);
             a.download = `${rs.inbound_id}.${t}`;
             document.body.appendChild(a);
             a.click();
