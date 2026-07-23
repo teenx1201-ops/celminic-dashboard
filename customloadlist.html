@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>추가 적재리스트 — 셀미닉 자비스</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",sans-serif; background:transparent; color:#e1e5eb; }
+  .wrap { padding:4px 2px 40px; }
+  .hd { font-size:16px; font-weight:800; color:#e1e5eb; margin:2px 0 12px; }
+  .meta { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .meta label { display:flex; flex-direction:column; font-size:11px; color:#8b949e; gap:4px; }
+  .meta input { background:#1e2229; border:1px solid #2d323c; color:#e1e5eb; border-radius:6px; padding:7px 9px; font-size:13px; min-width:150px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:#8b949e; font-weight:600; font-size:11px; padding:6px 6px; border-bottom:1px solid #2d323c; }
+  td { padding:5px 6px; border-bottom:1px solid #23272f; }
+  select, .qtyin { background:#1e2229; border:1px solid #2d323c; color:#e1e5eb; border-radius:6px; padding:6px 8px; font-size:13px; width:100%; }
+  .qtyin { text-align:right; }
+  .box-hint { font-size:10px; color:#6b7280; margin-top:2px; }
+  .btn { border:none; border-radius:7px; padding:8px 14px; font-size:13px; font-weight:600; cursor:pointer; }
+  .btn-add { background:#22262e; color:#7db4f5; border:1px solid #2d323c; }
+  .btn-del { background:transparent; color:#f5a0a0; border:1px solid #3a2b2b; border-radius:6px; padding:4px 9px; font-size:12px; cursor:pointer; }
+  .btn-gen { background:#1976d2; color:#fff; margin-top:16px; padding:11px 20px; font-size:14px; }
+  .btn-gen:disabled { opacity:.5; cursor:default; }
+  .row-actions { display:flex; gap:8px; margin-top:12px; align-items:center; }
+  .status { margin-top:12px; font-size:13px; }
+  .status .ok { color:#56d364; }
+  .status .err { color:#f5a0a0; }
+  .note { font-size:11px; color:#6b7280; margin:6px 0 14px; line-height:1.5; }
+  .col-idx { width:34px; color:#6b7280; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd">➕ 추가 적재리스트 <span style="font-size:11px;color:#6b7280;font-weight:500;">— 원하는 상품·수량 골라서 적재리스트(PDF·워드) 만들기</span></div>
+  <div class="note">쿠팡 Wing 입고건 없이, 내가 고른 상품으로 적재리스트를 만듭니다. 수량은 <b>개수</b>로 입력(박스·파레트 자동 계산). 완성되면 PDF와 워드가 다운로드됩니다.</div>
+
+  <div class="meta">
+    <label>이름 (선택)<input id="m-name" type="text" placeholder="예: 7월 추가입고"></label>
+    <label>납품 센터 (창고)<input id="m-wh" type="text" placeholder="예: 인천8"></label>
+    <label>도착예정일<input id="m-arr" type="date"></label>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="col-idx">#</th><th style="width:26%;">상품</th><th style="width:20%;">사이즈</th><th style="width:22%;">색상</th><th style="width:16%;">수량(개)</th><th></th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <div class="row-actions">
+    <button class="btn btn-add" id="addRow">➕ 행 추가</button>
+  </div>
+
+  <button class="btn btn-gen" id="genBtn">📄 적재리스트 PDF·워드 생성</button>
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+// ── 등록 SKU (팔레트 데이터 내장) — 페이스타올 제외(사이즈 파싱 미지원) ──
+const SKU = {
+  "암막커튼":   { variants:["130X170CM","140X230CM","210X235CM"], colors:["크림화이트","밀크베이지","그레이"], perBox:{"130X170CM":30,"140X230CM":25,"210X235CM":17} },
+  "토퍼":       { variants:["SS","Q","K"], colors:["차콜","아이보리","화이트앤블랙","베이지","그레이"], perBox:{"SS":6,"Q":6,"K":5} },
+  "이불세트":   { variants:["SS","Q","K"], colors:["크림화이트","밀크베이지","모카브라운","스모키차콜"], perBox:{"SS":6,"Q":6,"K":5} },
+  "20L휴지통":  { variants:["기본"], colors:[], perBox:{"기본":4} },
+  "18L휴지통":  { variants:["기본"], colors:[], perBox:{"기본":4} }
+};
+const _API_TOKEN = 'MTY62OiLv40WkCHcDpqj9JBTn6lnQ0zi3YcTAl_2Qlg';
+let _API_URL = null;
+async function __api(){
+  if(_API_URL!==null) return _API_URL;
+  const o = location.origin;
+  if(o && !o.includes('github.io')){ _API_URL=o; return o; }
+  try{ const r=await fetch('tunnel.txt?t='+Date.now()); if(r.ok){ const u=(await r.text()).trim(); if(u.startsWith('https://')){ _API_URL=u; return u; } } }catch(e){}
+  _API_URL=''; return '';
+}
+
+function opt(v,t){ const o=document.createElement('option'); o.value=v; o.textContent=t||v; return o; }
+
+function makeRow(){
+  const tr=document.createElement('tr');
+  // 상품
+  const tdP=document.createElement('td'); const selP=document.createElement('select'); selP.className='sel-prod';
+  selP.appendChild(opt('','상품 선택'));
+  Object.keys(SKU).forEach(pk=>selP.appendChild(opt(pk)));
+  tdP.appendChild(selP);
+  // 사이즈
+  const tdV=document.createElement('td'); const selV=document.createElement('select'); selV.className='sel-var'; selV.disabled=true; selV.appendChild(opt('','—')); tdV.appendChild(selV);
+  // 색상
+  const tdC=document.createElement('td'); const selC=document.createElement('select'); selC.className='sel-col'; selC.disabled=true; selC.appendChild(opt('','—')); tdC.appendChild(selC);
+  // 수량
+  const tdQ=document.createElement('td'); const inQ=document.createElement('input'); inQ.type='number'; inQ.min='0'; inQ.className='qtyin'; inQ.placeholder='0';
+  const hint=document.createElement('div'); hint.className='box-hint'; tdQ.appendChild(inQ); tdQ.appendChild(hint);
+  // 삭제
+  const tdD=document.createElement('td'); const del=document.createElement('button'); del.className='btn-del'; del.textContent='삭제'; del.onclick=()=>{ tr.remove(); renumber(); }; tdD.appendChild(del);
+  // 번호
+  const tdN=document.createElement('td'); tdN.className='col-idx';
+
+  selP.onchange=()=>{
+    const pk=selP.value; selV.innerHTML=''; selC.innerHTML='';
+    if(!pk){ selV.disabled=true; selC.disabled=true; selV.appendChild(opt('','—')); selC.appendChild(opt('','—')); hint.textContent=''; return; }
+    const d=SKU[pk];
+    selV.disabled=false; selV.appendChild(opt('','사이즈')); d.variants.forEach(v=>selV.appendChild(opt(v)));
+    if(d.colors.length){ selC.disabled=false; selC.appendChild(opt('','색상')); d.colors.forEach(c=>selC.appendChild(opt(c))); }
+    else { selC.disabled=true; selC.appendChild(opt('','—')); }
+    hint.textContent='';
+  };
+  function updHint(){ const pk=selP.value, v=selV.value; if(pk&&v&&SKU[pk].perBox[v]){ const pb=SKU[pk].perBox[v]; const q=parseInt(inQ.value||'0'); hint.textContent='박스당 '+pb+'개'+(q>0?' → '+Math.ceil(q/pb)+'박스':''); } else hint.textContent=''; }
+  selV.onchange=updHint; inQ.oninput=updHint;
+
+  tr.appendChild(tdN); tr.appendChild(tdP); tr.appendChild(tdV); tr.appendChild(tdC); tr.appendChild(tdQ); tr.appendChild(tdD);
+  return tr;
+}
+function renumber(){ document.querySelectorAll('#rows tr').forEach((tr,i)=>{ tr.querySelector('.col-idx').textContent=(i+1); }); }
+function addRow(){ document.getElementById('rows').appendChild(makeRow()); renumber(); }
+
+document.getElementById('addRow').onclick=addRow;
+addRow(); addRow(); // 기본 2행
+
+document.getElementById('genBtn').onclick=async function(){
+  const btn=this, status=document.getElementById('status');
+  const items=[];
+  document.querySelectorAll('#rows tr').forEach(tr=>{
+    const pk=tr.querySelector('.sel-prod').value;
+    const v=tr.querySelector('.sel-var').value;
+    const c=tr.querySelector('.sel-col').value;
+    const q=parseInt(tr.querySelector('.qtyin').value||'0');
+    if(pk && v && q>0){ items.push({prod_key:pk, variant:v, color:c||'', qty:q}); }
+  });
+  if(!items.length){ status.innerHTML='<span class="err">❌ 상품·사이즈·수량을 입력한 행이 없습니다.</span>'; return; }
+  const body={ items:items, warehouse:document.getElementById('m-wh').value.trim(), arrival_date:document.getElementById('m-arr').value, name:document.getElementById('m-name').value.trim() };
+  btn.disabled=true; const orig=btn.textContent; btn.textContent='⏳ 생성 중...'; status.textContent='';
+  try{
+    const base=(await __api())||'';
+    const r=await fetch(base+'/loadlist/generate_custom', { method:'POST', headers:{'Authorization':'Bearer '+_API_TOKEN,'Content-Type':'application/json'}, body:JSON.stringify(body) });
+    if(!r.ok){ const t=await r.text(); status.innerHTML='<span class="err">❌ 생성 실패: '+t.slice(0,300)+'</span>'; return; }
+    const d=await r.json();
+    const rs=(d.results||[])[0];
+    if(!rs || rs.error){ status.innerHTML='<span class="err">❌ '+((rs&&rs.error)||'알 수 없는 오류')+'</span>'; return; }
+    // 다운로드 (터널주소 prepend)
+    let idx=0;
+    ['pdf','docx'].forEach(t=>{
+      const u=rs.download_urls && rs.download_urls[t]; if(!u) return;
+      const full=(u.indexOf('http')===0)?u:(base+u);
+      setTimeout(()=>{ const a=document.createElement('a'); a.href=full; a.download=(rs.name||rs.inbound_id)+'.'+t; document.body.appendChild(a); a.click(); document.body.removeChild(a); }, (idx++)*600);
+    });
+    status.innerHTML='<span class="ok">✅ 생성 완료 · 팔레트 '+rs.pallets+'장 · PDF·워드 다운로드</span>';
+  }catch(e){ status.innerHTML='<span class="err">❌ 네트워크 오류: '+e.message+'</span>'; }
+  finally{ btn.disabled=false; btn.textContent=orig; }
+};
+</script>
+</body>
+</html>
