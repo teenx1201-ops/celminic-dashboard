@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>적재리스트 — 셀미닉 자비스</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 14px; background: #0d1117; color: #c9d1d9; font-size: 13px; }
+  .toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; position: sticky; top: 0; background: #0d1117; padding: 8px 0; z-index: 100; border-bottom: 1px solid #21262d; }
+  .toolbar .spacer { flex: 1; }
+  .toolbar .right-group { display: flex; gap: 8px; align-items: center; }
+  /* 기본 버튼 (적재리스트 PDF) — 2번 스타일: 옅은 회색 박스 */
+  button { background: #2d3540; color: #c8cfda; border: 1px solid #3d4a5a; padding: 8px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+  button:hover { background: #3d4a5a; border-color: #5b6878; }
+  button:disabled { background: #1e2229; color: #484f58; border-color: #21262d; cursor: not-allowed; }
+  /* 새로고침 아이콘 버튼 — 적재리스트 PDF 와 통일 */
+  button.icon-only { padding: 8px; width: 36px; height: 36px; border-radius: 6px; justify-content: center; font-size: 14px; }
+  /* 카드 — GitHub Dark + 쿠팡 레이아웃 */
+  .card { background: #161b22; border-radius: 8px; padding: 16px 18px; margin-bottom: 10px; border: 1px solid #21262d; }
+  .card-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8b949e; margin-bottom: 12px; }
+  .card-top .iid { font-weight: 600; color: #c9d1d9; }
+  .card-top .sep { color: #484f58; }
+  .card-top .status { margin-left: auto; color: #3fb950; font-size: 12px; display: flex; align-items: center; gap: 4px; }
+  .card-top .status::before { content: '●'; font-size: 8px; }
+  .card-top .ctime { color: #6e7681; font-size: 12px; }
+  .card-main { display: flex; align-items: flex-start; gap: 14px; }
+  .card-check { transform: scale(1.3); margin-top: 3px; accent-color: #58a6ff; flex-shrink: 0; }
+  .card-body { flex: 1; min-width: 0; }
+  .card-product { font-size: 14px; color: #c9d1d9; margin-bottom: 10px; line-height: 1.4; }
+  .card-meta-row { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; }
+  .meta-chip { background: #21262d; border: 1px solid #30363d; border-radius: 16px; padding: 3px 12px; color: #c9d1d9; display: inline-flex; align-items: center; gap: 5px; }
+  .meta-chip .icon { font-size: 12px; opacity: 0.85; }
+  .card-right { background: #1c2128; border: 1px solid #21262d; border-radius: 6px; padding: 10px 14px; font-size: 12px; min-width: 140px; flex-shrink: 0; }
+  .card-right .row { display: flex; justify-content: space-between; padding: 2px 0; color: #8b949e; }
+  .card-right .row .v { color: #c9d1d9; font-weight: 500; }
+  .card-foot { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #21262d; font-size: 12px; }
+  .pickup-chip { background: #21262d; border: 1px solid #30363d; border-radius: 14px; padding: 4px 10px; color: #c9d1d9; display: inline-flex; align-items: center; gap: 5px; }
+  .pickup-chip .icon { font-size: 12px; }
+  .auto-group { color: #3fb950; margin-left: auto; font-weight: 500; }
+  .expand-btn { color: #58a6ff; cursor: pointer; user-select: none; padding: 4px 10px; border-radius: 4px; }
+  .expand-btn:hover { background: #21262d; }
+  .card-expand { display: none; padding-top: 10px; margin-top: 8px; border-top: 1px solid #21262d; }
+  .card.expanded .card-expand { display: block; }
+  .sku-list { display: flex; flex-direction: column; gap: 3px; }
+  .sku-list label { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #0d1117; border: 1px solid #21262d; border-radius: 4px; font-size: 12px; cursor: pointer; color: #c9d1d9; }
+  .sku-list label input { transform: scale(1.1); accent-color: #58a6ff; }
+  .sku-list .qty { color: #8b949e; font-size: 11px; margin-left: auto; }
+  .sku-list .no-match { color: #f85149; padding: 8px; font-size: 12px; }
+  .status-msg { margin-top: 12px; padding: 8px 12px; border-radius: 6px; font-size: 12px; }
+  .status-msg.info { background: #0d1117; color: #58a6ff; border: 1px solid #21262d; }
+  .status-msg.ok { background: #0d1117; color: #3fb950; border: 1px solid #21262d; }
+  .status-msg.error { background: #0d1117; color: #f85149; border: 1px solid #21262d; }
+  .cache-info { color: #6e7681; font-size: 11px; }
+  .cycle-pick { display: inline-flex; align-items: center; gap: 6px; color: #8b949e; font-size: 12px; }
+  .cycle-pick select { background: #2d3540; color: #c8cfda; border: 1px solid #3d4a5a; border-radius: 6px; padding: 7px 10px; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <span id="statusLine" style="color:#8b95a5;font-size:13px;"></span>
+  <span class="cache-info" id="cacheInfo"></span>
+  <div class="spacer"></div>
+  <div class="right-group">
+    <label class="cycle-pick">📦 발주시기 <select id="cycleSelect"></select></label>
+    <button id="refreshBtn" class="icon-only" title="새로고침">🔄</button>
+    <button id="generateBtn" disabled>📄 적재리스트 PDF</button>
+  </div>
+</div>
+<div id="cards"></div>
+<div id="result"></div>
+
+<script>
+const _API_TOKEN = 'MTY62OiLv40WkCHcDpqj9JBTn6lnQ0zi3YcTAl_2Qlg';
+let _candidates = [];
+let _groups = {};
+let _cycles = [];
+let _groupsByCycle = {};
+let _selectedCycle = '';  // '' = 활성 사이클(/pending, 기존 동작)
+
+// 현재 선택 사이클의 groups (기본='' → 활성 사이클 _groups)
+function currentGroups() {
+  return (_selectedCycle && _groupsByCycle[_selectedCycle]) || _groups;
+}
+// 카드의 현재 사이클 기준 group 번호 (group 번호는 사이클마다 재사용되므로)
+function cardGroup(c) {
+  if (_selectedCycle && c.auto_group_by_cycle) return c.auto_group_by_cycle[_selectedCycle] || '';
+  return c.auto_group || '';
+}
+function populateCycleSelect() {
+  const sel = document.getElementById('cycleSelect');
+  if (!sel) return;
+  if (!_cycles.length) { sel.innerHTML = '<option value="">-</option>'; return; }
+  // 첫 옵션(최신)은 value='' → 활성 사이클 = 기존 동작 100% 동일
+  sel.innerHTML = _cycles.map((d, i) =>
+    `<option value="${i === 0 ? '' : d}">${d}${i === 0 ? ' (최신)' : ''}</option>`
+  ).join('');
+  sel.value = '';
+}
+
+async function fetchCandidates(force) {
+  document.getElementById('statusLine').textContent = '⏳ Wing 크롤링 + 그룹 매칭 중...';
+  document.getElementById('cards').innerHTML = '';
+  document.getElementById('generateBtn').disabled = true;
+  document.getElementById('cacheInfo').textContent = '';
+  try {
+    const url = '/loadlist/candidates' + (force ? '?force=1' : '');
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    _candidates = d.candidates || [];
+    _groups = d.groups || {};
+    _cycles = d.cycles || [];
+    _groupsByCycle = d.groups_by_cycle || {};
+    _selectedCycle = '';
+    populateCycleSelect();
+    renderCards();
+    document.getElementById('statusLine').textContent = `${_candidates.length} 건`;
+    if (d.cached_at) {
+      const ago = Math.floor((Date.now()/1000 - d.cached_at));
+      document.getElementById('cacheInfo').textContent = ago < 3 ? '방금 갱신' : `캐시 ${ago}초 전`;
+    }
+  } catch (e) {
+    document.getElementById('statusLine').textContent = '❌ ' + e.message;
+  }
+}
+
+function renderCards() {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+  for (const c of _candidates) {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.iid = c.inbound_id;
+    div.dataset.group = cardGroup(c);
+    div.innerHTML = `
+      <div class="card-top">
+        <span class="iid">입고 ID ${c.inbound_id}</span>
+        <span class="sep">·</span>
+        <span>밀크런 ${c.milkrun_no || '-'}</span>
+        <span class="status">${c.status}</span>
+        <span class="ctime">${c.created_at || ''}</span>
+      </div>
+      <div class="card-main">
+        <input type="checkbox" class="card-check">
+        <div class="card-body">
+          <div class="card-product">${c.first_product || '-'}</div>
+          <div class="card-meta-row">
+            <span class="meta-chip"><span class="icon">📦</span>밀크런팔레트 팔레트 ${c.palette_count ?? '-'} · 총수량 ${c.total_qty ?? '-'}</span>
+            <span class="meta-chip"><span class="icon">🏠</span>${c.warehouse || '-'}</span>
+            <span class="meta-chip"><span class="icon">📅</span>도착예정일 ${c.arrival_date || '-'}</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="row"><span>입고생성</span><span class="v">${c.total_qty ?? '-'}</span></div>
+          <div class="row"><span>입고완료</span><span class="v">0</span></div>
+          <div class="row"><span>판매개시</span><span class="v">0</span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        <span class="pickup-chip"><span class="icon">🚛</span>픽업 (${c.pickup_d || '-'})</span>
+        <span class="auto-group">${cardGroup(c) ? '🔗 그룹 ' + cardGroup(c) + ' 자동매칭' : '⚠️ 그룹 매칭 실패'}</span>
+        <span class="expand-btn">SKU 펼치기 ▼</span>
+      </div>
+      <div class="card-expand">
+        <div class="sku-list"></div>
+      </div>
+    `;
+    container.appendChild(div);
+    div.querySelector('.expand-btn').addEventListener('click', () => {
+      div.classList.toggle('expanded');
+      div.querySelector('.expand-btn').textContent = div.classList.contains('expanded') ? 'SKU 접기 ▲' : 'SKU 펼치기 ▼';
+      renderSkus(div);
+    });
+    div.querySelector('.card-check').addEventListener('change', updateGenerateBtn);
+  }
+  updateGenerateBtn();
+}
+
+function renderSkus(cardDiv) {
+  const group = cardDiv.dataset.group;
+  const list = cardDiv.querySelector('.sku-list');
+  if (!group) {
+    list.innerHTML = '<div class="no-match">⚠️ 그룹 매칭 실패 — 적재리스트 생성 불가</div>';
+    return;
+  }
+  const skus = currentGroups()[group] || [];
+  list.innerHTML = skus.map(s => `
+    <label>
+      <input type="checkbox" class="sku-check" data-key="${s.key}" checked>
+      <span>${s.prod_key} ${s.variant}${s.color ? ' ' + s.color : ''}</span>
+      <span class="qty">${s.qty}개</span>
+    </label>
+  `).join('');
+}
+
+function updateGenerateBtn() {
+  const any = document.querySelectorAll('.card-check:checked').length > 0;
+  document.getElementById('generateBtn').disabled = !any;
+}
+
+let _target = 'telegram';
+let _previewData = {};  // {inbound_id: {rows, cycle_date, group}}
+
+// 적재리스트 PDF 클릭 → 1단계 모달 (target 선택)
+function openTargetModal() {
+  // 선택된 inbound 수집
+  const selected = [];
+  document.querySelectorAll('.card').forEach(div => {
+    const check = div.querySelector('.card-check');
+    if (!check.checked) return;
+    const group = div.dataset.group;
+    if (!group) return;
+    const excluded = [];
+    div.querySelectorAll('.sku-check').forEach(cb => {
+      if (!cb.checked) excluded.push(cb.dataset.key);
+    });
+    selected.push({inbound_id: div.dataset.iid, group, excluded_keys: excluded});
+  });
+  if (selected.length === 0) {
+    alert('선택된 항목 없음');
+    return;
+  }
+  window._selectedItems = selected;
+  let modal = document.getElementById('targetModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'targetModal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = `
+      <div style="background:#fff;border-radius:12px;padding:24px;width:min(360px,90vw);">
+        <div style="font-size:16px;font-weight:800;margin-bottom:16px;color:#263238;">📄 적재리스트 받는 곳</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+          <label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #ccc;border-radius:6px;cursor:pointer;color:#263238;">
+            <input type="radio" name="target" value="download" checked> 💾 윈도우 (브라우저 다운로드)
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #ccc;border-radius:6px;cursor:pointer;color:#263238;">
+            <input type="radio" name="target" value="telegram"> 📤 텔레그램
+          </label>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;padding:10px;background:#f5f5f5;border-radius:6px;font-size:12px;color:#263238;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input type="checkbox" id="skipPdfChk"> ⚡ docx만 받기 (PDF 변환 skip, 10배 빠름)
+          </label>
+          <span style="color:#888;font-size:11px;padding-left:20px;">윈도우에서 워드로 직접 인쇄·PDF 변환 가능</span>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button id="targetCancel" style="padding:8px 14px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;color:#263238;">취소</button>
+          <button id="targetOk" style="padding:8px 18px;border:none;background:#1976d2;color:#fff;border-radius:6px;cursor:pointer;font-weight:600;">다음 →</button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.querySelector('#targetCancel').addEventListener('click', () => modal.style.display = 'none');
+    modal.querySelector('#targetOk').addEventListener('click', async () => {
+      _target = modal.querySelector('input[name="target"]:checked').value;
+      window._skipPdf = !!modal.querySelector('#skipPdfChk').checked;
+      modal.style.display = 'none';
+      await openEditorModal();
+    });
+  } else {
+    modal.style.display = 'flex';
+  }
+}
+
+// 2단계 모달: SKU별 입고/pending/차이 + input + 자투리 라디오
+async function openEditorModal() {
+  // 각 selected inbound 별로 preview API 호출
+  document.getElementById('result').innerHTML = '<div class="status-msg info">⏳ 적재리스트 미리보기 로딩...</div>';
+  _previewData = {};
+  for (const it of window._selectedItems) {
+    try {
+      const r = await fetch('/loadlist/preview', {
+        method: 'POST',
+        headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+        body: JSON.stringify({inbound_id: it.inbound_id, group: it.group, cycle_date: _selectedCycle}),
+      });
+      const d = await r.json();
+      if (!r.ok) {
+        document.getElementById('result').innerHTML = `<div class="status-msg error">❌ ${it.inbound_id}: ${d.detail || 'preview 실패'}</div>`;
+        return;
+      }
+      _previewData[it.inbound_id] = d;
+    } catch (e) {
+      document.getElementById('result').innerHTML = `<div class="status-msg error">❌ ${e.message}</div>`;
+      return;
+    }
+  }
+  document.getElementById('result').innerHTML = '';
+  // 큰 모달
+  let m = document.getElementById('editorModal');
+  if (m) m.remove();
+  m = document.createElement('div');
+  m.id = 'editorModal';
+  m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  let sections = '';
+  for (const [iid, d] of Object.entries(_previewData)) {
+    let rowsHtml = '';
+    d.rows.forEach((r, idx) => {
+      // 상태별 색·아이콘
+      // more (쿠팡윙 여유) = 정상 ✓ 초록
+      // match (일치) = 의심 ⚠ 노랑
+      // less (쿠팡윙 부족) = 위험 🚨 빨강
+      const stColor = r.status === 'more' ? '#2e7d32' : (r.status === 'less' ? '#c62828' : '#f57c00');
+      const stIcon = r.status === 'more' ? '✓' : (r.status === 'less' ? '🚨' : '⚠');
+      const diffBoxesStr = r.diff_boxes > 0 ? `+${r.diff_boxes}` : r.diff_boxes;
+      const diffQtyStr = r.diff_qty > 0 ? `+${r.diff_qty}` : r.diff_qty;
+      rowsHtml += `
+        <tr data-iid="${iid}" data-sku="${r.sku_id}" data-perbox="${r.per_box}">
+          <td style="padding:6px;font-size:12px;">${r.prod_key} ${r.variant} ${r.color}</td>
+          <td style="padding:6px;text-align:right;font-size:11px;color:#666;">${r.incoming_boxes}박스 (${r.incoming_qty}개)</td>
+          <td style="padding:6px;text-align:right;font-size:11px;color:#666;">${r.wing_boxes}박스 (${r.wing_qty}개)</td>
+          <td style="padding:6px;text-align:center;color:${stColor};font-size:11px;font-weight:700;">
+            ${stIcon} ${diffBoxesStr}박스 (${diffQtyStr})
+          </td>
+          <td style="padding:6px;"><input type="number" min="0" value="${r.recommend_boxes}" class="ll-boxes" style="width:60px;padding:3px 6px;border:1px solid #ccc;border-radius:4px;text-align:right;"></td>
+          <td style="padding:6px;"><input type="number" min="0" value="${r.recommend_qty}" class="ll-qty" style="width:70px;padding:3px 6px;border:1px solid #ccc;border-radius:4px;text-align:right;"></td>
+        </tr>`;
+    });
+    // 혼합/자투리/cross 박스 카드들
+    let mixHtml = '';
+    (d.mix_boxes || []).forEach((mb, mbIdx) => {
+      const typeLabel = mb.box_type === 'cross' ? '🔀 사이즈혼합(cross)'
+                      : mb.box_type === 'partial' ? '📦 자투리 박스' : '📦 혼합 박스';
+      const bg = mb.box_type === 'cross' ? '#fff8e1' : (mb.box_type === 'partial' ? '#fff9c4' : '#fff3e0');
+      let contentsHtml = '';
+      mb.contents.forEach((c, ci) => {
+        contentsHtml += `
+          <div style="display:flex;gap:8px;align-items:center;font-size:11px;margin:3px 0;">
+            <span style="flex:1;color:#263238;">${c.prod_key} ${c.variant} ${c.color}</span>
+            <input type="number" min="0" value="${c.qty}" class="ll-mix-qty"
+              data-iid="${iid}" data-mbidx="${mbIdx}" data-cidx="${ci}"
+              data-pk="${c.prod_key}" data-var="${c.variant}" data-col="${c.color}"
+              style="width:60px;padding:2px 6px;border:1px solid #ccc;border-radius:4px;text-align:right;">
+            <span style="color:#999;font-size:10px;">개</span>
+          </div>`;
+      });
+      mixHtml += `
+        <div style="background:${bg};border:1px solid #e0e0e0;border-radius:6px;padding:10px;margin:6px 0;"
+             data-iid="${iid}" data-mbidx="${mbIdx}" data-boxtype="${mb.box_type}">
+          <label style="display:flex;align-items:center;gap:6px;font-weight:600;color:#263238;font-size:12px;margin-bottom:6px;">
+            <input type="checkbox" class="ll-mix-include" data-iid="${iid}" data-mbidx="${mbIdx}" checked>
+            ${typeLabel} — 적재 (해제=통째 빼기)
+          </label>
+          ${contentsHtml}
+        </div>`;
+    });
+    // 쿠팡윙 신청 파레트 = 카드의 palette_count
+    const cand = _candidates.find(c => String(c.inbound_id) === String(iid));
+    const wingPal = cand ? (cand.palette_count ?? '?') : '?';
+    sections += `
+      <div style="margin-bottom:20px;border:1px solid #ddd;border-radius:8px;padding:12px;background:#fafafa;">
+        <div style="font-weight:700;margin-bottom:8px;color:#263238;">🚚 트럭/입고그룹 ${d.group} — inbound ${iid}</div>
+        <div id="palCount-${iid}" data-wing="${wingPal}" style="margin-bottom:10px;padding:10px 14px;background:#e3f2fd;border-radius:6px;font-size:13px;color:#263238;display:flex;align-items:center;gap:10px;">
+          <span style="font-weight:700;">📦 쿠팡윙 신청 ${wingPal}파레트</span>
+          <span style="color:#999;">/</span>
+          <span class="pal-actual">실제 적재 <span class="pal-num" style="font-weight:700;">…</span>파레트</span>
+          <span class="pal-status" style="font-weight:600;"></span>
+          <span class="pal-stale" style="margin-left:auto;color:#f57c00;font-size:11px;display:none;">⚠ 갱신 필요</span>
+        </div>
+        <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:6px;overflow:hidden;color:#263238;margin-bottom:10px;">
+          <thead>
+            <tr style="background:#eceff1;">
+              <th style="padding:6px;text-align:left;font-size:11px;">상품 (완박스)</th>
+              <th style="padding:6px;text-align:right;font-size:11px;" title="위챗 발주 = 창고 도착 예정">입고엑셀<br><span style="font-size:9px;color:#888;font-weight:400;">(창고도착)</span></th>
+              <th style="padding:6px;text-align:right;font-size:11px;" title="Wing 거래명세서 PDF = 이 입고 ID에 잡힌 양">쿠팡윙<br><span style="font-size:9px;color:#888;font-weight:400;">(실제입고)</span></th>
+              <th style="padding:6px;text-align:center;font-size:11px;" title="쿠팡윙 − 입고엑셀. + 여유 정상, 0 의심, − 위험(회송)">차이<br><span style="font-size:9px;color:#888;font-weight:400;">(쿠팡윙−입고)</span></th>
+              <th style="padding:6px;text-align:center;font-size:11px;">적재 박스</th>
+              <th style="padding:6px;text-align:center;font-size:11px;">적재 수량</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+        ${mixHtml ? '<div style="font-size:11px;color:#666;margin:8px 0 4px;font-weight:600;">📦 자투리·혼합·cross 박스 (박스 단위 편집)</div>' + mixHtml : ''}
+        <div style="margin-top:10px;font-size:12px;color:#263238;">
+          <strong>잔여 자투리 박스 처리:</strong>
+          <label style="margin-left:8px;"><input type="radio" name="leftover-${iid}" value="mix" checked> 다른 SKU와 섞기 <span style="color:#888;font-size:10px;">(같은 카테고리 우선 + orphan 모음)</span></label>
+          <label style="margin-left:8px;"><input type="radio" name="leftover-${iid}" value="alone"> 단독 파레트</label>
+          <label style="margin-left:8px;"><input type="radio" name="leftover-${iid}" value="skip"> 제외</label>
+        </div>
+        <details style="margin-top:10px;font-size:12px;color:#263238;" id="palDetails-${iid}">
+          <summary style="cursor:pointer;font-weight:600;padding:6px 0;">▼ 파레트 상세 (PDF 결과와 동일)</summary>
+          <div class="pal-list" style="margin-top:6px;background:#fff;border:1px solid #eee;border-radius:6px;padding:8px 12px;font-size:11px;color:#555;">
+            <div style="color:#999;">로딩 중...</div>
+          </div>
+        </details>
+      </div>`;
+  }
+  m.innerHTML = `
+    <div style="background:#fff;border-radius:12px;width:min(1100px,95vw);max-height:90vh;display:flex;flex-direction:column;">
+      <div style="padding:16px 20px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:16px;font-weight:800;color:#263238;">📄 적재리스트 편집 (${_target === 'download' ? '💾 윈도우' : '📤 텔레그램'})</div>
+        <button id="editCancel" style="background:none;border:none;font-size:20px;cursor:pointer;color:#263238;">✕</button>
+      </div>
+      <div style="padding:16px;overflow:auto;flex:1;">${sections}</div>
+      <div style="padding:12px 20px;border-top:1px solid #eee;display:flex;justify-content:flex-end;gap:8px;align-items:center;">
+        <button id="editBack" style="padding:8px 14px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;color:#263238;">← 뒤로</button>
+        <button id="editRefresh" style="padding:8px 14px;border:1px solid #1976d2;background:#fff;color:#1976d2;border-radius:6px;cursor:pointer;font-weight:600;" title="현재 input 값으로 파레트 다시 계산 (PDF 안 만듦)">🔄 갱신</button>
+        <button id="editGenerate" style="padding:8px 18px;border:none;background:#1976d2;color:#fff;border-radius:6px;cursor:pointer;font-weight:600;">📄 PDF 생성</button>
+      </div>
+    </div>`;
+  document.body.appendChild(m);
+  m.querySelector('#editCancel').addEventListener('click', () => m.remove());
+  m.querySelector('#editBack').addEventListener('click', () => { m.remove(); openTargetModal(); });
+  m.querySelector('#editGenerate').addEventListener('click', () => {
+    // 버그 fix: 모달 닫기 전에 데이터 동기 수집 — 닫은 후엔 querySelectorAll() 빈 결과 → mix_box 누락 → PDF에 자투리 박스 안 들어감.
+    const collected = (window._selectedItems || []).map(it => collectItem(it.inbound_id)).filter(Boolean);
+    m.remove();
+    generate(collected);
+  });
+  m.querySelector('#editRefresh').addEventListener('click', () => recalcAllPallets());
+
+  // input/radio 변경 = stale 표시
+  m.querySelectorAll('input.ll-boxes, input.ll-qty, input.ll-mix-qty, input.ll-mix-include, input[type=radio]').forEach(el => {
+    el.addEventListener('change', () => {
+      const iid = el.dataset.iid || (el.name || '').replace('leftover-', '') || el.closest('tr')?.dataset.iid;
+      if (iid) markStale(iid);
+    });
+  });
+
+  // 모달 열림 즉시 1회 자동 계산
+  recalcAllPallets();
+}
+
+function markStale(iid) {
+  const box = document.getElementById('palCount-' + iid);
+  if (!box) return;
+  box.style.opacity = '0.5';
+  const s = box.querySelector('.pal-stale');
+  if (s) s.style.display = 'inline';
+  const status = box.querySelector('.pal-status');
+  if (status) status.textContent = '';
+}
+
+function collectItem(iid) {
+  const it = (window._selectedItems || []).find(x => String(x.inbound_id) === String(iid));
+  if (!it) return null;
+  const overrides = {};
+  // 0인 SKU도 항상 보냄 — generator가 pending qty(자투리 포함)로 fallback하지 않도록.
+  // 옛 버그: input 0 → skip → generator가 pending qty(=자투리) 사용 → mix_box와 중복 박스 생성.
+  document.querySelectorAll(`tr[data-iid="${iid}"]`).forEach(tr => {
+    const skuId = tr.dataset.sku;
+    const boxes = parseInt(tr.querySelector('.ll-boxes').value) || 0;
+    const qty = parseInt(tr.querySelector('.ll-qty').value) || 0;
+    overrides[skuId] = {boxes, qty};
+  });
+  const mixBoxes = [];
+  const previewMix = (_previewData[iid] || {}).mix_boxes || [];
+  previewMix.forEach((mb, mbIdx) => {
+    const inc = document.querySelector(`input.ll-mix-include[data-iid="${iid}"][data-mbidx="${mbIdx}"]`);
+    const removed = inc ? !inc.checked : false;
+    const contents = [];
+    document.querySelectorAll(`input.ll-mix-qty[data-iid="${iid}"][data-mbidx="${mbIdx}"]`).forEach(inp => {
+      contents.push({
+        prod_key: inp.dataset.pk, variant: inp.dataset.var, color: inp.dataset.col,
+        qty: parseInt(inp.value) || 0,
+      });
+    });
+    mixBoxes.push({box_type: mb.box_type, removed, contents});
+  });
+  const leftoverEl = document.querySelector(`input[name="leftover-${iid}"]:checked`);
+  return {
+    inbound_id: it.inbound_id, group: it.group, excluded_keys: it.excluded_keys,
+    box_overrides: overrides, mix_box_overrides: mixBoxes,
+    leftover_mode: leftoverEl ? leftoverEl.value : 'mix',
+    cycle_date: _selectedCycle,
+  };
+}
+
+async function recalcPallets(iid) {
+  const box = document.getElementById('palCount-' + iid);
+  if (!box) return;
+  const numEl = box.querySelector('.pal-num');
+  const statusEl = box.querySelector('.pal-status');
+  const staleEl = box.querySelector('.pal-stale');
+  const listEl = document.querySelector(`#palDetails-${iid} .pal-list`);
+  numEl.textContent = '⏳';
+  if (listEl) listEl.innerHTML = '<div style="color:#999;">계산 중...</div>';
+  try {
+    const payload = collectItem(iid);
+    if (!payload) return;
+    const r = await fetch('/loadlist/pallet_preview', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    const d = await r.json();
+    if (!r.ok) {
+      numEl.textContent = '!';
+      if (listEl) listEl.innerHTML = `<div style="color:#c62828;">❌ ${d.detail || '실패'}</div>`;
+      return;
+    }
+    const actual = d.pallet_count;
+    const wing = parseInt(box.dataset.wing) || 0;
+    numEl.textContent = actual;
+    if (wing > 0) {
+      const diff = actual - wing;
+      if (diff === 0) {
+        statusEl.textContent = '✓ 일치';
+        statusEl.style.color = '#2e7d32';
+      } else if (diff > 0) {
+        statusEl.textContent = `⚠ +${diff} 초과 (쿠팡윙 신청보다 많음)`;
+        statusEl.style.color = '#c62828';
+      } else {
+        statusEl.textContent = `⚠ ${diff} 부족 (쿠팡윙 신청보다 적음)`;
+        statusEl.style.color = '#f57c00';
+      }
+    }
+    box.style.opacity = '1';
+    if (staleEl) staleEl.style.display = 'none';
+    if (listEl) {
+      listEl.innerHTML = (d.pallets || []).map(p => `
+        <div style="padding:4px 0;border-bottom:1px dashed #eee;display:flex;gap:10px;">
+          <span style="font-weight:600;color:#1976d2;min-width:42px;">${p.idx}/${p.total}</span>
+          <span style="min-width:160px;color:#263238;">${p.type}</span>
+          <span style="min-width:60px;color:#666;">${p.n_boxes}박스</span>
+          <span style="color:#888;flex:1;">${p.breakdown}</span>
+        </div>`).join('') || '<div style="color:#999;">파레트 없음</div>';
+    }
+  } catch (e) {
+    numEl.textContent = '!';
+    if (listEl) listEl.innerHTML = `<div style="color:#c62828;">❌ ${e.message}</div>`;
+  }
+}
+
+async function recalcAllPallets() {
+  const ids = (window._selectedItems || []).map(it => it.inbound_id);
+  for (const iid of ids) await recalcPallets(iid);
+}
+
+async function generate(prebuiltItems) {
+  // editGenerate 핸들러가 모달 닫기 전에 collectItem으로 미리 수집해서 전달.
+  // (모달 닫힌 후 querySelectorAll은 빈 결과 → mix_box 누락 버그 방지)
+  const items = (prebuiltItems && prebuiltItems.length)
+    ? prebuiltItems
+    : (window._selectedItems || []).map(it => collectItem(it.inbound_id)).filter(Boolean);
+  if (items.length === 0) return;
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 생성중...';
+  document.getElementById('result').innerHTML = '<div class="status-msg info">⏳ 처리 중 (1~3분)...</div>';
+  try {
+    const r = await fetch('/loadlist/generate', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + _API_TOKEN, 'Content-Type': 'application/json'},
+      body: JSON.stringify({items, target: _target, skip_pdf: !!window._skipPdf, cycle_date: _selectedCycle}),
+    });
+    const d = await r.json();
+    // 다운로드 sequential delay — 동시 a.click() 다발 = Chrome 차단 ("사이트 사용 불가").
+    // 500ms 간격으로 순차 trigger → 같은 origin 1 click = 1 download → Chrome 허용.
+    let downloadIdx = 0;
+    const lines = (d.results || []).map(rs => {
+      if (rs.error) {
+        return `<div class="status-msg error">❌ ${rs.inbound_id}: ${rs.error}</div>`;
+      }
+      if (_target === 'download' && rs.download_urls) {
+        ['pdf', 'docx'].forEach(t => {
+          const url = rs.download_urls[t];
+          if (!url) return;
+          const idx = downloadIdx++;
+          setTimeout(() => {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${rs.inbound_id}.${t}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }, idx * 500);
+        });
+        return `<div class="status-msg ok">✅ ${rs.inbound_id}: ${rs.pallets} 팔레트, 💾 다운로드</div>`;
+      }
+      const tg = rs.telegram_sent ? '📤 텔레그램 전송' : '⚠️ 텔레그램 미전송';
+      return `<div class="status-msg ok">✅ ${rs.inbound_id}: ${rs.pallets} 팔레트, ${tg}</div>`;
+    });
+    document.getElementById('result').innerHTML = lines.join('');
+  } catch (e) {
+    document.getElementById('result').innerHTML = `<div class="status-msg error">❌ ${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '📄 적재리스트 PDF';
+  }
+}
+
+document.getElementById('refreshBtn').addEventListener('click', () => fetchCandidates(true));
+document.getElementById('generateBtn').addEventListener('click', openTargetModal);
+document.getElementById('cycleSelect').addEventListener('change', (e) => {
+  _selectedCycle = e.target.value;
+  renderCards();  // 발주시기 바꾸면 group 번호·SKU 가 그 사이클 기준으로 다시 그려짐
+});
+fetchCandidates(false);
+</script>
+</body>
+</html>
