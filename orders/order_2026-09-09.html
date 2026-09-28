@@ -2006,19 +2006,6 @@ async function downloadAllPDF() {
   // 편집 모드 = 토큰 있으면 자동 활성 (URL ?edit=1 불필요)
   var EDIT_MODE = !!TOKEN || params.get('edit') === '1';
   var DATE = '2026-09-09';
-  // API 주소 해석: 터널/로컬(같은 오리진에 API 있음)이면 그대로, github.io(정적)면
-  // ../tunnel.txt 로 현재 터널주소를 붙인다 (2026-09-28: 상대경로 저장이 github.io서 통신오류나던 것 fix)
-  window._apiBase = async function(){
-    if (window.__API_BASE__ != null) return window.__API_BASE__;
-    var o = location.origin || '';
-    if (o && o.indexOf('github.io') === -1){ window.__API_BASE__ = o; return o; }
-    try {
-      var r = await fetch('../tunnel.txt?t=' + Date.now());
-      if (r.ok){ var u = (await r.text()).trim(); if (u.indexOf('https://') === 0){ window.__API_BASE__ = u; return u; } }
-    } catch(e){}
-    window.__API_BASE__ = '';
-    return '';
-  };
   var auto_mix = {};
   var cross_mix = [];
   var current = {};
@@ -2126,7 +2113,7 @@ async function downloadAllPDF() {
     var btn = document.getElementById('qty-save-btn');
     btn.disabled = true; btn.textContent = '저장 중...';
     try {
-      var r = await fetch((await _apiBase()) + '/order_qty_edit_batch', {
+      var r = await fetch('/order_qty_edit_batch', {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN},
         body: JSON.stringify({date: DATE, edits: edits})
@@ -2151,7 +2138,7 @@ async function downloadAllPDF() {
   window.openBoxEditor = async function(){
     document.getElementById('bem-date').textContent = DATE;
     try {
-      var r = await fetch((await _apiBase()) + '/box_override?date=' + DATE + '&_=' + Date.now());
+      var r = await fetch('/box_override?date=' + DATE + '&_=' + Date.now());
       var data = await r.json();
       auto_mix = data.auto_mix || {};
       cross_mix = data.cross_mix || [];
@@ -2204,7 +2191,7 @@ async function downloadAllPDF() {
     for (var k in current) overrides[k] = current[k];
     if (current_cross.length > 0) overrides._cross = current_cross;
     try {
-      var r = await fetch((await _apiBase()) + '/box_override?date='+DATE, {
+      var r = await fetch('/box_override?date='+DATE, {
         method:'POST',
         headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
         body: JSON.stringify({overrides: overrides})
@@ -2217,7 +2204,7 @@ async function downloadAllPDF() {
   window.resetBoxEditor = async function(){
     if (!confirm('자동 패킹으로 복원?')) return;
     try {
-      var r = await fetch((await _apiBase()) + '/box_override?date='+DATE, {
+      var r = await fetch('/box_override?date='+DATE, {
         method:'DELETE',
         headers:{'Authorization':'Bearer '+TOKEN}
       });
@@ -2471,8 +2458,8 @@ async function downloadGritreeExcel(e) {
   try {
     const date = _orderPageDate();
     const mode = _currentGritreeMode();
-    // github.io(정적)면 터널주소 붙이고, 터널/로컬이면 same-origin (2026-09-28)
-    const url = (await _apiBase()) + '/gritree_excel?date=' + encodeURIComponent(date) + '&mode=' + mode;
+    // iframe 은 dashboard 서버에서 서빙됨 → same-origin, 상대 경로 fetch 가능
+    const url = '/gritree_excel?date=' + encodeURIComponent(date) + '&mode=' + mode;
     const resp = await fetch(url);
     if (!resp.ok) {
       const err = await resp.text();
